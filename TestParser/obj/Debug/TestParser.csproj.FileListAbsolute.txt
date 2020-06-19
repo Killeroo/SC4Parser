@@ -1,0 +1,7 @@
+C:\Projects\SC4Parser\TestParser\bin\Debug\TestParser.exe.config
+C:\Projects\SC4Parser\TestParser\bin\Debug\TestParser.exe
+C:\Projects\SC4Parser\TestParser\bin\Debug\TestParser.pdb
+C:\Projects\SC4Parser\TestParser\obj\Debug\TestParser.csprojAssemblyReference.cache
+C:\Projects\SC4Parser\TestParser\obj\Debug\TestParser.csproj.CoreCompileInputs.cache
+C:\Projects\SC4Parser\TestParser\obj\Debug\TestParser.exe
+C:\Projects\SC4Parser\TestParser\obj\Debug\TestParser.pdb
