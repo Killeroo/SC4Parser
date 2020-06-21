@@ -10,7 +10,7 @@ namespace TestParser.Structures
     /// so that is what is implemented here
     /// We call it SC4 file for simplicity
     /// </summary>
-    class SC4SaveFile : DBPF
+    class SC4SaveFile : DatabasePackedFile
     {
         public SC4SaveFile(string path) : base(path)
         {
