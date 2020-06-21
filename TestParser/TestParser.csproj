@@ -46,6 +46,13 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Structures\DBDF.cs" />
+    <Compile Include="Structures\DBDFResource.cs" />
+    <Compile Include="Structures\DBPF.cs" />
+    <Compile Include="Structures\DBPFHeader.cs" />
+    <Compile Include="Structures\IndexEntry.cs" />
+    <Compile Include="Structures\SC4SaveFile.cs" />
+    <Compile Include="Structures\TypeGroupInstance.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
