@@ -10,6 +10,7 @@ namespace TestParser.Structures
         DatabaseDirectoryFile DBDFFile;
         List<IndexEntry> IndexEntries;
 
+        string FilePath;
         MemoryStream RawFile;
         bool Verbose = true;
 
@@ -19,6 +20,7 @@ namespace TestParser.Structures
             IndexEntries = new List<IndexEntry>();
             DBDFFile = new DatabaseDirectoryFile();
             RawFile = new MemoryStream();
+            FilePath = "";
         }
         public DatabasePackedFile(string path)
             : this()
@@ -33,6 +35,8 @@ namespace TestParser.Structures
                 // Open file as a file stream
                 using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
+                    // Save path for reference later
+                    FilePath = path;
 
                     if (Verbose)
                     {
@@ -122,49 +126,102 @@ namespace TestParser.Structures
                 {
                     Logger.Info("Failed", ConsoleColor.Red);
                 }
-                Console.WriteLine("Hit exception: {0} {1}", ex.GetType().ToString(), ex.GetType().ToString());
+                Logger.Error("Hit exception while reading save file: [" + ex.GetType().ToString() + "] " + ex.GetType().ToString());
             }
         }
-
-        public void LoadLotFile()
+        
+        public byte[] LoadEntry(TypeGroupInstance tgi)
         {
             // First find IndexEntry
-            TypeGroupInstance target = new TypeGroupInstance("8A2482B9", "4A2482BB", "00000004");
-            IndexEntry foundEntry = new IndexEntry();
+            IndexEntry entry = FindIndexEntry(tgi);
+            if (entry == null)
+            {
+                return null;
+            }
+
+            bool compressed = IsIndexEntryCompressed(entry);
+
+            byte[] entryBytes = LoadIndexEntry(entry);
+
+            if (compressed)
+            {
+                UncompressData(entryBytes);
+            }
+            return entryBytes;
+        }
+
+        public IndexEntry FindIndexEntry(TypeGroupInstance tgi)
+        {
+            IndexEntry foundEntry = null;
             foreach (IndexEntry entry in IndexEntries)
             {
-                if (entry.TGI == target)//.TypeID == 3384630602)
+                if (entry.TGI == tgi)
                 {
                     foundEntry = entry;
-                    Console.WriteLine("Entry found");
+                    if (Verbose)
+                    {
+                        Logger.Info(string.Format("{0} found", tgi.ToString()));
+                    }
                     break;
                 }
             }
 
-            // Check if entry's TGI is present in DBDF
-            bool compressed = false;
-            foreach (DatabaseDirectoryResource resource in DBDFFile.Resources)
+            if (foundEntry == null)
             {
-                if (resource.TGI == foundEntry.TGI)
+                Logger.Error(string.Format("Could not find tgi ({0}) in IndexEntries", tgi.ToString()));
+            }
+
+            return foundEntry;
+        }
+        public IndexEntry FindIndexEntry(string type_id)
+        {
+            // Find IndexEntry with the specified TypeID
+            IndexEntry foundEntry = null;
+            foreach (IndexEntry entry in IndexEntries)
+            {
+                if (entry.TGI.TypeID.ToString("X") == type_id)
                 {
-                    Console.WriteLine("Entry exists in DBDF");
-                    compressed = true;
+                    foundEntry = entry;
+                    if (Verbose)
+                    {
+                        Logger.Info(string.Format("{0} found: {1}", type_id, entry.TGI.ToString()));
+                    }
+                    break;
                 }
             }
 
-            if (compressed)
+            if (foundEntry == null)
             {
-                //LoadUncompressedEntry(foundEntry);
+                Logger.Error("Could not find tgi with TypeID " + type_id);
             }
-            else
-            {
-                LoadUncompressedEntry(foundEntry);
-            }
+
+            return foundEntry;
         }
 
-        public void LoadUncompressedEntry(IndexEntry entry)
+        public bool IsIndexEntryCompressed(IndexEntry entry)
         {
+            // Check if entry's TGI is present in DBDF
+            // (if it is present then it has been compressed)
+            foreach (DatabaseDirectoryResource resource in DBDFFile.Resources)
+            {
+                if (resource.TGI == entry.TGI)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private byte[] LoadIndexEntry(IndexEntry entry)
+        {
+            byte[] buffer = null;
             int fileSize = 0;
+
+            // We need to convert out file size from signed to unsigned
+            // this should probably be fine because a file so big that it
+            // overflows will probably be a bigger file than we will ever handle
+            // but makes sense to just account for it
             try
             {
                 fileSize = Convert.ToInt32(entry.FileSize);
@@ -174,19 +231,91 @@ namespace TestParser.Structures
                 Logger.Error("Uncompressed entry could not be loaded, " +
                     "overflow occured while converting IndexEntry's file size" +
                     " (TGI = " + entry.TGI.ToString() + ") (" + entry.FileSize + "bytes)");
-                return;
+                return null;
             }
 
-            // First read file from our save file and store in buffer
-            byte[] buffer = new byte[entry.FileSize];
-            RawFile.Seek(entry.FileLocation, SeekOrigin.Begin);
-            RawFile.Read(buffer, 0, fileSize);
-
-            using (FileStream stream = new FileStream("tmp.png", FileMode.OpenOrCreate))
+            try
             {
-                stream.Write(buffer, 0, fileSize);
+                // Seek to IndexEntry's position and read the data
+                buffer = new byte[entry.FileSize];
+                RawFile.Seek(entry.FileLocation, SeekOrigin.Begin);
+                RawFile.Read(buffer, 0, fileSize);
+
+                if (Verbose)
+                {
+                    Logger.Info(string.Format("Index Entry (tgi {0}, size {1} bytes) loaded",
+                        entry.TGI.ToString(),
+                        entry.FileSize));
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error(string.Format("Exception ({1}) occured while loading IndexEntry (tgi {0}). msg={2} trace={3}",
+                    entry.TGI.ToString(),
+                    e.GetType().ToString(),
+                    e.Message,
+                    e.StackTrace));
             }
 
+            return buffer;
+        }
+
+        // QFS/quickref decompression implementation
+        // Source: https://github.com/wouanagaine/SC4Mapper-2013/blob/db29c9bf88678a144dd1f9438e63b7a4b5e7f635/Modules/qfs.c#L25
+        private byte[] UncompressData(byte[] data)
+        {
+            byte[] outBuffer = null;
+            byte[] inBuffer = data;
+            int inPosition = 0;
+            int outPosition = 0;
+            int inLength = inBuffer.Length;
+            int outLength = 0;
+            int offset = 0;
+            int length = 0;
+            int a, b, c, d;
+
+            // Work out uncompressed length of data
+            outLength = (inBuffer[2] << 16) + (inBuffer[3] << 8) + inBuffer[4];
+            Console.WriteLine(inBuffer.Length);
+            Console.WriteLine(outLength);
+            outBuffer = new byte[outLength];
+
+            //for (int i=0; i< 4; i++)
+            //{
+            //    outLength |=()
+            //}
+            return null;
+        }
+        
+        public void SaveDataToFile(byte[] data, string path, TypeGroupInstance tgi)
+        {
+            string filename = Path.GetFileName(FilePath).Split('.')[0] + "_" + tgi.ToString().Replace(" ", "-");
+
+            try
+            {
+                // Write buffer to specified path
+                using (FileStream stream = new FileStream(Path.Combine(path, filename), FileMode.OpenOrCreate))
+                {
+                    stream.Write(data, 0, data.Length);
+                }
+
+                if (Verbose)
+                {
+                    Logger.Info(string.Format("Data (tgi={0}, size {1} bytes) written to path: {2}",
+                        tgi.ToString(),
+                        data.Length,
+                        Path.Combine(path, filename)));
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error(string.Format("Exception ({0}) occured while trying to save Index Entry ({4}) to path {1}. msg={2} trace={3}",
+                    e.GetType().ToString(),
+                    Path.Combine(path),
+                    e.Message,
+                    e.StackTrace,
+                    tgi.ToString()));
+            }
         }
 
         public void Dump()

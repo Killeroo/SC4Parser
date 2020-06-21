@@ -42,7 +42,8 @@ namespace TestParser
 
             SC4SaveFile save = new SC4SaveFile(savePath);
 
-            save.LoadLotFile();
+            IndexEntry en = save.FindIndexEntry("C9BD5D4A");
+            save.LoadEntry(en.TGI);// new TypeGroupInstance("8A2482B9", "4A2482BB", "0"));
 
             Console.ReadLine();
         }
@@ -64,7 +65,7 @@ namespace TestParser
 
     class Logger
     {
-        public static void Info(string message, ConsoleColor color = ConsoleColor.DarkGray)
+        public static void Info(string message, ConsoleColor color = ConsoleColor.White)
         {
             // Preserve original foreground color
             ConsoleColor startingColor = Console.ForegroundColor;
