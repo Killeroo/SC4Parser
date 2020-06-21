@@ -10,7 +10,7 @@ namespace TestParser.Structures
         DatabaseDirectoryFile DBDFFile;
         List<IndexEntry> IndexEntries;
 
-        Stream RawContents = null;
+        MemoryStream RawFile;
         bool Verbose = true;
 
         public DatabasePackedFile()
@@ -18,6 +18,7 @@ namespace TestParser.Structures
             Header = new DatabasePackedFileHeader();
             IndexEntries = new List<IndexEntry>();
             DBDFFile = new DatabaseDirectoryFile();
+            RawFile = new MemoryStream();
         }
         public DatabasePackedFile(string path)
             : this()
@@ -111,7 +112,8 @@ namespace TestParser.Structures
                     }
 
                     // Save a copy of the stream so we can access stuff after we close the file stream
-                    RawContents = stream;
+                    stream.Seek(0, SeekOrigin.Begin);
+                    stream.CopyTo(RawFile);
                 }
             }
             catch (Exception ex)
@@ -131,10 +133,10 @@ namespace TestParser.Structures
             IndexEntry foundEntry = new IndexEntry();
             foreach (IndexEntry entry in IndexEntries)
             {
-                entry.TGI.Dump();
                 if (entry.TGI == target)//.TypeID == 3384630602)
                 {
                     foundEntry = entry;
+                    Console.WriteLine("Entry found");
                     break;
                 }
             }
@@ -166,21 +168,21 @@ namespace TestParser.Structures
             try
             {
                 fileSize = Convert.ToInt32(entry.FileSize);
-                return;
             }
             catch (OverflowException)
             {
                 Logger.Error("Uncompressed entry could not be loaded, " +
                     "overflow occured while converting IndexEntry's file size" +
                     " (TGI = " + entry.TGI.ToString() + ") (" + entry.FileSize + "bytes)");
+                return;
             }
 
             // First read file from our save file and store in buffer
             byte[] buffer = new byte[entry.FileSize];
-            RawContents.Seek(entry.FileLocation, SeekOrigin.Begin);
-            RawContents.Read(buffer, 0, fileSize);
+            RawFile.Seek(entry.FileLocation, SeekOrigin.Begin);
+            RawFile.Read(buffer, 0, fileSize);
 
-            using (FileStream stream = new FileStream("tmp", FileMode.CreateNew))
+            using (FileStream stream = new FileStream("tmp.png", FileMode.OpenOrCreate))
             {
                 stream.Write(buffer, 0, fileSize);
             }
@@ -198,7 +200,8 @@ namespace TestParser.Structures
                 Console.WriteLine(new string('-', Console.WindowWidth));
             }
 
-
+            Console.WriteLine();
+            DBDFFile.Dump();
         }
     }
 }
