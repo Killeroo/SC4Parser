@@ -2,7 +2,7 @@
 
 namespace TestParser.Structures
 {
-    class DBDFResource
+    class DatabaseDirectoryResource
     {
         public TypeGroupInstance TGI;
         public uint DecompressedFileSize;

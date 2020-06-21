@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestParser.Structures
 {
-    class DBPFHeader
+    class DatabasePackedFileHeader
     {
         public string Identifier;
         public uint MajorVersion;

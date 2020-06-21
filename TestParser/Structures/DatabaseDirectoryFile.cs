@@ -6,7 +6,7 @@ namespace TestParser.Structures
     class DatabaseDirectoryFile : IndexEntry
     {
         public uint ResourceCount;
-        public List<DBDFResource> Resources;
+        public List<DatabaseDirectoryResource> Resources;
 
         public DatabaseDirectoryFile() { }
         public DatabaseDirectoryFile(IndexEntry entry)
@@ -16,12 +16,12 @@ namespace TestParser.Structures
             FileSize = entry.FileSize;
 
             ResourceCount = FileSize / 16;
-            Resources = new List<DBDFResource>();
+            Resources = new List<DatabaseDirectoryResource>();
         }
 
         public void ParseResource(byte[] buffer)
         {
-            DBDFResource resource = new DBDFResource();
+            DatabaseDirectoryResource resource = new DatabaseDirectoryResource();
             resource.Parse(buffer);
             Resources.Add(resource);
         }
@@ -30,7 +30,7 @@ namespace TestParser.Structures
         {
             base.Dump();
 
-            foreach (DBDFResource resource in Resources)
+            foreach (DatabaseDirectoryResource resource in Resources)
             {
                 Console.WriteLine("--------------");
                 resource.Dump();
