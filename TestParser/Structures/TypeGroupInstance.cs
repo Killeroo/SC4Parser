@@ -89,6 +89,14 @@ namespace TestParser.Structures
             );
         }
 
+        public new string ToString()
+        {
+            return string.Format("{0} {1} {2}",
+                TypeID.ToString("X"),
+                GroupID.ToString("X"),
+                InstanceID.ToString("X"));
+        }
+
         public void Dump()
         {
             Console.WriteLine("{0} {1} {2}",

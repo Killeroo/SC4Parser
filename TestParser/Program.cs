@@ -74,6 +74,16 @@ namespace TestParser
 
             Console.ForegroundColor = startingColor;
         }
+
+        public static void Error(string message, bool newline = true)
+        {
+            ConsoleColor startingColor = Console.ForegroundColor;
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("ERROR: {0}", message);
+
+            Console.ForegroundColor = startingColor;
+        }
     }
 
     

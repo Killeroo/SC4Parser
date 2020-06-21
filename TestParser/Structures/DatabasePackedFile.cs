@@ -127,10 +127,12 @@ namespace TestParser.Structures
         public void LoadLotFile()
         {
             // First find IndexEntry
+            TypeGroupInstance target = new TypeGroupInstance("8A2482B9", "4A2482BB", "00000004");
             IndexEntry foundEntry = new IndexEntry();
             foreach (IndexEntry entry in IndexEntries)
             {
-                if (entry.TGI.TypeID == 3384630602)
+                entry.TGI.Dump();
+                if (entry.TGI == target)//.TypeID == 3384630602)
                 {
                     foundEntry = entry;
                     break;
@@ -138,13 +140,51 @@ namespace TestParser.Structures
             }
 
             // Check if entry's TGI is present in DBDF
+            bool compressed = false;
             foreach (DatabaseDirectoryResource resource in DBDFFile.Resources)
             {
                 if (resource.TGI == foundEntry.TGI)
                 {
                     Console.WriteLine("Entry exists in DBDF");
+                    compressed = true;
                 }
             }
+
+            if (compressed)
+            {
+                //LoadUncompressedEntry(foundEntry);
+            }
+            else
+            {
+                LoadUncompressedEntry(foundEntry);
+            }
+        }
+
+        public void LoadUncompressedEntry(IndexEntry entry)
+        {
+            int fileSize = 0;
+            try
+            {
+                fileSize = Convert.ToInt32(entry.FileSize);
+                return;
+            }
+            catch (OverflowException)
+            {
+                Logger.Error("Uncompressed entry could not be loaded, " +
+                    "overflow occured while converting IndexEntry's file size" +
+                    " (TGI = " + entry.TGI.ToString() + ") (" + entry.FileSize + "bytes)");
+            }
+
+            // First read file from our save file and store in buffer
+            byte[] buffer = new byte[entry.FileSize];
+            RawContents.Seek(entry.FileLocation, SeekOrigin.Begin);
+            RawContents.Read(buffer, 0, fileSize);
+
+            using (FileStream stream = new FileStream("tmp", FileMode.CreateNew))
+            {
+                stream.Write(buffer, 0, fileSize);
+            }
+
         }
 
         public void Dump()
