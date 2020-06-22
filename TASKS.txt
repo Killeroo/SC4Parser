@@ -1,0 +1,14 @@
+Cleanup
+------
+PRIMARY
+Finish decompression
+Implement lot and building (maybe transport) sub files
+
+NICE TO HAVE
+Seperate library and cmdline tool
+extract all files option
+TGI hex comparison
+
+STLYLE
+switch back to DBPF and DBDF?
+TGI to lowercase
