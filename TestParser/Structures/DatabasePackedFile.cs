@@ -130,6 +130,7 @@ namespace TestParser.Structures
             }
         }
         
+        // All very temp, look at comment below
         public byte[] LoadEntry(TypeGroupInstance tgi)
         {
             // First find IndexEntry
@@ -141,15 +142,180 @@ namespace TestParser.Structures
 
             bool compressed = IsIndexEntryCompressed(entry);
 
-            byte[] entryBytes = LoadIndexEntry(entry);
+            byte[] sourceBytes = LoadIndexEntry(entry);
+            SaveDataToFile(sourceBytes, "", entry.TGI);
 
             if (compressed)
             {
-                UncompressData(entryBytes);
+                //UncompressData(entryBytes);
+                DatabaseDirectoryResource resource = FindDatabaseDirectoryResource(entry);
+
+                //byte[] tempBytes;
+                //uint qfsSize = QFSLengthToInt(new byte[] { entryBytes[2], entryBytes[3], entryBytes[4] });
+                //Uncompress(entryBytes, resource.DecompressedFileSize, 8);//resource.DecompressedFileSize, 0);
+                //SaveDataToFile(entryBytes, "decomp\\", entry.TGI);
+
+                byte[] destinationBytes;
+                int sourcePosition = 0;
+                int destinationPosition = 0;
+
+                // Check first 4 bytes (size of header + compressed data)
+                uint compressedSize = BitConverter.ToUInt32(sourceBytes, 0);
+                Console.WriteLine("{0} bytes", compressedSize);
+
+                // Next read the 5 byte header
+                byte[] header = new byte[5];
+                for (int i = 0; i < 5; i++)
+                {
+                    header[i] = sourceBytes[i + 4];
+                }
+                // First 2 bytes should be the QFS identifier
+                Console.WriteLine("{0}{1}", header[0].ToString("X"), header[1].ToString("X"));
+                // Next 3 bytes should be the uncompressed size of file
+                // (we do this by byte shifting (from most significant byte to least))
+                // the last 3 bytes of the header to make a number)
+                uint uncompressedSize = Convert.ToUInt32((long)(header[2] << 16) + (header[3] << 8) + header[4]); ;
+                Console.WriteLine("{0} bytes", uncompressedSize);
+
+                // Create our destination array
+                destinationBytes = new byte[uncompressedSize];
+
+                // Next set our position in the file
+                // (The if checks if the first 4 bytes are the size of the file
+                // if so our start position is 4 bytes + 5 byte header if not then our
+                // offset is just the header (5 bytes))
+                if ((sourceBytes[0] & 0x01) != 0)
+                {
+                    //////////////////////////////////////////////////////////
+                    /* I think these positions are too short
+                    so add 1 to reach the correct index of uncompressed data
+                    but the next condition seemed to have it right..
+                    this might be intentional, check back later */
+                    //////////////////////////////////////////////////////////
+                    sourcePosition = 9;//8;
+                }
+                else
+                {
+                    sourcePosition = 5;
+                }
+
+                int count1=0;
+                int count2=0;
+                int count3=0;
+                int count4=0;
+
+
+                int a = 0;
+                int b = 0;
+
+                byte aa = 0;
+                byte bb = 0;
+
+                // Main decoding loop
+                // Keep decoding while sourcePosition is in source array and position isn't 0xFC?
+                byte controlCharacter = 0;
+                int length = 0;
+                int offset = 0;
+                byte cc = 0;
+                while ((sourcePosition < sourceBytes.Length) && (sourceBytes[sourcePosition] < 0xFC))
+                {
+                    //Console.WriteLine("pos={0} source_len={1} | current_source_byte={2}",
+                    //    sourcePosition,
+                    //    sourceBytes.Length,
+                    //    sourceBytes[sourcePosition].ToString("X"));
+
+                    // Read our packcode/control character
+                    controlCharacter = sourceBytes[sourcePosition];
+
+                    //Console.WriteLine("current_control_character={0}", sourceBytes[sourcePosition].ToString("X"));
+
+                    a = sourceBytes[sourcePosition + 1];
+                    b = sourceBytes[sourcePosition + 2];
+
+                    aa = sourceBytes[sourcePosition + 1];
+                    bb = sourceBytes[sourcePosition + 2];
+
+                    //Console.WriteLine(@"proceeding bytes [int a={0} b={1}] [byte a={4} b={5}]/[byte a={2} b={3}]",
+                    //    a,
+                    //    b,
+                    //    aa,
+                    //    bb,
+                    //    aa.ToString(),
+                    //    bb.ToString());
+
+
+                    //TODO: CHECK THE INDEX MODIFICATIONS AFTER THE FACT THEY MIGHT BE OFF BY ONE
+                    if ((controlCharacter & 0x80) == 0)
+                    {
+                        length = controlCharacter & 3;
+                        Buffer.BlockCopy(sourceBytes, sourcePosition + 2, destinationBytes, destinationPosition, length);
+                        sourcePosition += length + 2;
+                        destinationPosition += length;
+                        length = ((controlCharacter & 0x1C) >> 2) + 3;
+                        offset = ((controlCharacter >> 5) << 8) + aa + 1;
+                        Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
+                        destinationPosition += length;
+                        count1++;
+                    }
+                    else if ((controlCharacter & 0x40) == 0)
+                    {
+                        length = (aa >> 6) & 3;
+                        Buffer.BlockCopy(sourceBytes, sourcePosition + 3, destinationBytes, destinationPosition, length);
+                        sourcePosition += length + 3;
+                        destinationPosition += length;
+                        length = (controlCharacter & 0x3F) + 4;
+                        offset = (aa & 0x3F) * 256 + bb + 1;
+                        Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
+                        destinationPosition += length;
+                        count2++;
+                    }
+                    else if ((controlCharacter & 0x20) == 0)
+                    {
+                        cc = sourceBytes[sourcePosition + 3];
+                        length = controlCharacter & 3;
+                        Buffer.BlockCopy(sourceBytes, sourcePosition + 4, destinationBytes, destinationPosition, length);
+                        sourcePosition += length + 4;
+                        destinationPosition += length;
+                        length = ((controlCharacter >> 2) & 3) * 256 + cc + 5;
+                        offset = ((controlCharacter & 0x10) << 12) + 256 * aa + bb + 1;
+                        Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
+                        destinationPosition += length;
+                        count3++;
+                    }
+                    else
+                    {
+                        length = (controlCharacter & 0x1F) * 4 + 4;
+                        Buffer.BlockCopy(sourceBytes, sourcePosition + 1, destinationBytes, destinationPosition, length);
+                        sourcePosition += length + 1;
+                        destinationPosition += length;
+                        count4++;
+                    }
+                }
+
+                // Add trailing bytes
+                if((sourcePosition<sourceBytes.Length)&&(destinationPosition<destinationBytes.Length))
+                {
+                    Buffer.BlockCopy(sourceBytes, sourcePosition + 1, destinationBytes, destinationPosition, sourceBytes[sourcePosition] & 3);
+                    destinationPosition += sourceBytes[sourcePosition] & 3;
+                }
+
+                if (destinationPosition != destinationBytes.Length)
+                {
+                    Console.WriteLine("Warning bad length, {0} instead of {1}", destinationPosition, destinationBytes.Length);
+                }
+                Console.WriteLine("1: {0}, 2: {1}, 3: {2}, 4: {3}", count1, count2, count3, count4);
+
+                SaveDataToFile(destinationBytes, @"C:\Path", entry.TGI);
+
             }
-            return entryBytes;
+            return sourceBytes;
         }
 
+        // TODO: We need to think about how we use and structure the operations below, right
+        // now they are only used in a particular way, they arent that flexible so refactor police
+        // stop here after everything
+        // (Too much null checking in other files, too much repeating)
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         public IndexEntry FindIndexEntry(TypeGroupInstance tgi)
         {
             IndexEntry foundEntry = null;
@@ -213,6 +379,20 @@ namespace TestParser.Structures
             return false;
         }
 
+        public DatabaseDirectoryResource FindDatabaseDirectoryResource(IndexEntry entry)
+        {
+            DatabaseDirectoryResource resource = null;
+            foreach (DatabaseDirectoryResource r in DBDFFile.Resources)
+            {
+                if (r.TGI == entry.TGI)
+                {
+                    resource = r;
+                }
+            }
+            return resource;
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+
         private byte[] LoadIndexEntry(IndexEntry entry)
         {
             byte[] buffer = null;
@@ -262,23 +442,23 @@ namespace TestParser.Structures
 
         // QFS/quickref decompression implementation
         // Source: https://github.com/wouanagaine/SC4Mapper-2013/blob/db29c9bf88678a144dd1f9438e63b7a4b5e7f635/Modules/qfs.c#L25
-        private byte[] UncompressData(byte[] data)
+        private byte[] UncompressData(byte[] data, uint size)
         {
-            byte[] outBuffer = null;
-            byte[] inBuffer = data;
-            int inPosition = 0;
-            int outPosition = 0;
-            int inLength = inBuffer.Length;
-            int outLength = 0;
-            int offset = 0;
-            int length = 0;
-            int a, b, c, d;
+            //byte[] outBuffer = null;
+            //byte[] inBuffer = data;
+            //int inPosition = 0;
+            //int outPosition = 0;
+            //int inLength = inBuffer.Length;
+            //int outLength = 0;
+            //int offset = 0;
+            //int length = 0;
+            //int a, b, c, d;
 
-            // Work out uncompressed length of data
-            outLength = (inBuffer[2] << 16) + (inBuffer[3] << 8) + inBuffer[4];
-            Console.WriteLine(inBuffer.Length);
-            Console.WriteLine(outLength);
-            outBuffer = new byte[outLength];
+            //// Work out uncompressed length of data
+            //outLength = (inBuffer[2] << 16) + (inBuffer[3] << 8) + inBuffer[4];
+            //Console.WriteLine(inBuffer.Length);
+            //Console.WriteLine(outLength);
+            //outBuffer = new byte[outLength];
 
             //for (int i=0; i< 4; i++)
             //{
@@ -286,7 +466,107 @@ namespace TestParser.Structures
             //}
             return null;
         }
-        
+
+        private static uint QFSLengthToInt(byte[] data)
+        {
+            // Converts a 3 byte length to a uint
+            uint power = 1;
+            uint result = 0;
+            for (int i = data.Length; i > 0; i--)
+            {
+                result += (data[i - 1] * power);
+                power = power * 256;
+            }
+
+            return result;
+        }
+
+        private byte[] Uncompress(byte[] data, uint targetSize, int offset)
+        {
+            byte[] uncdata = null;
+            int index = offset;
+
+            try
+            {
+                uncdata = new byte[targetSize];
+            }
+            catch (Exception)
+            {
+                uncdata = new byte[0];
+            }
+
+            int uncindex = 0;
+            int plaincount = 0;
+            int copycount = 0;
+            int copyoffset = 0;
+            byte cc = 0;
+            byte cc1 = 0;
+            byte cc2 = 0;
+            byte cc3 = 0;
+            int source;
+
+            //try
+            //{
+            while ((index < data.Length) && (data[index] < 0xfc))
+            {
+                cc = data[index++];
+
+                if ((cc & 0x80) == 0)
+                {
+                    cc1 = data[index++];
+                    plaincount = (cc & 0x03);
+                    copycount = ((cc & 0x1C) >> 2) + 3;
+                    copyoffset = ((cc & 0x60) << 3) + cc1 + 1;
+                }
+                else if ((cc & 0x40) == 0)
+                {
+                    cc1 = data[index++];
+                    cc2 = data[index++];
+                    plaincount = (cc1 & 0xC0) >> 6;
+                    copycount = (cc & 0x3F) + 4;
+                    copyoffset = ((cc1 & 0x3F) << 8) + cc2 + 1;
+                }
+                else if ((cc & 0x20) == 0)
+                {
+                    cc1 = data[index++];
+                    cc2 = data[index++];
+                    cc3 = data[index++];
+                    plaincount = (cc & 0x03);
+                    copycount = ((cc & 0x0C) << 6) + cc3 + 5;
+                    copyoffset = ((cc & 0x10) << 12) + (cc1 << 8) + cc2 + 1;
+                }
+                else
+                {
+                    plaincount = (cc - 0xDF) << 2;
+                    copycount = 0;
+                    copyoffset = 0;
+                }
+
+                for (int i = 0; i < plaincount; i++) uncdata[uncindex++] = data[index++];
+
+                source = uncindex - copyoffset;
+                for (int i = 0; i < copycount; i++) uncdata[uncindex++] = uncdata[source++];
+            }//while
+            //} //try
+            //catch (Exception ex)
+            //{
+            //    //Helper.ExceptionMessage("", ex);
+            //    throw ex;
+            //}
+
+
+            if (index < data.Length)
+            {
+                plaincount = (data[index++] & 0x03);
+                for (int i = 0; i < plaincount; i++)
+                {
+                    if (uncindex >= uncdata.Length) break;
+                    uncdata[uncindex++] = data[index++];
+                }
+            }
+            return uncdata;
+        }
+
         public void SaveDataToFile(byte[] data, string path, TypeGroupInstance tgi)
         {
             string filename = Path.GetFileName(FilePath).Split('.')[0] + "_" + tgi.ToString().Replace(" ", "-");
