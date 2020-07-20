@@ -153,11 +153,7 @@ namespace TestParser.Structures
 
                 byte[] uncompressedData = UncompressData(sourceBytes);
                
-                SaveDataToFile(uncompressedData, @"new\", entry.TGI);
-
-                var array = new char[4] { 'd', 'o', 'o', 'b' };
-                test(array, 4);
-                Console.WriteLine(array[0]);
+                SaveDataToFile(uncompressedData, @"", entry.TGI);
             }
             return sourceBytes;
         }
