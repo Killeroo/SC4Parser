@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 
 using TestParser.Structures;
+using TestParser.Structures.SubFiles;
 
 // Key:
 // ----
@@ -42,9 +43,14 @@ namespace TestParser
 
             SC4SaveFile save = new SC4SaveFile(savePath);
 
+            // Loading and decompression stuff:
             // save.FindIndexEntry("C9BD5D4A"); // Lot file
-            IndexEntry en = save.FindIndexEntry("A9BD882D"); // building file
-            save.LoadEntry(en.TGI);// new TypeGroupInstance("8A2482B9", "4A2482BB", "0"));
+            //IndexEntry en = save.FindIndexEntry("A9BD882D"); // building file
+            //save.LoadEntry(en.TGI);// new TypeGroupInstance("8A2482B9", "4A2482BB", "0"));
+
+            // Building subfile work:
+            Building buildingSubfile = new Building();
+            buildingSubfile.Parse(File.ReadAllBytes("buildings_decompressed"));
 
             Console.ReadLine();
         }

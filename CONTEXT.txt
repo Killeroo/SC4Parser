@@ -1,4 +1,6 @@
 03/07/2020 
+----------------------------------------------------
+
 GOAL: I want to get the decryption bug sorted and maybe get a basic commandline and dll project setup
 - Seems the offset calculation for the third packcode is messed up, removing that block copy line doesn't seem to change the output of the file
 
@@ -12,19 +14,26 @@ options:
 3) get the c library to work in code
 
 12/07/2020
+----------------------------------------------------
+
 1.) tried that but the output was the same, either the output of my source of truth is wrong or both algorithms are incorrect
     or the implementation of the loops is wrong... 
 
 going to test if the c++ algorithm actually works correctly
 
+
 20/07/2020
+----------------------------------------------------
+
 The QFS stuff has blocked me for too long, I am pretty sure that getting the c++ implementation would work (in whatever form of the algorithm I choose)
 
 I could use the one from ilives or from the python tools, either way I will have to come back to it, I need to focus on reading the subfiles. I am mainly focused on 4:
 1.) Building
 2.) Lot
+(below are nice to have)
 3.) Transport
 4.) Terrain
+5.) prop
 
 The terrain and transport subfiles would be nice to have, I don't have a definite map on how they are laid out but the wiki seems to say they are both fully decoded, we will see...
 
@@ -33,3 +42,19 @@ So my plan going forward is this, use ilives to decompress the file, load the bi
 I'll upload all the sources of different QFS solutions I have found too, like I said I'll come back to getting compression working later on.
 
 I'll start with the building subfile...
+
+(1 hour later)
+
+Shit I got caught going down another QFS rabbit hole, I have so many implementations of this algorithm from such scattered parts of the web. Surely I can cobble something together. Hell I even have done enough research I might as well implement my own.
+
+Not now though. I'll save _everything_ and come back to this waking nightmare blocker later.
+
+That was exhausting, but I have all my resources for quickref/qfs laid out and ready to come back to later.
+I imagine my fix will be one of these:
+
+- Me going through my existing solution with the spec
+- Converting the c++ code into a library and calling that from c#
+- Writing my own
+
+All these are doable, for now I will move along and come back to this later.
+I added the initial stuff for the building files, there probably will be some unknowns (it is not clear how the file repeats for each building) but we will tackle that as it comes.
