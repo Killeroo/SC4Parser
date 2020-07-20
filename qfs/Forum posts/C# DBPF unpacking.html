@@ -1,0 +1,1172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta name="description" content="C# DBPF unpacking" />
+	<meta name="keywords" content="PHP, MySQL, bulletin, board, free, open, source, smf, simple, machines, forum" />
+	<script language="JavaScript" type="text/javascript" src="/smf/Themes/default/script.js?fin11"></script>
+	<script language="JavaScript" type="text/javascript"><!-- // --><![CDATA[
+		var smf_theme_url = "/smf/Themes/babylon";
+		var smf_images_url = "/smf/Themes/babylon/images";
+		var smf_scripturl = "http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;";
+		var smf_iso_case_folding = false;
+		var smf_charset = "ISO-8859-1";
+	// ]]></script>
+	<title>C# DBPF unpacking</title>
+	<link rel="stylesheet" type="text/css" href="/smf/Themes/babylon/style.css?fin11" />
+	<link rel="stylesheet" type="text/css" href="/smf/Themes/default/print.css?fin11" media="print" />
+	<link rel="help" href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=help" target="_blank" />
+	<link rel="search" href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=search" />
+	<link rel="contents" href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;" />
+	<link rel="alternate" type="application/rss+xml" title="More Awesome Than You! - RSS" href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;type=rss;action=.xml" />
+	<link rel="prev" href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.0;prev_next=prev" />
+	<link rel="next" href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.0;prev_next=next" />
+	<link rel="index" href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;board=13.0" /><meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+
+	<script language="JavaScript" type="text/javascript"><!-- // --><![CDATA[
+		var current_header = false;
+
+		function shrinkHeader(mode)
+		{
+			document.cookie = "upshrink=" + (mode ? 1 : 0);
+			document.getElementById("upshrink").src = smf_images_url + (mode ? "/upshrink2.gif" : "/upshrink.gif");
+
+			document.getElementById("upshrinkHeader").style.display = mode ? "none" : "";
+
+			current_header = mode;
+		}
+	// ]]></script>
+</head>
+<body>
+	<div id="headerarea" style="padding: 12px 30px 4px 30px;">
+		<table cellspacing="0" cellpadding="0" border="0" width="100%" style="position: relative;">
+			<tr>
+				<td colspan="2" valign="bottom" style="padding: 5px; white-space: nowrap;">
+					<img src="/smf/Themes/babylon/images/smflogo.gif" style="width: 250px; float: right;" alt="" />
+					<span style="font-family: Georgia, sans-serif; font-size: xx-large;">More Awesome Than You!</span>
+				</td>
+			</tr>
+			<tr id="upshrinkHeader">
+				<td valign="top">
+					<div class="headertitles" style="margin-right: 5px; position: relative;"><img src="/smf/Themes/babylon/images/blank.gif" height="12" alt="" /></div>
+					<div class="headerbodies" style="position: relative; margin-right: 5px; background-image: url(/smf/Themes/babylon/images/box_bg.gif);">
+						<img src="/smf/Themes/babylon/images/english/userinfo.gif" style="position: absolute; left: -1px; top: -16px; clear: both;" alt="" />
+						<table width="99%" cellpadding="0" cellspacing="5" border="0"><tr><td valign="top" class="smalltext" style="width: 100%; font-family: verdana, arial, sans-serif;">
+							Welcome, <b>Guest</b>. Please <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=login">login</a> or <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=register">register</a>.<br />
+							2020 July 20, 21:20:48<br />
+
+							<script language="JavaScript" type="text/javascript" src="/smf/Themes/default/sha1.js"></script>
+
+							<form action="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=login2" method="post" accept-charset="ISO-8859-1" style="margin: 3px 1ex 1px 0;">
+								<div style="text-align: right;">
+									<input type="text" name="user" size="10" /> <input type="password" name="passwrd" size="10" />
+									<select name="cookielength">
+										<option value="60">1 Hour</option>
+										<option value="1440">1 Day</option>
+										<option value="10080">1 Week</option>
+										<option value="43200">1 Month</option>
+										<option value="-1" selected="selected">Forever</option>
+									</select>
+									<input type="submit" value="Login" /><br />
+									Login with username, password and session length
+									<input type="hidden" name="hash_passwrd" value="" />
+								</div>
+							</form>
+						</td></tr></table>
+					</div>
+
+					<form action="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=search2" method="post" accept-charset="ISO-8859-1" style="margin: 0;">
+						<div style="margin-top: 7px;">
+							<b>Search: </b><input type="text" name="search" value="" style="width: 190px;" />&nbsp;
+							<input type="submit" name="submit" value="Search" style="width: 8ex;" />&nbsp;
+							<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=search;advanced">Advanced search</a>
+							<input type="hidden" name="advanced" value="0" />
+							<input type="hidden" name="topic" value="15649" />
+						</div>
+					</form>
+
+				</td>
+				<td style="width: 262px; padding-left: 6px;" valign="top">
+					<div class="headertitles" style="width: 260px;"><img src="/smf/Themes/babylon/images/blank.gif" height="12" alt="" /></div>
+					<div class="headerbodies" style="width: 260px; position: relative; background-image: url(/smf/Themes/babylon/images/box_bg.gif); margin-bottom: 8px;">
+						<img src="/smf/Themes/babylon/images/english/newsbox.gif" style="position: absolute; left: -1px; top: -16px;" alt="" />
+						<div style="height: 80px; overflow: auto; padding: 5px;" class="smalltext"><b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;/topic,19339.0.html" target="_blank"><span style="color: orange;">SUPPORT THE MUNICIPALITY!</span></a></b><br /><b><a href="http://paysites.mustbedestroyed.org/" target="_blank"><span style="color: blue;">Have you destroyed a paysite today?</span></a></b><br /><span style="font-size: 1pt; line-height: 1.3em;"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;/topic,5600.msg160566.html#msg160566" target="_blank"><span style="color: #efefef;"><span style="text-decoration: underline;">&quot;Jelenedra&quot; is the new &quot;gay&quot;.</span></span></a><br /><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1756" target="_blank"><span style="color: #efefef;"><span style="text-decoration: underline;">All Lythdans are stupid and suck!</span></span></a> <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=295" target="_blank"><span style="color: #efefef;"><span style="text-decoration: underline;">DEATH TO ALL STUPID HAIRY-BELLIED NESSES!</span></span></a> <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1293" target="_blank"><span style="color: #efefef;"><span style="text-decoration: underline;">All Kewians are stupid and suck! Accept no Kewian-based substitutes!</span></span></a> <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1487" target="_blank"><span style="color: #efefef;"><span style="text-decoration: underline;">Clearly, BlueSoup has failed us! You must not! BlueSoup has a fat head!</span></span></a> <span style="color: #efefef;">Hobbsee has a</span> <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=298" target="_blank"><span style="color: #efefef;"><span style="text-decoration: underline;">scrawny pencil neck.</span></span></a> <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=797" target="_blank"><span style="color: #efefef;"><span style="text-decoration: underline;">Rohina the Ugly Butted is a Horny Turkey</span></span></a></span></div>
+					</div>
+					<div class="headertitles" style="width: 260px;"><img src="/smf/Themes/babylon/images/blank.gif" height="12" alt="" /></div>
+					<div class="headerbodies" style="width: 260px; position: relative; background-image: url(/smf/Themes/babylon/images/box_bg.gif);">
+						<img src="/smf/Themes/babylon/images/english/keystats.gif" style="position: absolute; left: -1px; top: -16px;" alt="" />
+						<div style="min-height: 35px; padding: 5px;" class="smalltext">
+							<b>540002</b> Posts in <b>18033</b> Topics by <span style="white-space: nowrap;"><b>7902</b> Members</span><br />
+							Latest Member: <b> <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=78092">blushingrose</a></b>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<a href="javascript:void(0);" onclick="shrinkHeader(!current_header); return false;"><img id="upshrink" src="/smf/Themes/babylon/images/upshrink.gif" alt="*" title="Shrink or expand the header." style="margin: 2px 2ex 2px 0;" border="0" /></a>
+				<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;"><img src="/smf/Themes/babylon/images/english/home.gif" alt="Home" style="margin: 2px 0;" border="0" /></a> 
+				<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=help"><img src="/smf/Themes/babylon/images/english/help.gif" alt="Help" style="margin: 2px 0;" border="0" /></a> 
+				<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=search"><img src="/smf/Themes/babylon/images/english/search.gif" alt="Search" style="margin: 2px 0;" border="0" /></a> 
+				<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=login"><img src="/smf/Themes/babylon/images/english/login.gif" alt="Login" style="margin: 2px 0;" border="0" /></a> 
+				<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=register"><img src="/smf/Themes/babylon/images/english/register.gif" alt="Register" style="margin: 2px 0;" border="0" /></a>
+	</div>
+	<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+		<td id="bodyarea" style="padding: 1ex 20px 2ex 20px;">
+<a name="top"></a>
+<a name="msg449060"></a>
+<table width="100%" cellpadding="3" cellspacing="0">
+	<tr>
+		<td valign="bottom"><span class="nav"><img src="/smf/Themes/babylon/images/icons/folder_open.gif" alt="+" border="0" />&nbsp; <b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;" class="nav">More Awesome Than You!</a></b><br /><img src="/smf/Themes/babylon/images/icons/linktree_side.gif" alt="|-" border="0" /><img src="/smf/Themes/babylon/images/icons/folder_open.gif" alt="+" border="0" />&nbsp; <b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;#5" class="nav">The Bowels of Trogdor</a></b><br /><img src="/smf/Themes/babylon/images/icons/linktree_main.gif" alt="| " border="0" /><img src="/smf/Themes/babylon/images/icons/linktree_side.gif" alt="|-" border="0" /><img src="/smf/Themes/babylon/images/icons/folder_open.gif" alt="+" border="0" />&nbsp; <b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;board=13.0" class="nav">The Large Intestines of Trogdor</a></b><br /><img src="/smf/Themes/babylon/images/icons/linktree_main.gif" alt="| " border="0" /><img src="/smf/Themes/babylon/images/icons/linktree_main.gif" alt="| " border="0" /><img src="/smf/Themes/babylon/images/icons/linktree_side.gif" alt="|-" border="0" /><img src="/smf/Themes/babylon/images/icons/folder_open.gif" alt="+" border="0" />&nbsp; <b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.0" class="nav">C# DBPF unpacking</a></b></span></td>
+		<td align="center" class="smalltext">0 Members and 1 Guest are viewing this topic.</td>
+		<td valign="bottom" align="right" class="smalltext">
+			<span class="nav"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.0;prev_next=prev#new">&laquo; previous</a> <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.0;prev_next=next#new">next &raquo;</a></span>
+		</td>
+	</tr>
+</table>
+<table width="100%" cellpadding="3" cellspacing="0" border="0" class="tborder" style="margin-bottom: 1ex;">
+	<tr>
+		<td class="catbg" width="100%" height="35">
+			<table cellpadding="3" cellspacing="0" width="100%">
+				<tr>
+					<td>
+						<b>Pages:</b> [<b>1</b>] 
+					</td>
+					<td align="right" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx2.gif" alt="THANKS THIS IS GREAT" border="0" /></a> <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=printpage;topic=15649.0" target="_blank"><img src="/smf/Themes/babylon/images/english/print.gif" alt="Print" border="0" /></a></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<table width="100%" cellpadding="3" cellspacing="0" border="0" class="tborder" style="border-bottom: 0;">
+	<tr class="titlebg">
+		<td valign="middle" width="15%" style="padding-left: 6px;">
+			<img src="/smf/Themes/babylon/images/topic/hot_post.gif" alt="" align="middle" /> Author
+		</td>
+		<td valign="middle" width="85%" style="padding-left: 6px;" id="top_subject">
+			Topic: C# DBPF unpacking &nbsp;(Read 26197 times)
+		</td>
+	</tr>
+</table>
+<form action="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=quickmod2;topic=15649.0" method="post" name="quickModForm" accept-charset="ISO-8859-1" id="quickModForm" style="margin: 0;" onsubmit="return in_edit_mode == 1 ? modify_save('c3ba43319a985fdb55c09d815e994234') : confirm('Are you sure you want to do this?');">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" class="bordercolor">
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235" title="View the profile of Afro">Afro</a></b>
+							<div class="smalltext">
+								Asinine Airhead<br />
+								<br />
+								Posts: 11<br />
+								<br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449060#msg449060"><img src="/smf/Themes/babylon/images/post/question.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449060#msg449060">C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b> on:</b> 2009 June 28, 21:28:09 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">Anyone have any idea how to implement the DBPF compression in C#?<br />I&#039;ve been trying to convert the PHP version, but it just... keeps giving me -alot- of errors.<br /><br /><div class="codeheader">Code:</div><div class="code"><pre style="margin-top: 0; display: inline;">&nbsp; &nbsp; &nbsp; &nbsp; /// &lt;summary&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; /// Extracts and uncompresses, when neccessary, all the loaded entries in an archive<br />&nbsp; &nbsp; &nbsp; &nbsp; /// to the specified path. Assumes that LoadArchive() has been called first.<br />&nbsp; &nbsp; &nbsp; &nbsp; /// &lt;/summary&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; /// &lt;param name=&quot;Path&quot;&gt;The path to extract to.&lt;/param&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; public void ExtractFiles(string Path)<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BinaryReader Reader = new BinaryReader(File.Open(m_ArchiveName, FileMode.Open));<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; foreach (DBPFEntry Entry in m_Entries)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Reader.BaseStream.Seek(Entry.FileOffset, SeekOrigin.Begin);<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (Entry.Compressed)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Entry.FileData = new byte[Entry.DecompressedSize];<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Decompress(Reader, Entry);<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; }<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; private void Decompress(BinaryReader Reader, DBPFEntry Entry)<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; uint CompressedSize = Reader.ReadUInt32();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ushort CompressionID = Reader.ReadUInt16();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Reader.ReadBytes(3); //Uncompressed size of file...<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int NumPlainChars = 0;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int NumCopy = 0;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int Offset = 0;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; string Answer = &quot;&quot;;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (CompressionID == 0xFB10 || CompressionID == 0xFB50)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; uint Length = Entry.FileSize;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; for (; Length &gt; 0;)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; //Control character<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; byte CC = Reader.ReadByte();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Length -= 1;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (CC &gt;= 252) //0xFC<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = CC &amp; 0x03;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (NumPlainChars &gt; Length)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = (int)Length;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumCopy = 0;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Offset = 0;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else if (CC &gt;= 224) //0xE0<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = (CC - 0xDF) &lt;&lt; 2;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumCopy = 0;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Offset = 0;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else if (CC &gt;= 192) //0xC0<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Length -= 3;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; char Byte1 = Reader.ReadChar();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; char Byte2 = Reader.ReadChar();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; char Byte3 = Reader.ReadChar();<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = CC &amp; 0x03;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumCopy = ((CC &amp; 0x0C) &lt;&lt; 6) + 5 + Byte3;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Offset = ((CC &amp; 0x10) &lt;&lt; 12 ) + (Byte1 &lt;&lt; 8) + Byte2;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else if (CC &gt;= 128) //0x80<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Length -= 2;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; char Byte1 = Reader.ReadChar();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; char Byte2 = Reader.ReadChar();<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = (Byte1 &amp; 0xC0) &gt;&gt; 6;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumCopy = (CC &amp; 0x3F) + 4;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Offset = ((Byte1 &amp; 0x3F) &lt;&lt; 8) + Byte2;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Length -= 1;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; char Byte1 = Reader.ReadChar();<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = (CC &amp; 0x03);<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumCopy = ((CC &amp; 0x1C) &gt;&gt; 2) + 3;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Offset = ((CC &amp; 0x60) &lt;&lt; 3) + Byte1;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (NumPlainChars &gt; 0)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; string Tmp = new string(Reader.ReadChars(NumPlainChars));<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Answer += Tmp;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int FromOffset = Answer.Length - (Offset + 1);<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; for (int i = 0; i &lt; NumCopy; i++)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if(((FromOffset + i) &lt; Answer.Length) &amp;&amp; ((FromOffset + i) &gt; 0))<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Answer = Answer.Substring(FromOffset + i, 1);<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return;<br />&nbsp; &nbsp; &nbsp; &nbsp; }</pre></div><br />That&#039;s my current implementation, up there.<br />Even with these checks:<br /><br />if(((FromOffset + i) &lt; Answer.Length) &amp;&amp; ((FromOffset + i) &gt; 0))<br /><br />It still fails on this line:<br /><br />string Tmp = new string(Reader.ReadChars(NumPlainChars));<br /><br />Saying: &#039;The output char buffer is too small to contain the decoded characters, encoding &#039;Unicode (UTF-8)&#039; fallback &#039;System.Text.DecoderReplacementFallback&#039;.&#039;<br /><br />Sorry if this is posted in the wrong forum, but I don&#039;t seem to have permission to post in the &#039;Bowels&#039; forums.<br />I&#039;ve peaked at the SimPE source, but there&#039;s too many classes and it is generally a big mess.</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_449060">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg449303"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg2">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1" title="View the profile of J. M. Pescado">J. M. Pescado</a></b>
+							<div class="smalltext">
+								Fat Obstreperous Jerk<br />
+								El Presidente<br />
+								<img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><br />
+								Posts: 26223<br />
+								<br />
+								<div style="overflow: auto; width: 100%;"><img src="http://www.moreawesomethanyou.com/sft/sftgold_sm.png" alt="" class="avatar" border="0" /></div><br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449303#msg449303"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449303#msg449303">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #1 on:</b> 2009 June 29, 02:57:11 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">You could try implementing it based on the Ricktool C# ones at <a href="http://gib.me" target="_blank">http://gib.me</a>, but the rest of the community seems to be using somewhat more crapulent algorithms than the one we have in the original TS2 dbpfrc.</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_449303">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="signature">Grant me the serenity to accept the things I cannot change, the courage to change the things I cannot accept, and the wisdom to hide the bodies of those I had to kill because they pissed me off.</div>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg449369"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235" title="View the profile of Afro">Afro</a></b>
+							<div class="smalltext">
+								Asinine Airhead<br />
+								<br />
+								Posts: 11<br />
+								<br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449369#msg449369"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449369#msg449369">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #2 on:</b> 2009 June 29, 06:14:52 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">Thanks!<br />But... exactly what tool are you referring to? &nbsp;<img src="/smf/Smileys/default/huh.gif" alt="Huh" border="0" /><br />There seems to be alot of sourcecode in his SVN, but none that&#039;s Sims related.<br /><br />Edit:<br /><br />I tried using zlib&#039;s deflate() decompression, by way of SharpZipLib, but I keep getting &#039;Unknown block&#039; type errors, even when I skip the 9 byte header. :\<br /><div class="codeheader">Code:</div><div class="code"><pre style="margin-top: 0; display: inline;"> &nbsp; &nbsp; &nbsp; &nbsp;private byte&#91;] Deflate(DBPFEntry Entry)<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;{<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Stream S = new InflaterInputStream(new MemoryStream(Entry.FileData), new ICSharpCode.SharpZipLib.Zip.Compression.Inflater(true));<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;MemoryStream MemStream = new MemoryStream();<br /><br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;int SizeRead = 0;<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;byte&#91;] Buffer = new byte[2048];<br /><br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;while (true)<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;SizeRead = S.Read(Buffer, 0, 2048);<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;if (SizeRead &gt; 0)<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;MemStream.Write(Buffer, 0, 2048);<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;else<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;break;<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}<br /><br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return MemStream.ToArray();<br />&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;}</pre></div></div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_449369">
+									&#171; <i>Last Edit: 2009 June 29, 06:56:50 by Afro</i> &#187;
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg449932"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg2">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1" title="View the profile of J. M. Pescado">J. M. Pescado</a></b>
+							<div class="smalltext">
+								Fat Obstreperous Jerk<br />
+								El Presidente<br />
+								<img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><br />
+								Posts: 26223<br />
+								<br />
+								<div style="overflow: auto; width: 100%;"><img src="http://www.moreawesomethanyou.com/sft/sftgold_sm.png" alt="" class="avatar" border="0" /></div><br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449932#msg449932"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449932#msg449932">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #3 on:</b> 2009 June 30, 13:02:34 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;/topic,8279.0.html" target="_blank">http://www.moreawesomethanyou.com/smf/index.php/topic,8279.0.html</a><br /><br />This tool here. It is for TS2 and requires modification to make it work for TS3, but the compression is sound and is what is used in s3rc.</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_449932">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="signature">Grant me the serenity to accept the things I cannot change, the courage to change the things I cannot accept, and the wisdom to hide the bodies of those I had to kill because they pissed me off.</div>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg449937"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235" title="View the profile of Afro">Afro</a></b>
+							<div class="smalltext">
+								Asinine Airhead<br />
+								<br />
+								Posts: 11<br />
+								<br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449937#msg449937"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449937#msg449937">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #4 on:</b> 2009 June 30, 13:18:44 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">That&#039;s a C++ tool and the code is generally (no offense to whoever wrote it) kinda cryptic.<br /><br />Anyways... I don&#039;t know if anyone are very good with C# here, but I changed my code kinda drastically:<br /><br /><div class="codeheader">Code:</div><div class="code"><pre style="margin-top: 0; display: inline;">&nbsp; &nbsp; &nbsp; &nbsp; /// &lt;summary&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; /// Extracts and uncompresses, when neccessary, all the loaded entries in an archive<br />&nbsp; &nbsp; &nbsp; &nbsp; /// to the specified path. Assumes that LoadArchive() has been called first.<br />&nbsp; &nbsp; &nbsp; &nbsp; /// &lt;/summary&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; /// &lt;param name=&quot;Path&quot;&gt;The path to extract to.&lt;/param&gt;<br />&nbsp; &nbsp; &nbsp; &nbsp; public void ExtractFiles(string Path)<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BinaryReader Reader = new BinaryReader(File.Open(m_ArchiveName, FileMode.Open));<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; for(int i = 0; i &lt; m_Entries.Count; i++)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Reader.BaseStream.Seek(m_Entries[i].FileOffset, SeekOrigin.Begin);<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (m_Entries[i].Compressed)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Entries[i].FileData = new byte[m_Entries[i].DecompressedSize];<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Reader.BaseStream.Seek(m_Entries[i].FileOffset, SeekOrigin.Begin);<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Entries[i].FileData = Reader.ReadBytes((int)m_Entries[i].FileSize);<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Entries[i] = Decompress(new BinaryReader(new MemoryStream(m_Entries[i].FileData)), <br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; m_Entries[i]);<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (m_Entries[i] != null)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BinaryWriter Writer = new BinaryWriter(File.Create(Path + m_Entries[i].InstanceID.ToString() + &quot;.&quot; + m_Entries[i].GetFileExtension()));<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Writer.Write(m_Entries[i].FileData);<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Writer.Close();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; }<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; private DBPFEntry Decompress(BinaryReader Reader, DBPFEntry Entry)<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; uint CompressedSize = Reader.ReadUInt32();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ushort CompressionID = Reader.ReadUInt16();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Reader.ReadBytes(3); //Uncompressed size of file...<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int NumPlainChars = 0;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int NumCopy = 0;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; int Offset = 0;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; MemoryStream Answer = new MemoryStream();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BinaryWriter Writer = new BinaryWriter(Answer);<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (CompressionID == 0xFB10 || CompressionID == 0xFB50)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bool Stop = false;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; while(!Stop)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; //Control character<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; byte CC = Reader.ReadByte();<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (CC &gt;= 252) //0xFC<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = CC &amp; 0x03;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (NumPlainChars &gt; Reader.BaseStream.Length)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = (int)Reader.BaseStream.Length;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumCopy = 0;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Offset = 0;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Stop = true;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else if (CC &gt;= 224) //0xE0<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = (CC - 0xDF) &lt;&lt; 2;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumCopy = 0;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Offset = 0;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else if (CC &gt;= 192) //0xC0<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; byte Byte1 = Reader.ReadByte();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; byte Byte2 = Reader.ReadByte();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; byte Byte3 = Reader.ReadByte();<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = CC &amp; 0x03;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumCopy = ((CC &amp; 0x0C) &lt;&lt; 6) + 5 + Byte3;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Offset = ((CC &amp; 0x10) &lt;&lt; 12 ) + (Byte1 &lt;&lt; 8) + Byte2;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else if (CC &gt;= 128) //0x80<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; byte Byte1 = Reader.ReadByte();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; byte Byte2 = Reader.ReadByte();<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = (Byte1 &amp; 0xC0) &gt;&gt; 6;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumCopy = (CC &amp; 0x3F) + 4;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Offset = ((Byte1 &amp; 0x3F) &lt;&lt; 8) + Byte2;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; byte Byte1 = Reader.ReadByte();<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumPlainChars = (CC &amp; 0x03);<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NumCopy = ((CC &amp; 0x1C) &gt;&gt; 2) + 3;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Offset = ((CC &amp; 0x60) &lt;&lt; 3) + Byte1;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (NumPlainChars &gt; 0)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Writer.Write(Reader.ReadBytes(NumPlainChars));<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; long FromOffset = Answer.Length - (Offset + 1);<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; for (int i = 0; i &lt; NumCopy; i++)<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; //Answer += Answer.Substring(FromOffset + i, 1);<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Writer.Write(BinarySubstring(Reader, FromOffset + i, 1));<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Entry.FileData = Answer.ToArray();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Writer.Close();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Reader.Close();<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; }<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; else<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return null;<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return Entry;<br />&nbsp; &nbsp; &nbsp; &nbsp; }<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; private byte&#91;] BinarySubstring(BinaryReader Reader, long Offset, int NumBytes)<br />&nbsp; &nbsp; &nbsp; &nbsp; {<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; long CurrentOffset = Reader.BaseStream.Position;<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Reader.BaseStream.Seek(Offset, SeekOrigin.End);<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; byte&#91;] Data = Reader.ReadBytes(NumBytes);<br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Reader.BaseStream.Seek(CurrentOffset, SeekOrigin.Begin);<br /><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return Data;<br />&nbsp; &nbsp; &nbsp; &nbsp; }</pre></div><br />I actually managed to inflate the data to 17megs at one point with this code (the testing file is only 13 megs), but characters were copied after each other in long sequences (I.E the inflation didn&#039;t work properly). The main problem with this code is that the Offset (parameter for the BinarySubstring() method) consistently wants the reader to seek to a position before the beginning of the stream, even when I seek from the end of the stream! <br />Where am I supposed to be searching FROM (Beginning, Current position or End of the stream), and why is it trying to seek to a position BEFORE the beginning of the stream?</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_449937">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg449955"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg2">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1" title="View the profile of J. M. Pescado">J. M. Pescado</a></b>
+							<div class="smalltext">
+								Fat Obstreperous Jerk<br />
+								El Presidente<br />
+								<img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><br />
+								Posts: 26223<br />
+								<br />
+								<div style="overflow: auto; width: 100%;"><img src="http://www.moreawesomethanyou.com/sft/sftgold_sm.png" alt="" class="avatar" border="0" /></div><br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449955#msg449955"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449955#msg449955">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #5 on:</b> 2009 June 30, 13:58:24 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post"><div class="quoteheader"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449937#msg449937">Quote from: Afro on 2009 June 30, 13:18:44</a></div><div class="quote">That&#039;s a C++ tool and the code is generally (no offense to whoever wrote it) kinda cryptic.</div>It&#039;s compression code. Of course it&#039;s cryptic. Compression code is basically utterly incomprehensible to anyone who doesn&#039;t have an extensive background in compression algorithms, and the best anyone else can really do is take it and use it as-is. In this case, it functions effectively as a black box of sorts in with a clear input and output end. That&#039;s as much as you can ask for.<br /><br /><div class="quoteheader"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449937#msg449937">Quote from: Afro on 2009 June 30, 13:18:44</a></div><div class="quote">Anyways... I don&#039;t know if anyone are very good with C# here, but I changed my code kinda drastically:</div>Why do you have this fixation on that file Microsoftian abomination, anyway? Use a real programming language!</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_449955">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="signature">Grant me the serenity to accept the things I cannot change, the courage to change the things I cannot accept, and the wisdom to hide the bodies of those I had to kill because they pissed me off.</div>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg449979"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235" title="View the profile of Afro">Afro</a></b>
+							<div class="smalltext">
+								Asinine Airhead<br />
+								<br />
+								Posts: 11<br />
+								<br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449979#msg449979"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg449979#msg449979">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #6 on:</b> 2009 June 30, 14:52:52 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">Heh, after digging around more in the SimPE source, I found the C# Decompression function I had been longing for.<br />And no, it turns out that the problem is not, in fact, that I&#039;m coding in C#, but that the DBPF format is extremely quirky and cumbersome. I probably overlooked some details when reading specification(s), but anyways... here&#039;s what I found:<br /><br />1. All files in the archive will be listed in the archive&#039;s DIR resource even if they are <i>not</i> compressed. At least so long as any file in the archive is compressed.<br />2. The uncompressed size listed for an entry in the archive&#039;s DIR resource consistantly seems to be wrong, meaning;<br />3. ... to find out if a file is actually compressed, you have to read it&#039;s compression header, get the uncompressed size from there, and then check if it&#039;s smaller than or the same as the [compressed] size. If it isn&#039;t, it means the file is compressed.<br />4. Consequently, every single file (except the DIR file, obviously) in a compressed archive will have a compression header even if the file is <i>not</i> compressed itself.<br /><br />Note that all of the above only applies to archives that have compressed files in them, and I haven&#039;t tested my code on an uncompressed archive yet. The rules might be slightly or even totally different for said archives.</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_449979">
+									&#171; <i>Last Edit: 2009 June 30, 23:04:09 by Afro</i> &#187;
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg450282"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg2">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1" title="View the profile of J. M. Pescado">J. M. Pescado</a></b>
+							<div class="smalltext">
+								Fat Obstreperous Jerk<br />
+								El Presidente<br />
+								<img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><br />
+								Posts: 26223<br />
+								<br />
+								<div style="overflow: auto; width: 100%;"><img src="http://www.moreawesomethanyou.com/sft/sftgold_sm.png" alt="" class="avatar" border="0" /></div><br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg450282#msg450282"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg450282#msg450282">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #7 on:</b> 2009 July 01, 02:53:38 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">The version in the SimPE source performs extremely badly, often failing to successfully compress many things, and it is not recommended that you use it.</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_450282">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="signature">Grant me the serenity to accept the things I cannot change, the courage to change the things I cannot accept, and the wisdom to hide the bodies of those I had to kill because they pissed me off.</div>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg451934"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235" title="View the profile of Afro">Afro</a></b>
+							<div class="smalltext">
+								Asinine Airhead<br />
+								<br />
+								Posts: 11<br />
+								<br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg451934#msg451934"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg451934#msg451934">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #8 on:</b> 2009 July 03, 15:48:21 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">Thanks for letting me know!<br />Right now being able to compress things is not my greatest concern, as I am simply trying to gain access to the data in the The Sims Online DBPF archives. How do I have those archives?<br />I ordered a used version of The Sims Online off of eBay, because I had deleted EA-land off my harddrive.<br />I am now so sick and tired of nobody having written a server emulator for this game, I am intending so see about recreating the client.<br /><br />So far I have partial support for iff files (still working on getting DGRP resources to display properly), full support for far archives and full support for DBPF archives (assuming TSO uses the same compression as Sim City 4, which... I hope it does).<br /><br />And yes... I realize you need a server as well, but I do not think writing a custom server for TSO is going to be extremely hard, as it was never the most bandwidth intensive game. In fact, any game that can be run through HTTP with SSL encryption (which seems to be how most of the original protocol was implemented -- I did some packet sniffing while it was still online) is... not very bandwidth intensive at all.</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_451934">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg451949"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg2">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1" title="View the profile of J. M. Pescado">J. M. Pescado</a></b>
+							<div class="smalltext">
+								Fat Obstreperous Jerk<br />
+								El Presidente<br />
+								<img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><br />
+								Posts: 26223<br />
+								<br />
+								<div style="overflow: auto; width: 100%;"><img src="http://www.moreawesomethanyou.com/sft/sftgold_sm.png" alt="" class="avatar" border="0" /></div><br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg451949#msg451949"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg451949#msg451949">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #9 on:</b> 2009 July 03, 16:24:25 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">...the Sims Online is TS1-based. I&#039;m not even sure they *USE* DBPF archives, and almost certainly not for this. Information on TS1 barely survives now, really. I recall people have had some success ripping the objects for use in TS1, but frankly at this juncture, it&#039;s not clear why it would be desirable to resurrect TS1...online. In any case, we&#039;re a TS2 and TS3 site, TS1 predates this site and we have no real information or interests in it.<br /><br /><div class="quoteheader"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg451934#msg451934">Quote from: Afro on 2009 July 03, 15:48:21</a></div><div class="quote">I am now so sick and tired of nobody having written a server emulator for this game, I am intending so see about recreating the client.</div>You mean the server? The client is just TS1.<br /><br /><div class="quoteheader"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg451934#msg451934">Quote from: Afro on 2009 July 03, 15:48:21</a></div><div class="quote">And yes... I realize you need a server as well, but I do not think writing a custom server for TSO is going to be extremely hard, as it was never the most bandwidth intensive game. In fact, any game that can be run through HTTP with SSL encryption (which seems to be how most of the original protocol was implemented -- I did some packet sniffing while it was still online) is... not very bandwidth intensive at all.</div>Well, if you don&#039;t have the details on the original protocol spec AND you don&#039;t have an operational client, it seems like you are reinventing the wheel from scratch. What exactly do you hope to accomplish by this? It seems to me that you woudl be better off discarding hokey EAxian formats and rewriting a game from scratch. There&#039;s certainly nothing GOOD to emulate in TSO.</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_451949">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="signature">Grant me the serenity to accept the things I cannot change, the courage to change the things I cannot accept, and the wisdom to hide the bodies of those I had to kill because they pissed me off.</div>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg452538"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235" title="View the profile of Afro">Afro</a></b>
+							<div class="smalltext">
+								Asinine Airhead<br />
+								<br />
+								Posts: 11<br />
+								<br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg452538#msg452538"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg452538#msg452538">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #10 on:</b> 2009 July 04, 18:49:25 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">According to my research (which has been extensive), The Sims Online was the first game where the DBPF format was used to store (most of?) the game&#039;s data. I actually... am fairly sure I tried to extract the data while the game was still online, but I didn&#039;t get it to work.<br />Now that I have a decompression routine that works, all I have to do is modify it to work with Sim City 4 (which presumably contains the earliest version of the decompression algorithm available, which was a decendant from The Sims Online), and it&#039;ll hopefully work. If not I&#039;m going to have to open the archives in a hex viewer and see if I can get some more information.<br />And yes, the idea is to rewrite the client and server from scratch, but retaining compatibility for the old gamedata so it won&#039;t have to be remade. Considering TSO hasn&#039;t been online for about two years, EA aren&#039;t making and money from it and haven&#039;t for a long time, so I&#039;m hoping they won&#039;t be offended if I re-release the client (which was, incidentally, freely available for download the last year or so the game was online under the name &#039;EA-Land&#039;).</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_452538">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg453190"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg2">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=20" title="View the profile of Inge">Inge</a></b>
+							<div class="smalltext">
+								Round Mound of Gray Fatness<br />
+								Senator<br />
+								<img src="/smf/Themes/babylon/images/senate.png" alt="*" border="0" /><br />
+								Posts: 4320<br />
+								<br />
+								<div style="overflow: auto; width: 100%;"><img src="/smf/customavatars/avatar_20.gif" alt="" class="avatar" border="0" /></div><br />
+								Senator Emeritus. Oh hold on, I am still a senator<br />
+								<br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=20"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+								<a href="http://www.simlogical.com" title="Simlogical" target="_blank"><img src="/smf/Themes/babylon/images/www_sm.gif" alt="WWW" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg453190#msg453190"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg453190#msg453190">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #11 on:</b> 2009 July 06, 08:11:25 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">Or have a look at <a href="http://www.simlogical.com/Sims3ToolsForum/index.php?board=6.0" target="_blank">http://www.simlogical.com/Sims3ToolsForum/index.php?board=6.0</a> which has compression and source code you can look at.</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_453190">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="signature"><img src="http://www.moreawesomethanyou.com/lolkofi/senatorial_inquisition_banner_smaller.jpg" alt="" border="0" /><br />\&quot;They\&#39;re here, on the forum. A question riddled, spoiler giving, speculative cancer of sim evil\&quot; -- redearth, Snooty Sims, 2009</div>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg456372"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235" title="View the profile of Afro">Afro</a></b>
+							<div class="smalltext">
+								Asinine Airhead<br />
+								<br />
+								Posts: 11<br />
+								<br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg456372#msg456372"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg456372#msg456372">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #12 on:</b> 2009 July 12, 14:05:07 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">Thanks guys!<br />Finally got my copy of TSO in the mail, and... DBPF isn&#039;t the largest problem. In fact, it hasn&#039;t been a problem at all. TSO&#039;s DBPF archives aren&#039;t compressed. They contain directories that I haven&#039;t been able to figure out, but I&#039;m still able to extract the files.<br />No, the biggest challenge as far as TSO&#039;s data is concerned is the new FAR (File ARchive) format, originally used by The Sims (1). It seems most of TSO&#039;s data is stored in those archives, and I haven&#039;t been able to figure &#039;em out yet. They don&#039;t seem to be substantially different from the original FAR archives, except that they seem to support compression (hopefully the same kind of RefPack compression used by SimCity 4&#039;s DBPF archives). Here is my preliminary writeup:<br /><br /><div class="codeheader">Code:</div><div class="code"><pre style="margin-top: 0; display: inline;">Version 3<br /><br />The Sims Online (TSO) introduces a new version of the FAR format. This format is FAR, version 3. This format has not been completely reversed yet, so most of the details below are not set in stone.<br /><br />Header<br /><br />&nbsp;&nbsp; &nbsp;* Signature - An eight byte string, consisting of the characters &#039;FAR!byAZ&#039; (without quotes).<br />&nbsp;&nbsp; &nbsp;* Version - A byte signifying the version of the archive. Should be 3.<br />&nbsp;&nbsp; &nbsp;* Unknown - Three bytes of 0.<br />&nbsp;&nbsp; &nbsp;* Manifest offset - a 4 byte integer specifying the offset to manifest of the archive (from the beginning of the file), where offsets to every entry are kept.<br /><br />Manifest<br /><br />&nbsp;&nbsp; &nbsp;* Number of files - A 4 byte integer specifying the number of files in the archive.<br />&nbsp;&nbsp; &nbsp;* Manifest Entries - As many manifest entries as stated by the previous integer]<br /><br />Manifest entry<br /><br />&nbsp;&nbsp; &nbsp;* Raw Size - The uncompressed size of the filedata, stored as a UInt32 (4 bytes).<br />&nbsp;&nbsp; &nbsp;* Compressed Size - The compressed size of the file. FAR V. 3 seems to support compression. Will be the same as the first field if the file is not compressed. This seems to be a UInt16 (2 bytes).<br />&nbsp;&nbsp; &nbsp;* Offset - The offset of the filedata in the file. Could possibly be a UInt32, but seems to be a UInt16 (2 bytes).<br />&nbsp;&nbsp; &nbsp;* Unknown - 17 bytes of an unknown purpose.<br />&nbsp;&nbsp; &nbsp;* Filename - A string representing the filename of the file(data). Seems to be null-terminated.<br /></pre></div><br />If anyone wants to help out in documenting this format, <a href="http://www.savefile.com/files/2151681" target="_blank">here</a> is the link to the uploaded archive that I&#039;m currently working on. I also have a Wiki <a href="http://afr0games.com/simswiki/index.php?title=Far" target="_blank">here</a> that I use to document all of the original formats from the original Sims games (mostly TSO though). Feel free to use info from this Wiki as you like.</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_456372">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg456374"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg2">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1" title="View the profile of J. M. Pescado">J. M. Pescado</a></b>
+							<div class="smalltext">
+								Fat Obstreperous Jerk<br />
+								El Presidente<br />
+								<img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><br />
+								Posts: 26223<br />
+								<br />
+								<div style="overflow: auto; width: 100%;"><img src="http://www.moreawesomethanyou.com/sft/sftgold_sm.png" alt="" class="avatar" border="0" /></div><br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg456374#msg456374"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg456374#msg456374">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #13 on:</b> 2009 July 12, 14:07:42 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">This really falls outside the scope of this board, as we simply do not deal in TS1/TSO materials here, but good luck with it.</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_456374">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="signature">Grant me the serenity to accept the things I cannot change, the courage to change the things I cannot accept, and the wisdom to hide the bodies of those I had to kill because they pissed me off.</div>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg458109"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235" title="View the profile of Afro">Afro</a></b>
+							<div class="smalltext">
+								Asinine Airhead<br />
+								<br />
+								Posts: 11<br />
+								<br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=52235"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg458109#msg458109"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg458109#msg458109">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #14 on:</b> 2009 July 15, 22:28:10 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">Ok, another update:<br /><br />I seem to have been able to extract the files now, but they seem to be compressed with a type of QFS/Refpack compression that has a 18 byte header. It should be the same type of compression used on Sim City 4. Does anyone know anything about this? Usually the header should be 9 bytes long, but decompressing the files seem completely impossible using normal QFS decompression, even when modified for SC4.<br />I&#039;ve never heard of an 18 byte QFS header before. <img src="/smf/Smileys/default/sad.gif" alt="Sad" border="0" /></div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_458109">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 1px 1px 0 1px;">
+		<a name="msg458194"></a>
+		<table width="100%" cellpadding="3" cellspacing="0" border="0">
+			<tr><td class="windowbg2">
+				<table width="100%" cellpadding="5" cellspacing="0" style="table-layout: fixed;">
+					<tr>
+						<td valign="top" width="16%" rowspan="2" style="overflow: hidden;">
+							<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1" title="View the profile of J. M. Pescado">J. M. Pescado</a></b>
+							<div class="smalltext">
+								Fat Obstreperous Jerk<br />
+								El Presidente<br />
+								<img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><img src="/smf/Themes/babylon/images/fire.png" alt="*" border="0" /><br />
+								Posts: 26223<br />
+								<br />
+								<div style="overflow: auto; width: 100%;"><img src="http://www.moreawesomethanyou.com/sft/sftgold_sm.png" alt="" class="avatar" border="0" /></div><br />
+								
+								
+								
+								<br />
+								<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=profile;u=1"><img src="/smf/Themes/babylon/images/icons/profile_sm.gif" alt="View Profile" title="View Profile" border="0" /></a>
+							</div>
+						</td>
+						<td valign="top" width="85%" height="100%">
+							<table width="100%" border="0"><tr>
+								<td valign="middle"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg458194#msg458194"><img src="/smf/Themes/babylon/images/post/xx.gif" alt="" border="0" /></a></td>
+								<td valign="middle">
+									<b><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg458194#msg458194">Re: C# DBPF unpacking</a></b>
+									<div class="smalltext">&#171; <b>Reply #15 on:</b> 2009 July 16, 01:26:28 &#187;</div></td>
+								<td align="right" valign="bottom" height="20" nowrap="nowrap" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/sheep.wav"><img src="/smf/Themes/babylon/images/english/thx1.gif" alt="THANKS THIS IS GREAT" border="0" /></a>
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="post">Not really, no. Like I said, this is a Sims 2 and 3 board. You should really a find a Sims 1 board for this.</div>
+						</td>
+					</tr>
+					<tr>
+						<td valign="bottom" class="smalltext" width="85%">
+							<table width="100%" border="0" style="table-layout: fixed;"><tr>
+								<td colspan="2" class="smalltext" width="100%">
+								</td>
+							</tr><tr>
+								<td valign="bottom" class="smalltext" id="modified_458194">
+								</td>
+								<td align="right" valign="bottom" class="smalltext">
+									<img src="/smf/Themes/babylon/images/ip.gif" alt="" border="0" />
+									Logged
+								</td>
+							</tr></table>
+							<hr width="100%" size="1" class="hrcolor" />
+							<div class="signature">Grant me the serenity to accept the things I cannot change, the courage to change the things I cannot accept, and the wisdom to hide the bodies of those I had to kill because they pissed me off.</div>
+						</td>
+					</tr>
+				</table>
+			</td></tr>
+		</table>
+	</td></tr>
+	<tr><td style="padding: 0 0 1px 0;"></td></tr>
+</table>
+<a name="lastPost"></a>
+
+<table width="100%" cellpadding="3" cellspacing="0" border="0" class="tborder" style="margin-top: 1ex;">
+	<tr>
+		<td class="catbg" width="100%" height="30">
+			<table cellpadding="3" cellspacing="0" width="100%">
+				<tr>
+					<td>
+						<a name="bot"></a><b>Pages:</b> [<b>1</b>] 
+					</td>
+					<td align="right" style="font-size: smaller;"><a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;action=printpage;topic=15649.0" target="_blank"><img src="/smf/Themes/babylon/images/english/print.gif" alt="Print" border="0" /></a>&nbsp;
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<script language="JavaScript" type="text/javascript" src="/smf/Themes/default/xml_topic.js"></script>
+<script language="JavaScript" type="text/javascript"><!-- // --><![CDATA[
+	quickReplyCollapsed = true;
+
+	smf_topic = 15649;
+	smf_start = 0;
+	smf_show_modify = 1;
+
+	// On quick modify, this is what the body will look like.
+	var smf_template_body_edit = '<div id="error_box" style="padding: 4px; color: red;"></div><textarea class="editor" name="message" rows="12" style="width: 94%; margin-bottom: 10px;">%body%</textarea><br /><input type="hidden" name="sc" value="c3ba43319a985fdb55c09d815e994234" /><input type="hidden" name="topic" value="15649" /><input type="hidden" name="msg" value="%msg_id%" /><div style="text-align: center;"><input type="submit" name="post" value="Save" onclick="return modify_save(\'c3ba43319a985fdb55c09d815e994234\');" accesskey="s" />&nbsp;&nbsp;<input type="submit" name="cancel" value="Cancel" onclick="return modify_cancel();" /></div>';
+
+	// And this is the replacement for the subject.
+	var smf_template_subject_edit = '<input type="text" name="subject" value="%subject%" size="60" style="width: 99%;"  maxlength="80" />';
+
+	// Restore the message to this after editing.
+	var smf_template_body_normal = '%body%';
+	var smf_template_subject_normal = '<a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.msg%msg_id%#msg%msg_id%">%subject%</a>';
+	var smf_template_top_subject = "Topic: %subject% &nbsp;(Read 26197 times)"
+
+	if (window.XMLHttpRequest)
+		showModifyButtons();
+// ]]></script>
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" align="right" class="smalltext"> <span class="nav"> <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.0;prev_next=prev#new">&laquo; previous</a> <a href="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;topic=15649.0;prev_next=next#new">next &raquo;</a></span></td>
+	</tr>
+</table>
+<div style="padding-top: 4px; padding-bottom: 4px;"></div>
+</form>
+<div align="right" style="margin-bottom: 1ex;">
+	<form action="http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=3190c437794a7a1dc5c1c7d48a9a1af4&amp;" method="get" accept-charset="ISO-8859-1">
+		<span class="smalltext">Jump to:</span>
+		<select name="jumpto" id="jumpto" onchange="if (this.selectedIndex > 0 &amp;&amp; this.options[this.selectedIndex].value) window.location.href = smf_scripturl + this.options[this.selectedIndex].value.substr(smf_scripturl.indexOf('?') == -1 || this.options[this.selectedIndex].value.substr(0, 1) != '?' ? 0 : 1);">
+			<option value="">Please select a destination:</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="#10">TS4: The Pee-ening</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="?board=34.0"> => Insert Amusing Name Here</option>
+			<option value="?board=36.0"> => Facts and Strategery</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="#9">TS3/TSM: The Pudding</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="?board=24.0"> => The World Of Pudding</option>
+			<option value="?board=28.0"> => Facts &amp; Strategery</option>
+			<option value="?board=29.0"> => Pudding Factory</option>
+			<option value="?board=30.0"> ===> World of Puddings</option>
+			<option value="?board=32.0"> ===> Pudding Plots</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="#1">TS2: Burnination</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="?board=1.0"> => The Podium</option>
+			<option value="?board=19.0"> ===> Oops! You Broke It!</option>
+			<option value="?board=4.0"> => The War Room</option>
+			<option value="?board=16.0"> => Planet K 20X6</option>
+			<option value="?board=20.0"> ===> Building Contest of Awesomeness</option>
+			<option value="?board=11.0"> => Peasantry</option>
+			<option value="?board=22.0"> ===> Taster's Choice</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="#5">The Bowels of Trogdor</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="?board=14.0"> => The Small Intestines of Trogdor</option>
+			<option value="?board=13.0" selected="selected"> => The Large Intestines of Trogdor</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="#2">Awesomeware</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="?board=35.0"> => TS4 Stuff</option>
+			<option value="?board=3.0"> => Armoire of Invincibility</option>
+			<option value="?board=31.0"> ===> AwesomeMod!</option>
+			<option value="?board=5.0"> => The Armory</option>
+			<option value="?board=21.0"> ===> Playsets &amp; Toys</option>
+			<option value="?board=17.0"> ===> The Scrapyard</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="#8">Darcyland</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="?board=26.0"> => Lord Darcy Investigates</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="#7">Ye Olde Simmes 2 Archives: Dead Creators</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="?board=12.0"> => Ye Olde Crammyboye Archives</option>
+			<option value="?board=23.0"> => Ye Olde Syberspunke Archives</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="#3">Serious Business</option>
+			<option value="" disabled="disabled">-----------------------------</option>
+			<option value="?board=27.0"> ===> Spore Discussions</option>
+		</select>&nbsp;
+		<input type="button" value="go" onclick="if (this.form.jumpto.options[this.form.jumpto.selectedIndex].value) window.location.href = 'http://www.moreawesomethanyou.com/smf/index.php' + this.form.jumpto.options[this.form.jumpto.selectedIndex].value;" />
+	</form>
+</div>
+<br /></td>
+	</tr></table>
+
+	<div id="footerarea" style="text-align: center; padding-bottom: 1ex;">
+		<script language="JavaScript" type="text/javascript"><!-- // --><![CDATA[
+			function smfFooterHighlight(element, value)
+			{
+				element.src = smf_images_url + "/" + (value ? "h_" : "") + element.id + ".gif";
+			}
+		// ]]></script>
+		<table cellspacing="0" cellpadding="3" border="0" width="100%">
+			<tr>
+				<td width="28%" valign="middle" align="right">
+					<a href="http://www.mysql.com/" target="_blank"><img id="powered-mysql" src="/smf/Themes/babylon/images/powered-mysql.gif" alt="Powered by MySQL" width="54" height="20" style="margin: 5px 16px;" border="0" onmouseover="smfFooterHighlight(this, true);" onmouseout="smfFooterHighlight(this, false);" /></a>
+					<a href="http://www.php.net/" target="_blank"><img id="powered-php" src="/smf/Themes/babylon/images/powered-php.gif" alt="Powered by PHP" width="54" height="20" style="margin: 5px 16px;" border="0" onmouseover="smfFooterHighlight(this, true);" onmouseout="smfFooterHighlight(this, false);" /></a>
+				</td>
+				<td valign="middle" align="center" style="white-space: nowrap;">
+					
+		<span class="smalltext" style="display: inline; visibility: visible; font-family: Verdana, Arial, sans-serif;"><a href="http://www.simplemachines.org/" title="Simple Machines Forum" target="_blank">Powered by SMF 1.1.21</a> |
+<a href="http://www.simplemachines.org/about/copyright.php" title="Free Forum Software" target="_blank">SMF &copy; 2015, Simple Machines</a>
+		</span>
+				</td>
+				<td width="28%" valign="middle" align="left">
+					<a href="http://validator.w3.org/check/referer" target="_blank"><img id="valid-xhtml10" src="/smf/Themes/babylon/images/valid-xhtml10.gif" alt="Valid XHTML 1.0!" width="54" height="20" style="margin: 5px 16px;" border="0" onmouseover="smfFooterHighlight(this, true);" onmouseout="smfFooterHighlight(this, false);" /></a>
+					<a href="http://jigsaw.w3.org/css-validator/check/referer" target="_blank"><img id="valid-css" src="/smf/Themes/babylon/images/valid-css.gif" alt="Valid CSS!" width="54" height="20" style="margin: 5px 16px;" border="0" onmouseover="smfFooterHighlight(this, true);" onmouseout="smfFooterHighlight(this, false);" /></a>
+				</td>
+			</tr>
+		</table>
+		<span class="smalltext">Page created in 0.142 seconds with 19 queries.</span>
+		</div>
+		<script language="JavaScript" type="text/javascript"><!-- // --><![CDATA[
+			window.addEventListener("load", smf_codeFix, false);
+			function smf_codeFix()
+			{
+				var codeFix = document.getElementsByTagName ? document.getElementsByTagName("div") : document.all.tags("div");
+
+				for (var i = 0; i < codeFix.length; i++)
+				{
+					if (codeFix[i].className == "code" && (codeFix[i].scrollWidth > codeFix[i].clientWidth || codeFix[i].clientWidth == 0))
+						codeFix[i].style.overflow = "scroll";
+				}
+			}
+		// ]]></script>
+		<div id="ajax_in_progress" style="display: none;">Loading...</div>
+	</body>
+</html>

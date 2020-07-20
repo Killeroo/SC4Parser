@@ -1,0 +1,35 @@
+03/07/2020 
+GOAL: I want to get the decryption bug sorted and maybe get a basic commandline and dll project setup
+- Seems the offset calculation for the third packcode is messed up, removing that block copy line doesn't seem to change the output of the file
+
+OUTCOME: Seems that it isn't the third packcode that is misbehaving, but seems that the other decompression algorithm for that sims 3 save modifier tool
+can be used in place so best thing to do next is to keep altering and copying over parts of their implementaton until you find a part that A.) fixes the bug
+or B.) modifies part of the output that was messing up
+
+options:
+1) replace pieces of the other c# DBPF algorithm and see if it works
+2) write your own implementation
+3) get the c library to work in code
+
+12/07/2020
+1.) tried that but the output was the same, either the output of my source of truth is wrong or both algorithms are incorrect
+    or the implementation of the loops is wrong... 
+
+going to test if the c++ algorithm actually works correctly
+
+20/07/2020
+The QFS stuff has blocked me for too long, I am pretty sure that getting the c++ implementation would work (in whatever form of the algorithm I choose)
+
+I could use the one from ilives or from the python tools, either way I will have to come back to it, I need to focus on reading the subfiles. I am mainly focused on 4:
+1.) Building
+2.) Lot
+3.) Transport
+4.) Terrain
+
+The terrain and transport subfiles would be nice to have, I don't have a definite map on how they are laid out but the wiki seems to say they are both fully decoded, we will see...
+
+So my plan going forward is this, use ilives to decompress the file, load the binary raw, work on implementing the layout of the files. Displaying it is still unknown but I need to move on to stop this from dragging on.
+
+I'll upload all the sources of different QFS solutions I have found too, like I said I'll come back to getting compression working later on.
+
+I'll start with the building subfile...
