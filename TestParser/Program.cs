@@ -43,7 +43,7 @@ namespace TestParser
             SC4SaveFile save = new SC4SaveFile(savePath);
 
             // save.FindIndexEntry("C9BD5D4A"); // Lot file
-            IndexEntry en = save.FindIndexEntry("C9BD5D4A");// ("A9BD882D"); // building file
+            IndexEntry en = save.FindIndexEntry("A9BD882D"); // building file
             save.LoadEntry(en.TGI);// new TypeGroupInstance("8A2482B9", "4A2482BB", "0"));
 
             Console.ReadLine();
