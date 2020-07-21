@@ -58,3 +58,16 @@ I imagine my fix will be one of these:
 
 All these are doable, for now I will move along and come back to this later.
 I added the initial stuff for the building files, there probably will be some unknowns (it is not clear how the file repeats for each building) but we will tackle that as it comes.
+
+21/07/2020
+-------------------------------------
+
+Just going to get a bit of work done on the building file, not quite sure how it is laid out (how each building is specified etc) but lets have a go.
+
+Ok so I didn't get too much done, but I was able to learn a lot more about how the building file is structured:
+
+- The structure found here: https://www.wiki.sc4devotion.com/index.php?title=Building_Subfile#Structure is repeated for each building
+- Each building has a SGPROP valve depending on it's role, might make parsing a bit annoying but should be doable
+- I found an update to SC4 save that modified a file called external.py which has a lot of useful definitions of some of subfiles
+
+Parsing begins tomorrow, I hope LOT is structured like this..

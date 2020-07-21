@@ -8,6 +8,7 @@ NICE TO HAVE
 Seperate library and cmdline tool
 extract all files option
 TGI hex comparison
+proper logging
 
 STLYLE
 switch back to DBPF and DBDF?

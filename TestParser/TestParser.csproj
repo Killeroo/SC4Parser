@@ -53,6 +53,7 @@
     <Compile Include="Structures\IndexEntry.cs" />
     <Compile Include="Structures\SC4SaveFile.cs" />
     <Compile Include="Structures\SubFiles\Building.cs" />
+    <Compile Include="Structures\SubFiles\BuildingsFile.cs" />
     <Compile Include="Structures\TypeGroupInstance.cs" />
   </ItemGroup>
   <ItemGroup>
