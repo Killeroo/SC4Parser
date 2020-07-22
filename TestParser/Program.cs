@@ -51,6 +51,12 @@ namespace TestParser
             // Building subfile work:
             Building buildingSubfile = new Building();
             buildingSubfile.Parse(File.ReadAllBytes("buildings_decompressed"));
+            buildingSubfile.Dump();
+
+            //FileInfo file = new FileInfo("buildings_decompressed");
+
+            //BuildingsFile f = new BuildingsFile();
+            //f.Parse(File.ReadAllBytes("buildings_decompressed"), (int)file.Length);
 
             Console.ReadLine();
         }

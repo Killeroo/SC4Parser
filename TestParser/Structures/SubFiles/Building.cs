@@ -19,6 +19,25 @@ namespace TestParser.Structures.SubFiles
         
         public void Parse(byte[] buffer)
         {
+            Size = BitConverter.ToUInt32(buffer, 0);
+            CRC = BitConverter.ToUInt32(buffer, 4);
+            Memory = BitConverter.ToUInt32(buffer, 8);
+            MajorVersion = BitConverter.ToUInt16(buffer, 12);
+            MinorVersion = BitConverter.ToUInt16(buffer, 14);
+            ZotWord = BitConverter.ToUInt16(buffer, 16);
+            AppearanceFlag = buffer[19];
+
+        }
+
+        public void Dump()
+        {
+            Console.WriteLine("Size: {0}", Size);
+            Console.WriteLine("CRC: {0}", CRC);
+            Console.WriteLine("Memory: {0}", Memory);
+            Console.WriteLine("Major Version: {0}", MajorVersion);
+            Console.WriteLine("Minor Version: {0}", MinorVersion);
+            Console.WriteLine("Zot Word: {0}", ZotWord);
+            Console.WriteLine("Appearance Flag: {0}", AppearanceFlag.ToString("X"));
         }
     }
 }
