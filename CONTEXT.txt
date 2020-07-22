@@ -71,3 +71,10 @@ Ok so I didn't get too much done, but I was able to learn a lot more about how t
 - I found an update to SC4 save that modified a file called external.py which has a lot of useful definitions of some of subfiles
 
 Parsing begins tomorrow, I hope LOT is structured like this..
+
+22/07/2020
+--------------------------------------
+
+Tired. Parsing is going well, not sure what to make of the array offset vs bitcoverter offset but oh well, this is why we picked going with handling everything in bytes arrays I suppose.
+
+Buildingfile parsing is looking good, the sizes match perfectly with the size of the file. Not a byte to spare. This makes me think that whatever solution we go with for the qfs decompression will be that C implementation, no matter how hard it is to pass byte arrays between...
