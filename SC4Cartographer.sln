@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestParser", "TestParser\TestParser.csproj", "{06EB8CFF-D61C-4B37-990C-1B2FA1B70048}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SC4Parser", "TestParser\SC4Parser.csproj", "{06EB8CFF-D61C-4B37-990C-1B2FA1B70048}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

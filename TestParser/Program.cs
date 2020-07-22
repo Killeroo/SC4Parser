@@ -61,44 +61,5 @@ namespace TestParser
             Console.ReadLine();
         }
     }
-
-
-    class Utils
-    {
-        // Based on https://stackoverflow.com/a/250400
-        // Could use DateTimeOffset.FromUnixTimeSeconds from .NET 4.6 > but thought it was new enough
-        // That I would ensure a bit of backwards compatability
-        public static DateTime UnixTimestampToDateTime(long unixTimestamp)
-        {
-            DateTime unixDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
-            DateTime convertedDateTime = unixDateTime.AddSeconds(unixTimestamp);
-            return convertedDateTime;
-        }
-    }
-
-    class Logger
-    {
-        public static void Info(string message, ConsoleColor color = ConsoleColor.White)
-        {
-            // Preserve original foreground color
-            ConsoleColor startingColor = Console.ForegroundColor;
-
-            Console.ForegroundColor = color;
-            Console.WriteLine(message);
-
-            Console.ForegroundColor = startingColor;
-        }
-
-        public static void Error(string message, bool newline = true)
-        {
-            ConsoleColor startingColor = Console.ForegroundColor;
-
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("ERROR: {0}", message);
-
-            Console.ForegroundColor = startingColor;
-        }
-    }
-
     
 }
