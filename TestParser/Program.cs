@@ -49,14 +49,14 @@ namespace TestParser
             //save.LoadEntry(en.TGI);// new TypeGroupInstance("8A2482B9", "4A2482BB", "0"));
 
             // Building subfile work:
-            Building buildingSubfile = new Building();
-            buildingSubfile.Parse(File.ReadAllBytes("buildings_decompressed"));
-            buildingSubfile.Dump();
+            //Building buildingSubfile = new Building();
+            //buildingSubfile.Parse(File.ReadAllBytes("buildings_decompressed"), 2);
+            //buildingSubfile.Dump();
 
-            //FileInfo file = new FileInfo("buildings_decompressed");
+            FileInfo file = new FileInfo("buildings_decompressed");
 
-            //BuildingsFile f = new BuildingsFile();
-            //f.Parse(File.ReadAllBytes("buildings_decompressed"), (int)file.Length);
+            BuildingsFile f = new BuildingsFile();
+            f.Parse(File.ReadAllBytes("buildings_decompressed"), (int)file.Length);
 
             Console.ReadLine();
         }

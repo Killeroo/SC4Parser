@@ -78,3 +78,21 @@ Parsing begins tomorrow, I hope LOT is structured like this..
 Tired. Parsing is going well, not sure what to make of the array offset vs bitcoverter offset but oh well, this is why we picked going with handling everything in bytes arrays I suppose.
 
 Buildingfile parsing is looking good, the sizes match perfectly with the size of the file. Not a byte to spare. This makes me think that whatever solution we go with for the qfs decompression will be that C implementation, no matter how hard it is to pass byte arrays between...
+
+23/07/2020
+--------------------------------------
+More building parsing, seems to be going ok, can't quite work out what is going on with the appearance flag. According to the wiki it is supposed to be something other than 0 but unless I am printing the byte wrong that isn't the case...
+Mighht come back to it later.
+
+Hmm unknown value isn't the same as the wiki either, but it is always consistent...
+
+So I got the fabled 0x278128A0 to show up (the wiki is inconsistent) Had to use a combo of wiki and sc4 save, both in the patched program and using external.py (line 412 has the def).
+My appearance flag also shows 5 instead of 4... that is the value inside the buffer, it's inside the actual raw file! something weird is going on, maybe they are using some sort of offset like the wiki says.
+
+To be honest I don't _need_ these values, everything else seems to be in check. I am going to rush through the rest of the fields and come back to this.
+
+Using buffers is bitting me in the arse for this SGPROP stuff, I am knee deep in it at the moment. I need a way to be able to dynamically read a bunch of objects *MID* building property, real pain because dispite the fact that this might not be useful the properties after really are.
+
+So this is beginning to look a bit hacky, for the most part I am happy with using buffers directly to read the data. For most of the files I have dealt with it hasn't been too bad, even the long ones, and I feel stream management is a bit of a pain. but for something like this, being able to copy the next X bytes would be really useful. Would break with the design pattern so I will live with my own design for now. 
+
+It is not undoable and hey I might even come out with some relatively good looking at the end of it. I hope...

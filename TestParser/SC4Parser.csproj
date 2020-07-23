@@ -52,6 +52,7 @@
     <Compile Include="Structures\DatabasePackedFile.cs" />
     <Compile Include="Structures\DatabasePackedFileHeader.cs" />
     <Compile Include="Structures\IndexEntry.cs" />
+    <Compile Include="Structures\SaveGameProperty.cs" />
     <Compile Include="Structures\SC4SaveFile.cs" />
     <Compile Include="Structures\SubFiles\Building.cs" />
     <Compile Include="Structures\SubFiles\BuildingsFile.cs" />

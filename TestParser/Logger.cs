@@ -16,7 +16,7 @@ namespace TestParser
             SaveConsoleColors();
 
             Console.ForegroundColor = color;
-            Log("[INFO]" + message);
+            Log("[INFO] " + message);
 
             RestoreConsoleColors();
         }
