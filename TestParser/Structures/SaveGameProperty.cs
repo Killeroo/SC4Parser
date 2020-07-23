@@ -8,8 +8,6 @@ namespace TestParser.Structures
 {
     class SaveGameProperty
     {
-
-
         public uint PropertyNameValue;
         public uint PropertyNameValueCopy;
         public uint Unknown1;
