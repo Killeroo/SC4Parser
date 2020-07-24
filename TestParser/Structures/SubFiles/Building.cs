@@ -49,17 +49,12 @@ namespace TestParser.Structures.SubFiles
             SaveGamePropertyCount = BitConverter.ToUInt32(buffer, 32);
 
             // This represents the offset where data resumes after the SaveGame Properties entries (SGPROPs)
+            // ExtractFromBuffer (if called) will update it to the offset after the SGPROPs
             uint saveGamePropertiesOffset = 36;
 
             if (SaveGamePropertyCount > 0)
             {
-                for (int i = 0; i < SaveGamePropertyCount; i++)
-                {
-                    SaveGameProperty property = new SaveGameProperty();
-                    byte[] propertyBuffer = new byte[Size - saveGamePropertiesOffset];
-                    Array.Copy(buffer, saveGamePropertiesOffset, propertyBuffer, 0, Size - saveGamePropertiesOffset);
-                    saveGamePropertiesOffset += property.Parse(buffer);
-                }
+                SaveGamePropertyEntries = SaveGameProperty.ExtractFromBuffer(buffer, SaveGamePropertyCount, ref saveGamePropertiesOffset);
             }
         }
 
@@ -87,6 +82,16 @@ namespace TestParser.Structures.SubFiles
             Console.WriteLine("TractSizeX: {0}", TractSizeX);
             Console.WriteLine("TractSizeZ: {0}", TractSizeZ);
             Console.WriteLine("SaveGame Properties: {0}", SaveGamePropertyCount);
+            
+            // Dump any save game properties if they are present
+            if (SaveGamePropertyCount > 0)
+            {
+                for (int i = 0; i < SaveGamePropertyCount; i++)
+                {
+                    Console.WriteLine("--------------------");
+                    SaveGamePropertyEntries[i].Dump();
+                }
+            }
         }
     }
 }

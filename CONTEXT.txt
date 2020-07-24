@@ -96,3 +96,20 @@ Using buffers is bitting me in the arse for this SGPROP stuff, I am knee deep in
 So this is beginning to look a bit hacky, for the most part I am happy with using buffers directly to read the data. For most of the files I have dealt with it hasn't been too bad, even the long ones, and I feel stream management is a bit of a pain. but for something like this, being able to copy the next X bytes would be really useful. Would break with the design pattern so I will live with my own design for now. 
 
 It is not undoable and hey I might even come out with some relatively good looking at the end of it. I hope...
+
+24/07/2020
+----------------------------
+
+SIGPROP is a pain.. I think I have a good solution to handle it. Once this tech is done it will be very useful later on. 
+
+Got a problem with offsets for buildings with multiple sigprops... bleugh. Values of the sigprops seem to be wrong but too tired to fix now.
+
+Ok somewhere there is some misinformation, I am missing 4 bytes from a sigprop. Will investigate tomorrow.
+
+Ok fixed it, I was being an idiot and didn't consider that I still had to read a single value even when the multiple value flag wasnot set..
+
+Still seems to work well and even works for multiple values :yaay:
+
+The one thing to test will be how strings are handled. TODO:
+
+So now the rest of the building file can be read.
