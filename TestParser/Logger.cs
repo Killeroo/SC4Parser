@@ -21,6 +21,16 @@ namespace TestParser
             RestoreConsoleColors();
         }
 
+        public static void Warning(string message, bool newline = true)
+        {
+            SaveConsoleColors();
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Log("[WARNING] " + message);
+
+            RestoreConsoleColors();
+        }
+
         public static void Error(string message, bool newline = true)
         {
             SaveConsoleColors();

@@ -27,6 +27,23 @@ namespace TestParser.Structures.SubFiles
         public ushort TractSizeZ;
         public uint SaveGamePropertyCount;
         public List<SaveGameProperty> SaveGamePropertyEntries = new List<SaveGameProperty>();
+        public byte Unknown2;
+        public uint GroupID;
+        public uint TypeID;
+        public uint InstanceID;
+        public uint InstanceIDOnAppearance; // The value given when building appeared
+        public float MinCoordinateX;
+        public float MinCoordinateY;
+        public float MinCoordinateZ;
+        public float MaxCoordinateX;
+        public float MaxCoordinateY;
+        public float MaxCoordinateZ;
+        public byte Orientation;
+        public float ScaffoldingHeight;
+
+        // Same as typeid, groupid and instanceid from this file
+        // just included it for accessibility
+        public TypeGroupInstance PropExemplarReference = new TypeGroupInstance();
 
         public void Parse(byte[] buffer, uint offset)
         {
@@ -55,6 +72,27 @@ namespace TestParser.Structures.SubFiles
             if (SaveGamePropertyCount > 0)
             {
                 SaveGamePropertyEntries = SaveGameProperty.ExtractFromBuffer(buffer, SaveGamePropertyCount, ref saveGamePropertiesOffset);
+            }
+
+            Unknown2 = buffer[saveGamePropertiesOffset + 0];
+            GroupID = BitConverter.ToUInt32(buffer, (int) saveGamePropertiesOffset + 1);
+            TypeID = BitConverter.ToUInt32(buffer, (int) saveGamePropertiesOffset + 5);
+            InstanceID = BitConverter.ToUInt32(buffer, (int) saveGamePropertiesOffset + 9);
+            PropExemplarReference = new TypeGroupInstance(TypeID, GroupID, InstanceID);
+            InstanceIDOnAppearance = BitConverter.ToUInt32(buffer, (int) saveGamePropertiesOffset + 13);
+            MinCoordinateX = BitConverter.ToSingle(buffer, (int) saveGamePropertiesOffset + 17);
+            MinCoordinateY = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 21);
+            MinCoordinateZ = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 25);
+            MaxCoordinateX = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 29);
+            MaxCoordinateY = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 33);
+            MaxCoordinateZ = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 37);
+            Orientation = buffer[saveGamePropertiesOffset + 41];
+            ScaffoldingHeight = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 42);
+
+            // Sanity check out current offset to make sure we haven't missed anything
+            if (saveGamePropertiesOffset + 46 != Size)
+            {
+                Logger.Warning("Building was not entirely parsed (" + saveGamePropertiesOffset + 46 + "/" + Size + " read)");
             }
         }
 
@@ -88,10 +126,25 @@ namespace TestParser.Structures.SubFiles
             {
                 for (int i = 0; i < SaveGamePropertyCount; i++)
                 {
-                    Console.WriteLine("--------------------");
+                    Console.WriteLine("==================");
                     SaveGamePropertyEntries[i].Dump();
                 }
             }
+
+            Console.WriteLine("Unknown2: {0}", Unknown2);
+            Console.WriteLine("Group ID: {0} [{1}]", GroupID, GroupID.ToString("X"));
+            Console.WriteLine("Type ID: {0} [{1}]", TypeID, TypeID.ToString("X"));
+            Console.WriteLine("Instance ID: {0} [{1}]", InstanceID, InstanceID.ToString("X"));
+            Console.WriteLine("Instance ID (on appearance): {0} [{1}]", InstanceIDOnAppearance, InstanceIDOnAppearance.ToString("X"));
+            Console.WriteLine("Min Coordinate X: {0}", MinCoordinateX);
+            Console.WriteLine("Min Coordinate Y: {0}", MinCoordinateY);
+            Console.WriteLine("Min Coordinate Z: {0}", MinCoordinateZ);
+            Console.WriteLine("Max Coordinate X: {0}", MaxCoordinateX);
+            Console.WriteLine("Max Coordinate Y: {0}", MaxCoordinateY);
+            Console.WriteLine("Max Coordinate Z: {0}", MaxCoordinateZ);
+            Console.WriteLine("Orientation: {0} [{1}]", Orientation, Constants.ORIENTATIONS[Orientation]);
+            Console.WriteLine("Scaffolding Height: {0}", ScaffoldingHeight);
+            Console.WriteLine("Prop Exemplar Reference: {0}", PropExemplarReference.ToString());
         }
     }
 }

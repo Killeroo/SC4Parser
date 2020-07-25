@@ -113,3 +113,9 @@ Still seems to work well and even works for multiple values :yaay:
 The one thing to test will be how strings are handled. TODO:
 
 So now the rest of the building file can be read.
+
+25/07/2020
+------------------------------
+Building file is basically there, time to move onto researching the rendering. Then I will come back to the lot file.
+
+I have added some warnings for inconsistencies, the code looks tight, but I think I should come back and add some additional checks..

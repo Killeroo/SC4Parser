@@ -8,8 +8,20 @@ namespace TestParser
     {
         public static readonly TypeGroupInstance DATABASE_DIRECTORY_FILE_TGI = new TypeGroupInstance("E86B1EEF", "E86B1EEF", "286B1F03");
 
+        public static readonly byte ORIENTATION_NORTH = 0x01;
+        public static readonly byte ORIENTATION_EAST = 0x02;
+        public static readonly byte ORIENTATION_SOUTH = 0x03;
+        public static readonly byte ORIENTATION_WEST = 0x04;
+
+        public static string[] ORIENTATIONS = new string[]
+        {
+            "North",
+            "East",
+            "South",
+            "West"
+        };
+
         // SIGPROP DataType types
-        // TODO: Dictionary of types as strings and as types 
         public static Dictionary<byte, object> SIGPROP_DATATYPE_TYPES = new Dictionary<byte, object>
         {
             {0x01, new byte()},

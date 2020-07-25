@@ -57,6 +57,7 @@ namespace TestParser
 
             BuildingsFile f = new BuildingsFile();
             f.Parse(File.ReadAllBytes("buildings_decompressed"), (int)file.Length);
+            f.Dump();
 
             Console.ReadLine();
         }
