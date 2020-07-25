@@ -47,16 +47,16 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Structures\DatabaseDirectoryFile.cs" />
-    <Compile Include="Structures\DatabaseDirectoryResource.cs" />
-    <Compile Include="Structures\DatabasePackedFile.cs" />
-    <Compile Include="Structures\DatabasePackedFileHeader.cs" />
+    <Compile Include="Structures\Files\DatabaseDirectoryFile.cs" />
+    <Compile Include="Structures\Files\DatabaseDirectoryResource.cs" />
+    <Compile Include="Structures\Files\DatabasePackedFile.cs" />
+    <Compile Include="Structures\Files\DatabasePackedFileHeader.cs" />
     <Compile Include="Structures\IndexEntry.cs" />
     <Compile Include="Structures\SaveGameProperty.cs" />
-    <Compile Include="Structures\SC4SaveFile.cs" />
-    <Compile Include="Structures\SubFiles\Building.cs" />
-    <Compile Include="Structures\SubFiles\BuildingsFile.cs" />
-    <Compile Include="Types\TypeGroupInstance.cs" />
+    <Compile Include="Structures\Files\SC4SaveFile.cs" />
+    <Compile Include="Structures\Files\SubFiles\Building.cs" />
+    <Compile Include="Structures\Files\SubFiles\BuildingsFile.cs" />
+    <Compile Include="Structures\Types\TypeGroupInstance.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

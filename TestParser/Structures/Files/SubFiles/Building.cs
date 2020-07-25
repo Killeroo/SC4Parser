@@ -92,7 +92,7 @@ namespace TestParser.Structures.SubFiles
             // Sanity check out current offset to make sure we haven't missed anything
             if (saveGamePropertiesOffset + 46 != Size)
             {
-                Logger.Warning("Building was not entirely parsed (" + saveGamePropertiesOffset + 46 + "/" + Size + " read)");
+                Logger.Warning("Building was not properly parsed (" + saveGamePropertiesOffset + 46 + "/" + Size + " read)");
             }
         }
 
