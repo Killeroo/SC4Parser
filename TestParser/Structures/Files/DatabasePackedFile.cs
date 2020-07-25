@@ -13,7 +13,6 @@ namespace TestParser.Structures
 
         string FilePath;
         MemoryStream RawFile;
-        bool Verbose = true;
 
         public DatabasePackedFile()
         {
@@ -33,32 +32,21 @@ namespace TestParser.Structures
         {
             try
             {
+                Logger.Info("Reading DBDF...");
+
                 // Open file as a file stream
                 using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
                 {
                     // Save path for reference later
                     FilePath = path;
 
-                    if (Verbose)
-                    {
-                        Console.Write("Reading header ... ");
-                    }
-
                     // Read header
                     byte[] buffer = new byte[100];
                     stream.Read(buffer, 0, 96);
                     Header.Parse(buffer);
 
-                    if (Verbose)
-                    {
-                        Logger.Info("Done", ConsoleColor.Green);
-                    }
-
-                    if (Verbose)
-                    {
-                        Console.Write("Reading Index Entries ... ");
-                    }
-
+                    Logger.Info("Header read", ConsoleColor.Green);
+                    
                     // Seek to the first index entry and read index entries
                     stream.Seek(Header.FirstIndexOffset, SeekOrigin.Begin);
                     for (int i = 0; i < Header.IndexCount; i++)
@@ -69,18 +57,9 @@ namespace TestParser.Structures
                         IndexEntry entry = new IndexEntry();
                         entry.Parse(buffer);
                         IndexEntries.Add(entry);
-
                     }
 
-                    if (Verbose)
-                    {
-                        Logger.Info("Done", ConsoleColor.Green);
-                    }
-
-                    if (Verbose)
-                    {
-                        Console.Write("Finding DBDF file ... ");
-                    }
+                    Logger.Info("Index Entries read", ConsoleColor.Green);
 
                     // loop through indexes and find DBDF file
                     foreach (IndexEntry entry in IndexEntries)
@@ -92,15 +71,7 @@ namespace TestParser.Structures
                         }
                     }
 
-                    if (Verbose)
-                    {
-                        Logger.Info("Done", ConsoleColor.Green);
-                    }
-
-                    if (Verbose)
-                    {
-                        Console.Write("Reading DBDF Resources ... ");
-                    }
+                    Logger.Info("DBDF file found", ConsoleColor.Green);
 
                     // Seek to DBDF location and parse resources
                     stream.Seek(DBDFFile.FileLocation, SeekOrigin.Begin);
@@ -111,10 +82,7 @@ namespace TestParser.Structures
                         DBDFFile.ParseResource(resourceBuffer);
                     }
 
-                    if (Verbose)
-                    {
-                        Logger.Info("Done", ConsoleColor.Green);
-                    }
+                    Logger.Info("DBDF Resources read", ConsoleColor.Green);
 
                     // Save a copy of the stream so we can access stuff after we close the file stream
                     stream.Seek(0, SeekOrigin.Begin);
@@ -123,11 +91,7 @@ namespace TestParser.Structures
             }
             catch (Exception ex)
             {
-                if (Verbose)
-                {
-                    Logger.Info("Failed", ConsoleColor.Red);
-                }
-                Logger.Error("Hit exception while reading save file: [" + ex.GetType().ToString() + "] " + ex.GetType().ToString());
+                Logger.Error("Hit exception while reading save file: [" + ex.GetType().ToString() + ":  " + ex.Message + "]");
             }
         }
         
@@ -174,10 +138,8 @@ namespace TestParser.Structures
                 if (entry.TGI == tgi)
                 {
                     foundEntry = entry;
-                    if (Verbose)
-                    {
-                        Logger.Info(string.Format("{0} found", tgi.ToString()));
-                    }
+                    Logger.Info(string.Format("{0} found", tgi.ToString()));
+                    
                     break;
                 }
             }
@@ -198,10 +160,8 @@ namespace TestParser.Structures
                 if (entry.TGI.TypeID.ToString("X") == type_id)
                 {
                     foundEntry = entry;
-                    if (Verbose)
-                    {
-                        Logger.Info(string.Format("{0} found: {1}", type_id, entry.TGI.ToString()));
-                    }
+                    Logger.Info(string.Format("{0} found: {1}", type_id, entry.TGI.ToString()));
+                    
                     break;
                 }
             }
@@ -270,13 +230,10 @@ namespace TestParser.Structures
                 buffer = new byte[entry.FileSize];
                 RawFile.Seek(entry.FileLocation, SeekOrigin.Begin);
                 RawFile.Read(buffer, 0, fileSize);
-
-                if (Verbose)
-                {
-                    Logger.Info(string.Format("Index Entry (tgi {0}, size {1} bytes) loaded",
-                        entry.TGI.ToString(),
-                        entry.FileSize));
-                }
+                
+                Logger.Info(string.Format("Index Entry (tgi {0}, size {1} bytes) loaded",
+                    entry.TGI.ToString(),
+                    entry.FileSize));
             }
             catch (Exception e)
             {
@@ -561,13 +518,10 @@ namespace TestParser.Structures
                     stream.Write(data, 0, data.Length);
                 }
 
-                if (Verbose)
-                {
-                    Logger.Info(string.Format("Data (tgi={0}, size {1} bytes) written to path: {2}",
-                        tgi.ToString(),
-                        data.Length,
-                        Path.Combine(path, filename)));
-                }
+                Logger.Info(string.Format("Data (tgi={0}, size {1} bytes) written to path: {2}",
+                    tgi.ToString(),
+                    data.Length,
+                    Path.Combine(path, filename)));
             }
             catch (Exception e)
             {

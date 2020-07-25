@@ -41,7 +41,7 @@ namespace TestParser
             RestoreConsoleColors();
         }
 
-        private static void Log(string message)
+        public static void Log(string message)
         {
             Console.WriteLine(message);
         }

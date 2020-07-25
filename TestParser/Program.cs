@@ -48,16 +48,11 @@ namespace TestParser
             //IndexEntry en = save.FindIndexEntry("A9BD882D"); // building file
             //save.LoadEntry(en.TGI);// new TypeGroupInstance("8A2482B9", "4A2482BB", "0"));
 
-            // Building subfile work:
-            //Building buildingSubfile = new Building();
-            //buildingSubfile.Parse(File.ReadAllBytes("buildings_decompressed"), 2);
-            //buildingSubfile.Dump();
-
             FileInfo file = new FileInfo("buildings_decompressed");
 
             BuildingsFile f = new BuildingsFile();
             f.Parse(File.ReadAllBytes("buildings_decompressed"), (int)file.Length);
-            f.Dump();
+            //f.Dump();
 
             Console.ReadLine();
         }
