@@ -119,3 +119,7 @@ So now the rest of the building file can be read.
 Building file is basically there, time to move onto researching the rendering. Then I will come back to the lot file.
 
 I have added some warnings for inconsistencies, the code looks tight, but I think I should come back and add some additional checks..
+
+26/07/2020
+------------------------------
+Started some of the basic image generation for SC4Cartographer. Looks good, going to need some modification to get the float coordinates working but looks hopeful
