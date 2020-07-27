@@ -50,5 +50,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SC4Parser\SC4Parser.csproj">
+      <Project>{06eb8cff-d61c-4b37-990c-1b2fa1b70048}</Project>
+      <Name>SC4Parser</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
