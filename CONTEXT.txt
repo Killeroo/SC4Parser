@@ -123,3 +123,9 @@ I have added some warnings for inconsistencies, the code looks tight, but I thin
 26/07/2020
 ------------------------------
 Started some of the basic image generation for SC4Cartographer. Looks good, going to need some modification to get the float coordinates working but looks hopeful
+
+28/07/2020
+------------------------------
+Started work on lots stuff, deadline is approaching, luckily the data should be near the top of the file. Decompression seems to have worked correctly again. I want to get the lot position extracted tomorrow then should be fairly straightforward to modify to image code grid size to draw lots.
+
+Polish will come later, but building some good foundations I think

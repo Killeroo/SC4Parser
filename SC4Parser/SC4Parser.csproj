@@ -51,11 +51,13 @@
     <Compile Include="Structures\Files\DatabaseDirectoryResource.cs" />
     <Compile Include="Structures\Files\DatabasePackedFile.cs" />
     <Compile Include="Structures\Files\DatabasePackedFileHeader.cs" />
+    <Compile Include="Structures\Files\SubFiles\Lot.cs" />
+    <Compile Include="Structures\Files\SubFiles\LotSubFile.cs" />
     <Compile Include="Structures\IndexEntry.cs" />
     <Compile Include="Structures\SaveGameProperty.cs" />
     <Compile Include="Structures\Files\SC4SaveFile.cs" />
     <Compile Include="Structures\Files\SubFiles\Building.cs" />
-    <Compile Include="Structures\Files\SubFiles\BuildingsFile.cs" />
+    <Compile Include="Structures\Files\SubFiles\BuildingSubFile.cs" />
     <Compile Include="Structures\Types\TypeGroupInstance.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
