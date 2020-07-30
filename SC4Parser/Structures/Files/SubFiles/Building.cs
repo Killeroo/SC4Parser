@@ -98,7 +98,8 @@ namespace TestParser.Structures.SubFiles
 
         public void Dump()
         {
-            Console.WriteLine("Size: {0}", Size);
+            Console.WriteLine("Offset: {0} (0x{1})", Offset, Offset.ToString("X"));
+            Console.WriteLine("Size: {0} (0x{1})", Size, Size.ToString("X"));
             Console.WriteLine("CRC: 0x{0}", CRC.ToString("X"));
             Console.WriteLine("Memory address: 0x{0}", Memory.ToString("X"));
             Console.WriteLine("Major Version: {0}", MajorVersion);

@@ -25,8 +25,6 @@ namespace TestParser.Structures.Files.SubFiles
                 lot.Parse(b, offset);
                 Lots.Add(lot);
 
-                lot.Dump();
-
                 offset += currentSize;
                 bytesToRead -= currentSize;
 
@@ -36,6 +34,15 @@ namespace TestParser.Structures.Files.SubFiles
             if (bytesToRead != 0)
             {
                 Logger.Warning("Not all lots have been read from lot subfile (" + bytesToRead + " bytes left)");
+            }
+        }
+
+        public void Dump()
+        {
+            foreach (Lot lot in Lots)
+            {
+                Console.WriteLine("--------------------");
+                lot.Dump();
             }
         }
     }

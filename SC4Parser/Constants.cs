@@ -45,5 +45,52 @@ namespace TestParser
             {0x0C, "string//char"}
         };
 
+        // Lot zone types
+        public static Dictionary<byte, string> LOT_ZONE_TYPES = new Dictionary<byte, string>
+        {
+            {0x00, "Unknown"},
+            {0x01, "Residential - Low"},
+            {0x02, "Residential - Medium"},
+            {0x03, "Residential - High"},
+            {0x04, "Commercial - Low"},
+            {0x05, "Commercial - Medium"},
+            {0x06, "Commercial - High"},
+            {0x07, "Industrial - Low"},
+            {0x08, "Industrial - Medium"},
+            {0x09, "Industrial - High"},
+            {0x0F, "Plopped building"},
+        };
+        public const byte LOT_ZONE_TYPE_RESIDENTIAL_LOW = 0x01;
+        public const byte LOT_ZONE_TYPE_RESIDENTIAL_MEDIUM = 0x02;
+        public const byte LOT_ZONE_TYPE_RESIDENTIAL_HIGH = 0x03;
+        public const byte LOT_ZONE_TYPE_COMMERCIAL_LOW = 0x04;
+        public const byte LOT_ZONE_TYPE_COMMERCIAL_MEDIUM = 0x05;
+        public const byte LOT_ZONE_TYPE_COMMERCIAL_HIGH = 0x06;
+        public const byte LOT_ZONE_TYPE_INDUSTRIAL_LOW = 0x07;
+        public const byte LOT_ZONE_TYPE_INDUSTRIAL_MEDIUM = 0x08;
+        public const byte LOT_ZONE_TYPE_INDUSTRIAL_HIGH = 0x09;
+        public const byte LOT_ZONE_TYPE_PLOPPED_BUILDING = 0x0F;
+
+        // Lot zone wealths
+        public static Dictionary<byte, string> LOT_ZONE_WEALTHS = new Dictionary<byte, string>
+        {
+            {0x00, "None"},
+            {0x01, @"$"},
+            {0x02, @"$$"},
+            {0x03, @"$$$"}
+        };
+        public const byte LOT_WEALTH_NONE = 0x00;
+        public const byte LOT_WEALTH_LOW = 0x01;
+        public const byte LOT_WEALTH_MEDIUM = 0x02;
+        public const byte LOT_WEALTH_HIGH = 0x03;
+
+        // Lot Orientation
+        public static Dictionary<byte, string> LOT_ORIENTATIONS = new Dictionary<byte, string>
+        {
+            {0x00, "North"},
+
+            { 0x02, "South"},
+
+        };
     }
 }

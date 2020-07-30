@@ -57,7 +57,7 @@ namespace TestParser
             FileInfo file = new FileInfo("lot_decompressed");
             LotSubFile l = new LotSubFile();
             l.Parse(File.ReadAllBytes("lot_decompressed"), (int)file.Length);
-
+            l.Dump();
 
             Console.ReadLine();
         }
