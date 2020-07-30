@@ -81,11 +81,11 @@ namespace TestParser.Structures.SubFiles
             PropExemplarReference = new TypeGroupInstance(TypeID, GroupID, InstanceID);
             InstanceIDOnAppearance = BitConverter.ToUInt32(buffer, (int) saveGamePropertiesOffset + 13);
             MinCoordinateX = BitConverter.ToSingle(buffer, (int) saveGamePropertiesOffset + 17);
-            MinCoordinateY = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 21);
-            MinCoordinateZ = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 25);
-            MaxCoordinateX = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 29);
-            MaxCoordinateY = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 33);
-            MaxCoordinateZ = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 37);
+            MinCoordinateY = BitConverter.ToSingle(buffer, (int) saveGamePropertiesOffset + 21);
+            MinCoordinateZ = BitConverter.ToSingle(buffer, (int) saveGamePropertiesOffset + 25);
+            MaxCoordinateX = BitConverter.ToSingle(buffer, (int) saveGamePropertiesOffset + 29);
+            MaxCoordinateY = BitConverter.ToSingle(buffer, (int) saveGamePropertiesOffset + 33);
+            MaxCoordinateZ = BitConverter.ToSingle(buffer, (int) saveGamePropertiesOffset + 37);
             Orientation = buffer[saveGamePropertiesOffset + 41];
             ScaffoldingHeight = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 42);
 
@@ -99,20 +99,20 @@ namespace TestParser.Structures.SubFiles
         public void Dump()
         {
             Console.WriteLine("Size: {0}", Size);
-            Console.WriteLine("CRC: {0}", CRC.ToString("X"));
-            Console.WriteLine("Memory address: {0}", Memory.ToString("X"));
+            Console.WriteLine("CRC: 0x{0}", CRC.ToString("X"));
+            Console.WriteLine("Memory address: 0x{0}", Memory.ToString("X"));
             Console.WriteLine("Major Version: {0}", MajorVersion);
             Console.WriteLine("Minor Version: {0}", MinorVersion);
             Console.WriteLine("Zot Word: {0}", ZotWord);
             Console.WriteLine("Unknown1: {0}", Unknown1);
-            Console.WriteLine("Appearance Flag: {0}", AppearanceFlag.ToString("X"));
-            Console.WriteLine("0x278128A0: {0}", x278128A0.ToString("X"));
-            Console.WriteLine("MinTractX: {0} ({1}) MaxTractX: {2} ({3})", 
+            Console.WriteLine("Appearance Flag: 0x{0}", AppearanceFlag.ToString("X"));
+            Console.WriteLine("0x278128A0: 0x{0}", x278128A0.ToString("X"));
+            Console.WriteLine("MinTractX: {0} (0x{1}) MaxTractX: {2} (0x{3})", 
                 MinTractX,
                 MinTractX.ToString("X"),
                 MaxTractX,
                 MaxTractX.ToString("X"));
-            Console.WriteLine("MinTractZ: {0} ({1}) MaxTractZ: {2} ({3})",
+            Console.WriteLine("MinTractZ: {0} (0x{1}) MaxTractZ: {2} (0x{3})",
                 MinTractZ,
                 MinTractZ.ToString("X"),
                 MaxTractZ,
@@ -132,10 +132,10 @@ namespace TestParser.Structures.SubFiles
             }
 
             Console.WriteLine("Unknown2: {0}", Unknown2);
-            Console.WriteLine("Group ID: {0} [{1}]", GroupID, GroupID.ToString("X"));
-            Console.WriteLine("Type ID: {0} [{1}]", TypeID, TypeID.ToString("X"));
-            Console.WriteLine("Instance ID: {0} [{1}]", InstanceID, InstanceID.ToString("X"));
-            Console.WriteLine("Instance ID (on appearance): {0} [{1}]", InstanceIDOnAppearance, InstanceIDOnAppearance.ToString("X"));
+            Console.WriteLine("Group ID: {0} [0x{1}]", GroupID, GroupID.ToString("X"));
+            Console.WriteLine("Type ID: {0} [0x{1}]", TypeID, TypeID.ToString("X"));
+            Console.WriteLine("Instance ID: {0} [0x{1}]", InstanceID, InstanceID.ToString("X"));
+            Console.WriteLine("Instance ID (on appearance): {0} [0x{1}]", InstanceIDOnAppearance, InstanceIDOnAppearance.ToString("X"));
             Console.WriteLine("Min Coordinate X: {0}", MinCoordinateX);
             Console.WriteLine("Min Coordinate Y: {0}", MinCoordinateY);
             Console.WriteLine("Min Coordinate Z: {0}", MinCoordinateZ);

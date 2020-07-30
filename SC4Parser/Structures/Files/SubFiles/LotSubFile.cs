@@ -19,11 +19,13 @@ namespace TestParser.Structures.Files.SubFiles
             {
                 uint currentSize = BitConverter.ToUInt32(buffer, (int)offset);
 
-                //Building building = new Building();
-                //byte[] b = new byte[currentSize];
-                //Array.Copy(buffer, offset, b, 0, (int)currentSize);
-                //building.Parse(b, offset);
-                //Buildings.Add(building);
+                Lot lot = new Lot();
+                byte[] b = new byte[currentSize];
+                Array.Copy(buffer, offset, b, 0, (int)currentSize);
+                lot.Parse(b, offset);
+                Lots.Add(lot);
+
+                lot.Dump();
 
                 offset += currentSize;
                 bytesToRead -= currentSize;
