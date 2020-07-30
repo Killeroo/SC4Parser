@@ -3,8 +3,8 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 
-using TestParser.Structures;
-using TestParser.Structures.Files.SubFiles;
+using SC4Parser.Structures;
+using SC4Parser.Structures.Files.SubFiles;
 
 // Key:
 // ----
@@ -32,7 +32,7 @@ using TestParser.Structures.Files.SubFiles;
 // (we want roads, builds and terrain at some point?)
 //https://www.wiki.sc4devotion.com/index.php?title=Network_Subfiles#Network_Index_Subfile_.286A0F82B2.29
 
-namespace TestParser
+namespace SC4Parser
 {
     
     class Program

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestParser.Structures
+namespace SC4Parser.Structures
 {
     /// <summary>
     /// TypeGroupInstance (TGI) is used as an identifier for files within a sc4 save file (DBPF file)

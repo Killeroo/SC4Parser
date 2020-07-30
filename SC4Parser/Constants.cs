@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using TestParser.Structures;
+using SC4Parser.Structures;
 
-namespace TestParser
+namespace SC4Parser
 {
     class Constants
     {

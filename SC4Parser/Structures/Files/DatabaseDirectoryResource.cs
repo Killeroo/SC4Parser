@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestParser.Structures
+namespace SC4Parser.Structures
 {
     class DatabaseDirectoryResource
     {

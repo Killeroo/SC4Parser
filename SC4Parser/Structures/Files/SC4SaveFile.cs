@@ -3,7 +3,7 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 
-namespace TestParser.Structures
+namespace SC4Parser.Structures
 {
     /// <summary>
     /// SC4 save implementation, SC4 save files use the Maxis DBPF 1.1 file format

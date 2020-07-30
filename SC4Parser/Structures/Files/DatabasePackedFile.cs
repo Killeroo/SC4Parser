@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace TestParser.Structures
+namespace SC4Parser.Structures
 {
     class DatabasePackedFile
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestParser.Structures.Files.SubFiles
+namespace SC4Parser.Structures.Files.SubFiles
 {
     class LotSubFile
     {

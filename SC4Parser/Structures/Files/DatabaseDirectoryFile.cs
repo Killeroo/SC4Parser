@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TestParser.Structures
+namespace SC4Parser.Structures
 {
     class DatabaseDirectoryFile : IndexEntry
     {
