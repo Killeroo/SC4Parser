@@ -5,3 +5,7 @@ C:\Projects\SC4Parser_\SC4Cartographer\obj\Debug\SC4Cartographer.csprojAssemblyR
 C:\Projects\SC4Parser_\SC4Cartographer\obj\Debug\SC4Cartographer.csproj.CoreCompileInputs.cache
 C:\Projects\SC4Parser_\SC4Cartographer\obj\Debug\SC4Cartographer.exe
 C:\Projects\SC4Parser_\SC4Cartographer\obj\Debug\SC4Cartographer.pdb
+C:\Projects\SC4Parser_\SC4Cartographer\bin\Debug\TestParser.exe
+C:\Projects\SC4Parser_\SC4Cartographer\bin\Debug\TestParser.pdb
+C:\Projects\SC4Parser_\SC4Cartographer\bin\Debug\TestParser.exe.config
+C:\Projects\SC4Parser_\SC4Cartographer\obj\Debug\SC4Cartographer.csproj.CopyComplete
