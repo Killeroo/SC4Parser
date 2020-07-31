@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SC4Parser.Structures.SubFiles
 {
-    class BuildingSubFile
+    public class BuildingSubFile
     {
         List<Building> Buildings = new List<Building>();
 

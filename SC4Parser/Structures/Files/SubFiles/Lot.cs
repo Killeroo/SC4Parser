@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SC4Parser.Structures.Files.SubFiles
 {
     //https://www.wiki.sc4devotion.com/index.php?title=Lot_Subfile
-    class Lot
+    public class Lot
     {
         public uint Offset;
         public uint Size;

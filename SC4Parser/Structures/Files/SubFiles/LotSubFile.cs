@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SC4Parser.Structures.Files.SubFiles
 {
-    class LotSubFile
+    public class LotSubFile
     {
-        List<Lot> Lots = new List<Lot>();
+        public List<Lot> Lots = new List<Lot>();
 
         public void Parse(byte[] buffer, int size)
         {

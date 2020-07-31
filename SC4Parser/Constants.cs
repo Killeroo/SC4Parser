@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using SC4Parser.Structures;
 
-namespace SC4Parser
+namespace SC4Parser // SC4.constants
 {
-    class Constants
+    public class Constants
     {
         public static readonly TypeGroupInstance DATABASE_DIRECTORY_FILE_TGI = new TypeGroupInstance("E86B1EEF", "E86B1EEF", "286B1F03");
 

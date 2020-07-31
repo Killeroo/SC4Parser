@@ -11,7 +11,7 @@ namespace SC4Parser.Structures
     /// mainly for convience.
     /// More info here: https://www.wiki.sc4devotion.com/index.php?title=Type_Group_Instance
     /// </summary>
-    struct TypeGroupInstance : IEquatable<TypeGroupInstance>
+    public struct TypeGroupInstance : IEquatable<TypeGroupInstance>
     {
         public uint TypeID { get; set; }
         public uint GroupID { get; set; }

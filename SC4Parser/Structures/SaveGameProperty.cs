@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SC4Parser.Structures
 {
-    class SaveGameProperty
+    public class SaveGameProperty
     {
         public uint PropertyNameValue;
         public uint PropertyNameValueCopy;
