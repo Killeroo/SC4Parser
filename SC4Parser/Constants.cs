@@ -8,10 +8,10 @@ namespace SC4Parser // SC4.constants
     {
         public static readonly TypeGroupInstance DATABASE_DIRECTORY_FILE_TGI = new TypeGroupInstance("E86B1EEF", "E86B1EEF", "286B1F03");
 
-        public const byte ORIENTATION_NORTH = 0x01;
-        public const byte ORIENTATION_EAST = 0x02;
-        public const byte ORIENTATION_SOUTH = 0x03;
-        public const byte ORIENTATION_WEST = 0x04;
+        public const byte ORIENTATION_NORTH = 0x00;
+        public const byte ORIENTATION_EAST = 0x01;
+        public const byte ORIENTATION_SOUTH = 0x02;
+        public const byte ORIENTATION_WEST = 0x03;
 
         public static string[] ORIENTATIONS = new string[]
         {

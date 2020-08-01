@@ -23,23 +23,26 @@ namespace SC4Cartographer
         // TODO: Colours aren't perfect (picking the color in paint uses the colour of the background
         // find pure colours
         // TODO: Use highlights of zones
-        public static readonly Color RESIDENTIAL_HIGH_COLOR = Color.FromArgb(46, 74, 35);
-        public static readonly Color RESIDENTIAL_MEDIUM_COLOR = Color.FromArgb(82, 123, 54);
-        public static readonly Color RESIDENTIAL_LOW_COLOR = Color.FromArgb(49, 102, 36);
-        public static readonly Color COMMERCIAL_HIGH_COLOR = Color.FromArgb(62, 69, 92);
-        public static readonly Color COMMERCIAL_MEDIUM_COLOR = Color.FromArgb(101, 117, 110);
-        public static readonly Color COMMERCIAL_LOW_COLOR = Color.FromArgb(76, 97, 90);
-        public static readonly Color INDUSTRIAL_HIGH_COLOR = Color.FromArgb(131, 121, 60);
-        public static readonly Color INDUSTRIAL_MEDIUM_COLOR = Color.FromArgb(128, 123, 63);
-        public static readonly Color INDUSTRIAL_LOW_COLOR = Color.FromArgb(101, 111, 47);
+        public static readonly Color RESIDENTIAL_HIGH_COLOR = Color.FromArgb(0, 126, 47);
+        public static readonly Color RESIDENTIAL_MEDIUM_COLOR = Color.FromArgb(2, 207, 79);
+        public static readonly Color RESIDENTIAL_LOW_COLOR = Color.FromArgb(4, 255, 98);
+        public static readonly Color COMMERCIAL_HIGH_COLOR = Color.FromArgb(4, 1, 128);
+        public static readonly Color COMMERCIAL_MEDIUM_COLOR = Color.FromArgb(1, 93, 188);
+        public static readonly Color COMMERCIAL_LOW_COLOR = Color.FromArgb(0, 126, 255);
+        public static readonly Color INDUSTRIAL_HIGH_COLOR = Color.FromArgb(103, 103, 22);
+        public static readonly Color INDUSTRIAL_MEDIUM_COLOR = Color.FromArgb(129, 129, 43);
+        public static readonly Color INDUSTRIAL_LOW_COLOR = Color.FromArgb(180, 180, 46);
 
         static void Main(string[] args)
         {
             FileInfo file = new FileInfo("lot_decompressed");
             LotSubFile l = new LotSubFile();
             l.Parse(File.ReadAllBytes("lot_decompressed"), (int)file.Length);
+            
 
-            CreateGridImage(128, 128, 9, 9, 60, l);
+            //128 for mid
+            // 256 for large
+            CreateGridImage(256, 256, 9, 9, 60, l);
 
     }
 
@@ -59,7 +62,7 @@ namespace SC4Cartographer
 
                     // TODO: make the zones a bit smaller than the grid size
                     // TODO: work out width and heigh
-
+                    int count = 0;
                     foreach (var lot in lots.Lots)
                     {
                         //Rectangle rect = new Rectangle((boxSize * lot.MaxTileX) + 5, (boxSize * lot.MaxTileZ) + 5, boxSize - 10, boxSize - 10);
@@ -89,33 +92,33 @@ namespace SC4Cartographer
                         //    startX = lot.MinTileX;
                         //}
 
-                        byte otherRectCorner1X = 0;
-                        byte otherRectCorner1Z = 0;
+                        //byte otherRectCorner1X = 0;
+                        //byte otherRectCorner1Z = 0;
                         
-                        byte otherRectCorner2X = 0;
-                        byte otherRectCorner2Z = 0;
+                        //byte otherRectCorner2X = 0;
+                        //byte otherRectCorner2Z = 0;
 
-                        if (lot.MinTileZ < lot.MaxTileZ)
-                        {
-                            otherRectCorner1Z = lot.MinTileZ;
-                            otherRectCorner1X = lot.MaxTileX;
-                        }
-                        else
-                        {
-                            otherRectCorner1Z = lot.MaxTileZ;
-                            otherRectCorner1X = lot.MinTileX;
-                        }
+                        //if (lot.MinTileZ < lot.MaxTileZ)
+                        //{
+                        //    otherRectCorner1Z = lot.MinTileZ;
+                        //    otherRectCorner1X = lot.MaxTileX;
+                        //}
+                        //else
+                        //{
+                        //    otherRectCorner1Z = lot.MaxTileZ;
+                        //    otherRectCorner1X = lot.MinTileX;
+                        //}
 
-                        if (lot.MinTileX < lot.MaxTileX)
-                        {
-                            otherRectCorner2X = lot.MinTileX;
-                            otherRectCorner2Z = lot.MaxTileZ;
-                        }
-                        else
-                        {
-                            otherRectCorner2X = lot.MaxTileX;
-                            otherRectCorner2Z = lot.MinTileZ;
-                        }
+                        //if (lot.MinTileX < lot.MaxTileX)
+                        //{
+                        //    otherRectCorner2X = lot.MinTileX;
+                        //    otherRectCorner2Z = lot.MaxTileZ;
+                        //}
+                        //else
+                        //{
+                        //    otherRectCorner2X = lot.MaxTileX;
+                        //    otherRectCorner2Z = lot.MinTileZ;
+                        //}
 
 
 
@@ -186,7 +189,7 @@ namespace SC4Cartographer
 
 
                                 break;
-                                
+
                         }
 
                         //Color c2 = new Color();
@@ -216,19 +219,24 @@ namespace SC4Cartographer
                         g.FillRectangle(new SolidBrush(c), rect);
                         //c = Color.FromArgb(c.R, c.G, 200);
                         //g.FillRectangle(new SolidBrush(c2), rect2);
+                        //if (count > 50)
+                        //    break;
+                        //count++;
                     }
 
                     // draw cross
-                    
-                    for (int i = 0; i <= maxXCells; i++)
-                    {
-                        g.DrawLine(pen, (i * boxSize), 0, i * boxSize, boxSize * maxYCells);
-                    }
 
-                    for (int i = 0; i <= maxYCells; i++)
-                    {
-                        g.DrawLine(pen, 0, (i * boxSize), boxSize * maxXCells, i * boxSize);
-                    }
+                    //for (int i = 0; i <= maxXCells; i++)
+                    //{
+                    //    g.DrawLine(pen, (i * boxSize), 0, i * boxSize, boxSize * maxYCells);
+                    //}
+
+                    //for (int i = 0; i <= maxYCells; i++)
+                    //{
+                    //    g.DrawLine(pen, 0, (i * boxSize), boxSize * maxXCells, i * boxSize);
+                    //}
+
+
                 }
 
                 bmp.Save("test.png", ImageFormat.Png);
