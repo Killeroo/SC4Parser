@@ -62,9 +62,13 @@ namespace SC4Cartographer
 
                     foreach (var lot in lots.Lots)
                     {
-                        Rectangle rect = new Rectangle((boxSize * lot.MaxTileX) + 5, (boxSize * lot.MaxTileZ) + 5, boxSize - 10, boxSize - 10);
-                        Rectangle rect2 = new Rectangle((boxSize * lot.MinTileX) + 5, (boxSize * lot.MinTileZ) + 5, boxSize - 10, boxSize - 10);
+                        //Rectangle rect = new Rectangle((boxSize * lot.MaxTileX) + 5, (boxSize * lot.MaxTileZ) + 5, boxSize - 10, boxSize - 10);
+                        //Rectangle rect2 = new Rectangle((boxSize * lot.MinTileX) + 5, (boxSize * lot.MinTileZ) + 5, boxSize - 10, boxSize - 10);
 
+
+                        //Rectangle rect = new Rectangle((boxSize * lot.MaxTileX) + 5, (boxSize * lot.MaxTileZ) + 5, boxSize - 10, boxSize - 10);
+
+                        Rectangle rect = new Rectangle();
 
                         //Rectangle r = Rectangle.FromLTRB(boxSize * lot.MinTileX, (boxSize * lot.MinTileX) + (boxSize * lot.SizeX),
                         //                                 boxSize * lot.MaxTileX, (boxSize * lot.MaxTileZ)
@@ -85,45 +89,45 @@ namespace SC4Cartographer
                         //    startX = lot.MinTileX;
                         //}
 
-                        int otherRectCorner1X = 0;
-                        int otherRectCorner1Z = 0;
-
-                        int otherRectCorner2X = 0;
-                        int otherRectCorner2Z = 0;
+                        byte otherRectCorner1X = 0;
+                        byte otherRectCorner1Z = 0;
+                        
+                        byte otherRectCorner2X = 0;
+                        byte otherRectCorner2Z = 0;
 
                         if (lot.MinTileZ < lot.MaxTileZ)
                         {
-                            otherRectCorner1Z = lot.MinTileZ + lot.SizeZ;
-                            otherRectCorner1X = lot.MinTileX;
+                            otherRectCorner1Z = lot.MinTileZ;
+                            otherRectCorner1X = lot.MaxTileX;
                         }
                         else
                         {
-                            otherRectCorner1Z = 
+                            otherRectCorner1Z = lot.MaxTileZ;
+                            otherRectCorner1X = lot.MinTileX;
                         }
 
-                        Console.WriteLine(lot.Offset.ToString("X"));
-                        Console.WriteLine("{0}x{1}", lot.MinTileX, lot.MaxTileX);
-                        Console.WriteLine("{0}x{1}", lot.MaxTileX, lot.MaxTileZ);
-                        Console.WriteLine("dep:{0} wid:{1}", lot.SizeZ, lot.SizeX);
-                        Console.WriteLine("-----------------");
+                        if (lot.MinTileX < lot.MaxTileX)
+                        {
+                            otherRectCorner2X = lot.MinTileX;
+                            otherRectCorner2Z = lot.MaxTileZ;
+                        }
+                        else
+                        {
+                            otherRectCorner2X = lot.MaxTileX;
+                            otherRectCorner2Z = lot.MinTileZ;
+                        }
+
+
+
+                        //Console.WriteLine(lot.Offset.ToString("X"));
+                        //Console.WriteLine("{0}x{1}", lot.MinTileX, lot.MaxTileX);
+                        //Console.WriteLine("{0}x{1}", lot.MaxTileX, lot.MaxTileZ);
+                        //Console.WriteLine("dep:{0} wid:{1}", lot.SizeZ, lot.SizeX);
+                        //Console.WriteLine("-----------------");
                         //Console.ReadLine();
 
 
-                        switch (lot.Orientation)
-                        {
-                            case Constants.ORIENTATION_NORTH:
 
-                                break;
-
-                            case Constants.ORIENTATION_EAST:
-                                break;
-
-                            case Constants.ORIENTATION_SOUTH:
-                                break;
-
-                            case Constants.ORIENTATION_WEST:
-                                break;
-                        }
 
                         Color c = new Color();
                         switch (lot.ZoneType)
@@ -168,9 +172,50 @@ namespace SC4Cartographer
                                 c = BUILDING_COLOR;
                                 break;
                         }
+
+                        switch (lot.Orientation)
+                        {
+                            case Constants.ORIENTATION_NORTH:
+                            case Constants.ORIENTATION_SOUTH:
+                                rect = new Rectangle((boxSize * lot.MinTileX) + 5, (boxSize * lot.MinTileZ) + 5, (boxSize * lot.SizeX) - 10, (boxSize * lot.SizeZ) - 10);
+                                break;
+
+                            case Constants.ORIENTATION_WEST:
+                            case Constants.ORIENTATION_EAST:
+                                rect = new Rectangle((boxSize * lot.MinTileX) + 5, (boxSize * lot.MinTileZ) + 5, (boxSize * lot.SizeZ) - 10, (boxSize * lot.SizeX) - 10);
+
+
+                                break;
+                                
+                        }
+
+                        //Color c2 = new Color();
+                        //switch (lot.Orientation)
+                        //{
+                        //    case Constants.ORIENTATION_NORTH:
+                        //        c2 = Color.FromArgb(255, 100, 0);
+                        //        break;
+
+                        //    case Constants.ORIENTATION_EAST:
+
+                        //        c2 = Color.FromArgb(0, 255, 100);
+                        //        break;
+
+                        //    case Constants.ORIENTATION_SOUTH:
+
+                        //        c2 = Color.FromArgb(100, 0, 255);
+                        //        break;
+
+                        //    case Constants.ORIENTATION_WEST:
+
+                        //        c2 = Color.FromArgb(0, 0, 0);
+                        //        break;
+                        //}
+
+
                         g.FillRectangle(new SolidBrush(c), rect);
-                        c = Color.FromArgb(c.R, c.G, 200);
-                        g.FillRectangle(new SolidBrush(c), rect2);
+                        //c = Color.FromArgb(c.R, c.G, 200);
+                        //g.FillRectangle(new SolidBrush(c2), rect2);
                     }
 
                     // draw cross
