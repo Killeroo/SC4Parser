@@ -62,7 +62,68 @@ namespace SC4Cartographer
 
                     foreach (var lot in lots.Lots)
                     {
-                        Rectangle rect = new Rectangle(boxSize * lot.MinTileX, boxSize * lot.MinTileZ, lot.LotWidth * boxSize, lot.LotDepth * boxSize);
+                        Rectangle rect = new Rectangle((boxSize * lot.MaxTileX) + 5, (boxSize * lot.MaxTileZ) + 5, boxSize - 10, boxSize - 10);
+                        Rectangle rect2 = new Rectangle((boxSize * lot.MinTileX) + 5, (boxSize * lot.MinTileZ) + 5, boxSize - 10, boxSize - 10);
+
+
+                        //Rectangle r = Rectangle.FromLTRB(boxSize * lot.MinTileX, (boxSize * lot.MinTileX) + (boxSize * lot.SizeX),
+                        //                                 boxSize * lot.MaxTileX, (boxSize * lot.MaxTileZ)
+                        //int startX = 0;
+                        //int startZ = 0;
+                        //int sizeX = 1;
+                        //int sizeZ = 1;
+
+                        //if (lot.MinTileX == lot.MaxTileX && lot.MinTileZ == lot.MaxTileZ)
+                        //{
+                        //    rect = new Rectangle((boxSize * lot.MaxTileX) + 5, (boxSize * lot.MaxTileZ) + 5, boxSize - 10, boxSize - 10);
+                        //}
+
+                        //if (lot.MinTileX < lot.MaxTileX
+                        //    && lot.MinTileZ > lot.MaxTileZ)
+                        //{
+                        //    sizeX = boxSize * lot.SizeX;
+                        //    startX = lot.MinTileX;
+                        //}
+
+                        int otherRectCorner1X = 0;
+                        int otherRectCorner1Z = 0;
+
+                        int otherRectCorner2X = 0;
+                        int otherRectCorner2Z = 0;
+
+                        if (lot.MinTileZ < lot.MaxTileZ)
+                        {
+                            otherRectCorner1Z = lot.MinTileZ + lot.SizeZ;
+                            otherRectCorner1X = lot.MinTileX;
+                        }
+                        else
+                        {
+                            otherRectCorner1Z = 
+                        }
+
+                        Console.WriteLine(lot.Offset.ToString("X"));
+                        Console.WriteLine("{0}x{1}", lot.MinTileX, lot.MaxTileX);
+                        Console.WriteLine("{0}x{1}", lot.MaxTileX, lot.MaxTileZ);
+                        Console.WriteLine("dep:{0} wid:{1}", lot.SizeZ, lot.SizeX);
+                        Console.WriteLine("-----------------");
+                        //Console.ReadLine();
+
+
+                        switch (lot.Orientation)
+                        {
+                            case Constants.ORIENTATION_NORTH:
+
+                                break;
+
+                            case Constants.ORIENTATION_EAST:
+                                break;
+
+                            case Constants.ORIENTATION_SOUTH:
+                                break;
+
+                            case Constants.ORIENTATION_WEST:
+                                break;
+                        }
 
                         Color c = new Color();
                         switch (lot.ZoneType)
@@ -108,6 +169,8 @@ namespace SC4Cartographer
                                 break;
                         }
                         g.FillRectangle(new SolidBrush(c), rect);
+                        c = Color.FromArgb(c.R, c.G, 200);
+                        g.FillRectangle(new SolidBrush(c), rect2);
                     }
 
                     // draw cross

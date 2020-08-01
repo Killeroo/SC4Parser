@@ -25,9 +25,9 @@ namespace SC4Parser.Structures.Files.SubFiles
         public float PositionY;
         public float Slope1Y;
         public float Slope2Y;
-        public byte LotWidth;
-        public byte LotDepth;
-        public byte LotOrientation;
+        public byte SizeX;
+        public byte SizeZ;
+        public byte Orientation;
         public byte FlagByte2;
         public byte FlagByte3;
         public byte ZoneType;
@@ -54,9 +54,9 @@ namespace SC4Parser.Structures.Files.SubFiles
             PositionY = BitConverter.ToSingle(buffer, 25);
             Slope1Y = BitConverter.ToSingle(buffer, 29);
             Slope2Y = BitConverter.ToSingle(buffer, 33);
-            LotWidth = buffer[37];
-            LotDepth = buffer[38];
-            LotOrientation = buffer[39];
+            SizeX = buffer[37];
+            SizeZ = buffer[38];
+            Orientation = buffer[39];
             FlagByte2 = buffer[40];
             FlagByte3 = buffer[41];
             ZoneType = buffer[42];
@@ -81,9 +81,9 @@ namespace SC4Parser.Structures.Files.SubFiles
             Console.WriteLine("Position Y: {0}", PositionY);
             Console.WriteLine("Slope 1 Y: {0}", Slope1Y);
             Console.WriteLine("Slope 2 Y: {0}", Slope2Y);
-            Console.WriteLine("Lot Width: 0x{0} ({1})", LotWidth.ToString("X"), LotWidth);
-            Console.WriteLine("Lot Depth: 0x{0} ({1})", LotDepth.ToString("X"), LotDepth);
-            Console.WriteLine("Lot Orientation: 0x{0} ({1})", LotOrientation.ToString("X"), Constants.ORIENTATIONS[LotOrientation]);
+            Console.WriteLine("Lot Width: 0x{0} ({1})", SizeX.ToString("X"), SizeX);
+            Console.WriteLine("Lot Depth: 0x{0} ({1})", SizeZ.ToString("X"), SizeZ);
+            Console.WriteLine("Lot Orientation: 0x{0} ({1})", Orientation.ToString("X"), Constants.ORIENTATIONS[Orientation]);
             Console.WriteLine("Flag Byte 2: 0x{0} ({1})", FlagByte2.ToString("X"), FlagByte2);
             Console.WriteLine("Flag Byte 3: 0x{0} ({1})", FlagByte3.ToString("X"), FlagByte3);
             Console.WriteLine("Zone Type: 0x{0} ({1})", ZoneType.ToString("X"), Constants.LOT_ZONE_TYPES[ZoneType]);

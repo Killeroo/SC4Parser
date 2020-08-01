@@ -28,7 +28,7 @@ namespace SC4Parser.Structures.Files.SubFiles
                 offset += currentSize;
                 bytesToRead -= currentSize;
 
-                Logger.Log($"lot read ({currentSize} bytes), offset {offset} got {bytesToRead}/{size} bytes left");
+                //Logger.Log($"lot read ({currentSize} bytes), offset {offset} got {bytesToRead}/{size} bytes left");
             }
 
             if (bytesToRead != 0)

@@ -8,10 +8,10 @@ namespace SC4Parser // SC4.constants
     {
         public static readonly TypeGroupInstance DATABASE_DIRECTORY_FILE_TGI = new TypeGroupInstance("E86B1EEF", "E86B1EEF", "286B1F03");
 
-        public static readonly byte ORIENTATION_NORTH = 0x01;
-        public static readonly byte ORIENTATION_EAST = 0x02;
-        public static readonly byte ORIENTATION_SOUTH = 0x03;
-        public static readonly byte ORIENTATION_WEST = 0x04;
+        public const byte ORIENTATION_NORTH = 0x01;
+        public const byte ORIENTATION_EAST = 0x02;
+        public const byte ORIENTATION_SOUTH = 0x03;
+        public const byte ORIENTATION_WEST = 0x04;
 
         public static string[] ORIENTATIONS = new string[]
         {
@@ -21,7 +21,6 @@ namespace SC4Parser // SC4.constants
             "West"
         };
 
-        // SIGPROP DataType types
         public static Dictionary<byte, object> SIGPROP_DATATYPE_TYPES = new Dictionary<byte, object>
         {
             {0x01, new byte()},
@@ -44,8 +43,7 @@ namespace SC4Parser // SC4.constants
             {0x0B, "Boolean"},
             {0x0C, "string//char"}
         };
-
-        // Lot zone types
+        
         public static Dictionary<byte, string> LOT_ZONE_TYPES = new Dictionary<byte, string>
         {
             {0x00, "Unknown"},
@@ -60,6 +58,7 @@ namespace SC4Parser // SC4.constants
             {0x09, "Industrial - High"},
             {0x0F, "Plopped building"},
         };
+
         public const byte LOT_ZONE_TYPE_RESIDENTIAL_LOW = 0x01;
         public const byte LOT_ZONE_TYPE_RESIDENTIAL_MEDIUM = 0x02;
         public const byte LOT_ZONE_TYPE_RESIDENTIAL_HIGH = 0x03;
@@ -79,18 +78,10 @@ namespace SC4Parser // SC4.constants
             {0x02, @"$$"},
             {0x03, @"$$$"}
         };
+
         public const byte LOT_WEALTH_NONE = 0x00;
         public const byte LOT_WEALTH_LOW = 0x01;
         public const byte LOT_WEALTH_MEDIUM = 0x02;
         public const byte LOT_WEALTH_HIGH = 0x03;
-
-        // Lot Orientation
-        public static Dictionary<byte, string> LOT_ORIENTATIONS = new Dictionary<byte, string>
-        {
-            {0x00, "North"},
-
-            { 0x02, "South"},
-
-        };
     }
 }
