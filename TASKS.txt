@@ -1,15 +1,32 @@
-Cleanup
-------
-PRIMARY
-Finish decompression
-Implement lot and building (maybe transport) sub files
+Must haves:
 
-NICE TO HAVE
-Seperate library and cmdline tool
-extract all files option
-TGI hex comparison
-proper logging
+Parser
+-------------------
+- Working QFS decompression
+- Finish functionality for IndexEntry look up and extraction
+- Cleanup and add comments
+- Finish LOT implementation
+- Turn into library
+- Simple commandline tool to save out stuff
 
-STLYLE
-switch back to DBPF and DBDF?
-TGI to lowercase
+Cartographer
+-------------------
+- Implement building positioning
+- Basic UI to allow you to:
+	+ Preview image
+	+ Save in predefined poster sizes
+	+ Select what is draw (lots, building etc)
+	+ Save out
+	+ Automatically load cities folder
+- Add commandline tool to do similar 
+
+Nice to have:
+
+Parser
+--------
+- Transport and terrain lot file implementations
+
+
+Fever dreams:
+-----------------
+- Specify file parsing with json?

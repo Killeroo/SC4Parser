@@ -42,7 +42,7 @@ namespace SC4Cartographer
 
             //128 for mid
             // 256 for large
-            CreateGridImage(256, 256, 60, l);
+            CreateGridImage(256, 256, 20, l);
 
     }
 
