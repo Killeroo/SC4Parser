@@ -115,12 +115,12 @@ namespace SC4Cartographer
                         {
                             case Constants.ORIENTATION_NORTH:
                             case Constants.ORIENTATION_SOUTH:
-                                rect = new Rectangle((boxSize * lot.MinTileX) + 5, (boxSize * lot.MinTileZ) + 5, (boxSize * lot.SizeX) - 10, (boxSize * lot.SizeZ) - 10);
+                                rect = new Rectangle((boxSize * lot.MinTileX) + 2, (boxSize * lot.MinTileZ) + 2, (boxSize * lot.SizeX) - 4, (boxSize * lot.SizeZ) - 4);
                                 break;
 
                             case Constants.ORIENTATION_WEST:
                             case Constants.ORIENTATION_EAST:
-                                rect = new Rectangle((boxSize * lot.MinTileX) + 5, (boxSize * lot.MinTileZ) + 5, (boxSize * lot.SizeZ) - 10, (boxSize * lot.SizeX) - 10);
+                                rect = new Rectangle((boxSize * lot.MinTileX) + 2, (boxSize * lot.MinTileZ) + 2, (boxSize * lot.SizeZ) - 4, (boxSize * lot.SizeX) - 4);
 
 
                                 break;

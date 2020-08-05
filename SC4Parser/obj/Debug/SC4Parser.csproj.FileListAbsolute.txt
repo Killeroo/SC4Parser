@@ -12,3 +12,10 @@ C:\Projects\SC4Parser_\SC4Parser\obj\Debug\SC4Parser.csprojAssemblyReference.cac
 C:\Projects\SC4Parser_\SC4Parser\obj\Debug\SC4Parser.csproj.CoreCompileInputs.cache
 C:\Projects\SC4Parser_\SC4Parser\obj\Debug\TestParser.exe
 C:\Projects\SC4Parser_\SC4Parser\obj\Debug\TestParser.pdb
+E:\misc\SC4Parser\SC4Parser\bin\Debug\TestParser.exe.config
+E:\misc\SC4Parser\SC4Parser\bin\Debug\TestParser.exe
+E:\misc\SC4Parser\SC4Parser\bin\Debug\TestParser.pdb
+E:\misc\SC4Parser\SC4Parser\obj\Debug\SC4Parser.csprojAssemblyReference.cache
+E:\misc\SC4Parser\SC4Parser\obj\Debug\SC4Parser.csproj.CoreCompileInputs.cache
+E:\misc\SC4Parser\SC4Parser\obj\Debug\TestParser.exe
+E:\misc\SC4Parser\SC4Parser\obj\Debug\TestParser.pdb
