@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\projects\sc4parser_\qfs\main.cpp(30): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
+     Creating library C:\Projects\SC4Parser_\Debug\QFS.lib and object C:\Projects\SC4Parser_\Debug\QFS.exp
+  QFS.vcxproj -> C:\Projects\SC4Parser_\Debug\QFS.exe
