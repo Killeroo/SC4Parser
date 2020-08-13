@@ -25,6 +25,7 @@ Nice to have:
 Parser
 --------
 - Transport and terrain lot file implementations
+- Icons
 
 
 Fever dreams:
