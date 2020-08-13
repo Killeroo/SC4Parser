@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SC4Cartographer", "SC4Carto
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QFS", "QFS\QFS.vcxproj", "{C333AF74-1C64-457C-9099-8EAEC58B6BF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SC4CartographerUI", "SC4CartographerUI\SC4CartographerUI.csproj", "{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,18 @@ Global
 		{C333AF74-1C64-457C-9099-8EAEC58B6BF7}.Release|x64.Build.0 = Release|x64
 		{C333AF74-1C64-457C-9099-8EAEC58B6BF7}.Release|x86.ActiveCfg = Release|Win32
 		{C333AF74-1C64-457C-9099-8EAEC58B6BF7}.Release|x86.Build.0 = Release|Win32
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Debug|x64.Build.0 = Debug|Any CPU
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Debug|x86.Build.0 = Debug|Any CPU
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Release|x64.ActiveCfg = Release|Any CPU
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Release|x64.Build.0 = Release|Any CPU
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Release|x86.ActiveCfg = Release|Any CPU
+		{7DC4EA4D-6F84-44C6-9985-EF38CDA84E48}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
