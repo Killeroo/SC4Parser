@@ -9,9 +9,9 @@ int main()
 extern "C"
 {
 	__declspec(dllexport)
-		void
-		__cdecl
-		test(void *Array, int size)// char array[], int size)
+	void
+	__cdecl
+	test(void *Array, int size)// char array[], int size)
 	{
 		//printf("%d", number);
 		char *char_array;

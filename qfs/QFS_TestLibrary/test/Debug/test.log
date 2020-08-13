@@ -1,3 +1,0 @@
-﻿  test.cpp
-c:\users\shadowfax\source\repos\test\test\test.cpp(29): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'int'
-  test.vcxproj -> C:\Users\Shadowfax\source\repos\test\Debug\test.dll

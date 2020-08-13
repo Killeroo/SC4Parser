@@ -1,3 +1,0 @@
-﻿  QFS_Sample.cpp
-c:\users\shadowfax\source\repos\qfs_sample\qfs_sample\qfs_sample.cpp(34): warning C4244: 'argument': conversion from 'std::streamoff' to 'const unsigned int', possible loss of data
-  QFS_Sample.vcxproj -> C:\Users\Shadowfax\source\repos\QFS_Sample\Debug\QFS_Sample.exe
