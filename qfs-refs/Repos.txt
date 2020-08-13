@@ -1,0 +1,6 @@
+- Most used simcity 4 implementation (also used by ilives) https://github.com/wouanagaine/SC4Mapper-2013/blob/master/Modules/qfs.c
+
+- EA game reimplementation: https://github.com/OpenSAGE/OpenSAGE/blob/351b62df9e70041148beb1218386a4e838e5ae15/src/OpenSage.FileFormats.RefPack/RefPackStream.cs
+- Modding tool that might have an implementation: https://github.com/gibbed/Gibbed.Sims3/tree/060cffb249ed8497324d1f1b9783754b443e2571
+
+- Might have an implementation? https://sourceforge.net/projects/simpe/
