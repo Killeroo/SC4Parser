@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
 
 namespace SC4Parser.Structures
 {
@@ -121,9 +120,6 @@ namespace SC4Parser.Structures
             }
             return sourceBytes;
         }
-
-        [DllImport("test.dll", CallingConvention = CallingConvention.Cdecl)]
-        public extern static void test(char[] array, int size);
 
         // TODO: We need to think about how we use and structure the operations below, right
         // now they are only used in a particular way, they arent that flexible so refactor police

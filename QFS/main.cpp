@@ -18,8 +18,16 @@ extern "C"
 		char_array = (char*)Array;
 		char_array[0] = 'b';
 		printf("%s", char_array[0]);
+		printf("%d\n", sizeof(Array));
 	}
 
+	__declspec(dllexport)
+	void
+	__cdecl
+	testprint()
+	{
+		printf("Hellow\n");
+	}
 }
 
 ////////////////////////////////////////////////////////////

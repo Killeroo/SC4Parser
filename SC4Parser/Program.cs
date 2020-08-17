@@ -54,10 +54,15 @@ namespace SC4Parser
             //f.Parse(File.ReadAllBytes("buildings_decompressed"), (int)file.Length);
             //f.Dump();
 
-            FileInfo file = new FileInfo("lot_decompressed");
-            LotSubFile l = new LotSubFile();
-            l.Parse(File.ReadAllBytes("lot_decompressed"), (int)file.Length);
-            l.Dump();
+            // Lot reading
+            //FileInfo file = new FileInfo("lot_decompressed");
+            //LotSubFile l = new LotSubFile();
+            //l.Parse(File.ReadAllBytes("lot_decompressed"), (int)file.Length);
+            //l.Dump();
+
+            var bytes = File.ReadAllBytes("lot_compressed");
+            int bytesLength = bytes.Length;
+            QFS.Uncompress(bytes, bytesLength);
 
             Console.ReadLine();
         }
