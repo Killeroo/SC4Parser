@@ -245,13 +245,34 @@ namespace SC4Parser.Structures
 
         //private void Copy(ref byte[] source, , ref byte[] destination, int length)
         //{
-            
+
         //    //while (length != 0)
         //    //{
         //    //    length--;
         //    //    destination
         //    //}
         //}
+
+        int count = 0;
+        private void Copy(ref byte[] source, int sourceOffset, ref byte[] destination, int destinationOffset, int length)
+        {
+            if (sourceOffset + length >= destinationOffset)
+            {
+                count++;
+                Console.WriteLine("Copy source@{0} to destination@{1}, len={2} value={3} errcnt={4}", sourceOffset, destinationOffset, length, source[sourceOffset].ToString("X"), count);
+            }
+
+            //Buffer.BlockCopy(source, sourceOffset, destination, destinationOffset, length);
+            if (length != 0)
+            {
+                Console.WriteLine("{0}", length);
+                Buffer.BlockCopy(source, sourceOffset, destination, destinationOffset, 1);
+                length = length - 1;
+                sourceOffset++;
+                destinationOffset++;
+                Copy(ref source, sourceOffset, ref destination, destinationOffset, length);
+            }
+        }
 
         // QFS/quickref decompression implementation
         // Source: https://github.com/wouanagaine/SC4Mapper-2013/blob/db29c9bf88678a144dd1f9438e63b7a4b5e7f635/Modules/qfs.c#L25
@@ -345,24 +366,28 @@ namespace SC4Parser.Structures
                 if ((controlCharacter & 0x80) == 0)
                 {
                     length = controlCharacter & 0x03; //controlCharacter & 3;
-                    Buffer.BlockCopy(sourceBytes, sourcePosition + 2, destinationBytes, destinationPosition, length);
+                    //Buffer.BlockCopy(sourceBytes, sourcePosition + 2, destinationBytes, destinationPosition, length);
+                    Copy(ref sourceBytes, sourcePosition + 2, ref destinationBytes, destinationPosition, length);
                     sourcePosition += length + 2;
                     destinationPosition += length;
                     length = ((controlCharacter & 0x1C) >> 2) + 3;//((controlCharacter & 0x1C) >> 2) + 3;
                     offset = ((controlCharacter & 0x60) << 3) + a + 1;//((controlCharacter >> 5) << 8) + a + 1;
-                    Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
+                    //Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
+                    Copy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
                     destinationPosition += length;
                     count1++;
                 }
                 else if ((controlCharacter & 0x40) == 0)
                 {
                     length = (a & 0xC0) >> 6;//(a >> 6) & 3;
-                    Buffer.BlockCopy(sourceBytes, sourcePosition + 3, destinationBytes, destinationPosition, length);
+                    //Buffer.BlockCopy(sourceBytes, sourcePosition + 3, destinationBytes, destinationPosition, length);
+                    Copy(ref sourceBytes, sourcePosition + 3, ref destinationBytes, destinationPosition, length);
                     sourcePosition += length + 3;
                     destinationPosition += length;
                     length = (controlCharacter & 0x3F) + 4;//(controlCharacter & 0x3F) + 4;
                     offset = ((a & 0x3F) << 8) + b + 1;//(a & 0x3F) * 256 + b + 1;
-                    Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
+                    //Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
+                    Copy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
                     destinationPosition += length;
                     count2++;
                 }
@@ -370,7 +395,8 @@ namespace SC4Parser.Structures
                 {
                     c = sourceBytes[sourcePosition + 3];
                     length = controlCharacter & 0x03;//& 3;
-                    Buffer.BlockCopy(sourceBytes, sourcePosition + 4, destinationBytes, destinationPosition, length);
+                    //Buffer.BlockCopy(sourceBytes, sourcePosition + 4, destinationBytes, destinationPosition, length);
+                    Copy(ref sourceBytes, sourcePosition + 4, ref destinationBytes, destinationPosition, length);
                     sourcePosition += length + 4;
                     destinationPosition += length;
                     length = ((controlCharacter & 0x0C) << 6) + c + 5;//((controlCharacter >> 2) & 3) * 256 + c + 5;
@@ -385,14 +411,16 @@ namespace SC4Parser.Structures
                     //    Console.WriteLine(seg.ToString("X"));
                     //}
 
-                    Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
+                    //Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
+                    Copy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
                     destinationPosition += length;
                     count3++;
                 }
                 else
                 {
                     length = (controlCharacter - 0xDF) << 2;//(controlCharacter & 0x1F) * 4 + 4;
-                    Buffer.BlockCopy(sourceBytes, sourcePosition + 1, destinationBytes, destinationPosition, length);
+                    //Buffer.BlockCopy(sourceBytes, sourcePosition + 1, destinationBytes, destinationPosition, length);
+                    Copy(ref sourceBytes, sourcePosition + 1, ref destinationBytes, destinationPosition, length);
                     sourcePosition += length + 1;
                     destinationPosition += length;
                     count4++;
@@ -402,7 +430,8 @@ namespace SC4Parser.Structures
             // Add trailing bytes
             if ((sourcePosition < sourceBytes.Length) && (destinationPosition < destinationBytes.Length))
             {
-                Buffer.BlockCopy(sourceBytes, sourcePosition + 1, destinationBytes, destinationPosition, sourceBytes[sourcePosition] & 3);
+                //Buffer.BlockCopy(sourceBytes, sourcePosition + 1, destinationBytes, destinationPosition, sourceBytes[sourcePosition] & 3);
+                Copy(ref sourceBytes, sourcePosition + 1, ref destinationBytes, destinationPosition, sourceBytes[sourcePosition] & 3);
                 destinationPosition += sourceBytes[sourcePosition] & 3;
             }
 

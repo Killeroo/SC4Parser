@@ -44,9 +44,9 @@ namespace SC4Parser
             SC4SaveFile save = new SC4SaveFile(savePath);
 
             // Loading and decompression stuff:
-            // save.FindIndexEntry("C9BD5D4A"); // Lot file
-            //IndexEntry en = save.FindIndexEntry("A9BD882D"); // building file
-            //save.LoadEntry(en.TGI);// new TypeGroupInstance("8A2482B9", "4A2482BB", "0"));
+            save.FindIndexEntry("C9BD5D4A"); // Lot file
+            IndexEntry en = save.FindIndexEntry("C9BD5D4A"); // Lot file save.FindIndexEntry("A9BD882D"); // building file
+            save.LoadEntry(en.TGI);// new TypeGroupInstance("8A2482B9", "4A2482BB", "0"));
 
             // Building parsing test stuff
             //FileInfo file = new FileInfo("buildings_decompressed");
@@ -60,9 +60,10 @@ namespace SC4Parser
             //l.Parse(File.ReadAllBytes("lot_decompressed"), (int)file.Length);
             //l.Dump();
 
-            var bytes = File.ReadAllBytes("lot_compressed");
-            int bytesLength = bytes.Length;
-            QFS.Uncompress(bytes, bytesLength);
+            // rewriting QFS stuff testing
+            //var bytes = File.ReadAllBytes("lot_compressed");
+            //int bytesLength = bytes.Length;
+            //QFS.Uncompress(bytes, bytesLength);
 
             Console.ReadLine();
         }
