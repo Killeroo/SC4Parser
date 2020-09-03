@@ -243,34 +243,17 @@ namespace SC4Parser.Structures
             return buffer;
         }
 
-        //private void Copy(ref byte[] source, , ref byte[] destination, int length)
-        //{
-
-        //    //while (length != 0)
-        //    //{
-        //    //    length--;
-        //    //    destination
-        //    //}
-        //}
-
-        int count = 0;
-        private void Copy(ref byte[] source, int sourceOffset, ref byte[] destination, int destinationOffset, int length)
+        private void LZCompliantCopy(ref byte[] source, int sourceOffset, ref byte[] destination, int destinationOffset, int length)
         {
-            if (sourceOffset + length >= destinationOffset)
-            {
-                count++;
-                Console.WriteLine("Copy source@{0} to destination@{1}, len={2} value={3} errcnt={4}", sourceOffset, destinationOffset, length, source[sourceOffset].ToString("X"), count);
-            }
-
-            //Buffer.BlockCopy(source, sourceOffset, destination, destinationOffset, length);
             if (length != 0)
             {
-                Console.WriteLine("{0}", length);
                 Buffer.BlockCopy(source, sourceOffset, destination, destinationOffset, 1);
+
                 length = length - 1;
                 sourceOffset++;
                 destinationOffset++;
-                Copy(ref source, sourceOffset, ref destination, destinationOffset, length);
+
+                LZCompliantCopy(ref source, sourceOffset, ref destination, destinationOffset, length);
             }
         }
 
@@ -285,7 +268,6 @@ namespace SC4Parser.Structures
 
             // Check first 4 bytes (size of header + compressed data)
             uint compressedSize = BitConverter.ToUInt32(sourceBytes, 0);
-            Console.WriteLine("{0} bytes", compressedSize);
 
             // Next read the 5 byte header
             byte[] header = new byte[5];
@@ -293,13 +275,12 @@ namespace SC4Parser.Structures
             {
                 header[i] = sourceBytes[i + 4];
             }
+
             // First 2 bytes should be the QFS identifier
-            Console.WriteLine("{0}{1}", header[0].ToString("X"), header[1].ToString("X"));
             // Next 3 bytes should be the uncompressed size of file
             // (we do this by byte shifting (from most significant byte to least))
             // the last 3 bytes of the header to make a number)
             uint uncompressedSize = Convert.ToUInt32((long)(header[2] << 16) + (header[3] << 8) + header[4]); ;
-            Console.WriteLine("{0} bytes", uncompressedSize);
 
             // Create our destination array
             destinationBytes = new byte[uncompressedSize];
@@ -310,12 +291,6 @@ namespace SC4Parser.Structures
             // offset is just the header (5 bytes))
             if ((sourceBytes[0] & 0x01) != 0)
             {
-                //////////////////////////////////////////////////////////
-                /* I think these positions are too short
-                so add 1 to reach the correct index of uncompressed data
-                but the next condition seemed to have it right..
-                this might be intentional, check back later */
-                //////////////////////////////////////////////////////////
                 sourcePosition = 9;//8;
             }
             else
@@ -323,212 +298,87 @@ namespace SC4Parser.Structures
                 sourcePosition = 5;
             }
 
-            int count1 = 0;
-            int count2 = 0;
-            int count3 = 0;
-            int count4 = 0;
-
+            // In QFS the control character tells us what type of decompression operation we are going to perform (there are 4)
+            // Most involve using the bytes proceeding the control byte to determine the amount of data that should be copied from what
+            // offset. These bytes are labled a, b and c. Some operations only use 1 proceeding byte, others can use 3
+            byte controlCharacter = 0;
             byte a = 0;
             byte b = 0;
             byte c = 0;
+            int length = 0;
+            int offset = 0;
 
             // Main decoding loop
             // Keep decoding while sourcePosition is in source array and position isn't 0xFC?
-            byte controlCharacter = 0;
-            int length = 0;
-            int offset = 0;
             while ((sourcePosition < sourceBytes.Length) && (sourceBytes[sourcePosition] < 0xFC))
             {
-                //Console.WriteLine("pos={0} source_len={1} | current_source_byte={2}",
-                //    sourcePosition,
-                //    sourceBytes.Length,
-                //    sourceBytes[sourcePosition].ToString("X"));
-
                 // Read our packcode/control character
                 controlCharacter = sourceBytes[sourcePosition];
-
-                //Console.WriteLine("current_control_character={0}", sourceBytes[sourcePosition].ToString("X"));
-              
-
+                
                 a = sourceBytes[sourcePosition + 1];
                 b = sourceBytes[sourcePosition + 2];
-
-                //Console.WriteLine(@"proceeding bytes [int a={0} b={1}] [byte a={4} b={5}]/[byte a={2} b={3}]",
-                //    a,
-                //    b,
-                //    aa,
-                //    bb,
-                //    aa.ToString(),
-                //    bb.ToString());
-
-
-                //TODO: CHECK THE INDEX MODIFICATIONS AFTER THE FACT THEY MIGHT BE OFF BY ONE
+                
                 if ((controlCharacter & 0x80) == 0)
                 {
                     length = controlCharacter & 0x03; //controlCharacter & 3;
                     //Buffer.BlockCopy(sourceBytes, sourcePosition + 2, destinationBytes, destinationPosition, length);
-                    Copy(ref sourceBytes, sourcePosition + 2, ref destinationBytes, destinationPosition, length);
+                    LZCompliantCopy(ref sourceBytes, sourcePosition + 2, ref destinationBytes, destinationPosition, length);
                     sourcePosition += length + 2;
                     destinationPosition += length;
                     length = ((controlCharacter & 0x1C) >> 2) + 3;//((controlCharacter & 0x1C) >> 2) + 3;
                     offset = ((controlCharacter & 0x60) << 3) + a + 1;//((controlCharacter >> 5) << 8) + a + 1;
                     //Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
-                    Copy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
+                    LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
                     destinationPosition += length;
-                    count1++;
                 }
                 else if ((controlCharacter & 0x40) == 0)
                 {
                     length = (a & 0xC0) >> 6;//(a >> 6) & 3;
                     //Buffer.BlockCopy(sourceBytes, sourcePosition + 3, destinationBytes, destinationPosition, length);
-                    Copy(ref sourceBytes, sourcePosition + 3, ref destinationBytes, destinationPosition, length);
+                    LZCompliantCopy(ref sourceBytes, sourcePosition + 3, ref destinationBytes, destinationPosition, length);
                     sourcePosition += length + 3;
                     destinationPosition += length;
                     length = (controlCharacter & 0x3F) + 4;//(controlCharacter & 0x3F) + 4;
                     offset = ((a & 0x3F) << 8) + b + 1;//(a & 0x3F) * 256 + b + 1;
                     //Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
-                    Copy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
+                    LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
                     destinationPosition += length;
-                    count2++;
                 }
                 else if ((controlCharacter & 0x20) == 0)
                 {
                     c = sourceBytes[sourcePosition + 3];
                     length = controlCharacter & 0x03;//& 3;
-                    //Buffer.BlockCopy(sourceBytes, sourcePosition + 4, destinationBytes, destinationPosition, length);
-                    Copy(ref sourceBytes, sourcePosition + 4, ref destinationBytes, destinationPosition, length);
+                    LZCompliantCopy(ref sourceBytes, sourcePosition + 4, ref destinationBytes, destinationPosition, length);
                     sourcePosition += length + 4;
                     destinationPosition += length;
                     length = ((controlCharacter & 0x0C) << 6) + c + 5;//((controlCharacter >> 2) & 3) * 256 + c + 5;
                     offset = ((controlCharacter & 0x10) << 12) + (a << 8) + b + 1;//((controlCharacter & 0x10) << 12) + 256 * a + b + 1;
-
-                    //Console.WriteLine("------------------------------");
-                    //byte[] copy = new byte[length];
-                    //Array.Copy(destinationBytes, offset, copy, 0, length);
-                    //Console.WriteLine("destpos={0}/destsize{1} + lenght={2}", (destinationPosition - offset).ToString("X"), destinationPosition, length);
-                    //foreach (var seg in copy)
-                    //{
-                    //    Console.WriteLine(seg.ToString("X"));
-                    //}
-
-                    //Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
-                    Copy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
+                    
+                    LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
                     destinationPosition += length;
-                    count3++;
                 }
                 else
                 {
                     length = (controlCharacter - 0xDF) << 2;//(controlCharacter & 0x1F) * 4 + 4;
-                    //Buffer.BlockCopy(sourceBytes, sourcePosition + 1, destinationBytes, destinationPosition, length);
-                    Copy(ref sourceBytes, sourcePosition + 1, ref destinationBytes, destinationPosition, length);
+                    LZCompliantCopy(ref sourceBytes, sourcePosition + 1, ref destinationBytes, destinationPosition, length);
                     sourcePosition += length + 1;
                     destinationPosition += length;
-                    count4++;
                 }
             }
 
             // Add trailing bytes
             if ((sourcePosition < sourceBytes.Length) && (destinationPosition < destinationBytes.Length))
             {
-                //Buffer.BlockCopy(sourceBytes, sourcePosition + 1, destinationBytes, destinationPosition, sourceBytes[sourcePosition] & 3);
-                Copy(ref sourceBytes, sourcePosition + 1, ref destinationBytes, destinationPosition, sourceBytes[sourcePosition] & 3);
+                LZCompliantCopy(ref sourceBytes, sourcePosition + 1, ref destinationBytes, destinationPosition, sourceBytes[sourcePosition] & 3);
                 destinationPosition += sourceBytes[sourcePosition] & 3;
             }
 
             if (destinationPosition != destinationBytes.Length)
             {
-                Console.WriteLine("Warning bad length, {0} instead of {1}", destinationPosition, destinationBytes.Length);
+                Console.WriteLine("QFS bad length, {0} instead of {1}", destinationPosition, destinationBytes.Length);
             }
-            Console.WriteLine("1: {0}, 2: {1}, 3: {2}, 4: {3}", count1, count2, count3, count4);
-
 
             return destinationBytes;
-        }
-
-        private byte[] Uncompress2(byte[] data, uint targetSize, int offset)
-        {
-            byte[] uncdata = null;
-            int index = offset;
-
-            try
-            {
-                uncdata = new byte[targetSize];
-            }
-            catch (Exception)
-            {
-                uncdata = new byte[0];
-            }
-
-            int uncindex = 0;
-            int plaincount = 0;
-            int copycount = 0;
-            int copyoffset = 0;
-            byte cc = 0;
-            byte cc1 = 0;
-            byte cc2 = 0;
-            byte cc3 = 0;
-            int source;
-
-            //try
-            //{
-            while ((index < data.Length) && (data[index] < 0xfc))
-            {
-                cc = data[index++];
-
-                if ((cc & 0x80) == 0)
-                {
-                    cc1 = data[index++];
-                    plaincount = (cc & 0x03);
-                    copycount = ((cc & 0x1C) >> 2) + 3;
-                    copyoffset = ((cc & 0x60) << 3) + cc1 + 1;
-                }
-                else if ((cc & 0x40) == 0)
-                {
-                    cc1 = data[index++];
-                    cc2 = data[index++];
-                    plaincount = (cc1 & 0xC0) >> 6;
-                    copycount = (cc & 0x3F) + 4;
-                    copyoffset = ((cc1 & 0x3F) << 8) + cc2 + 1;
-                }
-                else if ((cc & 0x20) == 0)
-                {
-                    cc1 = data[index++];
-                    cc2 = data[index++];
-                    cc3 = data[index++];
-                    plaincount = (cc & 0x03);
-                    copycount = ((cc & 0x0C) << 6) + cc3 + 5;
-                    copyoffset = ((cc & 0x10) << 12) + (cc1 << 8) + cc2 + 1;
-                }
-                else
-                {
-                    plaincount = (cc - 0xDF) << 2;
-                    copycount = 0;
-                    copyoffset = 0;
-                }
-
-                for (int i = 0; i < plaincount; i++) uncdata[uncindex++] = data[index++];
-
-                source = uncindex - copyoffset;
-                for (int i = 0; i < copycount; i++) uncdata[uncindex++] = uncdata[source++];
-            }//while
-            //} //try
-            //catch (Exception ex)
-            //{
-            //    //Helper.ExceptionMessage("", ex);
-            //    throw ex;
-            //}
-
-
-            if (index < data.Length)
-            {
-                plaincount = (data[index++] & 0x03);
-                for (int i = 0; i < plaincount; i++)
-                {
-                    if (uncindex >= uncdata.Length) break;
-                    uncdata[uncindex++] = data[index++];
-                }
-            }
-            return uncdata;
         }
 
         public void SaveDataToFile(byte[] data, string path, TypeGroupInstance tgi)
