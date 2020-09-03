@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace SC4Parser
 {
+    // TODO: I want this class to be able to take arguments like console.writeline
+
     class Logger
     {
         private static ConsoleColor m_BackgroundColor;
@@ -13,49 +15,28 @@ namespace SC4Parser
 
         public static void Info(string message, ConsoleColor color = ConsoleColor.White)
         {
-            SaveConsoleColors();
-
             Console.ForegroundColor = color;
             Log("[INFO] " + message);
-
-            RestoreConsoleColors();
+            Console.ResetColor();
         }
 
         public static void Warning(string message, bool newline = true)
         {
-            SaveConsoleColors();
-
             Console.ForegroundColor = ConsoleColor.Yellow;
             Log("[WARNING] " + message);
-
-            RestoreConsoleColors();
+            Console.ResetColor();
         }
 
         public static void Error(string message, bool newline = true)
         {
-            SaveConsoleColors();
-
             Console.ForegroundColor = ConsoleColor.Red;
             Log("[ERROR] " + message);
-            
-            RestoreConsoleColors();
+            Console.ResetColor();
         }
 
         public static void Log(string message)
         {
             Console.WriteLine(message);
-        }
-
-        private static void SaveConsoleColors()
-        {
-            m_BackgroundColor = Console.BackgroundColor;
-            m_ForegroundColor = Console.ForegroundColor;
-        }
-
-        private static void RestoreConsoleColors()
-        {
-            Console.BackgroundColor = m_BackgroundColor;
-            Console.ForegroundColor = m_ForegroundColor;
         }
     }
 }
