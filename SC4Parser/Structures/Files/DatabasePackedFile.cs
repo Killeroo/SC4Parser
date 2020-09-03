@@ -94,8 +94,7 @@ namespace SC4Parser.Structures
             }
         }
         
-        // All very temp, look at comment below
-        public byte[] LoadEntry(TypeGroupInstance tgi)
+        public byte[] LoadIndexEntry(TypeGroupInstance tgi)
         {
             // First find IndexEntry
             IndexEntry entry = FindIndexEntry(tgi);
@@ -105,27 +104,15 @@ namespace SC4Parser.Structures
             }
 
             bool compressed = IsIndexEntryCompressed(entry);
-
-            byte[] sourceBytes = LoadIndexEntry(entry);
-            SaveDataToFile(sourceBytes, "", entry.TGI);
+            byte[] sourceBytes = RetrieveRawIndexEntryData(entry);
 
             if (compressed)
             {
-                //UncompressData(entryBytes);
-                DatabaseDirectoryResource resource = FindDatabaseDirectoryResource(entry);
-
-                byte[] uncompressedData = UncompressData(sourceBytes);
-               
-                SaveDataToFile(uncompressedData, @"", entry.TGI);
+                return QFS.UncompressData(sourceBytes);
             }
             return sourceBytes;
         }
-
-        // TODO: We need to think about how we use and structure the operations below, right
-        // now they are only used in a particular way, they arent that flexible so refactor police
-        // stop here after everything
-        // (Too much null checking in other files, too much repeating)
-        ////////////////////////////////////////////////////////////////////////////////////////////////
+        
         public IndexEntry FindIndexEntry(TypeGroupInstance tgi)
         {
             IndexEntry foundEntry = null;
@@ -147,7 +134,7 @@ namespace SC4Parser.Structures
 
             return foundEntry;
         }
-        public IndexEntry FindIndexEntry(string type_id)
+        public IndexEntry FindIndexEntryWithType(string type_id)
         {
             // Find IndexEntry with the specified TypeID
             IndexEntry foundEntry = null;
@@ -170,21 +157,6 @@ namespace SC4Parser.Structures
             return foundEntry;
         }
 
-        public bool IsIndexEntryCompressed(IndexEntry entry)
-        {
-            // Check if entry's TGI is present in DBDF
-            // (if it is present then it has been compressed)
-            foreach (DatabaseDirectoryResource resource in DBDFFile.Resources)
-            {
-                if (resource.TGI == entry.TGI)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public DatabaseDirectoryResource FindDatabaseDirectoryResource(IndexEntry entry)
         {
             DatabaseDirectoryResource resource = null;
@@ -197,9 +169,8 @@ namespace SC4Parser.Structures
             }
             return resource;
         }
-        ////////////////////////////////////////////////////////////////////////////////////////////////
 
-        private byte[] LoadIndexEntry(IndexEntry entry)
+        private byte[] RetrieveRawIndexEntryData(IndexEntry entry)
         {
             byte[] buffer = null;
             int fileSize = 0;
@@ -242,33 +213,19 @@ namespace SC4Parser.Structures
 
             return buffer;
         }
-
-        public void SaveDataToFile(byte[] data, string path, TypeGroupInstance tgi)
+        private bool IsIndexEntryCompressed(IndexEntry entry)
         {
-            string filename = Path.GetFileName(FilePath).Split('.')[0] + "_" + tgi.ToString().Replace(" ", "-");
-
-            try
+            // Check if entry's TGI is present in DBDF
+            // (if it is present then it has been compressed)
+            foreach (DatabaseDirectoryResource resource in DBDFFile.Resources)
             {
-                // Write buffer to specified path
-                using (FileStream stream = new FileStream(Path.Combine(path, filename), FileMode.OpenOrCreate))
+                if (resource.TGI == entry.TGI)
                 {
-                    stream.Write(data, 0, data.Length);
+                    return true;
                 }
+            }
 
-                Logger.Info(string.Format("Data (tgi={0}, size {1} bytes) written to path: {2}",
-                    tgi.ToString(),
-                    data.Length,
-                    Path.Combine(path, filename)));
-            }
-            catch (Exception e)
-            {
-                Logger.Error(string.Format("Exception ({0}) occured while trying to save Index Entry ({4}) to path {1}. msg={2} trace={3}",
-                    e.GetType().ToString(),
-                    Path.Combine(path),
-                    e.Message,
-                    e.StackTrace,
-                    tgi.ToString()));
-            }
+            return false;
         }
 
         public void Dump()
