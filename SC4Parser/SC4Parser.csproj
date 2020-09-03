@@ -48,22 +48,25 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QFS.cs" />
-    <Compile Include="Structures\Files\DatabaseDirectoryFile.cs" />
-    <Compile Include="Structures\Files\DatabaseDirectoryResource.cs" />
-    <Compile Include="Structures\Files\DatabasePackedFile.cs" />
-    <Compile Include="Structures\Files\DatabasePackedFileHeader.cs" />
-    <Compile Include="Structures\Files\SubFiles\Lot.cs" />
-    <Compile Include="Structures\Files\SubFiles\LotSubFile.cs" />
-    <Compile Include="Structures\IndexEntry.cs" />
-    <Compile Include="Structures\SaveGameProperty.cs" />
-    <Compile Include="Structures\Files\SC4SaveFile.cs" />
-    <Compile Include="Structures\Files\SubFiles\Building.cs" />
-    <Compile Include="Structures\Files\SubFiles\BuildingSubFile.cs" />
-    <Compile Include="Structures\Types\TypeGroupInstance.cs" />
+    <Compile Include="Files\DatabaseDirectoryFile.cs" />
+    <Compile Include="DataStructures\DatabaseDirectoryResource.cs" />
+    <Compile Include="Files\DatabasePackedFile.cs" />
+    <Compile Include="Files\DatabasePackedFileHeader.cs" />
+    <Compile Include="DataStructures\Lot.cs" />
+    <Compile Include="Files\LotSubFile.cs" />
+    <Compile Include="DataStructures\IndexEntry.cs" />
+    <Compile Include="DataStructures\SaveGameProperty.cs" />
+    <Compile Include="Files\SC4SaveFile.cs" />
+    <Compile Include="DataStructures\Building.cs" />
+    <Compile Include="Files\BuildingSubFile.cs" />
+    <Compile Include="Types\TypeGroupInstance.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Structures\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
