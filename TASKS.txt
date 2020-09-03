@@ -2,8 +2,8 @@ Must haves:
 
 Parser
 -------------------
-- Working QFS decompression
-- Finish functionality for IndexEntry look up and extraction
+- (DONE) Working QFS decompression
+- (DONE) Finish functionality for IndexEntry look up and extraction
 - Cleanup and add comments
 - Finish LOT implementation
 - Turn into library

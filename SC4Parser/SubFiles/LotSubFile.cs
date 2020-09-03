@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SC4Parser.Structures.Files.SubFiles
+using SC4Parser.DataStructures;
+
+namespace SC4Parser.SubFiles
 {
     public class LotSubFile
     {

@@ -51,22 +51,20 @@
     <Compile Include="Files\DatabaseDirectoryFile.cs" />
     <Compile Include="DataStructures\DatabaseDirectoryResource.cs" />
     <Compile Include="Files\DatabasePackedFile.cs" />
-    <Compile Include="Files\DatabasePackedFileHeader.cs" />
+    <Compile Include="DataStructures\DatabasePackedFileHeader.cs" />
     <Compile Include="DataStructures\Lot.cs" />
-    <Compile Include="Files\LotSubFile.cs" />
+    <Compile Include="SubFiles\LotSubFile.cs" />
     <Compile Include="DataStructures\IndexEntry.cs" />
     <Compile Include="DataStructures\SaveGameProperty.cs" />
     <Compile Include="Files\SC4SaveFile.cs" />
     <Compile Include="DataStructures\Building.cs" />
-    <Compile Include="Files\BuildingSubFile.cs" />
+    <Compile Include="SubFiles\BuildingSubFile.cs" />
     <Compile Include="Types\TypeGroupInstance.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Structures\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SC4Parser.Structures
+using SC4Parser.DataStructures;
+
+namespace SC4Parser.Files
 {
     class DatabaseDirectoryFile : IndexEntry
     {

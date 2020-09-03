@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SC4Parser.Structures.Files.SubFiles
+namespace SC4Parser.DataStructures
 {
     //https://www.wiki.sc4devotion.com/index.php?title=Lot_Subfile
     public class Lot

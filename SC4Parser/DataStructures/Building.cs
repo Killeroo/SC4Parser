@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SC4Parser.Structures.SubFiles
+namespace SC4Parser.DataStructures
 {
     //https://wiki.sc4devotion.com/index.php?title=Building_Subfile
     public class Building

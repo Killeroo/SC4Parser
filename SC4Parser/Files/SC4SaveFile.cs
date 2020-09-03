@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Text;
-using System.IO;
-using System.Collections.Generic;
 
-namespace SC4Parser.Structures
+namespace SC4Parser.Files
 {
     /// <summary>
     /// SC4 save implementation, SC4 save files use the Maxis DBPF 1.1 file format

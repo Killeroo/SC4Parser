@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace SC4Parser.Structures
+using SC4Parser.DataStructures;
+using SC4Parser.Types;
+
+namespace SC4Parser.Files
 {
     class DatabasePackedFile
     {
