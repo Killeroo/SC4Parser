@@ -8,69 +8,160 @@ using System.Runtime.InteropServices;
 
 namespace SC4Parser
 {
+    /// <summary>
+    /// Implementation of QFS/RefPack/LZ77 decompression
+    /// </summary>
     class QFS
     {
-        // Ok we are going to do our own QFS implementation instead of messing around with existing implementations (that just don't work)
-        // or trying to get c++ code running from c# (passing a byte array sucks)
-
-
-
-        // Ref:
-        //https://github.com/OpenSAGE/OpenSAGE/blob/351b62df9e70041148beb1218386a4e838e5ae15/src/OpenSage.FileFormats.RefPack/RefPackStream.cs
-        //https://github.com/gibbed/Gibbed.RefPack/blob/master/Decompression.cs
-
-        // Note:
-        // Standard refpack won't work because there are some slight variations in how refpack was implemented for different games
-        // I think it is only slightly different behaviour in the last byte (might be the same as CC3) 
-
-        // TODO:
-        // Confirm differences for SC4 usage
-
-        public static byte[] Uncompress(byte[] source, int uncompressedLength)
+        // QFS/quickref decompression implementation
+        // ported from: https://github.com/wouanagaine/SC4Mapper-2013/blob/db29c9bf88678a144dd1f9438e63b7a4b5e7f635/Modules/qfs.c#L25
+        // specs:
+        // - https://www.wiki.sc4devotion.com/index.php?title=DBPF_Compression
+        // - http://wiki.niotso.org/RefPack#Naming_notes
+        public static byte[] UncompressData(byte[] data)
         {
-            // TODO: convert to stream
-            uint compressedSize;
-            int uncompressedSize;
-            ushort compressionId;
+            byte[] sourceBytes = data;
+            byte[] destinationBytes;
+            int sourcePosition = 0;
+            int destinationPosition = 0;
+
+            // Check first 4 bytes (size of header + compressed data)
+            uint compressedSize = BitConverter.ToUInt32(sourceBytes, 0);
+
+            // Next read the 5 byte header
+            byte[] header = new byte[5];
+            for (int i = 0; i < 5; i++)
+            {
+                header[i] = sourceBytes[i + 4];
+            }
+
+            // First 2 bytes should be the QFS identifier
+            // Next 3 bytes should be the uncompressed size of file
+            // (we do this by byte shifting (from most significant byte to least))
+            // the last 3 bytes of the header to make a number)
+            uint uncompressedSize = Convert.ToUInt32((long)(header[2] << 16) + (header[3] << 8) + header[4]); ;
+
+            // Create our destination array
+            destinationBytes = new byte[uncompressedSize];
+
+            // Next set our position in the file
+            // (The if checks if the first 4 bytes are the size of the file
+            // if so our start position is 4 bytes + 5 byte header if not then our
+            // offset is just the header (5 bytes))
+            if ((sourceBytes[0] & 0x01) != 0)
+            {
+                sourcePosition = 9;//8;
+            }
+            else
+            {
+                sourcePosition = 5;
+            }
+
+            // In QFS the control character tells us what type of decompression operation we are going to perform (there are 4)
+            // Most involve using the bytes proceeding the control byte to determine the amount of data that should be copied from what
+            // offset. These bytes are labled a, b and c. Some operations only use 1 proceeding byte, others can use 3
+            byte controlCharacter = 0;
+            byte a = 0;
+            byte b = 0;
+            byte c = 0;
+            int length = 0;
             int offset = 0;
 
-            // First convert byte array to stream so it is a bit easier to handle
-            Stream sourceStream = new MemoryStream(source);
-
-            // Read compressed size
-            compressedSize = BitConverter.ToUInt32(source, offset);
-            offset += 4;
-
-            // Next read compression id
-            // NOTE: There are also some flags that we just assume are there for sc4 inside the first 
-            // byte, probably fine..
-            compressionId = BitConverter.ToUInt16(source, offset);
-            if (compressionId != 0x10FB)
+            // Main decoding loop
+            // Keep decoding while sourcePosition is in source array and position isn't 0xFC?
+            while ((sourcePosition < sourceBytes.Length) && (sourceBytes[sourcePosition] < 0xFC))
             {
-                Logger.Error("Bad compression id found");
-                return null;
+                // Read our packcode/control character
+                controlCharacter = sourceBytes[sourcePosition];
+
+                // Read bytes proceeding packcode
+                a = sourceBytes[sourcePosition + 1];
+                b = sourceBytes[sourcePosition + 2];
+                c = sourceBytes[sourcePosition + 3];
+
+                // Check which packcode type we are dealing with
+                if ((controlCharacter & 0x80) == 0)
+                {
+                    // First we copy from the source array to the destination array
+                    length = controlCharacter & 3;
+                    LZCompliantCopy(ref sourceBytes, sourcePosition + 2, ref destinationBytes, destinationPosition, length);
+
+                    // Then we copy characters already in the destination array to our current position in the destination array
+                    sourcePosition += length + 2;
+                    destinationPosition += length;
+                    length = ((controlCharacter & 0x1C) >> 2) + 3;
+                    offset = ((controlCharacter >> 5) << 8) + a + 1;
+                    LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
+
+                    destinationPosition += length;
+                }
+                else if ((controlCharacter & 0x40) == 0)
+                {
+                    length = (a >> 6) & 3;
+                    LZCompliantCopy(ref sourceBytes, sourcePosition + 3, ref destinationBytes, destinationPosition, length);
+
+                    sourcePosition += length + 3;
+                    destinationPosition += length;
+                    length = (controlCharacter & 0x3F) + 4;
+                    offset = (a & 0x3F) * 256 + b + 1;
+                    LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
+
+                    destinationPosition += length;
+                }
+                else if ((controlCharacter & 0x20) == 0)
+                {
+                    length = controlCharacter & 3;
+                    LZCompliantCopy(ref sourceBytes, sourcePosition + 4, ref destinationBytes, destinationPosition, length);
+
+                    sourcePosition += length + 4;
+                    destinationPosition += length;
+                    length = ((controlCharacter >> 2) & 3) * 256 + c + 5;
+                    offset = ((controlCharacter & 0x10) << 12) + 256 * a + b + 1;
+                    LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
+
+                    destinationPosition += length;
+                }
+                else
+                {
+                    length = (controlCharacter & 0x1F) * 4 + 4;
+                    LZCompliantCopy(ref sourceBytes, sourcePosition + 1, ref destinationBytes, destinationPosition, length);
+
+                    sourcePosition += length + 1;
+                    destinationPosition += length;
+                }
             }
-            offset += 2;
 
-            // Read uncompressed size
-            // Converting 3 bytes to 32 bit int (https://stackoverflow.com/a/8104367)
-            uncompressedSize = source[offset] << 16 | source[offset + 1] << 8 | source[offset + 2];
-            offset += 3;
+            // Add trailing bytes
+            if ((sourcePosition < sourceBytes.Length) && (destinationPosition < destinationBytes.Length))
+            {
+                LZCompliantCopy(ref sourceBytes, sourcePosition + 1, ref destinationBytes, destinationPosition, sourceBytes[sourcePosition] & 3);
+                destinationPosition += sourceBytes[sourcePosition] & 3;
+            }
 
-            // TODO: Next write something basic to properly loop through the array
-            // print out the control bytes and reach end of file
-            // copy stuff later
+            if (destinationPosition != destinationBytes.Length)
+            {
+                Console.WriteLine("QFS bad length, {0} instead of {1}", destinationPosition, destinationBytes.Length);
+            }
 
-            Console.WriteLine(compressedSize);
-            Console.WriteLine(compressionId.ToString("X"));
-            Console.WriteLine(uncompressedSize);
-
-            return new byte[1];
+            return destinationBytes;
         }
 
-        public static void Dump()
+        // With QFS (LZ77) we require an LZ compatible copy method between arrays, what this means practically is that we need to copy
+        // stuff one byte at a time from arrays. This is, because with LZ compatible algorithms, it is complete legal to copy over data that overruns
+        // the currently filled position in the destination array. In other words it is more than likely the we will be asked to copy over data that hasn't
+        // been copied yet. It's confusing, so we copy things one byte at a time using a recursive function.
+        private static void LZCompliantCopy(ref byte[] source, int sourceOffset, ref byte[] destination, int destinationOffset, int length)
         {
+            if (length != 0)
+            {
+                Buffer.BlockCopy(source, sourceOffset, destination, destinationOffset, 1);
 
+                length = length - 1;
+                sourceOffset++;
+                destinationOffset++;
+
+                LZCompliantCopy(ref source, sourceOffset, ref destination, destinationOffset, length);
+            }
         }
     }
 }
