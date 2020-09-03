@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SC4Parser.Structures;
 
-namespace SC4Parser // SC4.constants
+using SC4Parser.Types;
+
+namespace SC4Parser 
 {
     public class Constants
     {

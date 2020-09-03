@@ -3,8 +3,8 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 
-using SC4Parser.Structures;
-using SC4Parser.Structures.Files.SubFiles;
+using SC4Parser.Files;
+using SC4Parser.DataStructures;
 
 // Key:
 // ----

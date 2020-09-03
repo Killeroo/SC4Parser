@@ -1,5 +1,7 @@
 ﻿using System;
 
+using SC4Parser.Types;
+
 namespace SC4Parser.DataStructures
 {
     class DatabaseDirectoryResource
