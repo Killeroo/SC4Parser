@@ -1,2 +1,0 @@
-- C++ implementation (sims 2 modding), with some comments about implementation: http://www.moreawesomethanyou.com/smf/index.php?PHPSESSID=44d01ad39128bbc357111405decae620&/topic,8279.0.html
-- Discussion about a c# implementation http://www.moreawesomethanyou.com/smf/index.php?topic=15649.0

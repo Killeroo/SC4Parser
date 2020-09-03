@@ -1,2 +1,0 @@
-https://stackoverflow.com/questions/15862983/passing-byte-array-between-c-and-c-sharp-byref-raises-accessviolationexception
-https://stackoverflow.com/questions/49294534/return-byte-array-from-c-dll-to-c-sharp

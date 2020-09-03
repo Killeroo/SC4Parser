@@ -1,3 +1,0 @@
-http://wiki.niotso.org/RefPack
-https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-wusp/fb98aa28-5cd7-407f-8869-a6cef1ff1ccb
-https://www.wiki.sc4devotion.com/index.php?title=DBPF_Compression
