@@ -13,9 +13,7 @@ namespace SC4Parser
         // Ok we are going to do our own QFS implementation instead of messing around with existing implementations (that just don't work)
         // or trying to get c++ code running from c# (passing a byte array sucks)
 
-        // Spec:
-        //https://www.wiki.sc4devotion.com/index.php?title=DBPF_Compression
-        //http://wiki.niotso.org/RefPack#Naming_notes
+
 
         // Ref:
         //https://github.com/OpenSAGE/OpenSAGE/blob/351b62df9e70041148beb1218386a4e838e5ae15/src/OpenSage.FileFormats.RefPack/RefPackStream.cs

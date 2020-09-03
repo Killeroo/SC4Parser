@@ -258,7 +258,10 @@ namespace SC4Parser.Structures
         }
 
         // QFS/quickref decompression implementation
-        // Source: https://github.com/wouanagaine/SC4Mapper-2013/blob/db29c9bf88678a144dd1f9438e63b7a4b5e7f635/Modules/qfs.c#L25
+        // ported from: https://github.com/wouanagaine/SC4Mapper-2013/blob/db29c9bf88678a144dd1f9438e63b7a4b5e7f635/Modules/qfs.c#L25
+        // specs:
+        // - https://www.wiki.sc4devotion.com/index.php?title=DBPF_Compression
+        // - http://wiki.niotso.org/RefPack#Naming_notes
         private byte[] UncompressData(byte[] data)
         {
             byte[] sourceBytes = data;
@@ -315,52 +318,58 @@ namespace SC4Parser.Structures
                 // Read our packcode/control character
                 controlCharacter = sourceBytes[sourcePosition];
                 
+                // Read bytes proceeding packcode
                 a = sourceBytes[sourcePosition + 1];
                 b = sourceBytes[sourcePosition + 2];
-                
+                c = sourceBytes[sourcePosition + 3];
+
+                // Check which packcode type we are dealing with
                 if ((controlCharacter & 0x80) == 0)
                 {
-                    length = controlCharacter & 0x03; //controlCharacter & 3;
-                    //Buffer.BlockCopy(sourceBytes, sourcePosition + 2, destinationBytes, destinationPosition, length);
+                    // First we copy from the source array to the destination array
+                    length = controlCharacter & 3;
                     LZCompliantCopy(ref sourceBytes, sourcePosition + 2, ref destinationBytes, destinationPosition, length);
+
+                    // Then we copy characters already in the destination array to our current position in the destination array
                     sourcePosition += length + 2;
                     destinationPosition += length;
-                    length = ((controlCharacter & 0x1C) >> 2) + 3;//((controlCharacter & 0x1C) >> 2) + 3;
-                    offset = ((controlCharacter & 0x60) << 3) + a + 1;//((controlCharacter >> 5) << 8) + a + 1;
-                    //Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
+                    length = ((controlCharacter & 0x1C) >> 2) + 3;
+                    offset = ((controlCharacter >> 5) << 8) + a + 1;
                     LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
+
                     destinationPosition += length;
                 }
                 else if ((controlCharacter & 0x40) == 0)
                 {
-                    length = (a & 0xC0) >> 6;//(a >> 6) & 3;
-                    //Buffer.BlockCopy(sourceBytes, sourcePosition + 3, destinationBytes, destinationPosition, length);
+                    length = (a >> 6) & 3;
                     LZCompliantCopy(ref sourceBytes, sourcePosition + 3, ref destinationBytes, destinationPosition, length);
+
                     sourcePosition += length + 3;
                     destinationPosition += length;
-                    length = (controlCharacter & 0x3F) + 4;//(controlCharacter & 0x3F) + 4;
-                    offset = ((a & 0x3F) << 8) + b + 1;//(a & 0x3F) * 256 + b + 1;
-                    //Buffer.BlockCopy(destinationBytes, destinationPosition - offset, destinationBytes, destinationPosition, length);
+                    length = (controlCharacter & 0x3F) + 4;
+                    offset = (a & 0x3F) * 256 + b + 1;
                     LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
+
                     destinationPosition += length;
                 }
                 else if ((controlCharacter & 0x20) == 0)
                 {
-                    c = sourceBytes[sourcePosition + 3];
-                    length = controlCharacter & 0x03;//& 3;
+                    length = controlCharacter & 3;
                     LZCompliantCopy(ref sourceBytes, sourcePosition + 4, ref destinationBytes, destinationPosition, length);
+
                     sourcePosition += length + 4;
                     destinationPosition += length;
-                    length = ((controlCharacter & 0x0C) << 6) + c + 5;//((controlCharacter >> 2) & 3) * 256 + c + 5;
-                    offset = ((controlCharacter & 0x10) << 12) + (a << 8) + b + 1;//((controlCharacter & 0x10) << 12) + 256 * a + b + 1;
-                    
+                    length = ((controlCharacter >> 2) & 3) * 256 + c + 5;
+                    offset = ((controlCharacter & 0x10) << 12) + 256 * a + b + 1;
                     LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
+
                     destinationPosition += length;
                 }
                 else
                 {
-                    length = (controlCharacter - 0xDF) << 2;//(controlCharacter & 0x1F) * 4 + 4;
+                    length = (controlCharacter & 0x1F) * 4 + 4;
                     LZCompliantCopy(ref sourceBytes, sourcePosition + 1, ref destinationBytes, destinationPosition, length);
+
                     sourcePosition += length + 1;
                     destinationPosition += length;
                 }
