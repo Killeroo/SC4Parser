@@ -129,3 +129,10 @@ Started some of the basic image generation for SC4Cartographer. Looks good, goin
 Started work on lots stuff, deadline is approaching, luckily the data should be near the top of the file. Decompression seems to have worked correctly again. I want to get the lot position extracted tomorrow then should be fairly straightforward to modify to image code grid size to draw lots.
 
 Polish will come later, but building some good foundations I think
+
+3/9/2020
+------------------------------
+
+Finally fixed QFS compression, the bug was because I wasn't copying from the arrays one byte at a time. Was plastered everywhere. So glad it is working now.
+
+Cleaned up a bunch of the project, will add a bunch of comments and then get down to the mapper
