@@ -5,7 +5,7 @@ using SC4Parser.DataStructures;
 
 namespace SC4Parser.Files
 {
-    class DatabaseDirectoryFile : IndexEntry
+    public class DatabaseDirectoryFile : IndexEntry
     {
         public uint ResourceCount;
         public List<DatabaseDirectoryResource> Resources;

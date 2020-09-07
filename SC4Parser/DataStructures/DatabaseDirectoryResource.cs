@@ -4,7 +4,7 @@ using SC4Parser.Types;
 
 namespace SC4Parser.DataStructures
 {
-    class DatabaseDirectoryResource
+    public class DatabaseDirectoryResource
     {
         public TypeGroupInstance TGI;
         public uint DecompressedFileSize;
@@ -27,9 +27,9 @@ namespace SC4Parser.DataStructures
 
         public void Dump()
         {
-            Console.WriteLine("TypeID: {0}", TGI.TypeID.ToString("X"));
-            Console.WriteLine("GroupID: {0}", TGI.GroupID.ToString("X"));
-            Console.WriteLine("InstanceID: {0}", TGI.InstanceID.ToString("X"));
+            Console.WriteLine("TypeID: {0}", TGI.Type.ToString("X"));
+            Console.WriteLine("GroupID: {0}", TGI.Group.ToString("X"));
+            Console.WriteLine("InstanceID: {0}", TGI.Instance.ToString("X"));
             Console.WriteLine("Decompressed File Size: {0} bytes", DecompressedFileSize);
         }
     }

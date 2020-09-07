@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SC4Parser.DataStructures
 {
-    class DatabasePackedFileHeader
+    public class DatabasePackedFileHeader
     {
         public string Identifier;
         public uint MajorVersion;

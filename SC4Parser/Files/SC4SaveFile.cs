@@ -7,7 +7,7 @@ namespace SC4Parser.Files
     /// This is a dud, inherited from DatabasePackedFile where the actual functionality resides
     /// Included for simplicity when referring to SC4saves
     /// </summary>
-    class SC4SaveFile : DatabasePackedFile
+    public class SC4SaveFile : DatabasePackedFile
     {
         public SC4SaveFile(string path) : base(path) { }
     }

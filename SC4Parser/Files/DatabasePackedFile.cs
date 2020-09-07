@@ -7,14 +7,14 @@ using SC4Parser.Types;
 
 namespace SC4Parser.Files
 {
-    class DatabasePackedFile
+    public class DatabasePackedFile
     {
-        DatabasePackedFileHeader Header;
-        DatabaseDirectoryFile DBDFFile;
-        List<IndexEntry> IndexEntries;
+        public DatabasePackedFileHeader Header { get; private set; }
+        public DatabaseDirectoryFile DBDFFile { get; private set; }
+        public List<IndexEntry> IndexEntries { get; private set; }
 
-        string FilePath;
-        MemoryStream RawFile;
+        private string FilePath;
+        private MemoryStream RawFile;
 
         public DatabasePackedFile()
         {
@@ -143,7 +143,7 @@ namespace SC4Parser.Files
             IndexEntry foundEntry = null;
             foreach (IndexEntry entry in IndexEntries)
             {
-                if (entry.TGI.TypeID.ToString("X") == type_id)
+                if (entry.TGI.Type.ToString("X") == type_id)
                 {
                     foundEntry = entry;
                     Logger.Info(string.Format("{0} found: {1}", type_id, entry.TGI.ToString()));
@@ -173,7 +173,7 @@ namespace SC4Parser.Files
             return resource;
         }
 
-        private byte[] RetrieveRawIndexEntryData(IndexEntry entry)
+        public byte[] RetrieveRawIndexEntryData(IndexEntry entry)
         {
             byte[] buffer = null;
             int fileSize = 0;
@@ -216,7 +216,7 @@ namespace SC4Parser.Files
 
             return buffer;
         }
-        private bool IsIndexEntryCompressed(IndexEntry entry)
+        public bool IsIndexEntryCompressed(IndexEntry entry)
         {
             // Check if entry's TGI is present in DBDF
             // (if it is present then it has been compressed)

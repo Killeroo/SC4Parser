@@ -13,24 +13,24 @@ namespace SC4Parser.Types
     /// </summary>
     public struct TypeGroupInstance : IEquatable<TypeGroupInstance>
     {
-        public uint TypeID { get; set; }
-        public uint GroupID { get; set; }
-        public uint InstanceID { get; set; }
+        public uint Type { get; set; }
+        public uint Group { get; set; }
+        public uint Instance { get; set; }
 
         public TypeGroupInstance(uint type, uint group, uint instance)
             : this()
         {
-            TypeID = type;
-            GroupID = group;
-            InstanceID = instance;
+            Type = type;
+            Group = group;
+            Instance = instance;
         }
 
         public TypeGroupInstance(string type_hex, string group_hex, string instance_hex)
             : this()
         {
-            TypeID = uint.Parse(type_hex, System.Globalization.NumberStyles.HexNumber);
-            GroupID = uint.Parse(group_hex, System.Globalization.NumberStyles.HexNumber);
-            InstanceID = uint.Parse(instance_hex, System.Globalization.NumberStyles.HexNumber);
+            Type = uint.Parse(type_hex, System.Globalization.NumberStyles.HexNumber);
+            Group = uint.Parse(group_hex, System.Globalization.NumberStyles.HexNumber);
+            Instance = uint.Parse(instance_hex, System.Globalization.NumberStyles.HexNumber);
         }
 
         public override bool Equals(object obj)
@@ -44,12 +44,12 @@ namespace SC4Parser.Types
 
         public bool Equals(TypeGroupInstance tgi)
         {
-            return (TypeID == tgi.TypeID) && (GroupID == tgi.GroupID) && (InstanceID == tgi.InstanceID);
+            return (Type == tgi.Type) && (Group == tgi.Group) && (Instance == tgi.Instance);
         }
 
         public override int GetHashCode()
         {
-            return (int)(TypeID + GroupID + InstanceID);
+            return (int)(Type + Group + Instance);
         }
 
         public static bool operator ==(TypeGroupInstance lhs, TypeGroupInstance rhs)
@@ -92,17 +92,17 @@ namespace SC4Parser.Types
         public new string ToString()
         {
             return string.Format("{0} {1} {2}",
-                TypeID.ToString("X"),
-                GroupID.ToString("X"),
-                InstanceID.ToString("X"));
+                Type.ToString("X"),
+                Group.ToString("X"),
+                Instance.ToString("X"));
         }
 
         public void Dump()
         {
             Console.WriteLine("{0} {1} {2}",
-                TypeID.ToString("X"),
-                GroupID.ToString("X"),
-                InstanceID.ToString("X"));
+                Type.ToString("X"),
+                Group.ToString("X"),
+                Instance.ToString("X"));
         }
     }
 }
