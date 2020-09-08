@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 
 using SC4Parser.Types;
+using SC4Parser.Logging;
 
 namespace SC4Parser.DataStructures
 {
-    //https://wiki.sc4devotion.com/index.php?title=Building_Subfile
+    /// <summary>
+    /// Representation of Simcity 4 building data, as it is present in an SC4 save
+    /// Implemented using the following spec:
+    /// https://wiki.sc4devotion.com/index.php?title=Building_Subfile
+    /// </summary>
     public class Building
     {
         public uint Offset;
@@ -44,6 +49,9 @@ namespace SC4Parser.DataStructures
         // just included it for accessibility
         public TypeGroupInstance PropExemplarReference = new TypeGroupInstance();
 
+        /// <summary>
+        /// Load a building from a byte array
+        /// </summary>
         public void Parse(byte[] buffer, uint offset)
         {
             Offset = offset;
@@ -91,10 +99,15 @@ namespace SC4Parser.DataStructures
             // Sanity check out current offset to make sure we haven't missed anything
             if (saveGamePropertiesOffset + 46 != Size)
             {
-                Logger.Warning("Building was not properly parsed (" + saveGamePropertiesOffset + 46 + "/" + Size + " read)");
+                Logger.Log(LogLevel.Warning, "Building was not properly parsed ({0}/{1} read)",
+                    saveGamePropertiesOffset + 46,
+                    Size);
             }
         }
 
+        /// <summary>
+        /// Dumps contents of the building
+        /// </summary>
         public void Dump()
         {
             Console.WriteLine("Offset: {0} (0x{1})", Offset, Offset.ToString("X"));
@@ -121,7 +134,7 @@ namespace SC4Parser.DataStructures
             Console.WriteLine("TractSizeZ: {0}", TractSizeZ);
             Console.WriteLine("SaveGame Properties: {0}", SaveGamePropertyCount);
             
-            // Dump any save game properties if they are present
+            // Dump any savegame properties if they are present
             if (SaveGamePropertyCount > 0)
             {
                 for (int i = 0; i < SaveGamePropertyCount; i++)

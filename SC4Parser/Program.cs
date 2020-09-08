@@ -10,7 +10,7 @@ using SC4Parser.DataStructures;
 // ----
 // File format: https://www.wiki.sc4devotion.com/index.php?title=DBPF
 // Header format: https://www.wiki.sc4devotion.com/images/e/e8/DBPF_File_Format_v1.1.png
-// Save game format: https://www.wiki.sc4devotion.com/index.php?title=Savegame
+// savegame format: https://www.wiki.sc4devotion.com/index.php?title=Savegame
 // Lot subsection: https://www.wiki.sc4devotion.com/index.php?title=Lot_Subfile
 
 // code examples

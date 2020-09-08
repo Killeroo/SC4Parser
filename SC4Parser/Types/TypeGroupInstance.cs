@@ -3,7 +3,7 @@
 namespace SC4Parser.Types
 {
     /// <summary>
-    /// TypeGroupInstance (TGI) is used as an identifier for files within a sc4 save file (DBPF file)
+    /// TypeGroupInstance (TGI) is used as an identifier for files within a SimCity 4 savegame (DBPF)
     /// It consists of the items TypeID, GroupID and InstanceID. The combination of these fields creates
     /// a unique reference for the file. 
     /// It is used in comparisons a lot and the values for the fields are quite often referenced as hex 

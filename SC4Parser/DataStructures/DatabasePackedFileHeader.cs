@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Text;
 
+using SC4Parser.Logging;
+
 namespace SC4Parser.DataStructures
 {
+    /// <summary>
+    /// Header file for a maxis savegame (aka DatabasePackedFile (DBPF))
+    /// Implemented using the following spec: https://wiki.sc4devotion.com/index.php?title=DBPF#Header
+    /// </summary>
     public class DatabasePackedFileHeader
     {
         public string Identifier;
@@ -19,11 +25,14 @@ namespace SC4Parser.DataStructures
         public uint HoleSize;
         public uint IndexMinorVersion;
 
+        /// <summary>
+        /// Loads DBPF header from a byte array
+        /// </summary>
         public void Parse(byte[] buffer)
         {
             if (buffer.Length < 96)
             {
-                Console.WriteLine("DBPF buffer is too small to parse");
+                Logger.Log(LogLevel.Error, "DBPF header buffer is too small to parse ({0}/{1} bytes)", buffer.Length, 96);
                 return;
             }
 
@@ -44,6 +53,9 @@ namespace SC4Parser.DataStructures
             IndexMinorVersion = BitConverter.ToUInt32(buffer, 60);
         }
 
+        /// <summary>
+        /// Dumps contents of header
+        /// </summary>
         public void Dump()
         {
             Console.WriteLine("Identifier: {0}", Identifier);

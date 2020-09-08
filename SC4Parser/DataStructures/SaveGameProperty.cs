@@ -3,6 +3,13 @@ using System.Collections.Generic;
 
 namespace SC4Parser.DataStructures
 {
+    /// <summary>
+    /// SaveGameProperties (SIGPROPs) are small structures used to store individual entries of information for a given object.
+    /// They are highly situational and their value and use depends on where they are used:
+    /// Take, for example, SIGPROPs being used for storing information about buildings (https://wiki.sc4devotion.com/index.php?title=Building_Subfile#Appendix_1:_Structure_of_SGPROP_.28SaveGame_Properties.29)
+    /// A SIGPROPs data can be several different types, they can also contain several values.
+    /// (Writing this parsing was a pain)
+    /// </summary>
     public class SaveGameProperty
     {
         public uint PropertyNameValue;
@@ -14,8 +21,11 @@ namespace SC4Parser.DataStructures
         public uint DataRepeatedCount;
         public List<object> Data = new List<object>();
 
-        // This parse functions works pretty similarly to other parse functions, but because they can return in the middle
-        // of data entries, the calling function might need the current index after the data has been read so we return that.
+        /// <summary>
+        /// Loads an individual SaveGame Property from a byte array
+        /// NOTE: This parse functions works pretty similarly to other parse functions, but because they can return in the middle
+        /// of data entries, the calling function might need the current index after the data has been read so we return that.
+        /// </summary>
         public int Parse(byte[] buffer, int offset = 0)
         {
             PropertyNameValue = BitConverter.ToUInt32(buffer, offset + 0);
@@ -117,6 +127,9 @@ namespace SC4Parser.DataStructures
             return currentOffset;
         }
 
+        /// <summary>
+        /// Dumps the contents of a SIGPROP
+        /// </summary>
         public void Dump()
         {
             Console.WriteLine("Property Name Value: {0} [{1}]", PropertyNameValue, PropertyNameValue.ToString("X"));
@@ -134,8 +147,11 @@ namespace SC4Parser.DataStructures
             }
         }
 
-        // Extracts a bunch of SaveGame Properties and then returns the new offset after everything has been read
+        /// <summary>
+        /// Extracts a bunch of SaveGame Properties and then returns the new offset after everything has been read 
+        /// </summary>
         public static List<SaveGameProperty> ExtractFromBuffer(byte[] buffer, uint count, ref uint offset)
+
         {
             List<SaveGameProperty> results = new List<SaveGameProperty>();
             int currentOffset = (int) offset;
@@ -155,5 +171,6 @@ namespace SC4Parser.DataStructures
 
             return results;
         }
+
     }
 }

@@ -2,13 +2,22 @@
 using System.Collections.Generic;
 
 using SC4Parser.DataStructures;
+using SC4Parser.Logging;
 
 namespace SC4Parser.SubFiles
 {
+    /// <summary>
+    /// Building subfile stores all building data in a SimCity 4 savegame (DBPF).
+    /// Actual reading of individual builds is done in DataStructure\Buildings.cs
+    /// and done with the following spec: https://wiki.sc4devotion.com/index.php?title=Building_Subfile
+    /// </summary>
     public class BuildingSubFile
     {
         List<Building> Buildings = new List<Building>();
 
+        /// <summary>
+        /// Reads the building subfile from a byte array
+        /// </summary>
         public void Parse(byte[] buffer, int size)
         {
             uint bytesToRead = Convert.ToUInt32(size);
@@ -28,14 +37,19 @@ namespace SC4Parser.SubFiles
                 // Update offset and bytes read and move on
                 offset += currentSize;
                 bytesToRead -= currentSize;
+
+                Logger.Log(LogLevel.Debug, $"building read ({currentSize} bytes), offset {offset} got {bytesToRead}/{size} bytes left");
             }
 
             if (bytesToRead != 0)
             {
-                Logger.Warning("Not all building have been read from building subfile (" + bytesToRead + " bytes left)");
+                Logger.Log(LogLevel.Warning, "Not all building have been read from building subfile (" + bytesToRead + " bytes left)");
             }
         }
 
+        /// <summary>
+        /// Dump the contents of the building subfile
+        /// </summary>
         public void Dump()
         {
             foreach (Building building in Buildings)

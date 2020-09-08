@@ -2,7 +2,11 @@
 
 namespace SC4Parser.DataStructures
 {
-    //https://www.wiki.sc4devotion.com/index.php?title=Lot_Subfile
+    /// <summary>
+    /// Representation of Simcity 4 log data, as it is present in an SC4 save
+    /// Implemented using the following spec:
+    /// https://www.wiki.sc4devotion.com/index.php?title=Lot_Subfile
+    /// </summary>
     public class Lot
     {
         public uint Offset;
@@ -32,6 +36,9 @@ namespace SC4Parser.DataStructures
         public uint BuildingID;
         public byte Unknown;
 
+        /// <summary>
+        /// Read an individual lot object from a byte array
+        /// </summary>
         public void Parse(byte[] buffer, uint offset)
         {
             Offset = offset;
@@ -59,6 +66,9 @@ namespace SC4Parser.DataStructures
             ZoneWealth = buffer[43];
         }
 
+        /// <summary>
+        /// Dump the contents of a lot
+        /// </summary>
         public void Dump()
         {
             Console.WriteLine("Offset: {0} (0x{1})", Offset, Offset.ToString("X"));

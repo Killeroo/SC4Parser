@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using SC4Parser.DataStructures;
+using SC4Parser.Logging;
 
 namespace SC4Parser.SubFiles
 {
@@ -27,12 +28,12 @@ namespace SC4Parser.SubFiles
                 offset += currentSize;
                 bytesToRead -= currentSize;
 
-                //Logger.Log($"lot read ({currentSize} bytes), offset {offset} got {bytesToRead}/{size} bytes left");
+                Logger.Log(LogLevel.Debug, $"lot read ({currentSize} bytes), offset {offset} got {bytesToRead}/{size} bytes left");
             }
 
             if (bytesToRead != 0)
             {
-                Logger.Warning("Not all lots have been read from lot subfile (" + bytesToRead + " bytes left)");
+                Logger.Log(LogLevel.Warning, "Not all lots have been read from lot subfile (" + bytesToRead + " bytes left)");
             }
         }
 

@@ -9,11 +9,6 @@ namespace SC4Parser
     {
         public static readonly TypeGroupInstance DATABASE_DIRECTORY_FILE_TGI = new TypeGroupInstance("E86B1EEF", "E86B1EEF", "286B1F03");
 
-        public const byte ORIENTATION_NORTH = 0x00;
-        public const byte ORIENTATION_EAST = 0x01;
-        public const byte ORIENTATION_SOUTH = 0x02;
-        public const byte ORIENTATION_WEST = 0x03;
-
         public static string[] ORIENTATIONS = new string[]
         {
             "North",
@@ -59,6 +54,13 @@ namespace SC4Parser
             {0x09, "Industrial - High"},
             {0x0F, "Plopped building"},
         };
+        public static Dictionary<byte, string> LOT_ZONE_WEALTHS = new Dictionary<byte, string>
+        {
+            {0x00, "None"},
+            {0x01, @"$"},
+            {0x02, @"$$"},
+            {0x03, @"$$$"}
+        };
 
         public const byte LOT_ZONE_TYPE_RESIDENTIAL_LOW = 0x01;
         public const byte LOT_ZONE_TYPE_RESIDENTIAL_MEDIUM = 0x02;
@@ -71,18 +73,14 @@ namespace SC4Parser
         public const byte LOT_ZONE_TYPE_INDUSTRIAL_HIGH = 0x09;
         public const byte LOT_ZONE_TYPE_PLOPPED_BUILDING = 0x0F;
 
-        // Lot zone wealths
-        public static Dictionary<byte, string> LOT_ZONE_WEALTHS = new Dictionary<byte, string>
-        {
-            {0x00, "None"},
-            {0x01, @"$"},
-            {0x02, @"$$"},
-            {0x03, @"$$$"}
-        };
-
         public const byte LOT_WEALTH_NONE = 0x00;
         public const byte LOT_WEALTH_LOW = 0x01;
         public const byte LOT_WEALTH_MEDIUM = 0x02;
         public const byte LOT_WEALTH_HIGH = 0x03;
+        
+        public const byte ORIENTATION_NORTH = 0x00;
+        public const byte ORIENTATION_EAST = 0x01;
+        public const byte ORIENTATION_SOUTH = 0x02;
+        public const byte ORIENTATION_WEST = 0x03;
     }
 }

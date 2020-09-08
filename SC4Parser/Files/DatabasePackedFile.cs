@@ -4,9 +4,17 @@ using System.IO;
 
 using SC4Parser.DataStructures;
 using SC4Parser.Types;
+using SC4Parser.Logging;
 
 namespace SC4Parser.Files
 {
+    /// <summary>
+    /// Database Packed File (DBPF) is the file format used by maxis for savegames. They are compressed archive files and contain
+    /// multiple files related to a save, some of which are compressed using QFS/refpack.
+    /// A detailed spec and layout of the file format can be found here: 
+    /// https://wiki.sc4devotion.com/index.php?title=DBPF
+    /// http://wiki.niotso.org/DBPF
+    /// </summary>
     public class DatabasePackedFile
     {
         public DatabasePackedFileHeader Header { get; private set; }
@@ -30,11 +38,14 @@ namespace SC4Parser.Files
             Load(path);
         }
 
-        public void Load(string path)
+        /// <summary>
+        /// Loads a DBPF/SC4 save file 
+        /// </summary>
+        public bool Load(string path)
         {
             try
             {
-                Logger.Info("Reading DBDF...");
+                Logger.Log(LogLevel.Info, "Reading DBDF...");
 
                 // Open file as a file stream
                 using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
@@ -46,8 +57,7 @@ namespace SC4Parser.Files
                     byte[] buffer = new byte[100];
                     stream.Read(buffer, 0, 96);
                     Header.Parse(buffer);
-
-                    Logger.Info("Header read", ConsoleColor.Green);
+                    Logger.Log(LogLevel.Info, "DBPF header read");
                     
                     // Seek to the first index entry and read index entries
                     stream.Seek(Header.FirstIndexOffset, SeekOrigin.Begin);
@@ -60,8 +70,7 @@ namespace SC4Parser.Files
                         entry.Parse(buffer);
                         IndexEntries.Add(entry);
                     }
-
-                    Logger.Info("Index Entries read", ConsoleColor.Green);
+                    Logger.Log(LogLevel.Info, "Index Entries read");
 
                     // loop through indexes and find DBDF file
                     foreach (IndexEntry entry in IndexEntries)
@@ -72,8 +81,7 @@ namespace SC4Parser.Files
                             break;
                         }
                     }
-
-                    Logger.Info("DBDF file found", ConsoleColor.Green);
+                    Logger.Log(LogLevel.Info, "DBDF file found");
 
                     // Seek to DBDF location and parse resources
                     stream.Seek(DBDFFile.FileLocation, SeekOrigin.Begin);
@@ -83,20 +91,28 @@ namespace SC4Parser.Files
                         stream.Read(resourceBuffer, 0, 16);
                         DBDFFile.ParseResource(resourceBuffer);
                     }
-
-                    Logger.Info("DBDF Resources read", ConsoleColor.Green);
+                    Logger.Log(LogLevel.Info, "DBDF Resources read");
 
                     // Save a copy of the stream so we can access stuff after we close the file stream
                     stream.Seek(0, SeekOrigin.Begin);
                     stream.CopyTo(RawFile);
+
+                    return true;
                 }
             }
             catch (Exception ex)
             {
-                Logger.Error("Hit exception while reading save file: [" + ex.GetType().ToString() + ":  " + ex.Message + "]");
+                Logger.Log(LogLevel.Fatal, "Hit exception while reading save file: [{0}: {1}]",
+                    ex.GetType().ToString(),
+                    ex.Message);
+
+                return false;
             }
         }
         
+        /// <summary>
+        /// Returns the bytes of any IndexEntry with a given TGI 
+        /// </summary>
         public byte[] LoadIndexEntry(TypeGroupInstance tgi)
         {
             // First find IndexEntry
@@ -107,7 +123,7 @@ namespace SC4Parser.Files
             }
 
             bool compressed = IsIndexEntryCompressed(entry);
-            byte[] sourceBytes = RetrieveRawIndexEntryData(entry);
+            byte[] sourceBytes = ReadRawIndexEntryData(entry);
 
             if (compressed)
             {
@@ -116,6 +132,9 @@ namespace SC4Parser.Files
             return sourceBytes;
         }
         
+        /// <summary>
+        /// Return an IndexEntry that matches the specific TGI
+        /// </summary>
         public IndexEntry FindIndexEntry(TypeGroupInstance tgi)
         {
             IndexEntry foundEntry = null;
@@ -124,7 +143,7 @@ namespace SC4Parser.Files
                 if (entry.TGI == tgi)
                 {
                     foundEntry = entry;
-                    Logger.Info(string.Format("{0} found", tgi.ToString()));
+                    Logger.Log(LogLevel.Info, "{0} found", tgi.ToString());
                     
                     break;
                 }
@@ -132,11 +151,16 @@ namespace SC4Parser.Files
 
             if (foundEntry == null)
             {
-                Logger.Error(string.Format("Could not find tgi ({0}) in IndexEntries", tgi.ToString()));
+                Logger.Log(LogLevel.Warning, "Could not find tgi ({0}) in IndexEntries", tgi.ToString());
             }
 
             return foundEntry;
         }
+        /// <summary>
+        /// Returns the first IndexEntry with the specified type id
+        /// </summary>
+        /// <param name="type_id"></param>
+        /// <returns></returns>
         public IndexEntry FindIndexEntryWithType(string type_id)
         {
             // Find IndexEntry with the specified TypeID
@@ -146,7 +170,7 @@ namespace SC4Parser.Files
                 if (entry.TGI.Type.ToString("X") == type_id)
                 {
                     foundEntry = entry;
-                    Logger.Info(string.Format("{0} found: {1}", type_id, entry.TGI.ToString()));
+                    Logger.Log(LogLevel.Info, "{0} found: {1}", type_id, entry.TGI.ToString());
                     
                     break;
                 }
@@ -154,12 +178,14 @@ namespace SC4Parser.Files
 
             if (foundEntry == null)
             {
-                Logger.Error("Could not find tgi with TypeID " + type_id);
+                Logger.Log(LogLevel.Warning, "Could not find IndexEntry with TypeID " + type_id);
             }
 
             return foundEntry;
         }
-
+        /// <summary>
+        /// Finds an DirectoryResource for a given IndexEntry (if present)
+        /// </summary>
         public DatabaseDirectoryResource FindDatabaseDirectoryResource(IndexEntry entry)
         {
             DatabaseDirectoryResource resource = null;
@@ -173,10 +199,21 @@ namespace SC4Parser.Files
             return resource;
         }
 
-        public byte[] RetrieveRawIndexEntryData(IndexEntry entry)
+        /// <summary>
+        /// Retrives an IndexEntry from the file, uses the entries file location to determine the entries position
+        /// </summary>
+        private byte[] ReadRawIndexEntryData(IndexEntry entry)
         {
             byte[] buffer = null;
             int fileSize = 0;
+
+            if (entry.FileLocation > RawFile.Length)
+            {
+                Logger.Log(LogLevel.Error, "File location too big for DBPF size (file location={0}, DBPF length={1}",
+                    RawFile.Length,
+                    entry.FileLocation);
+                return null;
+            }
 
             // We need to convert out file size from signed to unsigned
             // this should probably be fine because a file so big that it
@@ -188,9 +225,11 @@ namespace SC4Parser.Files
             }
             catch (OverflowException)
             {
-                Logger.Error("Uncompressed entry could not be loaded, " +
+                Logger.Log(LogLevel.Error, "Uncompressed entry could not be loaded, " +
                     "overflow occured while converting IndexEntry's file size" +
-                    " (TGI = " + entry.TGI.ToString() + ") (" + entry.FileSize + "bytes)");
+                    " (TGI = {0}) ({1} bytes)",
+                    entry.TGI.ToString(),
+                    entry.FileSize);
                 return null;
             }
 
@@ -201,22 +240,25 @@ namespace SC4Parser.Files
                 RawFile.Seek(entry.FileLocation, SeekOrigin.Begin);
                 RawFile.Read(buffer, 0, fileSize);
                 
-                Logger.Info(string.Format("Index Entry (tgi {0}, size {1} bytes) loaded",
+                Logger.Log(LogLevel.Info, "Index Entry (tgi {0}, size {1} bytes) loaded",
                     entry.TGI.ToString(),
-                    entry.FileSize));
+                    entry.FileSize);
             }
             catch (Exception e)
             {
-                Logger.Error(string.Format("Exception ({1}) occured while loading IndexEntry (tgi {0}). msg={2} trace={3}",
+                Logger.Log(LogLevel.Error, "Exception ({1}) occured while loading IndexEntry (tgi {0}). msg={2} trace={3}",
                     entry.TGI.ToString(),
                     e.GetType().ToString(),
                     e.Message,
-                    e.StackTrace));
+                    e.StackTrace);
             }
 
             return buffer;
         }
-        public bool IsIndexEntryCompressed(IndexEntry entry)
+        /// <summary>
+        /// Checks if an IndexEntry is compressed by checking if it is present in the DBPF's DirectoryResources list
+        /// </summary>
+        private bool IsIndexEntryCompressed(IndexEntry entry)
         {
             // Check if entry's TGI is present in DBDF
             // (if it is present then it has been compressed)
@@ -231,6 +273,9 @@ namespace SC4Parser.Files
             return false;
         }
 
+        /// <summary>
+        /// Dumps contents of DBPF file
+        /// </summary>
         public void Dump()
         {
             Header.Dump();
