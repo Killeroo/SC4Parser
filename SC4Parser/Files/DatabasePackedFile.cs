@@ -200,6 +200,24 @@ namespace SC4Parser.Files
         }
 
         /// <summary>
+        /// Checks if an IndexEntry is compressed by checking if it is present in the DBPF's DirectoryResources list
+        /// </summary>
+        public bool IsIndexEntryCompressed(IndexEntry entry)
+        {
+            // Check if entry's TGI is present in DBDF
+            // (if it is present then it has been compressed)
+            foreach (DatabaseDirectoryResource resource in DBDFFile.Resources)
+            {
+                if (resource.TGI == entry.TGI)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
+        /// <summary>
         /// Retrives an IndexEntry from the file, uses the entries file location to determine the entries position
         /// </summary>
         private byte[] ReadRawIndexEntryData(IndexEntry entry)
@@ -254,23 +272,6 @@ namespace SC4Parser.Files
             }
 
             return buffer;
-        }
-        /// <summary>
-        /// Checks if an IndexEntry is compressed by checking if it is present in the DBPF's DirectoryResources list
-        /// </summary>
-        private bool IsIndexEntryCompressed(IndexEntry entry)
-        {
-            // Check if entry's TGI is present in DBDF
-            // (if it is present then it has been compressed)
-            foreach (DatabaseDirectoryResource resource in DBDFFile.Resources)
-            {
-                if (resource.TGI == entry.TGI)
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
 
         /// <summary>

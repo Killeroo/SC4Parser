@@ -4,7 +4,7 @@ Parser
 -------------------
 - (DONE) Working QFS decompression
 - (DONE) Finish functionality for IndexEntry look up and extraction
-- Cleanup and add comments
+- (DONE) Cleanup and add comments
 - Finish LOT implementation
 - Turn into library
 - Simple commandline tool to save out stuff
@@ -24,7 +24,7 @@ Nice to have:
 
 Parser
 --------
-- Transport and terrain lot file implementations
+- Transport and terrain lot file implementations (maybe props file)
 - Icons
 
 

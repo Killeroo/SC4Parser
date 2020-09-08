@@ -8,7 +8,7 @@ namespace SC4ConsoleParser
 {
     class CommandLine
     {
-        public static void Parse(string[] args)
+        public static void ParseArguments(string[] args)
         {
 
         }
