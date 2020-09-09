@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using SC4Parser.DataStructures;
+using SC4Parser.SubFiles;
 using SC4Parser.Types;
 using SC4Parser.Compression;
 using SC4Parser.Logging;
@@ -40,7 +41,7 @@ namespace SC4Parser.Files
         }
 
         /// <summary>
-        /// Loads a DBPF/SC4 save file 
+        /// Loads a DBPF/SImCity 4 save file 
         /// </summary>
         public bool Load(string path)
         {
@@ -134,6 +135,43 @@ namespace SC4Parser.Files
         }
         
         /// <summary>
+        /// Some methods for getting more common subfiles from a DBPF
+        /// </summary>
+        public LotSubFile GetLotSubfile()
+        {
+
+            Logger.Log(LogLevel.Info, "Fetching Lot Subfile...");
+            IndexEntry lotEntry = FindIndexEntryWithType(Constants.LOT_SUBFILE_TYPE);
+            if (lotEntry == null)
+            {
+                Logger.Log(LogLevel.Error, "Could not find Lot SubFile");
+                return null;
+            }
+
+            LotSubFile lotSubFile = new LotSubFile();
+            byte[] lotSubFileData = ReadRawIndexEntryData(lotEntry);
+            lotSubFile.Parse(lotSubFileData, lotSubFileData.Length);
+
+            return lotSubFile;
+        }
+        public BuildingSubFile GetBuildingSubFile()
+        {
+            Logger.Log(LogLevel.Info, "Fetching Building Subfile...");
+            IndexEntry buildingEntry = FindIndexEntryWithType(Constants.BUILDING_SUBFILE_TYPE);
+            if (buildingEntry == null)
+            {
+                Logger.Log(LogLevel.Error, "Could not find Building SubFile");
+                return null;
+            }
+
+            BuildingSubFile buildingSubFile = new BuildingSubFile();
+            byte[] lotSubFileData = ReadRawIndexEntryData(buildingEntry);
+            buildingSubFile.Parse(lotSubFileData, lotSubFileData.Length);
+
+            return buildingSubFile;
+        }
+
+        /// <summary>
         /// Return an IndexEntry that matches the specific TGI
         /// </summary>
         public IndexEntry FindIndexEntry(TypeGroupInstance tgi)
@@ -217,7 +255,7 @@ namespace SC4Parser.Files
 
             return false;
         }
-        
+
         /// <summary>
         /// Retrives an IndexEntry from the file, uses the entries file location to determine the entries position
         /// </summary>
