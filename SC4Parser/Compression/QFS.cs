@@ -1,10 +1,6 @@
 ﻿using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.InteropServices;
+
+using SC4Parser.Logging;
 
 namespace SC4Parser.Compression
 {
@@ -140,7 +136,7 @@ namespace SC4Parser.Compression
 
             if (destinationPosition != destinationBytes.Length)
             {
-                Console.WriteLine("QFS bad length, {0} instead of {1}", destinationPosition, destinationBytes.Length);
+                Logger.Log(LogLevel.Warning, "QFS bad length, {0} instead of {1}", destinationPosition, destinationBytes.Length);
             }
 
             return destinationBytes;

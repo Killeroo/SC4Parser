@@ -47,7 +47,7 @@ namespace SC4Parser.Files
         {
             try
             {
-                Logger.Log(LogLevel.Info, "Reading DBDF...");
+                Logger.Log(LogLevel.Info, "Reading DBDF @ {0} ...", path);
 
                 // Open file as a file stream
                 using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
@@ -113,28 +113,6 @@ namespace SC4Parser.Files
         }
         
         /// <summary>
-        /// Returns the bytes of any IndexEntry with a given TGI 
-        /// </summary>
-        public byte[] LoadIndexEntry(TypeGroupInstance tgi)
-        {
-            // First find IndexEntry
-            IndexEntry entry = FindIndexEntry(tgi);
-            if (entry == null)
-            {
-                return null;
-            }
-
-            bool compressed = IsIndexEntryCompressed(entry);
-            byte[] sourceBytes = ReadRawIndexEntryData(entry);
-
-            if (compressed)
-            {
-                return QFS.UncompressData(sourceBytes);
-            }
-            return sourceBytes;
-        }
-        
-        /// <summary>
         /// Some methods for getting more common subfiles from a DBPF
         /// </summary>
         public LotSubFile GetLotSubfile()
@@ -149,7 +127,7 @@ namespace SC4Parser.Files
             }
 
             LotSubFile lotSubFile = new LotSubFile();
-            byte[] lotSubFileData = ReadRawIndexEntryData(lotEntry);
+            byte[] lotSubFileData = LoadIndexEntry(lotEntry.TGI);
             lotSubFile.Parse(lotSubFileData, lotSubFileData.Length);
 
             return lotSubFile;
@@ -165,16 +143,76 @@ namespace SC4Parser.Files
             }
 
             BuildingSubFile buildingSubFile = new BuildingSubFile();
-            byte[] lotSubFileData = ReadRawIndexEntryData(buildingEntry);
+            byte[] lotSubFileData = LoadIndexEntry(buildingEntry.TGI);
             buildingSubFile.Parse(lotSubFileData, lotSubFileData.Length);
 
             return buildingSubFile;
         }
 
         /// <summary>
-        /// Return an IndexEntry that matches the specific TGI
+        /// Returns the bytes of an IndexEntry using either the referring IndexEntry or the entry's TGI
         /// </summary>
-        public IndexEntry FindIndexEntry(TypeGroupInstance tgi)
+        public byte[] LoadIndexEntry(TypeGroupInstance tgi)
+        {
+            Logger.Log(LogLevel.Info, "Loading IndexEntry ({0})...", tgi.ToString());
+
+            // First find IndexEntry
+            IndexEntry entry = FindIndexEntry(tgi);
+            if (entry == null)
+            {
+                Logger.Log(LogLevel.Error, "No entry with tgi={0} was found", tgi.ToString());
+                return null;
+            }
+
+            // Then load the IndexEntry
+            return LoadIndexEntry(entry);
+        }
+        public byte[] LoadIndexEntry(IndexEntry entry)
+        {
+            Logger.Log(LogLevel.Info, "Loading IndexEntry size={0} loc={1} ({2})...",
+                entry.FileSize,
+                entry.FileLocation,
+                entry.TGI.ToString());
+
+            if (!IndexEntries.Contains(entry))
+            {
+                Logger.Log(LogLevel.Error, "IndexEntry could not be loaded, could not be found in list of index entries");
+                return null;
+            }
+
+            bool compressed = IsIndexEntryCompressed(entry);
+            byte[] sourceBytes = ReadRawIndexEntryData(entry);
+
+            if (compressed)
+            {
+                Logger.Log(LogLevel.Info, "Entry is compressed, decompressing...");
+                return QFS.UncompressData(sourceBytes);
+            }
+            return sourceBytes;
+        }
+
+        /// <summary>
+        /// Checks if an IndexEntry is compressed
+        /// </summary>
+        public bool IsIndexEntryCompressed(IndexEntry entry)
+        {
+            // Check if entry's TGI is present in DBDF
+            // (if it is present then it has been compressed)
+            foreach (DatabaseDirectoryResource resource in DBDFFile.Resources)
+            {
+                if (resource.TGI == entry.TGI)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Internal lookup methods for finding IndexEntries or DirectoryResources
+        /// </summary>
+        private IndexEntry FindIndexEntry(TypeGroupInstance tgi)
         {
             IndexEntry foundEntry = null;
             foreach (IndexEntry entry in IndexEntries)
@@ -195,12 +233,7 @@ namespace SC4Parser.Files
 
             return foundEntry;
         }
-        /// <summary>
-        /// Returns the first IndexEntry with the specified type id
-        /// </summary>
-        /// <param name="type_id"></param>
-        /// <returns></returns>
-        public IndexEntry FindIndexEntryWithType(string type_id)
+        private IndexEntry FindIndexEntryWithType(string type_id)
         {
             // Find IndexEntry with the specified TypeID
             IndexEntry foundEntry = null;
@@ -209,7 +242,7 @@ namespace SC4Parser.Files
                 if (entry.TGI.Type.ToString("X") == type_id)
                 {
                     foundEntry = entry;
-                    Logger.Log(LogLevel.Info, "{0} found: {1}", type_id, entry.TGI.ToString());
+                    Logger.Log(LogLevel.Info, "Index with type {0} found ({1})", type_id, entry.TGI.ToString());
                     
                     break;
                 }
@@ -222,10 +255,7 @@ namespace SC4Parser.Files
 
             return foundEntry;
         }
-        /// <summary>
-        /// Finds an DirectoryResource for a given IndexEntry (if present)
-        /// </summary>
-        public DatabaseDirectoryResource FindDatabaseDirectoryResource(IndexEntry entry)
+        private DatabaseDirectoryResource FindDatabaseDirectoryResource(IndexEntry entry)
         {
             DatabaseDirectoryResource resource = null;
             foreach (DatabaseDirectoryResource r in DBDFFile.Resources)
@@ -239,25 +269,8 @@ namespace SC4Parser.Files
         }
 
         /// <summary>
-        /// Checks if an IndexEntry is compressed by checking if it is present in the DBPF's DirectoryResources list
-        /// </summary>
-        public bool IsIndexEntryCompressed(IndexEntry entry)
-        {
-            // Check if entry's TGI is present in DBDF
-            // (if it is present then it has been compressed)
-            foreach (DatabaseDirectoryResource resource in DBDFFile.Resources)
-            {
-                if (resource.TGI == entry.TGI)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Retrives an IndexEntry from the file, uses the entries file location to determine the entries position
+        /// Retrives an IndexEntry from the file.
+        /// NOTE: Does not decompress file contents just reads raw data
         /// </summary>
         private byte[] ReadRawIndexEntryData(IndexEntry entry)
         {

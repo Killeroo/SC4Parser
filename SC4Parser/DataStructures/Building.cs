@@ -8,8 +8,7 @@ namespace SC4Parser.DataStructures
 {
     /// <summary>
     /// Representation of Simcity 4 building data, as it is present in an SC4 save
-    /// Implemented using the following spec:
-    /// https://wiki.sc4devotion.com/index.php?title=Building_Subfile
+    /// (Implemented from https://wiki.sc4devotion.com/index.php?title=Building_Subfile)
     /// </summary>
     public class Building
     {

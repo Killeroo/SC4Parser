@@ -43,6 +43,7 @@ namespace SC4Parser
 
             SC4SaveFile save = new SC4SaveFile(savePath);
 
+            var lots = save.GetLotSubfile();
             // Loading and decompression stuff:
             save.FindIndexEntryWithType("C9BD5D4A"); // Lot file
             IndexEntry en = save.FindIndexEntryWithType("A9BD882D"); // building file
