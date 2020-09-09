@@ -54,7 +54,7 @@
     <Compile Include="Logging\LogLevels.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QFS.cs" />
+    <Compile Include="Compression\QFS.cs" />
     <Compile Include="Files\DatabaseDirectoryFile.cs" />
     <Compile Include="DataStructures\DatabaseDirectoryResource.cs" />
     <Compile Include="Files\DatabasePackedFile.cs" />

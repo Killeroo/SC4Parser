@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 
-namespace SC4Parser
+namespace SC4Parser.Compression
 {
     /// <summary>
     /// Implementation of QFS/RefPack/LZ77 decompression

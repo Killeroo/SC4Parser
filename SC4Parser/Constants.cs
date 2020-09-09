@@ -9,6 +9,9 @@ namespace SC4Parser
     {
         public static readonly TypeGroupInstance DATABASE_DIRECTORY_FILE_TGI = new TypeGroupInstance("E86B1EEF", "E86B1EEF", "286B1F03");
 
+        public static readonly string LOT_SUBFILE_TYPE = "C9BD5D4A";
+        public static readonly string BUILDING_SUBFILE_TYPE = "A9BD882D";
+
         public static string[] ORIENTATIONS = new string[]
         {
             "North",

@@ -4,6 +4,7 @@ using System.IO;
 
 using SC4Parser.DataStructures;
 using SC4Parser.Types;
+using SC4Parser.Compression;
 using SC4Parser.Logging;
 
 namespace SC4Parser.Files
