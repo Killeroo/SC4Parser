@@ -7,7 +7,7 @@ namespace SC4Parser.DataStructures
 {
     /// <summary>
     /// Header file for a maxis savegame (aka DatabasePackedFile (DBPF))
-    /// Implemented using the following spec: https://wiki.sc4devotion.com/index.php?title=DBPF#Header
+    /// (Implemented from https://wiki.sc4devotion.com/index.php?title=DBPF#Header)
     /// </summary>
     public class DatabasePackedFileHeader
     {

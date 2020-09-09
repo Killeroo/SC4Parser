@@ -9,7 +9,7 @@ namespace SC4Parser.SubFiles
     /// <summary>
     /// Building subfile stores all building data in a SimCity 4 savegame (DBPF).
     /// Actual reading of individual builds is done in DataStructure\Buildings.cs
-    /// and done with the following spec: https://wiki.sc4devotion.com/index.php?title=Building_Subfile
+    /// (Implemented from https://wiki.sc4devotion.com/index.php?title=Building_Subfile)
     /// </summary>
     public class BuildingSubFile
     {

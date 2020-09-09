@@ -8,7 +8,7 @@ namespace SC4Parser.DataStructures
     /// <summary>
     /// An IndexEntry represents a file stored within a SimCity 4 savegame (DBPF).
     /// It stores the TGI (identifier), the location of the file with in the savegame and the size of the file.
-    /// Implemented from following spec: https://wiki.sc4devotion.com/index.php?title=DBPF#DBPF_1.x.2C_Index_Table_7.0
+    /// (Implemented from https://wiki.sc4devotion.com/index.php?title=DBPF#DBPF_1.x.2C_Index_Table_7.0)
     /// </summary>
     public class IndexEntry
     {

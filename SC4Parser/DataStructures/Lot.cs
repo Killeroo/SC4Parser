@@ -4,8 +4,7 @@ namespace SC4Parser.DataStructures
 {
     /// <summary>
     /// Representation of Simcity 4 log data, as it is present in an SC4 save
-    /// Implemented using the following spec:
-    /// https://www.wiki.sc4devotion.com/index.php?title=Lot_Subfile
+    /// (Implemented from https://www.wiki.sc4devotion.com/index.php?title=Lot_Subfile)
     /// </summary>
     public class Lot
     {

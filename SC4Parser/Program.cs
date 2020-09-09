@@ -45,9 +45,9 @@ namespace SC4Parser
 
             var lots = save.GetLotSubfile();
             // Loading and decompression stuff:
-            save.FindIndexEntryWithType("C9BD5D4A"); // Lot file
-            IndexEntry en = save.FindIndexEntryWithType("A9BD882D"); // building file
-            save.LoadIndexEntry(en.TGI);// new TypeGroupInstance("8A2482B9", "4A2482BB", "0"));
+            //save.FindIndexEntryWithType("C9BD5D4A"); // Lot file
+            //IndexEntry en = save.FindIndexEntryWithType("A9BD882D"); // building file
+            //save.LoadIndexEntry(en.TGI);// new TypeGroupInstance("8A2482B9", "4A2482BB", "0"));
 
             // Building parsing test stuff
             //FileInfo file = new FileInfo("buildings_decompressed");

@@ -8,7 +8,7 @@ namespace SC4Parser.Files
     /// <summary>
     /// DatabaseDirectoryFile (DBDF) (not to be confused with DBPF, thanks maxis...) is an IndexEntry within a SimCity 4 savegame (DBPF) that holds a list of
     /// all compressed files (DatabaseDirectoryResources) within a SC4 savegame. The TGI of a DBDF is always E86B1EEF E86B1EEF 286B1F03 in a SC4 save
-    /// Implemented using following spec: https://wiki.sc4devotion.com/index.php?title=DBDF
+    /// (Implemented from https://wiki.sc4devotion.com/index.php?title=DBDF)
     /// </summary>
     public class DatabaseDirectoryFile : IndexEntry
     {

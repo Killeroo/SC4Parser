@@ -14,8 +14,8 @@ namespace SC4Parser.Files
     /// Database Packed File (DBPF) is the file format used by maxis for savegames. They are compressed archive files and contain
     /// multiple files related to a save, some of which are compressed using QFS/refpack.
     /// A detailed spec and layout of the file format can be found here: 
-    /// https://wiki.sc4devotion.com/index.php?title=DBPF
-    /// http://wiki.niotso.org/DBPF
+    /// - https://wiki.sc4devotion.com/index.php?title=DBPF
+    /// - http://wiki.niotso.org/DBPF
     /// </summary>
     public class DatabasePackedFile
     {

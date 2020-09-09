@@ -8,7 +8,7 @@ namespace SC4Parser.DataStructures
     /// <summary>
     /// A DatabaseDirectoryResource represents a compressed file within a SimCity 4 savegame (DBPF)
     /// The uncompressed size of the record can be used to determine if a file has been decompressed properly.
-    /// Implemented using the following: https://wiki.sc4devotion.com/index.php?title=DBDF
+    /// (Implemented from https://wiki.sc4devotion.com/index.php?title=DBDF)
     /// </summary>
     public class DatabaseDirectoryResource
     {
