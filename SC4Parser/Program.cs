@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 
 using SC4Parser.Files;
+using SC4Parser.Logging;
 using SC4Parser.DataStructures;
 
 // Key:
@@ -39,10 +40,15 @@ namespace SC4Parser
     {
         static void Main(string[] args)
         {
+            ConsoleLogger logger = new ConsoleLogger();
             string savePath = "Fulham.sc4";
 
-            SC4SaveFile save = new SC4SaveFile(savePath);
+            SC4SaveFile save =
+                new SC4SaveFile("C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Interpol.sc4");
+            //new SC4SaveFile("C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Panem.sc4");
 
+            var lotEntry = save.FindIndexEntryWithType(Constants.LOT_SUBFILE_TYPE);
+            Utils.SaveByteArrayToFile(save.LoadIndexEntryRaw(lotEntry), "", "lot_compressed");
             var lots = save.GetLotSubfile();
             // Loading and decompression stuff:
             //save.FindIndexEntryWithType("C9BD5D4A"); // Lot file
