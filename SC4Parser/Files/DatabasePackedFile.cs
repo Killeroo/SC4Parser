@@ -190,6 +190,24 @@ namespace SC4Parser.Files
             }
             return sourceBytes;
         }
+        public byte[] LoadIndexEntryRaw(IndexEntry entry)
+        {
+            Logger.Log(LogLevel.Info, "Loading IndexEntry size={0} loc={1} ({2})...",
+                entry.FileSize,
+                entry.FileLocation,
+                entry.TGI.ToString());
+
+            if (!IndexEntries.Contains(entry))
+            {
+                Logger.Log(LogLevel.Error, "IndexEntry could not be loaded, could not be found in list of index entries");
+                return null;
+            }
+
+            bool compressed = IsIndexEntryCompressed(entry);
+            byte[] sourceBytes = ReadRawIndexEntryData(entry);
+
+            return sourceBytes;
+        }
 
         /// <summary>
         /// Checks if an IndexEntry is compressed
@@ -212,7 +230,7 @@ namespace SC4Parser.Files
         /// <summary>
         /// Internal lookup methods for finding IndexEntries or DirectoryResources
         /// </summary>
-        private IndexEntry FindIndexEntry(TypeGroupInstance tgi)
+        public IndexEntry FindIndexEntry(TypeGroupInstance tgi)
         {
             IndexEntry foundEntry = null;
             foreach (IndexEntry entry in IndexEntries)
@@ -233,7 +251,7 @@ namespace SC4Parser.Files
 
             return foundEntry;
         }
-        private IndexEntry FindIndexEntryWithType(string type_id)
+        public IndexEntry FindIndexEntryWithType(string type_id)
         {
             // Find IndexEntry with the specified TypeID
             IndexEntry foundEntry = null;
