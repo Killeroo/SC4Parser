@@ -60,12 +60,12 @@
     <Compile Include="Files\DatabasePackedFile.cs" />
     <Compile Include="DataStructures\DatabasePackedFileHeader.cs" />
     <Compile Include="DataStructures\Lot.cs" />
-    <Compile Include="SubFiles\LotSubFile.cs" />
+    <Compile Include="Subfiles\LotSubfile.cs" />
     <Compile Include="DataStructures\IndexEntry.cs" />
     <Compile Include="DataStructures\SaveGameProperty.cs" />
     <Compile Include="Files\SC4SaveFile.cs" />
     <Compile Include="DataStructures\Building.cs" />
-    <Compile Include="SubFiles\BuildingSubFile.cs" />
+    <Compile Include="Subfiles\BuildingSubfile.cs" />
     <Compile Include="Types\TypeGroupInstance.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>

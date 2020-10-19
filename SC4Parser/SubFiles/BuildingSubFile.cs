@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using SC4Parser.DataStructures;
 using SC4Parser.Logging;
 
-namespace SC4Parser.SubFiles
+namespace SC4Parser.Subfiles
 {
     /// <summary>
     /// Building subfile stores all building data in a SimCity 4 savegame (DBPF).
     /// Actual reading of individual builds is done in DataStructure\Buildings.cs
     /// (Implemented from https://wiki.sc4devotion.com/index.php?title=Building_Subfile)
     /// </summary>
-    public class BuildingSubFile
+    public class BuildingSubfile
     {
         List<Building> Buildings = new List<Building>();
 

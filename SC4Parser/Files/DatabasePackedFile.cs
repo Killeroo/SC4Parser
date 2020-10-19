@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 
 using SC4Parser.DataStructures;
-using SC4Parser.SubFiles;
+using SC4Parser.Subfiles;
 using SC4Parser.Types;
 using SC4Parser.Compression;
 using SC4Parser.Logging;
@@ -111,56 +111,18 @@ namespace SC4Parser.Files
                 return false;
             }
         }
-        
-        /// <summary>
-        /// Some methods for getting more common subfiles from a DBPF
-        /// </summary>
-        public LotSubFile GetLotSubfile()
-        {
-
-            Logger.Log(LogLevel.Info, "Fetching Lot Subfile...");
-            IndexEntry lotEntry = FindIndexEntryWithType(Constants.LOT_SUBFILE_TYPE);
-            if (lotEntry == null)
-            {
-                Logger.Log(LogLevel.Error, "Could not find Lot SubFile");
-                return null;
-            }
-
-            LotSubFile lotSubFile = new LotSubFile();
-            byte[] lotSubFileData = LoadIndexEntry(lotEntry.TGI);
-            lotSubFile.Parse(lotSubFileData, lotSubFileData.Length);
-
-            return lotSubFile;
-        }
-        public BuildingSubFile GetBuildingSubFile()
-        {
-            Logger.Log(LogLevel.Info, "Fetching Building Subfile...");
-            IndexEntry buildingEntry = FindIndexEntryWithType(Constants.BUILDING_SUBFILE_TYPE);
-            if (buildingEntry == null)
-            {
-                Logger.Log(LogLevel.Error, "Could not find Building SubFile");
-                return null;
-            }
-
-            BuildingSubFile buildingSubFile = new BuildingSubFile();
-            byte[] lotSubFileData = LoadIndexEntry(buildingEntry.TGI);
-            buildingSubFile.Parse(lotSubFileData, lotSubFileData.Length);
-
-            return buildingSubFile;
-        }
 
         /// <summary>
         /// Returns the bytes of an IndexEntry using either the referring IndexEntry or the entry's TGI
         /// </summary>
         public byte[] LoadIndexEntry(TypeGroupInstance tgi)
         {
-            Logger.Log(LogLevel.Info, "Loading IndexEntry ({0})...", tgi.ToString());
+            Logger.Log(LogLevel.Info, "Searching for IndexEntry with TGI={0}...", tgi.ToString());
 
             // First find IndexEntry
             IndexEntry entry = FindIndexEntry(tgi);
             if (entry == null)
             {
-                Logger.Log(LogLevel.Error, "No entry with tgi={0} was found", tgi.ToString());
                 return null;
             }
 
@@ -169,7 +131,7 @@ namespace SC4Parser.Files
         }
         public byte[] LoadIndexEntry(IndexEntry entry)
         {
-            Logger.Log(LogLevel.Info, "Loading IndexEntry size={0} loc={1} ({2})...",
+            Logger.Log(LogLevel.Info, "Loading IndexEntry ({2}) size={0} loc={1}...",
                 entry.FileSize,
                 entry.FileLocation,
                 entry.TGI.ToString());
@@ -192,7 +154,7 @@ namespace SC4Parser.Files
         }
         public byte[] LoadIndexEntryRaw(IndexEntry entry)
         {
-            Logger.Log(LogLevel.Info, "Loading IndexEntry size={0} loc={1} ({2})...",
+            Logger.Log(LogLevel.Info, "Loading IndexEntry ({2}) size={0} loc={1}...",
                 entry.FileSize,
                 entry.FileLocation,
                 entry.TGI.ToString());
