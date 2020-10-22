@@ -22,8 +22,8 @@ namespace SC4Parser.Files
         public DatabasePackedFileHeader Header { get; private set; }
         public DatabaseDirectoryFile DBDFFile { get; private set; }
         public List<IndexEntry> IndexEntries { get; private set; }
+        public string FilePath { get; private set; }
 
-        private string FilePath;
         private MemoryStream RawFile;
 
         public DatabasePackedFile()
@@ -41,9 +41,9 @@ namespace SC4Parser.Files
         }
 
         /// <summary>
-        /// Loads a DBPF/SImCity 4 save file 
+        /// Loads a DBPF/SimCity 4 save file 
         /// </summary>
-        public bool Load(string path)
+        public void Load(string path)
         {
             try
             {
@@ -98,9 +98,9 @@ namespace SC4Parser.Files
                     // Save a copy of the stream so we can access stuff after we close the file stream
                     stream.Seek(0, SeekOrigin.Begin);
                     stream.CopyTo(RawFile);
-
-                    return true;
                 }
+
+                Logger.Log(LogLevel.Info, "DBDF loaded");
             }
             catch (Exception ex)
             {
@@ -108,7 +108,7 @@ namespace SC4Parser.Files
                     ex.GetType().ToString(),
                     ex.Message);
 
-                return false;
+                throw new Exception($"Could not read save game file {path}", ex);
             }
         }
 

@@ -35,7 +35,7 @@ namespace SC4Parser.Files
             if (lotEntry == null)
             {
                 Logger.Log(LogLevel.Error, "Could not find Lot Subfile");
-                return null;
+                throw new Exception($"Could not find Lot Subfile in {FilePath}");
             }
 
             LotSubfile lotSubfile = new LotSubfile();
@@ -61,7 +61,7 @@ namespace SC4Parser.Files
             if (buildingEntry == null)
             {
                 Logger.Log(LogLevel.Error, "Could not find Building Subfile");
-                return null;
+                throw new Exception($"Could not find Building Subfile in {FilePath}");
             }
 
             BuildingSubfile buildingSubfile = new BuildingSubfile();
