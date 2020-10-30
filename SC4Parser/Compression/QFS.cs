@@ -44,14 +44,18 @@ namespace SC4Parser.Compression
             // (The if checks if the first 4 bytes are the size of the file
             // if so our start position is 4 bytes + 5 byte header if not then our
             // offset is just the header (5 bytes))
-            if ((sourceBytes[0] & 0x01) != 0)
-            {
-                sourcePosition = 9;//8;
-            }
-            else
-            {
-                sourcePosition = 5;
-            }
+            //if ((sourceBytes[0] & 0x01) != 0)
+            //{
+            //    sourcePosition = 9;//8;
+            //}
+            //else
+            //{
+            //    sourcePosition = 5;
+            //}
+
+            // Above code is redundant for SimCity 4 saves as the QFS compressed files all have the same header length
+            // (Check was throwing off start position and caused decompression to get buggered)
+            sourcePosition = 9;
 
             // In QFS the control character tells us what type of decompression operation we are going to perform (there are 4)
             // Most involve using the bytes proceeding the control byte to determine the amount of data that should be copied from what
@@ -62,6 +66,8 @@ namespace SC4Parser.Compression
             byte c = 0;
             int length = 0;
             int offset = 0;
+
+            int counter = 0;
 
             // Main decoding loop
             // Keep decoding while sourcePosition is in source array and position isn't 0xFC?
@@ -75,11 +81,34 @@ namespace SC4Parser.Compression
                 b = sourceBytes[sourcePosition + 2];
                 c = sourceBytes[sourcePosition + 3];
 
+                counter++;
+                Logger.Log(LogLevel.Debug, "cycle={0} | src_pos={9}/{11} dst_pos={10}/{12} | control_character={1} [0x{2}] | params (a={3} [0x{6}] b={4} [0x{7}] c={5} [0x{8}]) ", 
+                    counter, 
+                    controlCharacter, 
+                    controlCharacter.ToString("X"),
+                    a,
+                    b,
+                    c,
+                    a.ToString("X"),
+                    b.ToString("X"),
+                    c.ToString("X"),
+                    sourcePosition,
+                    destinationPosition,
+                    sourceBytes.Length,
+                    destinationBytes.Length);
+
                 // Check which packcode type we are dealing with
                 if ((controlCharacter & 0x80) == 0)
                 {
                     // First we copy from the source array to the destination array
                     length = controlCharacter & 3;
+                    //Logger.Log(LogLevel.Debug, "control_character=1 | type=src_copy | src_pos={2}/{4} dst_pos={3}/{5} | length={0} | src_copy_pos={1}",
+                    //    length,
+                    //    sourcePosition + 2,
+                    //    sourcePosition,
+                    //    destinationPosition,
+                    //    sourceBytes.Length,
+                    //    destinationBytes.Length);
                     LZCompliantCopy(ref sourceBytes, sourcePosition + 2, ref destinationBytes, destinationPosition, length);
 
                     // Then we copy characters already in the destination array to our current position in the destination array
@@ -87,6 +116,14 @@ namespace SC4Parser.Compression
                     destinationPosition += length;
                     length = ((controlCharacter & 0x1C) >> 2) + 3;
                     offset = ((controlCharacter >> 5) << 8) + a + 1;
+                    //Logger.Log(LogLevel.Debug, "control_character=1 | type=dst_copy | src_pos={2}/{4} dst_pos={3}/{5} | length={0} | offset={6} | dst_copy_pos={1}",
+                    //    length,
+                    //    destinationPosition - offset,
+                    //    sourcePosition,
+                    //    destinationPosition,
+                    //    sourceBytes.Length,
+                    //    destinationBytes.Length,
+                    //    offset);
                     LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
 
                     destinationPosition += length;
@@ -94,12 +131,27 @@ namespace SC4Parser.Compression
                 else if ((controlCharacter & 0x40) == 0)
                 {
                     length = (a >> 6) & 3;
+                    //Logger.Log(LogLevel.Debug, "control_character=2 | type=src_copy | src_pos={2}/{4} dst_pos={3}/{5} | length={0} | src_copy_pos={1}",
+                    //    length,
+                    //    sourcePosition + 3,
+                    //    sourcePosition,
+                    //    destinationPosition,
+                    //    sourceBytes.Length,
+                    //    destinationBytes.Length);
                     LZCompliantCopy(ref sourceBytes, sourcePosition + 3, ref destinationBytes, destinationPosition, length);
 
                     sourcePosition += length + 3;
                     destinationPosition += length;
                     length = (controlCharacter & 0x3F) + 4;
                     offset = (a & 0x3F) * 256 + b + 1;
+                    //Logger.Log(LogLevel.Debug, "control_character=2 | type=dst_copy | src_pos={2}/{4} dst_pos={3}/{5} | length={0} | offset={6} | dst_copy_pos={1}",
+                    //    length,
+                    //    destinationPosition - offset,
+                    //    sourcePosition,
+                    //    destinationPosition,
+                    //    sourceBytes.Length,
+                    //    destinationBytes.Length,
+                    //    offset);
                     LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
 
                     destinationPosition += length;
@@ -107,12 +159,27 @@ namespace SC4Parser.Compression
                 else if ((controlCharacter & 0x20) == 0)
                 {
                     length = controlCharacter & 3;
+                    //Logger.Log(LogLevel.Debug, "control_character=3 | type=src_copy | src_pos={2}/{4} dst_pos={3}/{5} | length={0} | src_copy_pos={1}",
+                    //    length,
+                    //    sourcePosition + 4,
+                    //    sourcePosition,
+                    //    destinationPosition,
+                    //    sourceBytes.Length,
+                    //    destinationBytes.Length);
                     LZCompliantCopy(ref sourceBytes, sourcePosition + 4, ref destinationBytes, destinationPosition, length);
 
                     sourcePosition += length + 4;
                     destinationPosition += length;
                     length = ((controlCharacter >> 2) & 3) * 256 + c + 5;
                     offset = ((controlCharacter & 0x10) << 12) + 256 * a + b + 1;
+                    //Logger.Log(LogLevel.Debug, "control_character=3 | type=dst_copy | src_pos={2}/{4} dst_pos={3}/{5} | length={0} | offset={6} | dst_copy_pos={1}",
+                    //    length,
+                    //    destinationPosition - offset,
+                    //    sourcePosition,
+                    //    destinationPosition,
+                    //    sourceBytes.Length,
+                    //    destinationBytes.Length,
+                    //    offset);
                     LZCompliantCopy(ref destinationBytes, destinationPosition - offset, ref destinationBytes, destinationPosition, length);
 
                     destinationPosition += length;
@@ -120,6 +187,13 @@ namespace SC4Parser.Compression
                 else
                 {
                     length = (controlCharacter & 0x1F) * 4 + 4;
+                    //Logger.Log(LogLevel.Debug, "control_character=4 | type=src_copy | src_pos={2}/{4} dst_pos={3}/{5} | length={0} | src_copy_pos={1}",
+                    //    length,
+                    //    sourcePosition + 4,
+                    //    sourcePosition,
+                    //    destinationPosition,
+                    //    sourceBytes.Length,
+                    //    destinationBytes.Length);
                     LZCompliantCopy(ref sourceBytes, sourcePosition + 1, ref destinationBytes, destinationPosition, length);
 
                     sourcePosition += length + 1;
@@ -150,7 +224,14 @@ namespace SC4Parser.Compression
         {
             if (length != 0)
             {
-                Buffer.BlockCopy(source, sourceOffset, destination, destinationOffset, 1);
+                //try
+                //{
+                    Buffer.BlockCopy(source, sourceOffset, destination, destinationOffset, 1);
+                //} catch (Exception)
+                //{
+                //    Utils.SaveByteArrayToFile(destination, "", "partially_decompressed");
+                //    Environment.Exit(1);
+                //}
 
                 length = length - 1;
                 sourceOffset++;

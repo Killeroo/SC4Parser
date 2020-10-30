@@ -45,11 +45,14 @@ namespace SC4Parser
 
             SC4SaveFile save =
                 new SC4SaveFile("C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Interpol.sc4");
-            //new SC4SaveFile("C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Panem.sc4");
+            //new SC4SaveFile("C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Luxuria.sc4");
 
             var lotEntry = save.FindIndexEntryWithType(Constants.LOT_SUBFILE_TYPE);
-            Utils.SaveByteArrayToFile(save.LoadIndexEntryRaw(lotEntry), "", "lot_compressed");
-            var lots = save.GetLotSubfile();
+            Utils.SaveByteArrayToFile(save.LoadIndexEntryRaw(lotEntry), "", "lot_compressed_2");
+            var lots = save.LoadIndexEntry(lotEntry);
+            //var lots = save.GetLotSubfile();
+
+            Utils.SaveByteArrayToFile(lots, "", "lot_uncompressed");
             // Loading and decompression stuff:
             //save.FindIndexEntryWithType("C9BD5D4A"); // Lot file
             //IndexEntry en = save.FindIndexEntryWithType("A9BD882D"); // building file

@@ -55,6 +55,11 @@ namespace SC4Parser
             {0x07, "Industrial - Low"},
             {0x08, "Industrial - Medium"},
             {0x09, "Industrial - High"},
+            {0x0A, "Military"},
+            {0x0B, "Airport"},
+            {0x0C, "Seaport"},
+            {0x0D, "Spaceport"},
+            {0x0E, "Plopped building"},
             {0x0F, "Plopped building"},
         };
         public static Dictionary<byte, string> LOT_ZONE_WEALTHS = new Dictionary<byte, string>
@@ -74,7 +79,12 @@ namespace SC4Parser
         public const byte LOT_ZONE_TYPE_INDUSTRIAL_LOW = 0x07;
         public const byte LOT_ZONE_TYPE_INDUSTRIAL_MEDIUM = 0x08;
         public const byte LOT_ZONE_TYPE_INDUSTRIAL_HIGH = 0x09;
+        public const byte LOT_ZONE_TYPE_MILITARY = 0x0A;
+        public const byte LOT_ZONE_TYPE_AIRPORT = 0x0B;
+        public const byte LOT_ZONE_TYPE_SEAPORT = 0x0C;
+        public const byte LOT_ZONE_TYPE_SPACEPORT = 0x0D;
         public const byte LOT_ZONE_TYPE_PLOPPED_BUILDING = 0x0F;
+        public const byte LOT_ZONE_TYPE_PLOPPED_BUILDING_ALT = 0x0E;
 
         public const byte LOT_WEALTH_NONE = 0x00;
         public const byte LOT_WEALTH_LOW = 0x01;

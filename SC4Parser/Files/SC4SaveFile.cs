@@ -20,7 +20,7 @@ namespace SC4Parser.Files
         public SC4SaveFile(string path) : base(path) { }
 
         /// <summary>
-        /// Some methods for getting more common subfiles from a DBPF
+        /// Some methods for getting more common subfiles from a Simcity 4 save
         /// </summary>
         public LotSubfile GetLotSubfile()
         {
