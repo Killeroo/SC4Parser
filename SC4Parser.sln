@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2050
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SC4Parser", "SC4Parser\SC4Parser.csproj", "{06EB8CFF-D61C-4B37-990C-1B2FA1B70048}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SC4ConsoleParser", "SC4ConsoleParser\SC4ConsoleParser.csproj", "{05942249-A1CF-4B75-BA43-97AD130958CE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SC4SampleConsoleParser", "SC4ConsoleParser\SC4SampleConsoleParser.csproj", "{05942249-A1CF-4B75-BA43-97AD130958CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

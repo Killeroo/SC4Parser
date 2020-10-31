@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{06EB8CFF-D61C-4B37-990C-1B2FA1B70048}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>SC4Parser</RootNamespace>
     <AssemblyName>SC4Parser</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -70,6 +70,7 @@
     <Compile Include="Files\SC4SaveFile.cs" />
     <Compile Include="DataStructures\Building.cs" />
     <Compile Include="Subfiles\BuildingSubfile.cs" />
+    <Compile Include="Subfiles\RegionViewSubfile.cs" />
     <Compile Include="Types\TypeGroupInstance.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>

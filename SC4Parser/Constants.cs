@@ -8,6 +8,7 @@ namespace SC4Parser
     public class Constants
     {
         public static readonly TypeGroupInstance DATABASE_DIRECTORY_FILE_TGI = new TypeGroupInstance("E86B1EEF", "E86B1EEF", "286B1F03");
+        public static readonly TypeGroupInstance REGION_VIEW_SUBFILE_TGI = new TypeGroupInstance("CA027EDB", "CA027EE1", "00000000");
 
         public static readonly string LOT_SUBFILE_TYPE = "C9BD5D4A";
         public static readonly string BUILDING_SUBFILE_TYPE = "A9BD882D";
