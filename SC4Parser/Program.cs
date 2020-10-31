@@ -44,15 +44,24 @@ namespace SC4Parser
             string savePath = "Fulham.sc4";
 
             SC4SaveFile save =
-                new SC4SaveFile("C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Interpol.sc4");
+                new SC4SaveFile(@"C:\Users\Shadowfax\Documents\SimCity 4\Regions\San Francisco\City - Cineta.sc4");
+                    //"C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Fulham.sc4");
+
+            var regionData = save.GetRegionViewSubfile();
+            regionData.Dump();
+
+            //SC4SaveFile save = new SC4SaveFile("C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Fulham.sc4");
+            //var regionData = save.GetRegionViewSubfile();
+            //regionData.Dump();
+
             //new SC4SaveFile("C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Luxuria.sc4");
 
-            var lotEntry = save.FindIndexEntryWithType(Constants.LOT_SUBFILE_TYPE);
-            Utils.SaveByteArrayToFile(save.LoadIndexEntryRaw(lotEntry), "", "lot_compressed_2");
-            var lots = save.LoadIndexEntry(lotEntry);
-            //var lots = save.GetLotSubfile();
+            //var lotEntry = save.FindIndexEntryWithType(Constants.LOT_SUBFILE_TYPE);
+            //Utils.SaveByteArrayToFile(save.LoadIndexEntryRaw(lotEntry), "", "lot_compressed_2");
+            //var lots = save.LoadIndexEntry(lotEntry);
+            ////var lots = save.GetLotSubfile();
 
-            Utils.SaveByteArrayToFile(lots, "", "lot_uncompressed");
+            //Utils.SaveByteArrayToFile(lots, "", "lot_uncompressed");
             // Loading and decompression stuff:
             //save.FindIndexEntryWithType("C9BD5D4A"); // Lot file
             //IndexEntry en = save.FindIndexEntryWithType("A9BD882D"); // building file

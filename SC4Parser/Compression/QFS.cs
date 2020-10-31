@@ -77,7 +77,6 @@ namespace SC4Parser.Compression
                 // Read bytes proceeding packcode
                 a = sourceBytes[sourcePosition + 1];
                 b = sourceBytes[sourcePosition + 2];
-                c = sourceBytes[sourcePosition + 3];
 
                 // Check which packcode type we are dealing with
                 if ((controlCharacter & 0x80) == 0)
@@ -110,6 +109,8 @@ namespace SC4Parser.Compression
                 }
                 else if ((controlCharacter & 0x20) == 0)
                 {
+                    c = sourceBytes[sourcePosition + 3];
+
                     length = controlCharacter & 3;
                     LZCompliantCopy(ref sourceBytes, sourcePosition + 4, ref destinationBytes, destinationPosition, length);
 

@@ -16,6 +16,7 @@ namespace SC4Parser.Files
     {
         private LotSubfile m_CachedLotSubfile = null;
         private BuildingSubfile m_CachedBuildingSubfile = null;
+        private RegionViewSubfile m_CachedRegionViewSubfile = null;
 
         public SC4SaveFile(string path) : base(path) { }
 
@@ -65,13 +66,30 @@ namespace SC4Parser.Files
             }
 
             BuildingSubfile buildingSubfile = new BuildingSubfile();
-            byte[] lotSubfileData = LoadIndexEntry(buildingEntry.TGI);
-            buildingSubfile.Parse(lotSubfileData, lotSubfileData.Length);
+            byte[] buildingSubfileData = LoadIndexEntry(buildingEntry.TGI);
+            buildingSubfile.Parse(buildingSubfileData, buildingSubfileData.Length);
 
             Logger.Log(LogLevel.Info, "Buildings subfile loaded, caching result");
             m_CachedBuildingSubfile = buildingSubfile;
 
             return buildingSubfile;
+        }
+        public RegionViewSubfile GetRegionViewSubfile()
+        {
+            if (m_CachedBuildingSubfile != null)
+            {
+                Logger.Log(LogLevel.Info, "Returning cached building subfile");
+                return m_CachedRegionViewSubfile;
+            }
+
+            RegionViewSubfile regionViewSubfile = new RegionViewSubfile();
+            byte[] regionViewData = LoadIndexEntry(Constants.REGION_VIEW_SUBFILE_TGI);
+            regionViewSubfile.Parse(regionViewData);
+
+            Logger.Log(LogLevel.Info, "Region View subfile loaded, caching result");
+            m_CachedRegionViewSubfile = regionViewSubfile;
+
+            return regionViewSubfile;
         }
     }
 }
