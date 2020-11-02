@@ -33,8 +33,8 @@ namespace SC4Parser.Subfiles
 
             TileXLocation = BitConverter.ToUInt32(buffer, 4);
             TileYLocation = BitConverter.ToUInt32(buffer, 8);
-            CitySizeX = BitConverter.ToUInt32(buffer, 12);
-            CitySizeY = BitConverter.ToUInt32(buffer, 16);
+            CitySizeX = BitConverter.ToUInt32(buffer, 12) * 64;
+            CitySizeY = BitConverter.ToUInt32(buffer, 16) * 64;
             ResidentialPopulation = BitConverter.ToUInt32(buffer, 20);
             CommercialPopulation = BitConverter.ToUInt32(buffer, 24);
             IndustrialPopulation = BitConverter.ToUInt32(buffer, 28);

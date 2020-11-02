@@ -44,11 +44,13 @@ namespace SC4Parser
             string savePath = "Fulham.sc4";
 
             SC4SaveFile save =
-                new SC4SaveFile(@"C:\Users\Shadowfax\Documents\SimCity 4\Regions\San Francisco\City - Cineta.sc4");
-                    //"C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Fulham.sc4");
+                new SC4SaveFile(//@"C:\Users\Shadowfax\Downloads\City - Terraforming Tutorial.sc4");
+                    "C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Fulham.sc4");
 
-            var regionData = save.GetRegionViewSubfile();
-            regionData.Dump();
+            //var regionData = save.GetRegionViewSubfile();
+            var terrainData = save.GetTerrainMapSubfile();
+            terrainData.Dump();
+            //regionData.Dump();
 
             //SC4SaveFile save = new SC4SaveFile("C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Fulham.sc4");
             //var regionData = save.GetRegionViewSubfile();

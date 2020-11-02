@@ -17,6 +17,7 @@ namespace SC4Parser.Files
         private LotSubfile m_CachedLotSubfile = null;
         private BuildingSubfile m_CachedBuildingSubfile = null;
         private RegionViewSubfile m_CachedRegionViewSubfile = null;
+        private TerrainMapSubfile m_CachedTerrainMapSubfile = null;
 
         public SC4SaveFile(string path) : base(path) { }
 
@@ -90,6 +91,25 @@ namespace SC4Parser.Files
             m_CachedRegionViewSubfile = regionViewSubfile;
 
             return regionViewSubfile;
+        }
+        public TerrainMapSubfile GetTerrainMapSubfile()
+        {
+            if (m_CachedBuildingSubfile != null)
+            {
+                Logger.Log(LogLevel.Info, "Returning cached terrain map subfile");
+                return m_CachedTerrainMapSubfile;
+            }
+
+            var regionViewData = GetRegionViewSubfile();
+
+            TerrainMapSubfile terrainMapSubfile = new TerrainMapSubfile();
+            byte[] terrainMapData = LoadIndexEntry(Constants.TERRAIN_MAP_SUBFILE_TGI);
+            terrainMapSubfile.Parse(terrainMapData, regionViewData.CitySizeX, regionViewData.CitySizeY);
+
+            Logger.Log(LogLevel.Info, "Region View subfile loaded, caching result");
+            m_CachedTerrainMapSubfile = terrainMapSubfile;
+
+            return terrainMapSubfile;
         }
     }
 }
