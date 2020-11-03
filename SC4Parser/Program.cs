@@ -48,7 +48,7 @@ namespace SC4Parser
                     "C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Fulham.sc4");
 
             var regionData = save.GetRegionViewSubfile();
-            var terrainData = save.GetTerrainMapSubfile();
+            //var terrainData = save.GetTerrainMapSubfile();
             regionData.Dump();
 
             //SC4SaveFile save = new SC4SaveFile("C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Fulham.sc4");

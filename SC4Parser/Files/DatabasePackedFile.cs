@@ -43,6 +43,7 @@ namespace SC4Parser.Files
         /// <summary>
         /// Loads a DBPF/SimCity 4 save file 
         /// </summary>
+        /// <exception cref="SC4Parser.DBPFParsingException">Thrown when an exception occurs while loading the DBPF file</exception>
         public void Load(string path)
         {
             try
@@ -108,13 +109,16 @@ namespace SC4Parser.Files
                     ex.GetType().ToString(),
                     ex.Message);
 
-                throw new Exception($"Could not read save game file {path}", ex);
+                throw new DBPFParsingException($"Could not read save game file {path}", ex);
             }
         }
 
         /// <summary>
-        /// Returns the bytes of an IndexEntry using either the referring IndexEntry or the entry's TGI
+        /// Returns the bytes of an IndexEntry using the entry's TGI
         /// </summary>
+        /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when IndexEntry doesn't exist in save game</exception>
+        /// <exception cref="SC4Parser.IndexEntryLoadingException">Thrown when exception occurs when loading IndexEntry</exception>
+        /// <exception cref="SC4Parser.QFSDecompressionException">Thrown when exception occurs while decompressing IndexEntry data</exception>
         public byte[] LoadIndexEntry(TypeGroupInstance tgi)
         {
             Logger.Log(LogLevel.Info, "Searching for IndexEntry with TGI={0}...", tgi.ToString());
@@ -123,12 +127,18 @@ namespace SC4Parser.Files
             IndexEntry entry = FindIndexEntry(tgi);
             if (entry == null)
             {
-                return null;
+                throw new IndexEntryNotFoundException();
             }
 
             // Then load the IndexEntry
             return LoadIndexEntry(entry);
         }
+        /// <summary>
+        /// Returns the bytes of an IndexEntry using the referring IndexEntry
+        /// </summary>
+        /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when IndexEntry doesn't exist in save game</exception>
+        /// <exception cref="SC4Parser.IndexEntryLoadingException">Thrown when exception occurs when loading IndexEntry</exception>
+        /// <exception cref="SC4Parser.QFSDecompressionException">Thrown when exception occurs while decompressing IndexEntry data</exception>
         public byte[] LoadIndexEntry(IndexEntry entry)
         {
             Logger.Log(LogLevel.Info, "Loading IndexEntry ({2}) size={0} loc={1}...",
@@ -139,7 +149,7 @@ namespace SC4Parser.Files
             if (!IndexEntries.Contains(entry))
             {
                 Logger.Log(LogLevel.Error, "IndexEntry could not be loaded, could not be found in list of index entries");
-                return null;
+                throw new IndexEntryNotFoundException();
             }
 
             bool compressed = IsIndexEntryCompressed(entry);
@@ -148,10 +158,28 @@ namespace SC4Parser.Files
             if (compressed)
             {
                 Logger.Log(LogLevel.Info, "Entry is compressed, decompressing...");
-                return QFS.UncompressData(sourceBytes);
+
+                byte[] decompressedData = null;
+                try
+                {
+                    decompressedData = QFS.UncompressData(sourceBytes);
+                }
+                catch (Exception e)
+                {
+                    Logger.Log(LogLevel.Error, "Exception occured while decompressing entry, Exception={0} Message={1}",
+                        e.GetType().ToString(),
+                        e.Message);
+                    throw new QFSDecompressionException("Error occured while decompressing entry", e);
+                }
+                return decompressedData; 
             }
             return sourceBytes;
         }
+        /// <summary>
+        /// Returns the raw bytes of an IndexEntry using the referring IndexEntry, does not attempt to decompress entry if it is compressed.
+        /// </summary>
+        /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when IndexEntry doesn't exist in save game</exception>
+        /// <exception cref="SC4Parser.IndexEntryLoadingException">Thrown when exception occurs when loading IndexEntry</exception>
         public byte[] LoadIndexEntryRaw(IndexEntry entry)
         {
             Logger.Log(LogLevel.Info, "Loading IndexEntry ({2}) size={0} loc={1}...",
@@ -162,7 +190,7 @@ namespace SC4Parser.Files
             if (!IndexEntries.Contains(entry))
             {
                 Logger.Log(LogLevel.Error, "IndexEntry could not be loaded, could not be found in list of index entries");
-                return null;
+                throw new IndexEntryNotFoundException();
             }
 
             bool compressed = IsIndexEntryCompressed(entry);
@@ -192,7 +220,8 @@ namespace SC4Parser.Files
         /// <summary>
         /// Internal lookup methods for finding IndexEntries or DirectoryResources
         /// </summary>
-        public IndexEntry FindIndexEntry(TypeGroupInstance tgi)
+        /// 
+        private IndexEntry FindIndexEntry(TypeGroupInstance tgi)
         {
             IndexEntry foundEntry = null;
             foreach (IndexEntry entry in IndexEntries)
@@ -208,7 +237,8 @@ namespace SC4Parser.Files
 
             if (foundEntry == null)
             {
-                Logger.Log(LogLevel.Warning, "Could not find tgi ({0}) in IndexEntries", tgi.ToString());
+                Logger.Log(LogLevel.Error, "Could not find tgi ({0}) in IndexEntries", tgi.ToString());
+                throw new IndexEntryNotFoundException();
             }
 
             return foundEntry;
@@ -230,7 +260,8 @@ namespace SC4Parser.Files
 
             if (foundEntry == null)
             {
-                Logger.Log(LogLevel.Warning, "Could not find IndexEntry with TypeID " + type_id);
+                Logger.Log(LogLevel.Error, "Could not find IndexEntry with TypeID " + type_id);
+                throw new IndexEntryNotFoundException();
             }
 
             return foundEntry;
@@ -259,10 +290,10 @@ namespace SC4Parser.Files
 
             if (entry.FileLocation > RawFile.Length)
             {
-                Logger.Log(LogLevel.Error, "File location too big for DBPF size (file location={0}, DBPF length={1}",
+                Logger.Log(LogLevel.Error, "File location too big for DBPF size (file location={0}, DBPF length={1})",
                     RawFile.Length,
                     entry.FileLocation);
-                return null;
+                throw new IndexEntryLoadingException("File location too big for DBPF size");
             }
 
             // We need to convert out file size from signed to unsigned
@@ -273,14 +304,14 @@ namespace SC4Parser.Files
             {
                 fileSize = Convert.ToInt32(entry.FileSize);
             }
-            catch (OverflowException)
+            catch (OverflowException e)
             {
                 Logger.Log(LogLevel.Error, "Uncompressed entry could not be loaded, " +
                     "overflow occured while converting IndexEntry's file size" +
                     " (TGI = {0}) ({1} bytes)",
                     entry.TGI.ToString(),
                     entry.FileSize);
-                return null;
+                throw new IndexEntryLoadingException("Overflow occured while converting IndexEntry's file size", e);
             }
 
             try
@@ -301,6 +332,7 @@ namespace SC4Parser.Files
                     e.GetType().ToString(),
                     e.Message,
                     e.StackTrace);
+                throw new IndexEntryLoadingException("Error reading IndexEntry data from MemoryStream", e);
             }
 
             return buffer;
