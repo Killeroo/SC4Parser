@@ -7,7 +7,7 @@ using SC4Parser.Logging;
 namespace SC4Parser.Subfiles
 {
     /// <summary>
-    /// Building subfile stores all building data in a SimCity 4 savegame (DBPF).
+    /// Building subfile stores all building data in a SimCity 4 savegame (partial implementation).
     /// Actual reading of individual builds is done in DataStructure\Buildings.cs
     /// (Implemented from https://wiki.sc4devotion.com/index.php?title=Building_Subfile)
     /// </summary>

@@ -8,8 +8,11 @@ using SC4Parser.Logging;
 
 namespace SC4Parser.Subfiles
 {
-    // Partially implemented
-    //https://wiki.sc4devotion.com/index.php?title=Region_View_Subfiles
+    
+    /// <summary>
+    /// RegionView Subfile (partial implementation). Contains basic city information from a region point of view.
+    /// Based off spec from here: https://wiki.sc4devotion.com/index.php?title=Region_View_Subfiles
+    /// </summary>
     public class RegionViewSubfile
     {
         public ushort MajorVersion;
@@ -21,7 +24,6 @@ namespace SC4Parser.Subfiles
         public uint ResidentialPopulation;
         public uint CommercialPopulation;
         public uint IndustrialPopulation;
-        public byte MayorRating;
 
         public void Parse(byte[] buffer)
         {

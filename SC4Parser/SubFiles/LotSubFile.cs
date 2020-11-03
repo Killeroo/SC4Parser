@@ -7,7 +7,7 @@ using SC4Parser.Logging;
 namespace SC4Parser.Subfiles
 {
     /// <summary>
-    /// LotSubfile contains all logs in a SimCity 4 savegame.
+    /// LotSubfile contains all logs in a SimCity 4 savegame (Partial implementation).
     /// Actual reading of individual builds is done in DataStructure\Lot.cs
     /// (Implmeneted from https://wiki.sc4devotion.com/index.php?title=Lot_Subfile)
     /// </summary>

@@ -7,12 +7,17 @@ using System.Threading.Tasks;
 
 namespace SC4Parser.Subfiles
 {
+    /// <summary>
+    /// Implmentation of TerrainMap Subfile, contains height information for each tile of a city.
+    /// Based off the implmentation here:
+    /// https://github.com/sebamarynissen/sc4/blob/master/lib/terrain-map.js
+    /// </summary>
     public class TerrainMapSubfile
     {
         public ushort MajorVersion;
         public uint SizeX;
         public uint SizeY;
-        public float[][] Map;
+        public float[][] Map; // Stored in x and y of tiles
 
         public void Parse(byte[] buffer, uint xSize, uint ySize)
         {
@@ -21,7 +26,7 @@ namespace SC4Parser.Subfiles
 
             MajorVersion = BitConverter.ToUInt16(buffer, 0);
 
-            // Setup terrain map
+            // Loop through rest of file and save to out array
             int offset = 2;
             Map = new float[SizeX][];
             for (int x = 0; x < SizeX; x++)
