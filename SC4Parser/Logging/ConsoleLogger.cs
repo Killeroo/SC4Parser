@@ -8,7 +8,15 @@ namespace SC4Parser.Logging
 {
     class ConsoleLogger : ILogger
     {
-        public static readonly Dictionary<LogLevel, string> LogLevelText = new Dictionary<LogLevel, string>
+        private static List<LogLevel> EnabledChannels = new List<LogLevel>
+        {
+            LogLevel.Info,
+            LogLevel.Warning,
+            LogLevel.Error,
+            LogLevel.Fatal
+        };
+
+        private static readonly Dictionary<LogLevel, string> LogLevelText = new Dictionary<LogLevel, string>
         {
             { LogLevel.Debug, "DEBUG" },
             { LogLevel.Info, "INFO" },
@@ -17,7 +25,7 @@ namespace SC4Parser.Logging
             { LogLevel.Fatal, "FATAL" }
         };
 
-        public static readonly Dictionary<LogLevel, ConsoleColor> LogLevelColors = new Dictionary<LogLevel, ConsoleColor>
+        private static readonly Dictionary<LogLevel, ConsoleColor> LogLevelColors = new Dictionary<LogLevel, ConsoleColor>
         {
             { LogLevel.Debug, ConsoleColor.DarkGray },
             { LogLevel.Info, ConsoleColor.White },
@@ -31,8 +39,16 @@ namespace SC4Parser.Logging
             Logger.AddLogOutput(this);
         }
 
+        public void EnableChannel(LogLevel level)
+        {
+            EnabledChannels.Add(level);
+        }
+
         public void Log(LogLevel level, string format, params object[] args)
         {
+            if (EnabledChannels.Contains(level) == false)
+                return;
+
             string message = args.Length == 0 ? format : string.Format(format, args);
             message = string.Format("[{0}] [{1}] {2}",
                 DateTime.UtcNow.ToString("dd-MM-yyyy HH:mm:ss.ff"),
