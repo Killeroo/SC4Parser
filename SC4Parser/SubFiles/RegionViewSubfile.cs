@@ -8,23 +8,71 @@ using SC4Parser.Logging;
 
 namespace SC4Parser.Subfiles
 {
-    
     /// <summary>
-    /// RegionView Subfile (partial implementation). Contains basic city information from a region point of view.
-    /// Based off spec from here: https://wiki.sc4devotion.com/index.php?title=Region_View_Subfiles
+    /// Region View Subfile (partial implementation). Contains basic city information from a region point of view.
     /// </summary>
+    /// <remarks>
+    /// Only a partial implementation and will not contain all values from the save game
+    /// 
+    /// Based off spec from here: https://wiki.sc4devotion.com/index.php?title=Region_View_Subfiles
+    /// </remarks>
     public class RegionViewSubfile
     {
-        public ushort MajorVersion;
-        public ushort MinorVersion;
-        public uint TileXLocation;
-        public uint TileYLocation;
-        public uint CitySizeX;
-        public uint CitySizeY;
-        public uint ResidentialPopulation;
-        public uint CommercialPopulation;
-        public uint IndustrialPopulation;
+        /// <summary>
+        /// Major version of the subfile
+        /// </summary>
+        /// <remarks>
+        /// You can see the different versions here: https://www.wiki.sc4devotion.com/index.php?title=Region_View_Subfiles
+        /// This implementation is based around the SimCity 4 Rush Hour/Deluxe version of the game (1.13)
+        /// </remarks>
+        public ushort MajorVersion { get; protected set; }
+        /// <summary>
+        /// Minor version of the subfile
+        /// </summary>
+        /// <remarks>W
+        /// You can see the different versions here: https://www.wiki.sc4devotion.com/index.php?title=Region_View_Subfiles
+        /// This implementation is based around the SimCity 4 Rush Hour/Deluxe version of the game (1.13)
+        /// </remarks>
+        public ushort MinorVersion { get; private set; }
+        /// <summary>
+        /// X location of the city in the region view
+        /// </summary>
+        public uint TileXLocation { get; private set; }
+        /// <summary>
+        /// Z location of the city in the region view
+        /// </summary>
+        public uint TileYLocation { get; private set; }
+        /// <summary>
+        /// X size of the city
+        /// </summary>
+        /// <remarks>
+        /// Multiplied by 64 to get the number of the tiles in the city
+        /// </remarks>
+        public uint CitySizeX { get; private set; }
+        /// <summary>
+        /// Y size of the city
+        /// </summary>
+        /// <remarks>
+        /// Multiplied by 64 to get the number of the tiles in the city
+        /// </remarks>
+        public uint CitySizeY { get; private set; }
+        /// <summary>
+        /// Residential population of city
+        /// </summary>
+        public uint ResidentialPopulation { get; private set; }
+        /// <summary>
+        /// Commercial population of city
+        /// </summary>
+        public uint CommercialPopulation { get; private set; }
+        /// <summary>
+        /// Industrial population of city
+        /// </summary>
+        public uint IndustrialPopulation { get; private set; }
 
+        /// <summary>
+        /// Parses Region View Subfile from a byte array
+        /// </summary>
+        /// <param name="buffer">Data to read subfile from</param>
         public void Parse(byte[] buffer)
         {
             MajorVersion = BitConverter.ToUInt16(buffer, 0);
@@ -42,6 +90,9 @@ namespace SC4Parser.Subfiles
             IndustrialPopulation = BitConverter.ToUInt32(buffer, 28);
         }
 
+        /// <summary>
+        /// Prints out the contents of the Region View Subfile
+        /// </summary>
         public void Dump()
         {
             Console.WriteLine("Major Version: {0}", MajorVersion);

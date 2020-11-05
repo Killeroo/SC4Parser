@@ -126,12 +126,12 @@ namespace SC4Parser.DataStructures
         /// <summary>
         /// Lot's zone type
         /// </summary>
-        /// <see cref="SC4Parser.Constants.LOT_ZONE_TYPES"/>
+        /// <see cref="SC4Parser.Constants.LOT_ZONE_TYPE_STRINGS"/>
         public byte ZoneType { get; private set; }
         /// <summary>
         /// Lot's zone wealth
         /// </summary>
-        /// <see cref="SC4Parser.Constants.LOT_ZONE_WEALTHS"/>
+        /// <see cref="SC4Parser.Constants.LOT_ZONE_WEALTH_STRINGS"/>
         public byte ZoneWealth { get; private set; }
         /// <summary>
         /// Date (in game?) that lot grew or was plopped
@@ -201,11 +201,11 @@ namespace SC4Parser.DataStructures
             Console.WriteLine("Slope 2 Y: {0}", Slope2Y);
             Console.WriteLine("Lot Width: 0x{0} ({1})", SizeX.ToString("X"), SizeX);
             Console.WriteLine("Lot Depth: 0x{0} ({1})", SizeZ.ToString("X"), SizeZ);
-            Console.WriteLine("Lot Orientation: 0x{0} ({1})", Orientation.ToString("X"), Constants.ORIENTATIONS[Orientation]);
+            Console.WriteLine("Lot Orientation: 0x{0} ({1})", Orientation.ToString("X"), Constants.ORIENTATION_STRINGS[Orientation]);
             Console.WriteLine("Flag Byte 2: 0x{0} ({1})", FlagByte2.ToString("X"), FlagByte2);
             Console.WriteLine("Flag Byte 3: 0x{0} ({1})", FlagByte3.ToString("X"), FlagByte3);
-            Console.WriteLine("Zone Type: 0x{0} ({1})", ZoneType.ToString("X"), Constants.LOT_ZONE_TYPES[ZoneType]);
-            Console.WriteLine("Zone Wealth: 0x{0} ({1})", ZoneWealth.ToString("X"), Constants.LOT_ZONE_WEALTHS[ZoneWealth]);
+            Console.WriteLine("Zone Type: 0x{0} ({1})", ZoneType.ToString("X"), Constants.LOT_ZONE_TYPE_STRINGS[ZoneType]);
+            Console.WriteLine("Zone Wealth: 0x{0} ({1})", ZoneWealth.ToString("X"), Constants.LOT_ZONE_WEALTH_STRINGS[ZoneWealth]);
         }
 
     }

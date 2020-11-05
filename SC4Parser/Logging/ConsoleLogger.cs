@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SC4Parser.Logging
 {
+    /// <summary>
+    /// Console Logger implementation, logs output to standard output
+    /// </summary>
     class ConsoleLogger : ILogger
     {
         private static List<LogLevel> EnabledChannels = new List<LogLevel>

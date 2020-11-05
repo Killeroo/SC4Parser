@@ -273,7 +273,7 @@ namespace SC4Parser.DataStructures
             Console.WriteLine("Max Coordinate X: {0}", MaxCoordinateX);
             Console.WriteLine("Max Coordinate Y: {0}", MaxCoordinateY);
             Console.WriteLine("Max Coordinate Z: {0}", MaxCoordinateZ);
-            Console.WriteLine("Orientation: {0} [{1}]", Orientation, Constants.ORIENTATIONS[Orientation]);
+            Console.WriteLine("Orientation: {0} [{1}]", Orientation, Constants.ORIENTATION_STRINGS[Orientation]);
             Console.WriteLine("Scaffolding Height: {0}", ScaffoldingHeight);
             Console.WriteLine("Prop Exemplar Reference: {0}", TGI.ToString());
         }

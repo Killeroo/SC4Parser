@@ -13,11 +13,15 @@ namespace SC4Parser
     {
         /// <summary>
         /// Converts datetime to unixtime used as timestamps in saves
+        /// </summary>
+        /// <param name="unixTimestamp">Unix timestamp to convert</param>
+        /// <returns>Converted Datatime</returns>
+        /// <remarks>
         /// Based on https://stackoverflow.com/a/250400
+        ///
         /// Could use DateTimeOffset.FromUnixTimeSeconds from .NET 4.6 > but thought it was new enough
         /// That I would ensure a bit of backwards compatability
-        /// </summary>
-
+        /// </remarks>
         public static DateTime UnixTimestampToDateTime(long unixTimestamp)
         {
             DateTime unixDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
@@ -28,6 +32,9 @@ namespace SC4Parser
         /// <summary>
         /// Save a byte array to a file
         /// </summary>
+        /// <param name="data">Data to save</param>
+        /// <param name="name">Name of file to save</param>
+        /// <param name="path">Path to save file to</param>
         public static void SaveByteArrayToFile(byte[] data, string path, string name)
         {
             try

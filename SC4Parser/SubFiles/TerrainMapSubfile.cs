@@ -8,17 +8,46 @@ using System.Threading.Tasks;
 namespace SC4Parser.Subfiles
 {
     /// <summary>
-    /// Implmentation of TerrainMap Subfile, contains height information for each tile of a city.
+    /// Implementation of TerrainMap Subfile, contains height information for each tile of a city.
+    /// </summary>
+    /// <remarks>
     /// Based off the implmentation here:
     /// https://github.com/sebamarynissen/sc4/blob/master/lib/terrain-map.js
-    /// </summary>
+    /// </remarks>
     public class TerrainMapSubfile
     {
+        /// <summary>
+        /// Major version of the subfile
+        /// </summary>
         public ushort MajorVersion;
+        /// <summary>
+        /// X size of the city
+        /// </summary>
+        /// <remarks>
+        /// Not included in actual file but borrowed from Region View Subfile for convience
+        /// </remarks>
         public uint SizeX;
+        /// <summary>
+        /// Y size of the city
+        /// </summary>
+        /// <remarks>
+        /// Not included in actual file but borrowed from Region View Subfile for convience
+        /// </remarks>
         public uint SizeY;
-        public float[][] Map; // Stored in x and y of tiles
+        /// <summary>
+        /// Actual terrain map, contains a height value for each tile in the sity
+        /// </summary>
+        /// <remarks>
+        /// Stored in x and y of tiles
+        /// </remarks>
+        public float[][] Map;
 
+        /// <summary>
+        /// Reads the Terrain Map Subfile from a byte array
+        /// </summary>
+        /// <param name="buffer">Data to read subfile from</param>
+        /// <param name="xSize">Number of tiles on the X axis in the city</param>
+        /// <param name="ySize">Number of tiles on the Y axis in the city</param>
         public void Parse(byte[] buffer, uint xSize, uint ySize)
         {
             SizeX = xSize + 1;
@@ -47,6 +76,9 @@ namespace SC4Parser.Subfiles
 
         }
 
+        /// <summary>
+        /// Prints out the contents of the Terrain Map Subfile
+        /// </summary>
         public void Dump()
         {
             Console.WriteLine("Major Version: {0}", MajorVersion);

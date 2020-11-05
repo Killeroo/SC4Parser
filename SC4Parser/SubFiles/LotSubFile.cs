@@ -7,14 +7,30 @@ using SC4Parser.Logging;
 namespace SC4Parser.Subfiles
 {
     /// <summary>
-    /// LotSubfile contains all logs in a SimCity 4 savegame (Partial implementation).
-    /// Actual reading of individual builds is done in DataStructure\Lot.cs
-    /// (Implmeneted from https://wiki.sc4devotion.com/index.php?title=Lot_Subfile)
+    /// Implementation of the Lots Subfile. LotSubfile contains all logs in a SimCity 4 savegame (Partial implementation).
     /// </summary>
+    /// <remarks>
+    /// The implementation of the lots is only partially complete and will not contain all data associated with the lots
+    /// 
+    /// Actual reading of individual builds is done in DataStructure\Lot.cs
+    /// 
+    /// Implemented from https://wiki.sc4devotion.com/index.php?title=Lot_Subfile
+    /// </remarks>
+    /// <seealso cref="SC4Parser.DataStructures.Lot"/>
+    /// <seealso cref="SC4Parser.Subfiles.BuildingSubfile"/>
     public class LotSubfile
     {
+        /// <summary>
+        /// All lots stored in the subfile
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.Lot"/>
         public List<Lot> Lots = new List<Lot>();
 
+        /// <summary>
+        /// Reads the Lots Subfile from byte array
+        /// </summary>
+        /// <param name="buffer">Data to read subfile from</param>
+        /// <param name="size">Size of data to be read</param>
         public void Parse(byte[] buffer, int size)
         {
             uint bytesToRead = Convert.ToUInt32(size);
@@ -42,6 +58,9 @@ namespace SC4Parser.Subfiles
             }
         }
 
+        /// <summary>
+        /// Prints out the contents of the Lot Subfile
+        /// </summary>
         public void Dump()
         {
             foreach (Lot lot in Lots)

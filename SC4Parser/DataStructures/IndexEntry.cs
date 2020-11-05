@@ -20,15 +20,15 @@ namespace SC4Parser.DataStructures
         /// TypeGroupInstance (TGI) of Index entry
         /// </summary>
         /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
-        public TypeGroupInstance TGI { get; set; }
+        public TypeGroupInstance TGI { get; protected set; }
         /// <summary>
         /// Location of the file in the DBPF that the index entry refers to
         /// </summary>
-        public uint FileLocation { get; set; }
+        public uint FileLocation { get; protected set; }
         /// <summary>
         /// The size of the index entry's file 
         /// </summary>
-        public uint FileSize { get; set; }
+        public uint FileSize { get; protected set; }
 
         /// <summary>
         /// Loads an individual entry from a byte array
