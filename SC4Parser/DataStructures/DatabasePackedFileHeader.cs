@@ -6,28 +6,94 @@ using SC4Parser.Logging;
 namespace SC4Parser.DataStructures
 {
     /// <summary>
-    /// Header file for a maxis savegame (aka DatabasePackedFile (DBPF))
-    /// (Implemented from https://wiki.sc4devotion.com/index.php?title=DBPF#Header)
+    /// Header file for a DatabasePackedFile (DBPF). 
+    /// Implements version 1.0 of the DBPF header used for SimCity 4
     /// </summary>
+    /// <remarks>
+    /// Implemented from https://wiki.sc4devotion.com/index.php?title=DBPF#Header
+    /// </remarks>
     public class DatabasePackedFileHeader
     {
-        public string Identifier;
-        public uint MajorVersion;
-        public uint MinorVersion;
-        public DateTime DateCreated;
-        public DateTime DateModified;
-        public uint IndexMajorVersion;
-        public uint IndexCount;
-        public uint FirstIndexOffset;
-        public uint IndexSize;
-        public uint HoleCount;
-        public uint HoleOffset;
-        public uint HoleSize;
-        public uint IndexMinorVersion;
+        /// <summary>
+        /// File identifier (always 'DBPF')
+        /// </summary>
+        public string Identifier { get; private set; }
+        /// <summary>
+        /// DBPF major version 
+        /// </summary>
+        /// <remarks>
+        /// Common DBPF versions:
+        ///     1.0 seen in Sim City 4, The Sims 2
+        ///     1.1 seen in The Sims 2
+        ///     2.0 seen in Spore, The Sims 3
+        ///     3.0 seen in SimCity
+        /// </remarks>
+        public uint MajorVersion { get; private set; }
+        /// <summary>
+        /// DBPF minor version
+        /// </summary>
+        /// <remarks>
+        /// Common DBPF versions:
+        ///     1.0 seen in Sim City 4, The Sims 2
+        ///     1.1 seen in The Sims 2
+        ///     2.0 seen in Spore, The Sims 3
+        ///     3.0 seen in SimCity
+        /// </remarks>
+        public uint MinorVersion { get; private set; }
+        /// <summary>
+        /// Date DBPF file was created
+        /// </summary>
+        /// <remarks>
+        /// In Unix time stamp format
+        /// </remarks>
+        public DateTime DateCreated { get; private set; }
+        /// <summary>
+        /// Date DBPF file was modified
+        /// </summary>
+        /// <remarks>
+        /// In Unix time stamp format
+        /// </remarks>
+        public DateTime DateModified { get; private set; }
+        /// <summary>
+        /// Index table major version
+        /// </summary>
+        /// <remarks>
+        /// Always 7 in The Sims 2, Sim City 4. If this is used in 2.0, then it is 0 for SPORE. 
+        /// </remarks>
+        public uint IndexMajorVersion { get; private set; }
+        /// <summary>
+        /// Number of Index Entries in Index table
+        /// </summary>
+        public uint IndexCount { get; private set; }
+        /// <summary>
+        /// Position of first Index Entry in the DBPF file
+        /// </summary>
+        public uint FirstIndexOffset { get; private set; }
+        /// <summary>
+        /// Size of index table in bytes
+        /// </summary>
+        public uint IndexSize { get; private set; }
+        /// <summary>
+        /// Number of hole entries in Hole Record
+        /// </summary>
+        public uint HoleCount { get; private set; }
+        /// <summary>
+        /// Location of Hole Record in the DBPF file
+        /// </summary>
+        public uint HoleOffset { get; private set; }
+        /// <summary>
+        /// size of the Hold Record
+        /// </summary>
+        public uint HoleSize { get; private set; }
+        /// <summary>
+        /// Index table minor version
+        /// </summary>
+        public uint IndexMinorVersion { get; private set; }
 
         /// <summary>
-        /// Loads DBPF header from a byte array
+        /// Reads a DBPF header from a byte array
         /// </summary>
+        /// <param name="buffer">Data to read header from</param>
         public void Parse(byte[] buffer)
         {
             if (buffer.Length < 96)
@@ -37,7 +103,6 @@ namespace SC4Parser.DataStructures
             }
 
             // Read header contents
-            // (https://www.wiki.sc4devotion.com/index.php?title=DBPF#Header)
             Identifier = Encoding.ASCII.GetString(buffer, 0, 4);
             MajorVersion = BitConverter.ToUInt32(buffer, 4);
             MinorVersion = BitConverter.ToUInt32(buffer, 8);

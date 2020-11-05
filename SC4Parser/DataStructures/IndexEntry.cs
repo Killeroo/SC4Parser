@@ -6,19 +6,37 @@ using SC4Parser.Logging;
 namespace SC4Parser.DataStructures
 {
     /// <summary>
+    /// Implementation of an IndexEntry in a save game 
+    /// 
     /// An IndexEntry represents a file stored within a SimCity 4 savegame (DBPF).
     /// It stores the TGI (identifier), the location of the file with in the savegame and the size of the file.
-    /// (Implemented from https://wiki.sc4devotion.com/index.php?title=DBPF#DBPF_1.x.2C_Index_Table_7.0)
     /// </summary>
+    /// <remarks>
+    /// Implemented from https://wiki.sc4devotion.com/index.php?title=DBPF#DBPF_1.x.2C_Index_Table_7.0
+    /// </remarks>
     public class IndexEntry
     {
-        public TypeGroupInstance TGI;
-        public uint FileLocation;
-        public uint FileSize;
+        /// <summary>
+        /// TypeGroupInstance (TGI) of Index entry
+        /// </summary>
+        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
+        public TypeGroupInstance TGI { get; set; }
+        /// <summary>
+        /// Location of the file in the DBPF that the index entry refers to
+        /// </summary>
+        public uint FileLocation { get; set; }
+        /// <summary>
+        /// The size of the index entry's file 
+        /// </summary>
+        public uint FileSize { get; set; }
 
         /// <summary>
         /// Loads an individual entry from a byte array
         /// </summary>
+        /// <param name="buffer">Data to load the index entry from</param>
+        /// <remarks>
+        /// Buffer should only contain data for a single entry
+        /// </remarks>
         public void Parse(byte[] buffer)
         {
             if (buffer.Length < 20)

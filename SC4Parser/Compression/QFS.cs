@@ -5,15 +5,25 @@ using SC4Parser.Logging;
 namespace SC4Parser.Compression
 {
     /// <summary>
-    /// Implementation of QFS/RefPack/LZ77 decompression
+    /// Implementation of QFS/RefPack/LZ77 decompression. This compression is used on larger entries inside saves
     /// </summary>
+    /// <remarks>
+    /// Note that this implementaiton contains control characters and other changes specific to SimCity 4.
+    /// You can read about other game specifics at thsi specification for QFS spec http://wiki.niotso.org/RefPack.
+    /// 
+    /// Ported from https://github.com/wouanagaine/SC4Mapper-2013/blob/db29c9bf88678a144dd1f9438e63b7a4b5e7f635/Modules/qfs.c#L25
+    /// 
+    /// More information on file specification:
+    /// - https://www.wiki.sc4devotion.com/index.php?title=DBPF_Compression
+    /// - http://wiki.niotso.org/RefPack#Naming_notes
+    /// </remarks>
     class QFS
     {
-        // QFS/quickref decompression implementation
-        // ported from: https://github.com/wouanagaine/SC4Mapper-2013/blob/db29c9bf88678a144dd1f9438e63b7a4b5e7f635/Modules/qfs.c#L25
-        // specs:
-        // - https://www.wiki.sc4devotion.com/index.php?title=DBPF_Compression
-        // - http://wiki.niotso.org/RefPack#Naming_notes
+        /// <summary>
+        /// Uncompress data using QFS/RefPak and return uncompressed array of uncompressed data
+        /// </summary>
+        /// <param name="data">Compressed array of data</param>
+        /// <returns>Uncompressed data array</returns>
         public static byte[] UncompressData(byte[] data)
         {
             byte[] sourceBytes = data;
@@ -147,10 +157,21 @@ namespace SC4Parser.Compression
             return destinationBytes;
         }
 
-        // With QFS (LZ77) we require an LZ compatible copy method between arrays, what this means practically is that we need to copy
-        // stuff one byte at a time from arrays. This is, because with LZ compatible algorithms, it is complete legal to copy over data that overruns
-        // the currently filled position in the destination array. In other words it is more than likely the we will be asked to copy over data that hasn't
-        // been copied yet. It's confusing, so we copy things one byte at a time using a recursive function.
+
+        /// <summary>
+        /// Recurvise method that implments LZ compliant copying of data between arrays
+        /// </summary>
+        /// <param name="source">Array to copy from</param>
+        /// <param name="sourceOffset">Position in array to copy from</param>
+        /// <param name="destination">Array to copy to</param>
+        /// <param name="destinationOffset">Position in array to copy to</param>
+        /// <param name="length">Amount of data to copy</param>
+        /// <remarks>
+        /// With QFS (LZ77) we require an LZ compatible copy method between arrays, what this means practically is that we need to copy
+        /// stuff one byte at a time from arrays. This is, because with LZ compatible algorithms, it is complete legal to copy over data that overruns
+        /// the currently filled position in the destination array. In other words it is more than likely the we will be asked to copy over data that hasn't
+        /// been copied yet. It's confusing, so we copy things one byte at a time using a recursive function.
+        /// </remarks>
         private static void LZCompliantCopy(ref byte[] source, int sourceOffset, ref byte[] destination, int destinationOffset, int length)
         {
             if (length != 0)

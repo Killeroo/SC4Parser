@@ -91,7 +91,7 @@ namespace SC4Parser.Types
 
         public new string ToString()
         {
-            return string.Format("{0} {1} {2}",
+            return string.Format("0x{0} 0x{1} 0x{2}",
                 Type.ToString("X"),
                 Group.ToString("X"),
                 Instance.ToString("X"));

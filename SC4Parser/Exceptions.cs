@@ -10,6 +10,7 @@ namespace SC4Parser
     /// Exceptions used by SC4Parser
     /// </summary>
     public class IndexEntryNotFoundException : Exception { }
+    public class DatabaseDirectoryResourceNotFoundException : Exception { }
     public class SubfileNotFoundException : Exception 
     {
         public SubfileNotFoundException(string message)

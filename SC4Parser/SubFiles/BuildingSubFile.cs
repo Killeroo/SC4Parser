@@ -13,7 +13,7 @@ namespace SC4Parser.Subfiles
     /// </summary>
     public class BuildingSubfile
     {
-        List<Building> Buildings = new List<Building>();
+        public List<Building> Buildings { get; private set; } = new List<Building>();
 
         /// <summary>
         /// Reads the building subfile from a byte array

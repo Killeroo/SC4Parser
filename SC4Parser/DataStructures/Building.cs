@@ -7,50 +7,169 @@ using SC4Parser.Logging;
 namespace SC4Parser.DataStructures
 {
     /// <summary>
-    /// Representation of Simcity 4 building data, as it is present in an SC4 save
-    /// (Implemented from https://wiki.sc4devotion.com/index.php?title=Building_Subfile)
+    /// Representation of a building in Simcity 4, as it is stored in a save game
     /// </summary>
+    /// <remarks>
+    /// Implemented from https://wiki.sc4devotion.com/index.php?title=Building_Subfile
+    /// </remarks>
+    /// <see cref="SC4Parser.Subfiles.LotSubfile"/>
+    /// <seealso cref="SC4Parser.DataStructures.Lot"/>
     public class Building
     {
-        public uint Offset;
-        public uint Size;
-        public uint CRC;
-        public uint Memory;
-        public ushort MajorVersion;
-        public ushort MinorVersion;
-        public ushort ZotWord;
-        public byte Unknown1;
-        public byte AppearanceFlag;
-        public uint x278128A0;
-        public byte MinTractX;
-        public byte MinTractZ;
-        public byte MaxTractX;
-        public byte MaxTractZ;
-        public ushort TractSizeX;
-        public ushort TractSizeZ;
-        public uint SaveGamePropertyCount;
-        public List<SaveGameProperty> SaveGamePropertyEntries = new List<SaveGameProperty>();
-        public byte Unknown2;
-        public uint GroupID;
-        public uint TypeID;
-        public uint InstanceID;
-        public uint InstanceIDOnAppearance; // The value given when building appeared
-        public float MinCoordinateX;
-        public float MinCoordinateY;
-        public float MinCoordinateZ;
-        public float MaxCoordinateX;
-        public float MaxCoordinateY;
-        public float MaxCoordinateZ;
-        public byte Orientation;
-        public float ScaffoldingHeight;
+        /// <summary>
+        /// Offset of building data within Building subfile
+        /// </summary>
+        public uint Offset { get; private set; }
+        /// <summary>
+        /// Size of building data
+        /// </summary>
+        public uint Size { get; private set; }
+        /// <summary>
+        /// CRC of building data
+        /// </summary>
+        public uint CRC { get; private set; }
+        /// <summary>
+        /// Memory reference of building data
+        /// </summary>
+        public uint Memory { get; private set; }
+        /// <summary>
+        /// Major version of building spec
+        /// </summary>
+        public ushort MajorVersion { get; private set; }
+        /// <summary>
+        /// Minor version of building spec
+        /// </summary>
+        public ushort MinorVersion { get; private set; }
+        /// <summary>
+        /// Zot word for building
+        /// </summary>
+        public ushort ZotWord { get; private set; }
+        /// <summary>
+        /// Unknown field 
+        /// </summary>
+        public byte Unknown1 { get; private set; }
+        /// <summary>
+        /// Appearance flag for building. Can be one of the following values:
+        ///     0x01 (00000001b) - Building that appears in the game (if this is off, the building has been deleted).
+        ///     0x02 (00000010b) - ? (unused).
+        ///     0x04 (00000100b) - ? (always on).
+        ///     0x08 (00001000b) - Flora
+        ///     0x40 (01000000b) - Burnt
+        /// </summary>
+        public byte AppearanceFlag { get; private set; }
+        /// <summary>
+        /// Unknown value, is always the same for all buildings
+        /// </summary>
+        public uint x278128A0 { get; private set; }
+        /// <summary>
+        /// Minimum tract X coordinate for building
+        /// </summary>
+        public byte MinTractX { get; private set; }
+        /// <summary>
+        /// Minimum tract Z coordinate for building 
+        /// </summary>
+        public byte MinTractZ { get; private set; }
+        /// <summary>
+        /// Maximum tract X coordinate for building
+        /// </summary>
+        public byte MaxTractX { get; private set; }
+        /// <summary>
+        /// Maximum tract Z coordinate for building
+        /// </summary>
+        public byte MaxTractZ { get; private set; }
+        /// <summary>
+        /// Tract size on the X axis for building
+        /// </summary>
+        public ushort TractSizeX { get; private set; }
+        /// <summary>
+        /// Tract size on the Z axis for building
+        /// </summary>
+        public ushort TractSizeZ { get; private set; }
+        /// <summary>
+        /// Number of save game properties (SIGProps) associated with building
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        public uint SaveGamePropertyCount { get; private set; }
+        /// <summary>
+        /// Save game properties (SIGProps) of building
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <remarks>
+        /// For a list of all possible building SIGPROPs visit the following:
+        /// https://wiki.sc4devotion.com/index.php?title=Building_Subfile#Savegame_Properties_.28SGProps.29
+        /// </remarks>
+        public List<SaveGameProperty> SaveGamePropertyEntries { get; private set; } = new List<SaveGameProperty>();
+        /// <summary>
+        /// Unknown field
+        /// </summary>
+        public byte Unknown2 { get; private set; }
+        /// <summary>
+        /// The Building's Group ID
+        /// </summary>
+        public uint GroupID { get; private set; }
+        /// <summary>
+        /// The Building's Type ID
+        /// </summary>
+        public uint TypeID { get; private set; }
+        /// <summary>
+        /// The Building's Instance ID
+        /// </summary>
+        public uint InstanceID { get; private set; }
+        /// <summary>
+        /// Building's Instance Id when the the building appears
+        /// </summary>
+        public uint InstanceIDOnAppearance { get; private set; }
+        /// <summary>
+        /// Minimum X coordinate of building
+        /// </summary>
+        public float MinCoordinateX { get; private set; }
+        /// <summary>
+        /// Minimum Y coordinate of building
+        /// </summary>
+        public float MinCoordinateY { get; private set; }
+        /// <summary>
+        /// Minimum Z coordinate of building
+        /// </summary>
+        public float MinCoordinateZ { get; private set; }
+        /// <summary>
+        /// Maximum Z coordinate of building
+        /// </summary>
+        public float MaxCoordinateX { get; private set; }
+        /// <summary>
+        /// Maximum Y coordinate of building
+        /// </summary>
+        public float MaxCoordinateY { get; private set; }
+        /// <summary>
+        /// Maximum Z coordinate of building
+        /// </summary>
+        public float MaxCoordinateZ { get; private set; }
+        /// <summary>
+        /// Building's orientation
+        /// </summary>
+        /// <see cref="SC4Parser.Constants.ORIENTATION_NORTH"/>
+        /// <see cref="SC4Parser.Constants.ORIENTATION_EAST"/>
+        /// <see cref="SC4Parser.Constants.ORIENTATION_SOUTH"/>
+        /// <see cref="SC4Parser.Constants.ORIENTATION_WEST"/>
+        public byte Orientation { get; private set; }
+        /// <summary>
+        /// Building's scaffolding height
+        /// </summary>
+        public float ScaffoldingHeight { get; private set; }
 
-        // Same as typeid, groupid and instanceid from this file
-        // just included it for accessibility
-        public TypeGroupInstance PropExemplarReference = new TypeGroupInstance();
+        /// <summary>
+        /// TypeGroupInstance (TGI) of building, reference to prop exemplar
+        /// </summary>
+        /// <remarks>
+        /// Same as typeid, groupid and instanceid from this file. Just included it for accessibility
+        /// </remarks>
+        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
+        public TypeGroupInstance TGI { get; private set; } = new TypeGroupInstance();
 
         /// <summary>
         /// Load a building from a byte array
         /// </summary>
+        /// <param name="buffer">Data to load building from</param>
+        /// <param name="offset">Position in data to read building from</param>
         public void Parse(byte[] buffer, uint offset)
         {
             Offset = offset;
@@ -84,7 +203,7 @@ namespace SC4Parser.DataStructures
             GroupID = BitConverter.ToUInt32(buffer, (int) saveGamePropertiesOffset + 1);
             TypeID = BitConverter.ToUInt32(buffer, (int) saveGamePropertiesOffset + 5);
             InstanceID = BitConverter.ToUInt32(buffer, (int) saveGamePropertiesOffset + 9);
-            PropExemplarReference = new TypeGroupInstance(TypeID, GroupID, InstanceID);
+            TGI = new TypeGroupInstance(TypeID, GroupID, InstanceID);
             InstanceIDOnAppearance = BitConverter.ToUInt32(buffer, (int) saveGamePropertiesOffset + 13);
             MinCoordinateX = BitConverter.ToSingle(buffer, (int) saveGamePropertiesOffset + 17);
             MinCoordinateY = BitConverter.ToSingle(buffer, (int) saveGamePropertiesOffset + 21);
@@ -105,7 +224,7 @@ namespace SC4Parser.DataStructures
         }
 
         /// <summary>
-        /// Dumps contents of the building
+        /// Prints out the contents of the building
         /// </summary>
         public void Dump()
         {
@@ -156,7 +275,7 @@ namespace SC4Parser.DataStructures
             Console.WriteLine("Max Coordinate Z: {0}", MaxCoordinateZ);
             Console.WriteLine("Orientation: {0} [{1}]", Orientation, Constants.ORIENTATIONS[Orientation]);
             Console.WriteLine("Scaffolding Height: {0}", ScaffoldingHeight);
-            Console.WriteLine("Prop Exemplar Reference: {0}", PropExemplarReference.ToString());
+            Console.WriteLine("Prop Exemplar Reference: {0}", TGI.ToString());
         }
     }
 }

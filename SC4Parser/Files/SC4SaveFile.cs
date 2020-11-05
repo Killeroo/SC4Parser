@@ -7,24 +7,38 @@ using SC4Parser.Subfiles;
 namespace SC4Parser.Files
 {
     /// <summary>
-    /// SC4 save implementation, SC4 save files use the Maxis DBPF 1.1 file format
-    /// This is a dud, inherited from DatabasePackedFile where the actual functionality resides
-    /// Included for simplicity when referring to SC4saves
-    /// also contains methods for loading common subfiles in SC4 saves
+    /// SC4 save game implementation, SC4 save files use the Maxis DBPF 1.1 file format
     /// </summary>
+    /// <remarks>
+    /// This is a dud, inherited from DatabasePackedFile where the actual functionality resides
+    /// Included for simplicity when referring to SC4saves, also contains methods for loading common subfiles in SC4 saves
+    /// </remarks>
+    /// <see cref="SC4Parser.Files.DatabasePackedFile"/>
     public class SC4SaveFile : DatabasePackedFile
     {
+        // Cached subfiles for easy access after they have been loaded the first time.
+        // Saves loading and decompressing multiple times
         private LotSubfile m_CachedLotSubfile = null;
         private BuildingSubfile m_CachedBuildingSubfile = null;
         private RegionViewSubfile m_CachedRegionViewSubfile = null;
         private TerrainMapSubfile m_CachedTerrainMapSubfile = null;
 
+        /// <summary>
+        /// Default constructor for SC4Save, that takes a save game's path to load from
+        /// </summary>
+        /// <param name="path">Path to Simcity 4 save game to load</param>
         public SC4SaveFile(string path) : base(path) { }
 
         /// <summary>
-        /// Returns Lot Subfile from the SC4 save game 
+        /// Retrieves Lot Subfile from the SC4 save game 
         /// </summary>
+        /// <returns>Lot subfile from the SC4 save</returns>
+        /// <remarks>
+        /// Lot structure, used in Lots Subfile, is only partially implemented, so will not contain all values
+        /// </remarks>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
+        /// <see cref="SC4Parser.Subfiles.LotSubfile"/>
+        /// <seealso cref="SC4Parser.DataStructures.Lot"/>
         public LotSubfile GetLotSubfile()
         {
             if (m_CachedLotSubfile != null)
@@ -59,9 +73,12 @@ namespace SC4Parser.Files
             }
         }
         /// <summary>
-        /// Returns Building Subfile from the SC4 save game 
+        /// Retrieves Building Subfile from the SC4 save game 
         /// </summary>
+        /// <returns>Building subfile from the SC4 save</returns>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
+        /// <see cref="SC4Parser.Subfiles.BuildingSubfile"/>
+        /// <seealso cref="SC4Parser.DataStructures.Building"/>
         public BuildingSubfile GetBuildingSubfile()
         {
             if (m_CachedBuildingSubfile != null)
@@ -102,9 +119,14 @@ namespace SC4Parser.Files
 
         }
         /// <summary>
-        /// Returns RegionView Subfile from the SC4 save game 
+        /// Retrieves Region View Subfile from the SC4 save game 
         /// </summary>
+        /// <returns>Region View Subfile from the SC4 save</returns>
+        /// <remarks>
+        /// Region View Subfile is only partially implemented, so will not contain all values
+        /// </remarks>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
+        /// <see cref="SC4Parser.Subfiles.RegionViewSubfile"/>
         public RegionViewSubfile GetRegionViewSubfile()
         {
             if (m_CachedBuildingSubfile != null)
@@ -136,8 +158,9 @@ namespace SC4Parser.Files
             }
         }
         /// <summary>
-        /// Returns TerrainMap Subfile from the SC4 save game 
+        /// Returns Terrain Map Subfile from the SC4 save game 
         /// </summary>
+        /// <returns>Terrain Map Subfile from the SC4 save</returns>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
         public TerrainMapSubfile GetTerrainMapSubfile()
         {

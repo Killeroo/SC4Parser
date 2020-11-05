@@ -4,28 +4,77 @@ using System.Collections.Generic;
 namespace SC4Parser.DataStructures
 {
     /// <summary>
-    /// SaveGameProperties (SIGPROPs) are small structures used to store individual entries of information for a given object.
-    /// They are highly situational and their value and use depends on where they are used:
-    /// Take, for example, SIGPROPs being used for storing information about buildings (https://wiki.sc4devotion.com/index.php?title=Building_Subfile#Appendix_1:_Structure_of_SGPROP_.28SaveGame_Properties.29)
-    /// A SIGPROPs data can be several different types, they can also contain several values.
-    /// (Writing this parsing was a pain)
+    /// Represents a Savegame Property (SIGPROP). SIGPROPs are small structures used to store individual entries of information for a given object.
     /// </summary>
+    /// <remarks>
+    /// SIGPROPs are highly situational and their value and use depends on where they are used:
+    /// Take, for example, SIGPROPs being used for storing specific information about buildings (patient capacity for a hospital, dispatches available for a firestation, 
+    /// custom name given to a building). A SIGPROPs data can be several different types, they can also contain several values.
+    /// (Writing this parsing was a pain)
+    /// 
+    /// Implemented using the following: https://wiki.sc4devotion.com/index.php?title=Building_Subfile#Appendix_1:_Structure_of_SGPROP_.28SaveGame_Properties.29
+    /// </remarks>
+    /// <see cref="SC4Parser.Constants.SIGPROP_DATATYPE_TYPES"/>
+    /// <see cref="SC4Parser.Constants.SIGPROP_DATATYPE_TYPE_STRINGS"/>
     public class SaveGameProperty
     {
-        public uint PropertyNameValue;
-        public uint PropertyNameValueCopy;
-        public uint Unknown1;
-        public byte DataType;
-        public byte KeyType;
-        public ushort Unknown2;
-        public uint DataRepeatedCount;
-        public List<object> Data = new List<object>();
+        /// <summary>
+        /// SaveGame Property (SIGPROP) value, used to identify the use of the SIGPROP
+        /// </summary>
+        /// <example>
+        /// A SIGPROP with a Property Name Value of 0x899AFBAD is used to store a buildings custom name
+        /// </example>
+        public uint PropertyNameValue { get; private set; }
+        /// <summary>
+        /// SaveGame Property (SIGPROP) value copy, duplicated for unknown reason.
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.SaveGameProperty.PropertyNameValue"/>
+        public uint PropertyNameValueCopy { get; private set; }
+        /// <summary>
+        /// Unknown SaveGame Property value
+        /// </summary>
+        public uint Unknown1 { get; private set; }
+        /// <summary>
+        /// Data type stored in the SaveGame Property (SIGPROP)
+        /// </summary>
+        /// <remarks>
+        /// 01=UInt8, 02=UInt16, 03=UInt32, 07=SInt32, 08=SInt64, 09=Float32, 0B=Boolean, 0C=String
+        /// </remarks>
+        /// <see cref="SC4Parser.Constants.SIGPROP_DATATYPE_TYPES"/>
+        /// <see cref="SC4Parser.Constants.SIGPROP_DATATYPE_TYPE_STRINGS"/>
+        public byte DataType { get; private set; }
+        /// <summary>
+        /// Determines if there is repeated/multiple data in the SaveGame Property (SIGPROP)
+        /// </summary>
+        public byte KeyType { get; private set; }
+        /// <summary>
+        /// Unknown SaveGame Property value
+        /// </summary>
+        public ushort Unknown2 { get; private set; }
+        /// <summary>
+        /// Amount of data that is stored in the SaveGame Property (SIGPROP) 
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.SaveGameProperty.Data"/>
+        public uint DataRepeatedCount { get; private set; }
+        /// <summary>
+        /// Data that is stored in the SaveGame Property (SIGPROP)
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.SaveGameProperty.DataRepeatedCount"/>
+        /// <see cref="SC4Parser.DataStructures.SaveGameProperty.DataType"/>
+        public List<object> Data { get; private set; } = new List<object>();
 
         /// <summary>
-        /// Loads an individual SaveGame Property from a byte array
-        /// NOTE: This parse functions works pretty similarly to other parse functions, but because they can return in the middle
-        /// of data entries, the calling function might need the current index after the data has been read so we return that.
+        /// Loads an individual SaveGame Property (SIGPROP) from a byte array
         /// </summary>
+        /// <param name="buffer">Data to read the SIGPROP from</param>
+        /// <param name="offset">Position in the data array to start reading the SIGPROP from</param>
+        /// <returns>The new offset/position after the SIGPROP has been read</returns>
+        /// <remarks>
+        /// This parse functions works pretty similarly to other parse functions, but because they can return in the middle
+        /// of data entries, the calling function might need the current index after the data has been read so we return that.
+        /// 
+        /// The data buffer provided may contain multiple SIGPROPs but the method is only designed to read one 
+        /// </remarks>
         public int Parse(byte[] buffer, int offset = 0)
         {
             PropertyNameValue = BitConverter.ToUInt32(buffer, offset + 0);
@@ -128,7 +177,7 @@ namespace SC4Parser.DataStructures
         }
 
         /// <summary>
-        /// Dumps the contents of a SIGPROP
+        /// Prints the values of SaveGame Property (SIGPROP)
         /// </summary>
         public void Dump()
         {
@@ -148,8 +197,13 @@ namespace SC4Parser.DataStructures
         }
 
         /// <summary>
-        /// Extracts a bunch of SaveGame Properties and then returns the new offset after everything has been read 
+        /// Extracts a bunch of SaveGame Properties (SIGPROP) and then returns the new offset after everything has been read 
         /// </summary>
+        /// <param name="buffer">Data to read SIGPROPs from</param>
+        /// <param name="count">Number of SIGPROPs to try and read</param>
+        /// <param name="offset">Offset/position to start reading the SIGPROPs from in the data array</param>
+        /// <returns>A list of all parsed SIGPROPs</returns>
+        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
         public static List<SaveGameProperty> ExtractFromBuffer(byte[] buffer, uint count, ref uint offset)
 
         {
