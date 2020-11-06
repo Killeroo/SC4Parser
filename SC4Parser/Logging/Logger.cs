@@ -14,7 +14,7 @@ namespace SC4Parser.Logging
         private static List<ILogger> logOutputs = new List<ILogger>();
 
         /// <summary>
-        /// Add a logger interface to log output
+        /// Add a logger interface to send log output to
         /// </summary>
         /// <param name="logOutput">Logger interface to add</param>
         /// <see cref="SC4Parser.Logging.ILogger"/>
@@ -26,9 +26,29 @@ namespace SC4Parser.Logging
         /// // Your logger will now be used as an output for any log message..
         /// </c>
         /// </example>
+        /// <see cref="SC4Parser.Logging.ILogger"/>
         public static void AddLogOutput(ILogger logOutput)
         {
             logOutputs.Add(logOutput);
+        }
+
+        /// <summary>
+        /// Enable a log level on all log outputs
+        /// </summary>
+        /// <param name="level"></param>        
+        /// <example>
+        /// <c>
+        /// // Enable any message using Debug log level to show up in all logging outputs
+        /// Logger.EnableChannel(LogLevel.Debug);
+        /// </c>
+        /// </example>
+        /// <see cref="SC4Parser.Logging.LogLevel"/>
+        public static void EnableLogChannel(LogLevel level)
+        {
+            foreach (var output in logOutputs)
+            {
+                output.EnableChannel(level);
+            }
         }
 
         /// <summary>
@@ -47,6 +67,7 @@ namespace SC4Parser.Logging
         /// );
         /// </c>
         /// </example>
+        /// <see cref="SC4Parser.Logging.LogLevel"/>
         public static void Log(LogLevel level, string format, params object[] args)
         {
             // Send log message to each output
