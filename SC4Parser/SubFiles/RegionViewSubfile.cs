@@ -16,6 +16,17 @@ namespace SC4Parser.Subfiles
     /// 
     /// Based off spec from here: https://wiki.sc4devotion.com/index.php?title=Region_View_Subfiles
     /// </remarks>
+    /// <example>
+    /// <c>
+    /// // Simple usage
+    /// // (Just assume the region view subfile has already been read, see SC4SaveGame.GetRegionViewSubfile())
+    ///
+    /// // Access some data
+    /// Console.WriteLine("city location x={0} y={1}",
+    ///     regionViewSubfile.TileXLocation,
+    ///     regionViewSubfile.TileYLocation);
+    /// </c>
+    /// </example>
     public class RegionViewSubfile
     {
         /// <summary>
@@ -73,6 +84,9 @@ namespace SC4Parser.Subfiles
         /// Parses Region View Subfile from a byte array
         /// </summary>
         /// <param name="buffer">Data to read subfile from</param>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer)
         {
             MajorVersion = BitConverter.ToUInt16(buffer, 0);

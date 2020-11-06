@@ -14,33 +14,48 @@ namespace SC4Parser.Subfiles
     /// Based off the implmentation here:
     /// https://github.com/sebamarynissen/sc4/blob/master/lib/terrain-map.js
     /// </remarks>
+    /// <example>
+    /// <c>
+    /// // Simple usage
+    /// // (Just assume the terrain map subfile has already been read, see SC4SaveGame.GetTerrainMapSubfile())
+    ///
+    /// // print out terrain map
+    /// foreach (float x in terrainMapSubfile.Map)
+    /// {
+    ///     foreach (float y in terrainMapSubfile.Map[x])
+    ///     {
+    ///         Console.WriteLine(terrainMapSubfile.Map[x][y]);
+    ///     }
+    /// }
+    /// </c>
+    /// </example>
     public class TerrainMapSubfile
     {
         /// <summary>
         /// Major version of the subfile
         /// </summary>
-        public ushort MajorVersion;
+        public ushort MajorVersion { get; private set; }
         /// <summary>
         /// X size of the city
         /// </summary>
         /// <remarks>
         /// Not included in actual file but borrowed from Region View Subfile for convience
         /// </remarks>
-        public uint SizeX;
+        public uint SizeX { get; private set; }
         /// <summary>
         /// Y size of the city
         /// </summary>
         /// <remarks>
         /// Not included in actual file but borrowed from Region View Subfile for convience
         /// </remarks>
-        public uint SizeY;
+        public uint SizeY { get; private set; }
         /// <summary>
         /// Actual terrain map, contains a height value for each tile in the sity
         /// </summary>
         /// <remarks>
         /// Stored in x and y of tiles
         /// </remarks>
-        public float[][] Map;
+        public float[][] Map { get; private set; }
 
         /// <summary>
         /// Reads the Terrain Map Subfile from a byte array
@@ -48,6 +63,9 @@ namespace SC4Parser.Subfiles
         /// <param name="buffer">Data to read subfile from</param>
         /// <param name="xSize">Number of tiles on the X axis in the city</param>
         /// <param name="ySize">Number of tiles on the Y axis in the city</param>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer, uint xSize, uint ySize)
         {
             SizeX = xSize + 1;

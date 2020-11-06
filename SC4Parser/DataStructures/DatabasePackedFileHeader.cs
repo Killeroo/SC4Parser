@@ -6,12 +6,13 @@ using SC4Parser.Logging;
 namespace SC4Parser.DataStructures
 {
     /// <summary>
-    /// Header file for a DatabasePackedFile (DBPF). 
+    /// Header file for a Database Packed File (DBPF). 
     /// Implements version 1.0 of the DBPF header used for SimCity 4
     /// </summary>
     /// <remarks>
     /// Implemented from https://wiki.sc4devotion.com/index.php?title=DBPF#Header
     /// </remarks>
+    /// <seealso cref="SC4Parser.Files.DatabasePackedFile"/>
     public class DatabasePackedFileHeader
     {
         /// <summary>
@@ -94,6 +95,9 @@ namespace SC4Parser.DataStructures
         /// Reads a DBPF header from a byte array
         /// </summary>
         /// <param name="buffer">Data to read header from</param>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer)
         {
             if (buffer.Length < 96)

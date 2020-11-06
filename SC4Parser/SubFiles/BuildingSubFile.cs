@@ -16,6 +16,18 @@ namespace SC4Parser.Subfiles
     /// </remarks>
     /// <seealso cref="SC4Parser.DataStructures.Building"/> 
     /// <seealso cref="SC4Parser.Subfiles.LotSubfile"/>
+    /// <example>
+    /// <c>
+    /// // Simple usage
+    /// // (Just assume the building subfile has already been read, see SC4SaveGame.GetBuildingSubfile())
+    ///
+    /// // Access a building
+    /// Building firstBuilding = buildingSubfile.Buildings.First();
+    /// 
+    /// // Do something with it
+    /// firstBuilding.Dump();
+    /// </c>
+    /// </example>
     public class BuildingSubfile
     {
         /// <summary>
@@ -28,7 +40,10 @@ namespace SC4Parser.Subfiles
         /// Reads the Building Subfile from a byte array
         /// </summary>
         /// <param name="buffer">Data to read subfile from</param>
-        /// <param name="size">Size of data that is being read</param>
+        /// <param name="size">Size of data that is being read</param>        
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer, int size)
         {
             uint bytesToRead = Convert.ToUInt32(size);

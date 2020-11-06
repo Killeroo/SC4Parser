@@ -12,8 +12,29 @@ namespace SC4Parser.DataStructures
     /// <remarks>
     /// Implemented from https://wiki.sc4devotion.com/index.php?title=Building_Subfile
     /// </remarks>
-    /// <see cref="SC4Parser.Subfiles.LotSubfile"/>
+    /// <see cref="SC4Parser.Subfiles.BuildingSubfile"/>
     /// <seealso cref="SC4Parser.DataStructures.Lot"/>
+    /// <example>
+    /// <c>
+    /// // How to read and use building data using library
+    /// // (this is effectively what is done in SC4Save.GetBuildingSubfile())
+    /// 
+    /// // Load save game
+    /// SC4SaveFile savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+    /// 
+    /// // load Building Subfile from save
+    /// BuildingSubfile buildingSubfile = new BuildingSubfile();
+    /// IndexEntry buildingEntry = savegame.FindIndexEntryWithType("A9BD882D")
+    /// byte[] buildingSubfileData = savegame.LoadIndexEntry(buildingEntry.TGI);
+    /// buildingSubfile.Parse(buildingSubfileData, buildingSubfileData.Length);
+    /// 
+    /// // loop through buildings and print out their TGIs
+    /// foreach (Building building in buildingsSubfile.Buildings)
+    /// {
+    ///     Console.Writeline(building.TGI.ToString();
+    /// }
+    /// </c>
+    /// </example>
     public class Building
     {
         /// <summary>
@@ -170,6 +191,9 @@ namespace SC4Parser.DataStructures
         /// </summary>
         /// <param name="buffer">Data to load building from</param>
         /// <param name="offset">Position in data to read building from</param>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer, uint offset)
         {
             Offset = offset;

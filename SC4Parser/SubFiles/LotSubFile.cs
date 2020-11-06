@@ -18,6 +18,18 @@ namespace SC4Parser.Subfiles
     /// </remarks>
     /// <seealso cref="SC4Parser.DataStructures.Lot"/>
     /// <seealso cref="SC4Parser.Subfiles.BuildingSubfile"/>
+    /// <example>
+    /// <c>
+    /// // Simple usage
+    /// // (Just assume the lot subfile has already been read, see SC4SaveGame.GetLotSubfile())
+    ///
+    /// // Access a lot
+    /// Lot firstLot = lotSubfile.Lots.First();
+    /// 
+    /// // Do something with it
+    /// firstLot.Dump();
+    /// </c>
+    /// </example>
     public class LotSubfile
     {
         /// <summary>
@@ -31,6 +43,9 @@ namespace SC4Parser.Subfiles
         /// </summary>
         /// <param name="buffer">Data to read subfile from</param>
         /// <param name="size">Size of data to be read</param>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer, int size)
         {
             uint bytesToRead = Convert.ToUInt32(size);

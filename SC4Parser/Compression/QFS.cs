@@ -24,6 +24,21 @@ namespace SC4Parser.Compression
         /// </summary>
         /// <param name="data">Compressed array of data</param>
         /// <returns>Uncompressed data array</returns>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// SC4SaveFile savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+        /// 
+        /// // Read raw data for Region View Subfile from save
+        /// byte[] data = sc4Save.LoadIndexEntryRaw(REGION_VIEW_SUBFILE_TGI);
+        /// 
+        /// // Decompress data (This file will normally be compressed, should idealy check before decompressing)
+        /// byte[] decompressedData = QFS.UncompressData(data);
+        /// </c>
+        /// </example>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when the compression algorithm tries to access an element that is out of bounds in the array
+        /// </exception>
         public static byte[] UncompressData(byte[] data)
         {
             byte[] sourceBytes = data;
@@ -159,7 +174,7 @@ namespace SC4Parser.Compression
 
 
         /// <summary>
-        /// Recurvise method that implments LZ compliant copying of data between arrays
+        /// Recurvise method that implements LZ compliant copying of data between arrays
         /// </summary>
         /// <param name="source">Array to copy from</param>
         /// <param name="sourceOffset">Position in array to copy from</param>
@@ -172,6 +187,9 @@ namespace SC4Parser.Compression
         /// the currently filled position in the destination array. In other words it is more than likely the we will be asked to copy over data that hasn't
         /// been copied yet. It's confusing, so we copy things one byte at a time using a recursive function.
         /// </remarks>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when the copy method tries to access an element that is out of bounds in the array
+        /// </exception>
         private static void LZCompliantCopy(ref byte[] source, int sourceOffset, ref byte[] destination, int destinationOffset, int length)
         {
             if (length != 0)

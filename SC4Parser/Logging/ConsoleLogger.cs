@@ -9,6 +9,37 @@ namespace SC4Parser.Logging
     /// <summary>
     /// Console Logger implementation, logs output to standard output
     /// </summary>
+    /// <example>
+    /// <c>
+    /// // Setup logger
+    /// // This will automatically add it to list of log outputs
+    /// ConsoleLogger logger = new ConsoleLogger();
+    /// 
+    /// // Run some operations and generate some logs
+    /// 
+    /// // Load save game
+    /// SC4SaveFile savegame;
+    /// try
+    /// {
+    ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+    /// }
+    /// catch (DBPFParsingException)
+    /// {
+    ///     Console.Writeline("Issue occured while parsing DBPF");
+    ///     return;
+    /// }
+    /// 
+    /// TerrainMapSubfile terrainMap = null
+    /// try 
+    /// {
+    ///     terrainMap = savegame.GetTerrainMapSubfile();
+    /// }
+    /// catch (SubfileNotFoundException)
+    /// {
+    ///     Console.Writeline("Could not find subfile");
+    /// }
+    /// </c>
+    /// </example>
     class ConsoleLogger : ILogger
     {
         private static List<LogLevel> EnabledChannels = new List<LogLevel>

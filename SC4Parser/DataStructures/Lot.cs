@@ -10,6 +10,27 @@ namespace SC4Parser.DataStructures
     /// 
     /// Implemented from https://www.wiki.sc4devotion.com/index.php?title=Lot_Subfile
     /// </remarks>
+    /// <example>
+    /// <c>
+    /// How to read and use lot data using library
+    /// // (this is effectively what is done in SC4Save.GetLotSubfile())
+    /// 
+    /// // Load save game
+    /// SC4SaveFile savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+    /// 
+    /// // load Lot Subfile from save
+    /// LotSubfile lotSubfile = new LotSubfile();
+    /// IndexEntry lotEntry = savegame.FindIndexEntryWithType("C9BD5D4A")
+    /// byte[] lotSubfileData = savegame.LoadIndexEntry(lotEntry.TGI);
+    /// lotSubfile.Parse(lotSubfileData, lotSubfileData.Length);
+    /// 
+    /// // loop through lots and print out their sizes
+    /// foreach (Lot lot in lotSubfile.Lots)
+    /// {
+    ///     Console.Writeline(lot.SizeX + "x" + lot.SizeZ);
+    /// }
+    /// </c>
+    /// </example>
     /// <see cref="SC4Parser.Subfiles.LotSubfile"/>
     /// <seealso cref="SC4Parser.DataStructures.Building"/>
     public class Lot
@@ -151,6 +172,12 @@ namespace SC4Parser.DataStructures
         /// </summary>
         /// <param name="buffer">Data to read lot from</param>
         /// <param name="offset">Position in data to read lot from</param>
+        /// <remarks>
+        /// This implementation is not complete
+        /// </remarks>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer, uint offset)
         {
             Offset = offset;

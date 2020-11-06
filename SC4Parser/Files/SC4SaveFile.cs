@@ -12,8 +12,32 @@ namespace SC4Parser.Files
     /// <remarks>
     /// This is a dud, inherited from DatabasePackedFile where the actual functionality resides
     /// Included for simplicity when referring to SC4saves, also contains methods for loading common subfiles in SC4 saves
+    /// 
+    /// Because the SC4SaveFile object is inherited from the DatabasePackedFile object
+    /// it can be used and functions exactly the same and all the functions and examples in the DatabasePackedFile object apply
+    /// to SC4SaveFile.
     /// </remarks>
     /// <see cref="SC4Parser.Files.DatabasePackedFile"/>
+    /// <example>
+    /// <c>
+    /// // Load save game
+    /// SC4SaveFile savegame;
+    /// try
+    /// {
+    ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+    /// }
+    /// catch (DBPFParsingException)
+    /// {
+    ///     Console.Writeline("Issue occured while parsing savegame");
+    ///     return;
+    /// }
+    /// 
+    /// // Get DBPF file version
+    /// Console.WriteLine("DBPF Version {0}.{1}",
+    ///     savegame.Header.MajorVersion,
+    ///     savegame.Header.MinorVersion);
+    /// </c>
+    /// </example>
     public class SC4SaveFile : DatabasePackedFile
     {
         // Cached subfiles for easy access after they have been loaded the first time.
@@ -27,6 +51,29 @@ namespace SC4Parser.Files
         /// Default constructor for SC4Save, that takes a save game's path to load from
         /// </summary>
         /// <param name="path">Path to Simcity 4 save game to load</param>
+        /// <exception cref="SC4Parser.DBPFParsingException">Thrown when an exception occurs while loading the savegame file</exception>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// SC4SaveFile savegame;
+        /// try
+        /// {
+        ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// // You can now access and load data from the save game
+        /// // using LoadIndexEntry or accessing the Index Entries directly:
+        /// foreach (IndexEntry entry in savegame.IndexEntries)
+        /// {
+        ///     Console.WriteLine(entry.TGI);
+        /// }
+        /// </c>
+        /// </example>
         public SC4SaveFile(string path) : base(path) { }
 
         /// <summary>
@@ -39,6 +86,31 @@ namespace SC4Parser.Files
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
         /// <see cref="SC4Parser.Subfiles.LotSubfile"/>
         /// <seealso cref="SC4Parser.DataStructures.Lot"/>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// SC4SaveFile savegame;
+        /// try
+        /// {
+        ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// LotSubfile lotFile = null
+        /// try 
+        /// {
+        ///     lotFile = savegame.GetLotSubfile();
+        /// }
+        /// catch (SubfileNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find subfile");
+        /// }
+        /// </c>
+        /// </example>
         public LotSubfile GetLotSubfile()
         {
             if (m_CachedLotSubfile != null)
@@ -79,6 +151,31 @@ namespace SC4Parser.Files
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
         /// <see cref="SC4Parser.Subfiles.BuildingSubfile"/>
         /// <seealso cref="SC4Parser.DataStructures.Building"/>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// SC4SaveFile savegame;
+        /// try
+        /// {
+        ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// BuildingSubfile buildings = null
+        /// try 
+        /// {
+        ///     buildings = savegame.GetBuildingSubfile();
+        /// }
+        /// catch (SubfileNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find subfile");
+        /// }
+        /// </c>
+        /// </example>
         public BuildingSubfile GetBuildingSubfile()
         {
             if (m_CachedBuildingSubfile != null)
@@ -127,6 +224,31 @@ namespace SC4Parser.Files
         /// </remarks>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
         /// <see cref="SC4Parser.Subfiles.RegionViewSubfile"/>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// SC4SaveFile savegame;
+        /// try
+        /// {
+        ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// RegionViewSubfile regionView = null
+        /// try 
+        /// {
+        ///     regionView = savegame.GetRegionViewSubfile();
+        /// }
+        /// catch (SubfileNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find subfile");
+        /// }
+        /// </c>
+        /// </example>
         public RegionViewSubfile GetRegionViewSubfile()
         {
             if (m_CachedBuildingSubfile != null)
@@ -162,6 +284,31 @@ namespace SC4Parser.Files
         /// </summary>
         /// <returns>Terrain Map Subfile from the SC4 save</returns>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// SC4SaveFile savegame;
+        /// try
+        /// {
+        ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// TerrainMapSubfile terrainMap = null
+        /// try 
+        /// {
+        ///     terrainMap = savegame.GetTerrainMapSubfile();
+        /// }
+        /// catch (SubfileNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find subfile");
+        /// }
+        /// </c>
+        /// </example>
         public TerrainMapSubfile GetTerrainMapSubfile()
         {
             if (m_CachedBuildingSubfile != null)

@@ -6,8 +6,8 @@ using SC4Parser.Logging;
 namespace SC4Parser.DataStructures
 {
     /// <summary>
-    /// Implementation of a DatabaseDirectoryResource (DIR record).
-    /// A DatabaseDirectoryResource represents a compressed file within a SimCity 4 savegame (DBPF)
+    /// Implementation of a Database Directory Resource (DIR record).
+    /// A Database Directory Resource represents a compressed file within a SimCity 4 savegame (DBPF)
     /// The uncompressed size of the record can be used to determine if a file has been decompressed properly.
     /// </summary>
     /// <remarks>
@@ -33,6 +33,9 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// Byte array given to method should only contain the data for one resource
         /// </remarks>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer)
         {
             if (buffer.Length < 16)

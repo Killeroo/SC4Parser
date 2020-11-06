@@ -6,9 +6,9 @@ using SC4Parser.Logging;
 namespace SC4Parser.DataStructures
 {
     /// <summary>
-    /// Implementation of an IndexEntry in a save game 
+    /// Implementation of an Index Entry in a save game 
     /// 
-    /// An IndexEntry represents a file stored within a SimCity 4 savegame (DBPF).
+    /// An Index Entry represents a file stored within a SimCity 4 savegame (DBPF).
     /// It stores the TGI (identifier), the location of the file with in the savegame and the size of the file.
     /// </summary>
     /// <remarks>
@@ -31,12 +31,42 @@ namespace SC4Parser.DataStructures
         public uint FileSize { get; protected set; }
 
         /// <summary>
+        /// Default constructor
+        /// </summary>
+        public IndexEntry() { }
+        /// <summary>
+        /// Constructor meant for copying over an Index Entry to a new object
+        /// </summary>
+        /// <param name="entry">Entry to copy over to new object</param>
+        public IndexEntry(IndexEntry entry)
+        {
+            TGI = entry.TGI;
+            FileLocation = entry.FileLocation;
+            FileSize = entry.FileSize;
+        }
+        /// <summary>
+        /// Constructor for manually constructing an Index Entry without parsing it
+        /// </summary>
+        /// <param name="tgi">TypeGroupInstance (TGI) of Index Entry</param>
+        /// <param name="location">File location of Index Entry</param>
+        /// <param name="size">File size of Index Entry</param>
+        public IndexEntry(TypeGroupInstance tgi, uint location, uint size)
+        {
+            TGI = tgi;
+            FileLocation = location;
+            FileSize = size;
+        }
+
+        /// <summary>
         /// Loads an individual entry from a byte array
         /// </summary>
         /// <param name="buffer">Data to load the index entry from</param>
         /// <remarks>
         /// Buffer should only contain data for a single entry
         /// </remarks>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer)
         {
             if (buffer.Length < 20)

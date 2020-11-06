@@ -75,6 +75,9 @@ namespace SC4Parser.DataStructures
         /// 
         /// The data buffer provided may contain multiple SIGPROPs but the method is only designed to read one 
         /// </remarks>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public int Parse(byte[] buffer, int offset = 0)
         {
             PropertyNameValue = BitConverter.ToUInt32(buffer, offset + 0);
@@ -203,6 +206,9 @@ namespace SC4Parser.DataStructures
         /// <param name="count">Number of SIGPROPs to try and read</param>
         /// <param name="offset">Offset/position to start reading the SIGPROPs from in the data array</param>
         /// <returns>A list of all parsed SIGPROPs</returns>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
         public static List<SaveGameProperty> ExtractFromBuffer(byte[] buffer, uint count, ref uint offset)
 
