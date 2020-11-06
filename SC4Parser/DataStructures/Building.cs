@@ -20,13 +20,29 @@ namespace SC4Parser.DataStructures
     /// // (this is effectively what is done in SC4Save.GetBuildingSubfile())
     /// 
     /// // Load save game
-    /// SC4SaveFile savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+    /// SC4SaveFile savegame = null;
+    /// try
+    /// {
+    ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+    /// }
+    /// catch (DBPFParsingException)
+    /// {
+    ///     Console.Writeline("Issue occured while parsing DBPF");
+    ///     return;
+    /// }
     /// 
     /// // load Building Subfile from save
     /// BuildingSubfile buildingSubfile = new BuildingSubfile();
-    /// IndexEntry buildingEntry = savegame.FindIndexEntryWithType("A9BD882D")
-    /// byte[] buildingSubfileData = savegame.LoadIndexEntry(buildingEntry.TGI);
-    /// buildingSubfile.Parse(buildingSubfileData, buildingSubfileData.Length);
+    /// try
+    /// {
+    ///     IndexEntry buildingEntry = savegame.FindIndexEntryWithType("A9BD882D")
+    ///     byte[] buildingSubfileData = savegame.LoadIndexEntry(buildingEntry.TGI);
+    ///     buildingSubfile.Parse(buildingSubfileData, buildingSubfileData.Length     
+    /// }
+    /// catch (Exception)
+    /// {
+    ///     Console.Writeline("Error loading building subfile);
+    /// }
     /// 
     /// // loop through buildings and print out their TGIs
     /// foreach (Building building in buildingsSubfile.Buildings)

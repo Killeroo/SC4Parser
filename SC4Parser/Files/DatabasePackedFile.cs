@@ -88,8 +88,17 @@ namespace SC4Parser.Files
         ///     return;
         /// }
         /// 
-        /// // Find flora file
-        /// IndexEntry entry = save.FindIndexEntryWithType("A9C05C85"); 
+        /// IndexEntry entry = null
+        /// try
+        /// {
+        ///     // Find flora file
+        ///     entry = save.FindIndexEntryWithType("A9C05C85"); 
+        /// }
+        /// catch (IndexEntryNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find flora file);
+        ///     return;
+        /// }
         /// 
         /// // Get a copy of the DBPF file
         /// var data = save.RawFile;
