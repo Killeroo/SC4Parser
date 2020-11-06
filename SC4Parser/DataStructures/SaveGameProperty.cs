@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using SC4Parser.Logging;
+
 namespace SC4Parser.DataStructures
 {
     /// <summary>
@@ -223,6 +225,11 @@ namespace SC4Parser.DataStructures
                 // Parse returns the new offset so we keep track of that 
                 currentOffset = property.Parse(buffer, currentOffset);
                 results.Add(property);
+
+                Logger.Log(LogLevel.Debug, "Read SaveGame Property @ offset {0}, {1} bytes left to read",
+                    currentOffset,
+                    ((buffer.Length - offset) + count) - currentOffset
+                );
             }
 
             // Update the offset now that we have read all the SGPROPs

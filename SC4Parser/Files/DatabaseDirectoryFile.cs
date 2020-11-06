@@ -23,7 +23,7 @@ namespace SC4Parser.Files
         /// List of all compressed resources in save
         /// </summary>
         /// <see cref="SC4Parser.DataStructures.DatabaseDirectoryResource"/>
-        public List<DatabaseDirectoryResource> Resources { get; private set; }
+        public List<DatabaseDirectoryResource> Resources { get; private set; } = new List<DatabaseDirectoryResource>();
         /// <summary>
         /// Number of resources in file
         /// </summary>
@@ -49,13 +49,12 @@ namespace SC4Parser.Files
         }
 
         /// <summary>
-        /// Load an individual DirectoryResource (compressed file entry) from a byte array
+        /// Adds a Database Directory Resource to Database Directory File's (DBDF) Resources
         /// </summary>
-        /// <param name="buffer">Data containing DatabaseeDirectoryResource</param>
-        public void ParseResource(byte[] buffer)
+        /// <param name="resource">Resource to add</param>
+        /// <see cref="SC4Parser.DataStructures.DatabaseDirectoryResource"/>
+        public void AddResource(DatabaseDirectoryResource resource)
         {
-            DatabaseDirectoryResource resource = new DatabaseDirectoryResource();
-            resource.Parse(buffer);
             Resources.Add(resource);
         }
 

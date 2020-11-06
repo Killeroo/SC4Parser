@@ -187,7 +187,7 @@ namespace SC4Parser.Files
         {
             try
             {
-                Logger.Log(LogLevel.Info, "Reading DBDF @ {0} ...", path);
+                Logger.Log(LogLevel.Info, "Reading DBPF @ {0} ...", path);
 
                 // Open file as a file stream
                 using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
@@ -214,36 +214,29 @@ namespace SC4Parser.Files
                     }
                     Logger.Log(LogLevel.Info, "Index Entries read");
 
-                    // loop through indexes and find DBDF file
-                    // TODO: replace with find command
-                    // TODO: error check
-                    foreach (IndexEntry entry in IndexEntries)
-                    {
-                        if (entry.TGI == Constants.DATABASE_DIRECTORY_FILE_TGI)
-                        {
-                            DBDFFile = new DatabaseDirectoryFile(entry);
-                            break;
-                        }
-                    }
-                    Logger.Log(LogLevel.Info, "DBDF file found");
+                    // Find DBDF file
+                    IndexEntry DBDFEntry = FindIndexEntry(Constants.DATABASE_DIRECTORY_FILE_TGI);
+                    DBDFFile = new DatabaseDirectoryFile(DBDFEntry);
+                    Logger.Log(LogLevel.Info, "Database Directory File found");
 
-                    // Seek to DBDF location and parse resources
-                    // TODO: move to DatabaseDirectoryFile parse
+                    // Load Database Directory Resources
                     stream.Seek(DBDFFile.FileLocation, SeekOrigin.Begin);
                     for (int i = 0; i < DBDFFile.ResourceCount; i++)
                     {
                         byte[] resourceBuffer = new byte[16];
+                        DatabaseDirectoryResource resource = new DatabaseDirectoryResource();
                         stream.Read(resourceBuffer, 0, 16);
-                        DBDFFile.ParseResource(resourceBuffer);
+                        resource.Parse(resourceBuffer);
+                        DBDFFile.AddResource(resource);
                     }
-                    Logger.Log(LogLevel.Info, "DBDF Resources read");
+                    Logger.Log(LogLevel.Info, "Database Directory Resources read");
 
                     // Save a copy of the stream so we can access stuff after we close the file stream
                     stream.Seek(0, SeekOrigin.Begin);
                     stream.CopyTo(RawFile);
                 }
 
-                Logger.Log(LogLevel.Info, "DBDF loaded");
+                Logger.Log(LogLevel.Info, "DBPF loaded");
             }
             catch (Exception ex)
             {
