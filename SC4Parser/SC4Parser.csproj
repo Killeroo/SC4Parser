@@ -60,7 +60,6 @@
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LogLevels.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Compression\QFS.cs" />
     <Compile Include="Files\DatabaseDirectoryFile.cs" />

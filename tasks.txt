@@ -1,9 +1,0 @@
-add examples to comments 
-split out acroynms
-add outofbounds exception to parse methods and sigprop.extractfrombuffer and to getsubfiles
-
-exception comments should mention inner exceptions
-change finds to public and add exception, remove find exceptions from other load functions
-do todos
-
-remove program.cs
