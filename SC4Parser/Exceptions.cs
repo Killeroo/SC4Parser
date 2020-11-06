@@ -19,6 +19,9 @@ namespace SC4Parser
     /// <summary>
     /// Exception thrown when Subfile cannot be found
     /// </summary>
+    /// <remarks>
+    /// Inner exception contains specific exception that occured 
+    /// </remarks>
     public class SubfileNotFoundException : Exception 
     {
         /// <summary>
@@ -38,6 +41,9 @@ namespace SC4Parser
     /// <summary>
     /// Exception thrown when there are issues parsing a Database Packed File (DBPF)
     /// </summary>
+    /// <remarks>
+    /// Inner exception contains specific exception that occured 
+    /// </remarks>
     /// <seealso cref="SC4Parser.Files.DatabasePackedFile"/>
     public class DBPFParsingException : Exception
     {
@@ -52,6 +58,9 @@ namespace SC4Parser
     /// <summary>
     /// Exception thrown when there is an issue with loading an Index Entry
     /// </summary>
+    /// <remarks>
+    /// Inner exception contains specific exception that occured 
+    /// </remarks>
     /// <seealso cref="SC4Parser.DataStructures.IndexEntry"/>
     public class IndexEntryLoadingException : Exception 
     {
@@ -72,6 +81,9 @@ namespace SC4Parser
     /// <summary>
     /// Exception thrown when an error occurs while preforming a QFS/Refpack decompression
     /// </summary>
+    /// <remarks>
+    /// Inner exception contains specific exception that occured 
+    /// </remarks>
     /// <seealso cref="SC4Parser.Compression.QFS"/>
     public class QFSDecompressionException : Exception 
     {
