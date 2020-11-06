@@ -267,7 +267,7 @@ Representation of a building in Simcity 4, as it is stored in a save game
 
 ##### Example
 
-`
+```
             // How to read and use building data using library
             // (this is effectively what is done in SC4Save.GetBuildingSubfile())
             
@@ -285,7 +285,7 @@ Representation of a building in Simcity 4, as it is stored in a save game
             {
                 Console.Writeline(building.TGI.ToString();
             }
-`
+```
 
 ##### Remarks
 
@@ -577,7 +577,7 @@ Implmentation of the Building Subfile. Building subfile stores all building data
 
 ##### Example
 
-`
+```
              // Simple usage
              // (Just assume the building subfile has already been read, see SC4SaveGame.GetBuildingSubfile())
             
@@ -586,7 +586,7 @@ Implmentation of the Building Subfile. Building subfile stores all building data
              
              // Do something with it
              firstBuilding.Dump();
- `
+```
 
 ##### Remarks
 
@@ -650,7 +650,7 @@ Console Logger implementation, logs output to standard output
 
 ##### Example
 
-`
+```
             // Setup logger
             // This will automatically add it to list of log outputs
             ConsoleLogger logger = new ConsoleLogger();
@@ -678,7 +678,7 @@ Console Logger implementation, logs output to standard output
             {
                 Console.Writeline("Could not find subfile");
             }
-`
+```
 
 <a name='T-SC4Parser-Constants'></a>
 ## Constants `type`
@@ -1189,7 +1189,7 @@ multiple files related to a save, some of which are compressed using QFS/refpack
 
 ##### Example
 
-`
+```
             // Basic usage
             
             // Load save game
@@ -1208,7 +1208,7 @@ multiple files related to a save, some of which are compressed using QFS/refpack
             Console.WriteLine("DBPF Version {0}.{1}",
                 savegame.Header.MajorVersion,
                 savegame.Header.MinorVersion);
-`
+```
 
 ##### Remarks
 
@@ -1267,7 +1267,7 @@ from a file at a given path
 
 ##### Example
 
-`
+```
             // Load save game
             DatabasePackedFile savegame;
             try
@@ -1286,7 +1286,7 @@ from a file at a given path
             {
                 Console.WriteLine(entry.TGI);
             }
-`
+```
 
 <a name='P-SC4Parser-Files-DatabasePackedFile-DBDFFile'></a>
 ### DBDFFile `property`
@@ -1331,7 +1331,7 @@ used to load resources after file has been initially parsed
 
 ##### Example
 
-`
+```
             // Load save game
             DatabasePackedFile savegame;
             try
@@ -1356,7 +1356,7 @@ used to load resources after file has been initially parsed
             data.Read(buffer, 0, fileSize);
             
             //.. do what we want with it
-`
+```
 
 <a name='M-SC4Parser-Files-DatabasePackedFile-Dump'></a>
 ### Dump() `method`
@@ -1394,7 +1394,7 @@ Returns the found resource
 
 ##### Example
 
-`
+```
             // Load save game
             DatabasePackedFile savegame;
             try
@@ -1432,7 +1432,7 @@ Returns the found resource
                 Console.Writeline("Resource for Index Entry cannot be found");
                 return;
             }
-`
+```
 
 ##### See Also
 
@@ -1463,7 +1463,7 @@ Returns the found Index Entry with the matching TypeGroupInstance (TGI)
 
 ##### Example
 
-`
+```
             // Load save game
             DatabasePackedFile savegame;
             try
@@ -1490,7 +1490,7 @@ Returns the found Index Entry with the matching TypeGroupInstance (TGI)
                 Console.Writeline("Could not find Index Entry");
                 return;
             }
-`
+```
 
 ##### See Also
 
@@ -1521,7 +1521,7 @@ The Index Entry with the given Type ID
 
 ##### Example
 
-`
+```
             // Load save game
             DatabasePackedFile savegame;
             try
@@ -1545,7 +1545,7 @@ The Index Entry with the given Type ID
                 Console.Writeline("Could not find Index Entry");
                 return;
             }
-`
+```
 
 ##### See Also
 
@@ -1570,7 +1570,7 @@ Returns `true` if the Index Entry is compressed, `false` if it is uncompressed
 
 ##### Example
 
-`
+```
             // Load save game
             DatabasePackedFile savegame;
             try
@@ -1604,7 +1604,7 @@ Returns `true` if the Index Entry is compressed, `false` if it is uncompressed
             {
                 Console.WriteLine("Lot data is not compressed");
             }
-`
+```
 
 <a name='M-SC4Parser-Files-DatabasePackedFile-LoadIndexEntry-SC4Parser-Types-TypeGroupInstance-'></a>
 ### LoadIndexEntry(tgi) `method`
@@ -1633,7 +1633,7 @@ Returns the (possibly uncompressed) bytes of an IndexEntry
 
 ##### Example
 
-`
+```
             // Load save game
             DatabasePackedFile savegame;
             try
@@ -1671,7 +1671,7 @@ Returns the (possibly uncompressed) bytes of an IndexEntry
             }
             
             // Do something with the terrain data...
-`
+```
 
 ##### Remarks
 
@@ -1711,7 +1711,7 @@ Returns the (possibly uncompressed) bytes of an IndexEntry
 
 ##### Example
 
-`
+```
             // Load save game
             DatabasePackedFile savegame;
             try
@@ -1753,7 +1753,7 @@ Returns the (possibly uncompressed) bytes of an IndexEntry
             }
             
             // Do something with the terrain data...
-`
+```
 
 ##### Remarks
 
@@ -1792,7 +1792,7 @@ Return the raw data of the Index Entry from the DBPF file in a byte array
 
 ##### Example
 
-`
+```
             // Load save game
             DatabasePackedFile savegame;
             try
@@ -1827,7 +1827,7 @@ Return the raw data of the Index Entry from the DBPF file in a byte array
             
             // Do something with the compressed data;
             SuperAwesomeCustomQFSDecompressionMethod(lotData);
-`
+```
 
 ##### Remarks
 
@@ -1859,7 +1859,7 @@ Parses a DBPF/SimCity 4 save file at a path
 
 ##### Example
 
-`
+```
             DatabasePackedFile savegame = new DatabasePackedFile();
             
             try
@@ -1871,7 +1871,7 @@ Parses a DBPF/SimCity 4 save file at a path
                 Console.Writeline("Issue occured while parsing DBPF");
                 return;
             }
-`
+```
 
 <a name='M-SC4Parser-Files-DatabasePackedFile-ReadRawIndexEntryData-SC4Parser-DataStructures-IndexEntry-'></a>
 ### ReadRawIndexEntryData(entry) `method`
@@ -2113,10 +2113,10 @@ Enable a log channel to be included in log output
 
 ##### Example
 
-`
+```
             // Enable any message using Debug log level to show up in log's output
             myLogger.EnableChannel(LogLevel.Debug);
-`
+```
 
 <a name='M-SC4Parser-Logging-ILogger-Log-SC4Parser-Logging-LogLevel,System-String,System-Object[]-'></a>
 ### Log(level,format,args) `method`
@@ -2135,13 +2135,13 @@ Log a message
 
 ##### Example
 
-`
+```
             myLogger.Log(LogLevel.Error, "This is a test log message it can include {0} {1} {2}",
                 "strings!",
                 123,
                 "Or any other type you want to pass!"
             );
-`
+```
 
 <a name='T-SC4Parser-DataStructures-IndexEntry'></a>
 ## IndexEntry `type`
@@ -2388,12 +2388,12 @@ Add a logger interface to send log output to
 
 ##### Example
 
-`
+```
             MyOwnLogger myLogger = new MyOwnLogger();
             Logger.AddLogOutput(myLogger);
             
             // Your logger will now be used as an output for any log message..
-`
+```
 
 <a name='M-SC4Parser-Logging-Logger-EnableLogChannel-SC4Parser-Logging-LogLevel-'></a>
 ### EnableLogChannel(level) `method`
@@ -2410,10 +2410,10 @@ Enable a log level on all log outputs
 
 ##### Example
 
-`
+```
             // Enable any message using Debug log level to show up in all logging outputs
             Logger.EnableChannel(LogLevel.Debug);
-`
+```
 
 <a name='M-SC4Parser-Logging-Logger-Log-SC4Parser-Logging-LogLevel,System-String,System-Object[]-'></a>
 ### Log(level,format,args) `method`
@@ -2432,13 +2432,13 @@ Log a message
 
 ##### Example
 
-`
+```
             Logger.Log(LogLevel.Error, "This is a test log message it can include {0} {1} {2}",
                 "strings!",
                 123,
                 "Or any other type you want to pass!"
             );
-`
+```
 
 <a name='T-SC4Parser-DataStructures-Lot'></a>
 ## Lot `type`
@@ -2453,7 +2453,7 @@ Representation of a Simcity 4 lot as it is stored in a save game
 
 ##### Example
 
-`
+```
             How to read and use lot data using library
             // (this is effectively what is done in SC4Save.GetLotSubfile())
             
@@ -2471,7 +2471,7 @@ Representation of a Simcity 4 lot as it is stored in a save game
             {
                 Console.Writeline(lot.SizeX + "x" + lot.SizeZ);
             }
-`
+```
 
 ##### Remarks
 
@@ -2737,7 +2737,7 @@ Implementation of the Lots Subfile. LotSubfile contains all logs in a SimCity 4 
 
 ##### Example
 
-`
+```
              // Simple usage
              // (Just assume the lot subfile has already been read, see SC4SaveGame.GetLotSubfile())
             
@@ -2746,7 +2746,7 @@ Implementation of the Lots Subfile. LotSubfile contains all logs in a SimCity 4 
              
              // Do something with it
              firstLot.Dump();
- `
+```
 
 ##### Remarks
 
@@ -2876,7 +2876,7 @@ Uncompressed data array
 
 ##### Example
 
-`
+```
             // Load save game
             SC4SaveFile savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
             
@@ -2885,7 +2885,7 @@ Uncompressed data array
             
             // Decompress data (This file will normally be compressed, should idealy check before decompressing)
             byte[] decompressedData = QFS.UncompressData(data);
-`
+```
 
 <a name='T-SC4Parser-QFSDecompressionException'></a>
 ## QFSDecompressionException `type`
@@ -2933,7 +2933,7 @@ Region View Subfile (partial implementation). Contains basic city information fr
 
 ##### Example
 
-`
+```
              // Simple usage
              // (Just assume the region view subfile has already been read, see SC4SaveGame.GetRegionViewSubfile())
             
@@ -2941,7 +2941,7 @@ Region View Subfile (partial implementation). Contains basic city information fr
              Console.WriteLine("city location x={0} y={1}",
                  regionViewSubfile.TileXLocation,
                  regionViewSubfile.TileYLocation);
- `
+```
 
 ##### Remarks
 
@@ -3074,7 +3074,7 @@ SC4 save game implementation, SC4 save files use the Maxis DBPF 1.1 file format
 
 ##### Example
 
-`
+```
             // Load save game
             SC4SaveFile savegame;
             try
@@ -3091,7 +3091,7 @@ SC4 save game implementation, SC4 save files use the Maxis DBPF 1.1 file format
             Console.WriteLine("DBPF Version {0}.{1}",
                 savegame.Header.MajorVersion,
                 savegame.Header.MinorVersion);
-`
+```
 
 ##### Remarks
 
@@ -3123,7 +3123,7 @@ Default constructor for SC4Save, that takes a save game's path to load from
 
 ##### Example
 
-`
+```
             // Load save game
             SC4SaveFile savegame;
             try
@@ -3142,7 +3142,7 @@ Default constructor for SC4Save, that takes a save game's path to load from
             {
                 Console.WriteLine(entry.TGI);
             }
-`
+```
 
 <a name='M-SC4Parser-Files-SC4SaveFile-GetBuildingSubfile'></a>
 ### GetBuildingSubfile() `method`
@@ -3167,7 +3167,7 @@ This method has no parameters.
 
 ##### Example
 
-`
+```
             // Load save game
             SC4SaveFile savegame;
             try
@@ -3189,7 +3189,7 @@ This method has no parameters.
             {
                 Console.Writeline("Could not find subfile");
             }
-`
+```
 
 ##### See Also
 
@@ -3218,7 +3218,7 @@ This method has no parameters.
 
 ##### Example
 
-`
+```
             // Load save game
             SC4SaveFile savegame;
             try
@@ -3240,7 +3240,7 @@ This method has no parameters.
             {
                 Console.Writeline("Could not find subfile");
             }
-`
+```
 
 ##### Remarks
 
@@ -3273,7 +3273,7 @@ This method has no parameters.
 
 ##### Example
 
-`
+```
             // Load save game
             SC4SaveFile savegame;
             try
@@ -3295,7 +3295,7 @@ This method has no parameters.
             {
                 Console.Writeline("Could not find subfile");
             }
-`
+```
 
 ##### Remarks
 
@@ -3324,7 +3324,7 @@ This method has no parameters.
 
 ##### Example
 
-`
+```
             // Load save game
             SC4SaveFile savegame;
             try
@@ -3346,7 +3346,7 @@ This method has no parameters.
             {
                 Console.Writeline("Could not find subfile");
             }
-`
+```
 
 <a name='T-SC4Parser-DataStructures-SaveGameProperty'></a>
 ## SaveGameProperty `type`
@@ -3554,7 +3554,7 @@ Implementation of TerrainMap Subfile, contains height information for each tile 
 
 ##### Example
 
-`
+```
              // Simple usage
              // (Just assume the terrain map subfile has already been read, see SC4SaveGame.GetTerrainMapSubfile())
             
@@ -3566,7 +3566,7 @@ Implementation of TerrainMap Subfile, contains height information for each tile 
                      Console.WriteLine(terrainMapSubfile.Map[x][y]);
                  }
              }
- `
+```
 
 ##### Remarks
 
@@ -3683,13 +3683,13 @@ TypeGroupInstance (TGI) constructor using uint values of IDs
 
 ##### Example
 
-`
+```
             // Create Terrain Map Subfile's TGI
             TypeGroupInstance terrainMapTGI = new TypeGroupInstance(2849861620, 3918501157, 1);
             
             // Use tgi to load subfile from save
             sc4Save.LoadIndexEntry(terrainMapTGI);
-`
+```
 
 ##### See Also
 
@@ -3712,13 +3712,13 @@ TypeGroupInstance (TGI) constructor using string hex values of IDs
 
 ##### Example
 
-`
+```
             // Create Terrain Map Subfile's TGI
             TypeGroupInstance terrainMapTGI = new TypeGroupInstance("A9DD6FF4", "E98f9525", "00000001");
             
             // Use tgi to load subfile from save
             sc4Save.LoadIndexEntry(terrainMapTGI);
-`
+```
 
 ##### Remarks
 
