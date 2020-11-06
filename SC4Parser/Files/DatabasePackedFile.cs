@@ -318,10 +318,6 @@ namespace SC4Parser.Files
 
             // First find IndexEntry
             IndexEntry entry = FindIndexEntry(tgi);
-            if (entry == null)
-            {
-                throw new IndexEntryNotFoundException();
-            }
 
             // Then load the IndexEntry
             return LoadIndexEntry(entry);
@@ -591,7 +587,7 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        private IndexEntry FindIndexEntry(TypeGroupInstance tgi)
+        public IndexEntry FindIndexEntry(TypeGroupInstance tgi)
         {
             IndexEntry foundEntry = null;
             foreach (IndexEntry entry in IndexEntries)
