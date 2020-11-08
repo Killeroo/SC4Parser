@@ -1,5 +1,5 @@
 # SC4Parser
-SC4Parser is a general purpose library for parsing, finding, and loading files from Simcity 4 save game files ([Maxis Database Packed Files (DBPF)](https://wiki.sc4devotion.com/index.php?title=Savegame)).
+SC4Parser is a general purpose library for parsing, finding, and loading files from Simcity 4 save game files ([Maxis Database Packed Files (DBPF)](https://wiki.sc4devotion.com/index.php?title=Savegame)) written in C#.
 
 The library was mainly intended for extracting items, from save games. It contains some partial implementation of specific Simcity 4 subfiles but mainly provides solid structures for loading data from save game files.
 
@@ -17,7 +17,7 @@ Because DBPF files were used for save games for other maxis games (Sims 3, Spore
   - [TerrainMap Subfile](https://github.com/sebamarynissen/sc4/blob/227aecdd01fedd78059a4114e6b0a1e9b6bd50a0/lib/terrain-map.js#L19) (*Fully Implemented*)
 
 # Getting started
-Once the library is built and referenced by your project it should be fairly straightforward to use. The first thing you need to do is load the SimCity 4 save game:
+Once the library is built (or [downloaded](https://github.com/Killeroo/SC4Parser/releases/latest)) and referenced by your project (when using Visual Studio have a look [here](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-add-or-remove-references-by-using-the-reference-manager?view=vs-2019#add-a-reference)) it should be fairly straightforward to use. The first thing you need to do is load the SimCity 4 save game:
 ```
 SC4SaveFile savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
 ```
