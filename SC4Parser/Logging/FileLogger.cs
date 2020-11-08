@@ -7,6 +7,43 @@ using System.Threading.Tasks;
 
 namespace SC4Parser.Logging
 {
+    /// <summary>
+    /// File Logger implementation, logs output to a file in a temp directory
+    /// </summary>
+    /// <example>
+    /// <c>
+    /// // Setup logger
+    /// // This will automatically add it to list of log outputs
+    /// FileLogger logger = new FileLogger();
+    /// 
+    /// // Check if the log file was created properly
+    /// if (logger.Created == false)
+    /// {
+    ///     Console.WriteLine("Log file could not be created");
+    ///     return;
+    /// }
+    /// else
+    /// {
+    ///     // Print out log location
+    ///     Console.WriteLine("Created log at {0}", logger.LogPath);
+    /// }
+    /// 
+    /// // Run some operations and generate some logs
+    /// 
+    /// // Load save game
+    /// SC4SaveFile savegame;
+    /// try
+    /// {
+    ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+    /// }
+    /// catch (DBPFParsingException)
+    /// {
+    ///     Console.Writeline("Issue occured while parsing DBPF");
+    ///     return;
+    /// }
+    /// 
+    /// </c>
+    /// </example>
     class FileLogger : ILogger
     {
         private static List<LogLevel> EnabledChannels = new List<LogLevel>
@@ -26,7 +63,7 @@ namespace SC4Parser.Logging
             { LogLevel.Fatal, "FATAL" }
         };
 
-        public string logPath { get; private set; } = "";
+        public string LogPath { get; private set; } = "";
         public bool Created = false;
 
         public FileLogger()
@@ -34,12 +71,12 @@ namespace SC4Parser.Logging
             try
             {
                 // Generate a log path
-                logPath = Path.Combine(
+                LogPath = Path.Combine(
                     Path.GetTempPath(),
                     string.Format("{0}-log--{1}.txt", "SC4Cartographer", DateTime.Now.ToString("dd-MMM-yyy")));
 
                 // Attempt to create the file
-                File.Create(logPath);
+                File.Create(LogPath);
             }
             catch (Exception e)
             {
@@ -72,7 +109,7 @@ namespace SC4Parser.Logging
             // Attempt to write data to log file
             try
             {
-                using (var writer = File.AppendText(logPath))
+                using (var writer = File.AppendText(LogPath))
                 {
                     writer.WriteLine(message);
                 }

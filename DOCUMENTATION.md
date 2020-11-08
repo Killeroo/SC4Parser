@@ -130,6 +130,7 @@
   - [MinorVersion](#P-SC4Parser-DataStructures-DatabasePackedFileHeader-MinorVersion 'SC4Parser.DataStructures.DatabasePackedFileHeader.MinorVersion')
   - [Dump()](#M-SC4Parser-DataStructures-DatabasePackedFileHeader-Dump 'SC4Parser.DataStructures.DatabasePackedFileHeader.Dump')
   - [Parse(buffer)](#M-SC4Parser-DataStructures-DatabasePackedFileHeader-Parse-System-Byte[]- 'SC4Parser.DataStructures.DatabasePackedFileHeader.Parse(System.Byte[])')
+- [FileLogger](#T-SC4Parser-Logging-FileLogger 'SC4Parser.Logging.FileLogger')
 - [ILogger](#T-SC4Parser-Logging-ILogger 'SC4Parser.Logging.ILogger')
   - [EnableChannel(level)](#M-SC4Parser-Logging-ILogger-EnableChannel-SC4Parser-Logging-LogLevel- 'SC4Parser.Logging.ILogger.EnableChannel(SC4Parser.Logging.LogLevel)')
   - [Log(level,format,args)](#M-SC4Parser-Logging-ILogger-Log-SC4Parser-Logging-LogLevel,System-String,System-Object[]- 'SC4Parser.Logging.ILogger.Log(SC4Parser.Logging.LogLevel,System.String,System.Object[])')
@@ -1372,7 +1373,6 @@ used to load resources after file has been initially parsed
                 return;
             }
             
-            
             // Get a copy of the DBPF file
             var data = save.RawFile;
             
@@ -2102,6 +2102,52 @@ Reads a DBPF header from a byte array
 | Name | Description |
 | ---- | ----------- |
 | [System.IndexOutOfRangeException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IndexOutOfRangeException 'System.IndexOutOfRangeException') | Thrown when trying to parse an element that is out of bounds in the data array |
+
+<a name='T-SC4Parser-Logging-FileLogger'></a>
+## FileLogger `type`
+
+##### Namespace
+
+SC4Parser.Logging
+
+##### Summary
+
+File Logger implementation, logs output to a file in a temp directory
+
+##### Example
+
+```
+            // Setup logger
+            // This will automatically add it to list of log outputs
+            FileLogger logger = new FileLogger();
+            
+            // Check if the log file was created properly
+            if (logger.Created == false)
+            {
+                Console.WriteLine("Log file could not be created");
+                return;
+            }
+            else
+            {
+                // Print out log location
+                Console.WriteLine("Created log at {0}", logger.LogPath);
+            }
+            
+            // Run some operations and generate some logs
+            
+            // Load save game
+            SC4SaveFile savegame;
+            try
+            {
+                savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+            }
+            catch (DBPFParsingException)
+            {
+                Console.Writeline("Issue occured while parsing DBPF");
+                return;
+            }
+            
+```
 
 <a name='T-SC4Parser-Logging-ILogger'></a>
 ## ILogger `type`
