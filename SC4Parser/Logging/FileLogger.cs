@@ -73,7 +73,8 @@ namespace SC4Parser.Logging
                 // Generate a log path
                 LogPath = Path.Combine(
                     Path.GetTempPath(),
-                    string.Format("{0}-log--{1}.txt", "SC4Cartographer", DateTime.Now.ToString("dd-MMM-yyy")));
+                    "SC4Cartographer",
+                    string.Format("{0}-log--{1}.txt", "SC4Cartographer", DateTime.Now.ToString("HH-mm-ss--dd-MMM-yyy")));
 
                 // Attempt to create the file
                 File.Create(LogPath);
@@ -109,16 +110,13 @@ namespace SC4Parser.Logging
             // Attempt to write data to log file
             try
             {
-                using (var writer = File.AppendText(LogPath))
-                {
-                    writer.WriteLine(message);
-                }
+                File.AppendAllText(LogPath, message + Environment.NewLine);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Logger.Log(LogLevel.Error, "Encountered exception while trying to write to log file ({0}:{1})",
-                    e.GetType().ToString(),
-                    e.Message);
+                //Logger.Log(LogLevel.Error, "Encountered exception while trying to write to log file ({0}:{1})",
+                //    e.GetType().ToString(),
+                //    e.Message);
             }
         }
     }
