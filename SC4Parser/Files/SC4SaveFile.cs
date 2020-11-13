@@ -115,13 +115,13 @@ namespace SC4Parser.Files
         {
             if (m_CachedLotSubfile != null)
             {
-                Logger.Log(LogLevel.Info, "Returning cached lot subfile");
+                Logger.Log(LogLevel.Info, "Returning cached Lots Subfile");
                 return m_CachedLotSubfile;
             }
 
             try
             {
-                Logger.Log(LogLevel.Info, "Fetching Lot Subfile...");
+                Logger.Log(LogLevel.Info, "Fetching Lots Subfile...");
 
                 IndexEntry lotEntry = FindIndexEntryWithType(Constants.LOT_SUBFILE_TYPE);
 
@@ -136,12 +136,12 @@ namespace SC4Parser.Files
             }
             catch (IndexEntryNotFoundException e)
             {
-                Logger.Log(LogLevel.Error, "Could not find Lot Subfile IndexEntry");
+                Logger.Log(LogLevel.Error, "Could not find Lots Subfile IndexEntry");
                 throw new SubfileNotFoundException($"Could not find Lot Subfile in {FilePath}", e);
             }
             catch (IndexEntryLoadingException e)
             {
-                Logger.Log(LogLevel.Error, "Could not load lots subfile");
+                Logger.Log(LogLevel.Error, "Could not load Lots Subfile");
                 throw new SubfileNotFoundException($"Could not load Lots Subfile", e);
             }
         }
@@ -181,18 +181,18 @@ namespace SC4Parser.Files
         {
             if (m_CachedBuildingSubfile != null)
             {
-                Logger.Log(LogLevel.Info, "Returning cached building subfile");
+                Logger.Log(LogLevel.Info, "Returning cached Buildings Subfile");
                 return m_CachedBuildingSubfile;
             }
 
             try
             {
-                Logger.Log(LogLevel.Info, "Fetching Building Subfile...");
+                Logger.Log(LogLevel.Info, "Fetching Buildings Subfile...");
 
                 IndexEntry buildingEntry = FindIndexEntryWithType(Constants.BUILDING_SUBFILE_TYPE);
                 if (buildingEntry == null)
                 {
-                    Logger.Log(LogLevel.Error, "Could not find Building Subfile");
+                    Logger.Log(LogLevel.Error, "Could not find Buildings Subfile");
                     throw new SubfileNotFoundException($"Could not find Building Subfile in {FilePath}");
                 }
 
@@ -207,12 +207,12 @@ namespace SC4Parser.Files
             }
             catch (IndexEntryNotFoundException e)
             {
-                Logger.Log(LogLevel.Error, "Could not find Building Subfile IndexEntry");
+                Logger.Log(LogLevel.Error, "Could not find Buildings Subfile IndexEntry");
                 throw new SubfileNotFoundException($"Could not find Building Subfile in {FilePath}", e);
             }
             catch (IndexEntryLoadingException e)
             {
-                Logger.Log(LogLevel.Error, "Could not load building subfile");
+                Logger.Log(LogLevel.Error, "Could not load Buildings Subfile");
                 throw new SubfileNotFoundException($"Could not load Building Subfile", e);
             }
 
@@ -255,7 +255,7 @@ namespace SC4Parser.Files
         {
             if (m_CachedRegionViewSubfile != null)
             {
-                Logger.Log(LogLevel.Info, "Returning cached region view subfile");
+                Logger.Log(LogLevel.Info, "Returning cached RegionView subfile");
                 return m_CachedRegionViewSubfile;
             }
 
@@ -267,7 +267,7 @@ namespace SC4Parser.Files
                 byte[] regionViewData = LoadIndexEntry(Constants.REGION_VIEW_SUBFILE_TGI);
                 regionViewSubfile.Parse(regionViewData);
 
-                Logger.Log(LogLevel.Info, "RegionView subfile loaded, caching result");
+                Logger.Log(LogLevel.Info, "RegionView Subfile loaded, caching result");
                 m_CachedRegionViewSubfile = regionViewSubfile;
 
                 return regionViewSubfile;
@@ -279,7 +279,7 @@ namespace SC4Parser.Files
             }
             catch (IndexEntryLoadingException e)
             {
-                Logger.Log(LogLevel.Error, "Could not load RegionView subfile");
+                Logger.Log(LogLevel.Error, "Could not load RegionView Subfile");
                 throw new SubfileNotFoundException($"Could not load RegionView Subfile", e);
             }
         }
@@ -317,7 +317,7 @@ namespace SC4Parser.Files
         {
             if (m_CachedTerrainMapSubfile != null)
             {
-                Logger.Log(LogLevel.Info, "Returning cached terrain map subfile");
+                Logger.Log(LogLevel.Info, "Returning cached TerrainMap Subfile");
                 return m_CachedTerrainMapSubfile;
             }
 
@@ -332,7 +332,7 @@ namespace SC4Parser.Files
                 byte[] terrainMapData = LoadIndexEntry(Constants.TERRAIN_MAP_SUBFILE_TGI);
                 terrainMapSubfile.Parse(terrainMapData, regionViewData.CitySizeX, regionViewData.CitySizeY);
 
-                Logger.Log(LogLevel.Info, "Region View subfile loaded, caching result");
+                Logger.Log(LogLevel.Info, "TerrainMap Subfile loaded, caching result");
                 m_CachedTerrainMapSubfile = terrainMapSubfile;
 
                 return terrainMapSubfile;
@@ -344,7 +344,7 @@ namespace SC4Parser.Files
             }
             catch (IndexEntryLoadingException e)
             {
-                Logger.Log(LogLevel.Error, "Could not load TerrainMap subfile");
+                Logger.Log(LogLevel.Error, "Could not load TerrainMap Subfile");
                 throw new SubfileNotFoundException($"Could not load TerrainMap Subfile", e);
             }
         }
