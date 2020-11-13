@@ -251,7 +251,7 @@ namespace SC4Parser.Files
         /// </example>
         public RegionViewSubfile GetRegionViewSubfile()
         {
-            if (m_CachedBuildingSubfile != null)
+            if (m_CachedRegionViewSubfile != null)
             {
                 Logger.Log(LogLevel.Info, "Returning cached region view subfile");
                 return m_CachedRegionViewSubfile;
@@ -311,7 +311,7 @@ namespace SC4Parser.Files
         /// </example>
         public TerrainMapSubfile GetTerrainMapSubfile()
         {
-            if (m_CachedBuildingSubfile != null)
+            if (m_CachedTerrainMapSubfile != null)
             {
                 Logger.Log(LogLevel.Info, "Returning cached terrain map subfile");
                 return m_CachedTerrainMapSubfile;
