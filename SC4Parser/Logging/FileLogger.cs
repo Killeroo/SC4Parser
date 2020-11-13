@@ -70,10 +70,17 @@ namespace SC4Parser.Logging
         {
             try
             {
+                string logDirectory = Path.Combine(Path.GetTempPath(), "SC4Parser");
+
+                // Create log folder if it does not already exist
+                if (Directory.Exists(logDirectory) == false)
+                {
+                    Directory.CreateDirectory(logDirectory);
+                }
+
                 // Generate a log path
                 LogPath = Path.Combine(
-                    Path.GetTempPath(),
-                    "SC4Parser",
+                    logDirectory,
                     string.Format("{0}-log--{1}.txt", "SC4Parser", DateTime.Now.ToString("HH-mm-ss--dd-MMM-yyy")));
 
                 // Attempt to create the file
@@ -114,6 +121,7 @@ namespace SC4Parser.Logging
             }
             catch (Exception)
             {
+                // Causes cyclical error as it keeps calling itself to log the message which fails
                 //Logger.Log(LogLevel.Error, "Encountered exception while trying to write to log file ({0}:{1})",
                 //    e.GetType().ToString(),
                 //    e.Message);
