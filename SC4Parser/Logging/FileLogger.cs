@@ -73,8 +73,8 @@ namespace SC4Parser.Logging
                 // Generate a log path
                 LogPath = Path.Combine(
                     Path.GetTempPath(),
-                    "SC4Cartographer",
-                    string.Format("{0}-log--{1}.txt", "SC4Cartographer", DateTime.Now.ToString("HH-mm-ss--dd-MMM-yyy")));
+                    "SC4Parser",
+                    string.Format("{0}-log--{1}.txt", "SC4Parser", DateTime.Now.ToString("HH-mm-ss--dd-MMM-yyy")));
 
                 // Attempt to create the file
                 File.Create(LogPath);
