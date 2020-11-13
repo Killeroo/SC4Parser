@@ -122,6 +122,7 @@ namespace SC4Parser.Files
             try
             {
                 Logger.Log(LogLevel.Info, "Fetching Lot Subfile...");
+
                 IndexEntry lotEntry = FindIndexEntryWithType(Constants.LOT_SUBFILE_TYPE);
 
                 LotSubfile lotSubfile = new LotSubfile();
@@ -187,6 +188,7 @@ namespace SC4Parser.Files
             try
             {
                 Logger.Log(LogLevel.Info, "Fetching Building Subfile...");
+
                 IndexEntry buildingEntry = FindIndexEntryWithType(Constants.BUILDING_SUBFILE_TYPE);
                 if (buildingEntry == null)
                 {
@@ -259,6 +261,8 @@ namespace SC4Parser.Files
 
             try
             {
+                Logger.Log(LogLevel.Info, "Fetching RegionView Subfile...");
+
                 RegionViewSubfile regionViewSubfile = new RegionViewSubfile();
                 byte[] regionViewData = LoadIndexEntry(Constants.REGION_VIEW_SUBFILE_TGI);
                 regionViewSubfile.Parse(regionViewData);
@@ -319,6 +323,8 @@ namespace SC4Parser.Files
 
             try
             {
+                Logger.Log(LogLevel.Info, "Fetching TerrainMap Subfile...");
+
                 // We need the city size from the region view in order to read the correct amount of data from the terrain map file
                 var regionViewData = GetRegionViewSubfile();
 
