@@ -40,6 +40,8 @@ namespace SC4Parser
         /// <seealso cref="SC4Parser.Subfiles.BuildingSubfile"/>
         public static readonly string BUILDING_SUBFILE_TYPE = "A9BD882D";
 
+        public static readonly string NETWORK_SUBFILE_1_TYPE = "C9C05C6E";
+
         /// <summary>
         /// Orientations used by SimCity 4 save game items as strings
         /// </summary>
@@ -115,6 +117,12 @@ namespace SC4Parser
             {0x01, @"$"},
             {0x02, @"$$"},
             {0x03, @"$$$"}
+        };
+
+        public static Dictionary<byte, string> NETWORK_TYPE_STRINGS = new Dictionary<byte, string>
+        {
+            {0x00, "Road"},
+            {0x03, "Road"},
         };
 
         /// <summary>
