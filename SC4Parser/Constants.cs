@@ -119,6 +119,9 @@ namespace SC4Parser
             {0x03, @"$$$"}
         };
 
+        /// <summary>
+        /// Different network types as strings
+        /// </summary>
         public static Dictionary<byte, string> NETWORK_TYPE_STRINGS = new Dictionary<byte, string>
         {
             {0x00, "Road"},
