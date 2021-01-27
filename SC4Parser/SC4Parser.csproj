@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="DataStructures\NetworkTile.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="Logging\FileLogger.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Files\SC4SaveFile.cs" />
     <Compile Include="DataStructures\Building.cs" />
     <Compile Include="Subfiles\BuildingSubfile.cs" />
+    <Compile Include="Subfiles\NetworkSubfile1.cs" />
     <Compile Include="Subfiles\RegionViewSubfile.cs" />
     <Compile Include="Subfiles\TerrainMapSubfile.cs" />
     <Compile Include="Types\TypeGroupInstance.cs" />
