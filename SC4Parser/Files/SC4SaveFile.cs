@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using SC4Parser.Logging;
 using SC4Parser.DataStructures;
 using SC4Parser.Subfiles;
@@ -47,6 +47,7 @@ namespace SC4Parser.Files
         private RegionViewSubfile m_CachedRegionViewSubfile = null;
         private TerrainMapSubfile m_CachedTerrainMapSubfile = null;
         private NetworkSubfile1 m_CachedNetworkSubfile1 = null;
+        private List<NetworkTile> m_CachedNetworkTiles = null;
 
         /// <summary>
         /// Default constructor for SC4Save, that takes a save game's path to load from
@@ -391,5 +392,27 @@ namespace SC4Parser.Files
         }
 
         //GetList of terrain tiles
+        //public List<NetworkTile> GetNetworkTiles()
+        //{
+        //    if (m_CachedNetworkTiles != null)
+        //    {
+        //        Logger.Log(LogLevel.Info, "Returning cached network tiles");
+        //        return m_CachedNetworkTiles;
+        //    }
+
+        //    try
+        //    {
+
+        //    }
+        //    catch (IndexEntryNotFoundException e)
+        //    {
+        //        Console.WriteLine(e);
+        //        throw;
+        //    }
+        //    catch (IndexEntryLoadingException e)
+        //    {
+
+        //    }
+        //}
     }
 }
