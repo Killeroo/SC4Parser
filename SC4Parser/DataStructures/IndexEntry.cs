@@ -89,9 +89,9 @@ namespace SC4Parser.DataStructures
         /// </summary>
         public virtual void Dump()
         {
-            Console.WriteLine("TypeID: {0}", TGI.Type.ToString("X"));
-            Console.WriteLine("GroupID: {0}", TGI.Group.ToString("X"));
-            Console.WriteLine("InstanceID: {0}", TGI.Instance.ToString("X"));
+            Console.WriteLine("TypeID: {0}", TGI.Type.ToString("x8"));
+            Console.WriteLine("GroupID: {0}", TGI.Group.ToString("x8"));
+            Console.WriteLine("InstanceID: {0}", TGI.Instance.ToString("x8"));
             Console.WriteLine("File Location: {0}", FileLocation);
             Console.WriteLine("File Size: {0}", FileSize);
         }

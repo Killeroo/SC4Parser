@@ -268,26 +268,26 @@ namespace SC4Parser.DataStructures
         /// </summary>
         public void Dump()
         {
-            Console.WriteLine("Offset: {0} (0x{1})", Offset, Offset.ToString("X"));
-            Console.WriteLine("Size: {0} (0x{1})", Size, Size.ToString("X"));
-            Console.WriteLine("CRC: 0x{0}", CRC.ToString("X"));
-            Console.WriteLine("Memory address: 0x{0}", Memory.ToString("X"));
+            Console.WriteLine("Offset: {0} (0x{1})", Offset, Offset.ToString("x8"));
+            Console.WriteLine("Size: {0} (0x{1})", Size, Size.ToString("x8"));
+            Console.WriteLine("CRC: 0x{0}", CRC.ToString("x8"));
+            Console.WriteLine("Memory address: 0x{0}", Memory.ToString("x8"));
             Console.WriteLine("Major Version: {0}", MajorVersion);
             Console.WriteLine("Minor Version: {0}", MinorVersion);
             Console.WriteLine("Zot Word: {0}", ZotWord);
             Console.WriteLine("Unknown1: {0}", Unknown1);
-            Console.WriteLine("Appearance Flag: 0x{0}", AppearanceFlag.ToString("X"));
-            Console.WriteLine("0x278128A0: 0x{0}", x278128A0.ToString("X"));
+            Console.WriteLine("Appearance Flag: 0x{0}", AppearanceFlag.ToString("x8"));
+            Console.WriteLine("0x278128A0: 0x{0}", x278128A0.ToString("x8"));
             Console.WriteLine("MinTractX: {0} (0x{1}) MaxTractX: {2} (0x{3})", 
                 MinTractX,
-                MinTractX.ToString("X"),
+                MinTractX.ToString("x8"),
                 MaxTractX,
-                MaxTractX.ToString("X"));
+                MaxTractX.ToString("x8"));
             Console.WriteLine("MinTractZ: {0} (0x{1}) MaxTractZ: {2} (0x{3})",
                 MinTractZ,
-                MinTractZ.ToString("X"),
+                MinTractZ.ToString("x8"),
                 MaxTractZ,
-                MaxTractZ.ToString("X"));
+                MaxTractZ.ToString("x8"));
             Console.WriteLine("TractSizeX: {0}", TractSizeX);
             Console.WriteLine("TractSizeZ: {0}", TractSizeZ);
             Console.WriteLine("SaveGame Properties: {0}", SaveGamePropertyCount);
@@ -303,10 +303,10 @@ namespace SC4Parser.DataStructures
             }
 
             Console.WriteLine("Unknown2: {0}", Unknown2);
-            Console.WriteLine("Group ID: {0} [0x{1}]", GroupID, GroupID.ToString("X"));
-            Console.WriteLine("Type ID: {0} [0x{1}]", TypeID, TypeID.ToString("X"));
-            Console.WriteLine("Instance ID: {0} [0x{1}]", InstanceID, InstanceID.ToString("X"));
-            Console.WriteLine("Instance ID (on appearance): {0} [0x{1}]", InstanceIDOnAppearance, InstanceIDOnAppearance.ToString("X"));
+            Console.WriteLine("Group ID: {0} [0x{1}]", GroupID, GroupID.ToString("x8"));
+            Console.WriteLine("Type ID: {0} [0x{1}]", TypeID, TypeID.ToString("x8"));
+            Console.WriteLine("Instance ID: {0} [0x{1}]", InstanceID, InstanceID.ToString("x8"));
+            Console.WriteLine("Instance ID (on appearance): {0} [0x{1}]", InstanceIDOnAppearance, InstanceIDOnAppearance.ToString("x8"));
             Console.WriteLine("Min Coordinate X: {0}", MinCoordinateX);
             Console.WriteLine("Min Coordinate Y: {0}", MinCoordinateY);
             Console.WriteLine("Min Coordinate Z: {0}", MinCoordinateZ);

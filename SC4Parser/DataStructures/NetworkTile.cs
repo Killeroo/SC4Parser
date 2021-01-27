@@ -5,7 +5,7 @@ using SC4Parser.Types;
 
 namespace SC4Parser.DataStructures
 {
-    class NetworkTile
+    public class NetworkTile
     {
         public uint Size;
         public uint CRC;
@@ -88,24 +88,24 @@ namespace SC4Parser.DataStructures
 
         public void Dump()
         {
-            //Console.WriteLine("Offset: {0} (0x{1})", Offset, Offset.ToString("X"));
-            Console.WriteLine("Size: {0} (0x{1})", Size, Size.ToString("X"));
-            Console.WriteLine("CRC: 0x{0}", CRC.ToString("X"));
-            Console.WriteLine("Memory address: 0x{0}", Memory.ToString("X"));
+            //Console.WriteLine("Offset: {0} (0x{1})", Offset, Offset.ToString("x8"));
+            Console.WriteLine("Size: {0} (0x{1})", Size, Size.ToString("x8"));
+            Console.WriteLine("CRC: 0x{0}", CRC.ToString("x8"));
+            Console.WriteLine("Memory address: 0x{0}", Memory.ToString("x8"));
             Console.WriteLine("Major Version: {0}", MajorVersion);
             Console.WriteLine("Minor Version: {0}", MinorVersion);
             Console.WriteLine("Zot Word: {0}", ZotWord);
-            Console.WriteLine("Appearance Flag: 0x{0}", AppearanceFlag.ToString("X"));
+            Console.WriteLine("Appearance Flag: 0x{0}", AppearanceFlag.ToString("x8"));
             Console.WriteLine("MinTractX: {0} (0x{1}) MaxTractX: {2} (0x{3})",
                 MinTractX,
-                MinTractX.ToString("X"),
+                MinTractX.ToString("x8"),
                 MaxTractX,
-                MaxTractX.ToString("X"));
+                MaxTractX.ToString("x8"));
             Console.WriteLine("MinTractZ: {0} (0x{1}) MaxTractZ: {2} (0x{3})",
                 MinTractZ,
-                MinTractZ.ToString("X"),
+                MinTractZ.ToString("x8"),
                 MaxTractZ,
-                MaxTractZ.ToString("X"));
+                MaxTractZ.ToString("x8"));
             Console.WriteLine("TractSizeX: {0}", TractSizeX);
             Console.WriteLine("TractSizeZ: {0}", TractSizeZ);
             Console.WriteLine("SaveGame Properties: {0}", SaveGamePropertyCount);
@@ -120,15 +120,15 @@ namespace SC4Parser.DataStructures
                 }
             }
 
-            Console.WriteLine("Group ID: {0} [0x{1}]", GroupID, GroupID.ToString("X"));
-            Console.WriteLine("Type ID: {0} [0x{1}]", TypeID, TypeID.ToString("X"));
-            Console.WriteLine("Instance ID: {0} [0x{1}]", InstanceID, InstanceID.ToString("X"));
-            Console.WriteLine("NetworkType: {0} [0x{1}]", NetworkType, NetworkType.ToString("X"));
+            Console.WriteLine("Group ID: {0} [0x{1}]", GroupID, GroupID.ToString("x8"));
+            Console.WriteLine("Type ID: {0} [0x{1}]", TypeID, TypeID.ToString("x8"));
+            Console.WriteLine("Instance ID: {0} [0x{1}]", InstanceID, InstanceID.ToString("x8"));
+            Console.WriteLine("NetworkType: {0} [0x{1}]", NetworkType, NetworkType.ToString("x8"));
 
-            Console.WriteLine("ConnectedWest: {0} [0x{1}]", WestConnected, WestConnected.ToString("X"));
-            Console.WriteLine("ConnectedNorth: {0} [0x{1}]", NorthConnected, NorthConnected.ToString("X"));
-            Console.WriteLine("ConnectedEast: {0} [0x{1}]", EastConnected, EastConnected.ToString("X"));
-            Console.WriteLine("ConnectedSouth: {0} [0x{1}]", SouthConnected, SouthConnected.ToString("X"));
+            Console.WriteLine("ConnectedWest: {0} [0x{1}]", WestConnected, WestConnected.ToString("x8"));
+            Console.WriteLine("ConnectedNorth: {0} [0x{1}]", NorthConnected, NorthConnected.ToString("x8"));
+            Console.WriteLine("ConnectedEast: {0} [0x{1}]", EastConnected, EastConnected.ToString("x8"));
+            Console.WriteLine("ConnectedSouth: {0} [0x{1}]", SouthConnected, SouthConnected.ToString("x8"));
 
             Console.WriteLine("X: {0} - {1}", MinSizeX, MaxSizeX);
             Console.WriteLine("Y: {0} - {1}", MinSizeY, MaxSizeY);

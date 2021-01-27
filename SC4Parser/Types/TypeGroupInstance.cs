@@ -182,9 +182,9 @@ namespace SC4Parser.Types
         public new string ToString()
         {
             return string.Format("0x{0} 0x{1} 0x{2}",
-                Type.ToString("X"),
-                Group.ToString("X"),
-                Instance.ToString("X"));
+                Type.ToString("x8"),
+                Group.ToString("x8"),
+                Instance.ToString("x8"));
         }
 
         /// <summary>
@@ -193,9 +193,9 @@ namespace SC4Parser.Types
         public void Dump()
         {
             Console.WriteLine("{0} {1} {2}",
-                Type.ToString("X"),
-                Group.ToString("X"),
-                Instance.ToString("X"));
+                Type.ToString("x8"),
+                Group.ToString("x8"),
+                Instance.ToString("x8"));
         }
     }
 }

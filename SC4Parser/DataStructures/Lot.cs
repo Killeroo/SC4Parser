@@ -210,29 +210,29 @@ namespace SC4Parser.DataStructures
         /// </summary>
         public void Dump()
         {
-            Console.WriteLine("Offset: {0} (0x{1})", Offset, Offset.ToString("X"));
-            Console.WriteLine("Size: {0} (0x{1})", Size, Size.ToString("X"));
-            Console.WriteLine("CRC: 0x{0}", CRC.ToString("X"));
-            Console.WriteLine("Memory address: 0x{0}", Memory.ToString("X"));
+            Console.WriteLine("Offset: {0} (0x{1})", Offset, Offset.ToString("x8"));
+            Console.WriteLine("Size: {0} (0x{1})", Size, Size.ToString("x8"));
+            Console.WriteLine("CRC: 0x{0}", CRC.ToString("x8"));
+            Console.WriteLine("Memory address: 0x{0}", Memory.ToString("x8"));
             Console.WriteLine("Major Version: {0}", MajorVersion);
-            Console.WriteLine("Lot IID: 0x{0}", LotInstanceID.ToString("X"));
-            Console.WriteLine("Flag Byte 1: 0x{0}", FlagByte1.ToString("X"));
-            Console.WriteLine("Min Tile X: 0x{0} ({1})", MinTileX.ToString("X"), MinTileX);
-            Console.WriteLine("Min Tile Z: 0x{0} ({1})", MinTileZ.ToString("X"), MinTileZ);
-            Console.WriteLine("Max Tile X: 0x{0} ({1})", MaxTileX.ToString("X"), MaxTileX);
-            Console.WriteLine("Max Tile Z: 0x{0} ({1})", MaxTileZ.ToString("X"), MaxTileZ);
-            Console.WriteLine("Commute Tile X: 0x{0} ({1})", MaxTileX.ToString("X"), MaxTileX);
-            Console.WriteLine("Commute Tile Z: 0x{0} ({1})", MaxTileZ.ToString("X"), MaxTileZ);
+            Console.WriteLine("Lot IID: 0x{0}", LotInstanceID.ToString("x8"));
+            Console.WriteLine("Flag Byte 1: 0x{0}", FlagByte1.ToString("x8"));
+            Console.WriteLine("Min Tile X: 0x{0} ({1})", MinTileX.ToString("x8"), MinTileX);
+            Console.WriteLine("Min Tile Z: 0x{0} ({1})", MinTileZ.ToString("x8"), MinTileZ);
+            Console.WriteLine("Max Tile X: 0x{0} ({1})", MaxTileX.ToString("x8"), MaxTileX);
+            Console.WriteLine("Max Tile Z: 0x{0} ({1})", MaxTileZ.ToString("x8"), MaxTileZ);
+            Console.WriteLine("Commute Tile X: 0x{0} ({1})", MaxTileX.ToString("x8"), MaxTileX);
+            Console.WriteLine("Commute Tile Z: 0x{0} ({1})", MaxTileZ.ToString("x8"), MaxTileZ);
             Console.WriteLine("Position Y: {0}", PositionY);
             Console.WriteLine("Slope 1 Y: {0}", Slope1Y);
             Console.WriteLine("Slope 2 Y: {0}", Slope2Y);
-            Console.WriteLine("Lot Width: 0x{0} ({1})", SizeX.ToString("X"), SizeX);
-            Console.WriteLine("Lot Depth: 0x{0} ({1})", SizeZ.ToString("X"), SizeZ);
-            Console.WriteLine("Lot Orientation: 0x{0} ({1})", Orientation.ToString("X"), Constants.ORIENTATION_STRINGS[Orientation]);
-            Console.WriteLine("Flag Byte 2: 0x{0} ({1})", FlagByte2.ToString("X"), FlagByte2);
-            Console.WriteLine("Flag Byte 3: 0x{0} ({1})", FlagByte3.ToString("X"), FlagByte3);
-            Console.WriteLine("Zone Type: 0x{0} ({1})", ZoneType.ToString("X"), Constants.LOT_ZONE_TYPE_STRINGS[ZoneType]);
-            Console.WriteLine("Zone Wealth: 0x{0} ({1})", ZoneWealth.ToString("X"), Constants.LOT_ZONE_WEALTH_STRINGS[ZoneWealth]);
+            Console.WriteLine("Lot Width: 0x{0} ({1})", SizeX.ToString("x8"), SizeX);
+            Console.WriteLine("Lot Depth: 0x{0} ({1})", SizeZ.ToString("x8"), SizeZ);
+            Console.WriteLine("Lot Orientation: 0x{0} ({1})", Orientation.ToString("x8"), Constants.ORIENTATION_STRINGS[Orientation]);
+            Console.WriteLine("Flag Byte 2: 0x{0} ({1})", FlagByte2.ToString("x8"), FlagByte2);
+            Console.WriteLine("Flag Byte 3: 0x{0} ({1})", FlagByte3.ToString("x8"), FlagByte3);
+            Console.WriteLine("Zone Type: 0x{0} ({1})", ZoneType.ToString("x8"), Constants.LOT_ZONE_TYPE_STRINGS[ZoneType]);
+            Console.WriteLine("Zone Wealth: 0x{0} ({1})", ZoneWealth.ToString("x8"), Constants.LOT_ZONE_WEALTH_STRINGS[ZoneWealth]);
         }
 
     }

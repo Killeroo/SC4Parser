@@ -186,9 +186,9 @@ namespace SC4Parser.DataStructures
         /// </summary>
         public void Dump()
         {
-            Console.WriteLine("Property Name Value: {0} [{1}]", PropertyNameValue, PropertyNameValue.ToString("X"));
-            Console.WriteLine("Property Name Value (copy): {0} [{1}]", PropertyNameValueCopy, PropertyNameValueCopy.ToString("X"));
-            Console.WriteLine("Unknown1: {0} [{1}]", Unknown1, Unknown1.ToString("X"));
+            Console.WriteLine("Property Name Value: {0} [{1}]", PropertyNameValue, PropertyNameValue.ToString("x8"));
+            Console.WriteLine("Property Name Value (copy): {0} [{1}]", PropertyNameValueCopy, PropertyNameValueCopy.ToString("x8"));
+            Console.WriteLine("Unknown1: {0} [{1}]", Unknown1, Unknown1.ToString("x8"));
             Console.WriteLine("Data Type: {0} [{1}]", DataType, Constants.SIGPROP_DATATYPE_TYPE_STRINGS[DataType]);
             Console.WriteLine("Key Type: {0}", KeyType);
             Console.WriteLine("Unknown: {0}", Unknown2);
