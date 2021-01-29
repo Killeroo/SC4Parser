@@ -47,7 +47,8 @@ namespace SC4Parser.Files
         private RegionViewSubfile m_CachedRegionViewSubfile = null;
         private TerrainMapSubfile m_CachedTerrainMapSubfile = null;
         private NetworkSubfile1 m_CachedNetworkSubfile1 = null;
-        private List<NetworkTile> m_CachedNetworkTiles = null;
+        private NetworkSubfile2 m_CachedNetworkSubfile2 = null;
+        private List<NetworkTile1> m_CachedNetworkTiles = null;
 
         /// <summary>
         /// Default constructor for SC4Save, that takes a save game's path to load from
@@ -353,7 +354,7 @@ namespace SC4Parser.Files
 
         public NetworkSubfile1 GetNetworkSubfile1()
         {
-            if (m_CachedTerrainMapSubfile != null)
+            if (m_CachedNetworkSubfile1 != null)
             {
                 Logger.Log(LogLevel.Info, "Returning cached Network subfile 1");
                 return m_CachedNetworkSubfile1;
@@ -374,7 +375,7 @@ namespace SC4Parser.Files
                 byte[] networkSubfileData = LoadIndexEntry(networkEntry.TGI);
                 networkFile.Parse(networkSubfileData, networkSubfileData.Length);
 
-                Logger.Log(LogLevel.Info, "Buildings subfile loaded, caching result");
+                Logger.Log(LogLevel.Info, "Network subfile 1 loaded, caching result");
                 m_CachedNetworkSubfile1 = networkFile;
 
                 return networkFile;
@@ -382,7 +383,7 @@ namespace SC4Parser.Files
             catch (IndexEntryNotFoundException e)
             {
                 Logger.Log(LogLevel.Error, "Could not find Network subfile 1 IndexEntry");
-                throw new SubfileNotFoundException($"Could not find Network subfile 1 subfile in {FilePath}", e);
+                throw new SubfileNotFoundException($"Could not find Network subfile 2 subfile in {FilePath}", e);
             }
             catch (IndexEntryLoadingException e)
             {
@@ -390,6 +391,48 @@ namespace SC4Parser.Files
                 throw new SubfileNotFoundException($"Could not load Network subfile 1 ", e);
             }
         }
+
+        public NetworkSubfile2 GetNetworkSubfile2()
+        {
+            if (m_CachedNetworkSubfile2 != null)
+            {
+                Logger.Log(LogLevel.Info, "Returning cached Network subfile 2");
+                return m_CachedNetworkSubfile2;
+            }
+
+            try
+            {
+                Logger.Log(LogLevel.Info, "Fetching Network subfile 2...");
+
+                IndexEntry networkEntry = FindIndexEntryWithType(Constants.NETWORK_SUBFILE_2_TYPE);
+                if (networkEntry == null)
+                {
+                    Logger.Log(LogLevel.Error, "Could not find Network subfile 2");
+                    throw new SubfileNotFoundException($"Could not find Network subfile 2 in {FilePath}");
+                }
+
+                NetworkSubfile2 networkFile = new NetworkSubfile2();
+                byte[] networkSubfileData = LoadIndexEntry(networkEntry.TGI);
+                networkFile.Parse(networkSubfileData, networkSubfileData.Length);
+
+                Logger.Log(LogLevel.Info, "Network subfile 2 subfile loaded, caching result");
+                m_CachedNetworkSubfile2 = networkFile;
+
+                return networkFile;
+            }
+            catch (IndexEntryNotFoundException e)
+            {
+                Logger.Log(LogLevel.Error, "Could not find Network subfile 2 IndexEntry");
+                throw new SubfileNotFoundException($"Could not find Network subfile 2 subfile in {FilePath}", e);
+            }
+            catch (IndexEntryLoadingException e)
+            {
+                Logger.Log(LogLevel.Error, "Could not load Network subfile 2 ");
+                throw new SubfileNotFoundException($"Could not load Network subfile 2 ", e);
+            }
+        }
+
+
 
         //GetList of terrain tiles
         //public List<NetworkTile> GetNetworkTiles()
