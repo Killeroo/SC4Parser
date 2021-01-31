@@ -13,15 +13,15 @@ namespace SC4Parser
 
         //}
 
-        public static byte[] ReadBytes(byte[] buffer, int count, ref int offset)
+        public static byte[] ReadBytes(byte[] buffer, uint count, ref uint offset)
         {
             byte[] readData = new byte[count];
-            Buffer.BlockCopy(buffer, offset, readData, 0, count);
+            Buffer.BlockCopy(buffer, (int) offset, readData, 0, (int) count);
             offset += count;
             return readData;
         }
 
-        public static byte ReadByte(byte[] buffer, ref int offset)
+        public static byte ReadByte(byte[] buffer, ref uint offset)
         {
             byte data = buffer[offset];
             offset++;

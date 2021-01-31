@@ -6,6 +6,48 @@ using SC4Parser.Types;
 
 namespace SC4Parser.DataStructures
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    public class NetworkBlock
+    {
+        public float X;
+        public float Y;
+        public float Z;
+        public float Unknown1;
+        public float Unknown2;
+        public uint Unknown3;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="offset"></param>
+        public void Parse(byte[] buffer, ref uint offset)
+        {
+            X = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref offset), 0);
+            Y = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref offset), 0);
+            Z = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref offset), 0);
+            Unknown1 = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref offset), 0);
+            Unknown2 = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref offset), 0);
+            Unknown3 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref offset), 0);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Dump()
+        {
+            Console.WriteLine("X: {0} Y: {1} Z: {2}", X, Y, Z);
+            Console.WriteLine("Unknown1: {0}", Unknown1);
+            Console.WriteLine("Unknown2: {0}", Unknown2);
+            Console.WriteLine("Unknown3: {0} (0x{1})", Unknown3, Unknown3.ToString("x8"));
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class NetworkTile2
     {
         public uint Size;
@@ -15,7 +57,6 @@ namespace SC4Parser.DataStructures
         public ushort MinorVersion;
         public ushort UnknownVersion1;
         public ushort UnknownVersion2;
-        public ushort ZotWord;
         public byte AppearanceFlag;
         public byte MinTractX;
         public byte MinTractZ;
@@ -28,175 +69,241 @@ namespace SC4Parser.DataStructures
         public uint GroupID;
         public uint TypeID;
         public uint InstanceID;
-        public byte UnknownFlag;
+        public byte UnknownFlag1;
+        public uint TextureID;
+        public byte Orientation;
 
-        // Real representation vs what is easy to use? :/
+        public float MinSizeX1;
+        public float MaxSizeX1;
+        public float MinSizeY1;
+        public float MaxSizeY1;
+        public float MinSizeZ1;
+        public float MaxSizeZ1;
+
+        public float Pos1X;
+        public float Pos1Y;
+        public float Pos1Z;
+
+        public float Pos2X;
+        public float Pos2Y;
+        public float Pos2Z;
+
+        public float Pos3X;
+        public float Pos3Y;
+        public float Pos3Z;
+
         public byte NetworkType;
-        public byte WestConnected;
-        public byte NorthConnected;
-        public byte EastConnected;
-        public byte SouthConnected;
-        public float MinSizeX;
-        public float MaxSizeX;
-        public float MinSizeY;
-        public float MaxSizeY;
-        public float MinSizeZ;
-        public float MaxSizeZ;
+        public byte WestConnection;
+        public byte NorthConnection;
+        public byte EastConnection;
+        public byte SouthConnection;
+
+        public float MinSizeX2;
+        public float MaxSizeX2;
+        public float MinSizeY2;
+        public float MaxSizeY2;
+        public float MinSizeZ2;
+        public float MaxSizeZ2;
+
+        public uint ExtraBlocks;
+        public uint NetworkBlockCount1;
+        public uint NetworkBlockCount2;
+        public uint NetworkBlockCount3;
+        public uint NetworkBlockCount4;
+        public uint NetworkBlockCount5;
+        public NetworkBlock[] NetworkBlocks1;
+        public NetworkBlock[] NetworkBlocks2;
+        public NetworkBlock[] NetworkBlocks3;
+        public NetworkBlock[] NetworkBlocks4;
+        public NetworkBlock[] NetworkBlocks5;
+
+        public float Pos4X;
+        public float Pos4Y;
+        public float Pos4Z;
+
+        public byte UnknownFlag2;
+        public byte UnknownFlag3;
+        public byte UnknownFlag4;
+
+        public float Height1;
+        public float Height2;
+        public float Height3;
+        public float Height4;
+        public float Height5;
+
+        public uint FileTypeID;
+        public uint UnknownUint;
 
         public TypeGroupInstance TGI = new TypeGroupInstance();
 
-        /*
-         * ( "I","Size" ),
-( "I","Checksum" ),
-( "I","Memory address" ),
-( "H","Version Major" ),
-( "H","Version Minor" ),
-( "H","Version ?" ),
-( "H","Version ?" ),
-( "BBB","0x000000" ),
-( "B","Appearance" ),
-( "I","0xC772BF98" ),
-( "BBBB","Tract Coord." ),
-( "HH","Tract Size" ),
-( "i","Count", -1,
- (
-  ( "IIIBBHI", "SGProp" ),
- )
-),
-( "I","GID" ),
-( "I","TID" ),
-( "I","IID" ),
-( "B","05" ),
-( "fffffffff","-1/0/1" ),
-( "f","Xmax" ),
-( "f","Ymax" ),
-( "f","Zmax" ),
-( "f","Xmin" ),
-( "f","Ymin" ),
-( "f","Zmin" ),
-( "ff","-1/0/1" ),
-( "I","0xFF000000" ),
-( "f","X" ),
-( "f","Y" ),
-( "f","Z" ),
-( "ff","-1/0/1" ),
-( "I","0xFF000000" ),
-( "f","X" ),
-( "f","Y" ),
-( "f","Z" ),
-( "ff","-1/0/1" ),
-( "I","0xFF000000" ),
-( "f","X" ),
-( "f","Y" ),
-( "f","Z" ),
-( "ff","-1/0/1" ),
-( "I","0xFF000000" ),
-( "I", "TextureID/PathID" ),
-( "BBBBB", "Unknown1" ),
-( "B", "Orientation", "'%s'%Orientation[u&0xF]+'/%s'%Mirror[u&0xF0]" ),
-( "BBB", "Unknown2" ),
-( "B","NetworkType" ),
-( "B","WestConnection" ),
-( "B","NorthConnection" ),
-( "B","EastConnection" ),
-( "B","SouthConnection" ),
-( "BBBB","Unknown3" ),
-( "f","Xmin" ),
-( "f","Xmax" ),
-( "f","Ymin" ),
-( "f","Ymax" ),
-( "f","Zmin" ),
-( "f","Zmax" ),
-( "BBBB","Unknown4" ),
-( "IIII","Zeros" ),
-( "I","50" ),
-( "I","00000000" ),
-( "BB","0000" ),
-( "f","Unknown5" ),
-        */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="offset"></param>
         public void Parse(byte[] buffer, uint offset)
         {
-            int internalOffset = (int)offset;
+            uint internalOffset = offset;
 
-            Size                    = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            CRC                     = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            Memory                  = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            MajorVersion            = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
-            MinorVersion            = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
-            UnknownVersion1         = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
-            UnknownVersion2         = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
-            ZotWord                 = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
-            AppearanceFlag          = Extensions.ReadByte(buffer, ref internalOffset); ;
-            MinTractX = buffer[27];
-            MinTractZ = buffer[28];
-            MaxTractX = buffer[29];
-            MaxTractZ = buffer[30];
-            TractSizeX = BitConverter.ToUInt16(buffer, 32);
-            TractSizeZ = BitConverter.ToUInt16(buffer, 34);
-            SaveGamePropertyCount = BitConverter.ToUInt32(buffer, 36);
-
-            uint saveGamePropertiesOffset = 40;
+            Size                        = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            CRC                         = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            Memory                      = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            MajorVersion                = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
+            MinorVersion                = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
+            UnknownVersion1             = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
+            UnknownVersion2             = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
+            internalOffset              += 3;
+            AppearanceFlag              = Extensions.ReadByte(buffer, ref internalOffset);
+            internalOffset              += 4;
+            MinTractX                   = Extensions.ReadByte(buffer, ref internalOffset);
+            MinTractZ                   = Extensions.ReadByte(buffer, ref internalOffset);
+            MaxTractX                   = Extensions.ReadByte(buffer, ref internalOffset);
+            MaxTractZ                   = Extensions.ReadByte(buffer, ref internalOffset);
+            TractSizeX                  = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
+            TractSizeZ                  = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
+            SaveGamePropertyCount       = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             if (SaveGamePropertyCount > 0)
+                SaveGamePropertyEntries = SaveGameProperty.ExtractFromBuffer(buffer, SaveGamePropertyCount, ref internalOffset);
+            GroupID                     = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            TypeID                      = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            InstanceID                  = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            TGI                         = new TypeGroupInstance(TypeID, GroupID, InstanceID); // TODO: Should be only using this
+            UnknownFlag1                = Extensions.ReadByte(buffer, ref internalOffset);
+            internalOffset              += 36;
+            MaxSizeX1                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            MaxSizeY1                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            MaxSizeZ1                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            MinSizeX1                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            MinSizeY1                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            MinSizeZ1                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            internalOffset              += 12;
+            Pos1X                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            Pos1Y                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            Pos1Z                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            internalOffset              += 12;
+            Pos2X                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            Pos2Y                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            Pos2Z                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            internalOffset              += 12;
+            Pos3X                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            Pos3Y                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            Pos3Z                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            internalOffset              += 12;
+            TextureID                   = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            internalOffset              += 5;
+            Orientation                 = Extensions.ReadByte(buffer, ref internalOffset);
+            internalOffset              += 3;
+            NetworkType                 = Extensions.ReadByte(buffer, ref internalOffset);
+            WestConnection              = Extensions.ReadByte(buffer, ref internalOffset);
+            NorthConnection             = Extensions.ReadByte(buffer, ref internalOffset);
+            EastConnection              = Extensions.ReadByte(buffer, ref internalOffset);
+            SouthConnection             = Extensions.ReadByte(buffer, ref internalOffset);
+            internalOffset              += 4;
+            MinSizeX2                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            MaxSizeX2                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            MinSizeY2                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            MaxSizeY2                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            MinSizeZ2                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            MaxSizeZ2                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            internalOffset              += 34;
+            ExtraBlocks                 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            NetworkBlockCount1          = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            NetworkBlocks1 = new NetworkBlock[(int)NetworkBlockCount1];
+            if (NetworkBlockCount1 > 0)
             {
-                SaveGamePropertyEntries = SaveGameProperty.ExtractFromBuffer(buffer, SaveGamePropertyCount, ref saveGamePropertiesOffset);
+                for (uint i = 0; i < NetworkBlockCount1; i++)
+                {
+                    NetworkBlock block = new NetworkBlock();
+                    block.Parse(buffer, ref internalOffset);
+                    NetworkBlocks1[i] = block;
+                }
             }
-
-            GroupID = BitConverter.ToUInt32(buffer, (int)saveGamePropertiesOffset + 0);
-            TypeID = BitConverter.ToUInt32(buffer, (int)saveGamePropertiesOffset + 4);
-            InstanceID = BitConverter.ToUInt32(buffer, (int)saveGamePropertiesOffset + 8);
-            TGI = new TypeGroupInstance(TypeID, GroupID, InstanceID);
-            UnknownFlag = buffer[saveGamePropertiesOffset + 12];
-            //saveGamePropertiesOffset += 134; // Skip over a bunch of unknown/not needed fields
-            saveGamePropertiesOffset += 9;
-            //XMax1 = Extensions.ReadData(buffer, 4, )
-            NetworkType = buffer[saveGamePropertiesOffset];
-            WestConnected = buffer[saveGamePropertiesOffset + 1];
-            NorthConnected = buffer[saveGamePropertiesOffset + 2];
-            EastConnected = buffer[saveGamePropertiesOffset + 3];
-            SouthConnected = buffer[saveGamePropertiesOffset + 4];
-            saveGamePropertiesOffset += 4;
-            MinSizeX = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 5);
-            MaxSizeX = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 9);
-            MinSizeY = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 13);
-            MaxSizeY = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 17);
-            MinSizeZ = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 21);
-            MaxSizeZ = BitConverter.ToSingle(buffer, (int)saveGamePropertiesOffset + 25);
+            NetworkBlockCount2 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            NetworkBlocks2 = new NetworkBlock[(int)NetworkBlockCount2];
+            if (NetworkBlockCount2 > 0)
+            {
+                for (uint i = 0; i < NetworkBlockCount2; i++)
+                {
+                    NetworkBlock block = new NetworkBlock();
+                    block.Parse(buffer, ref internalOffset);
+                    NetworkBlocks2[i] = block;
+                }
+            }
+            NetworkBlockCount3 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            NetworkBlocks3 = new NetworkBlock[(int)NetworkBlockCount3];
+            if (NetworkBlockCount3 > 0)
+            {
+                for (uint i = 0; i < NetworkBlockCount3; i++)
+                {
+                    NetworkBlock block = new NetworkBlock();
+                    block.Parse(buffer, ref internalOffset);
+                    NetworkBlocks3[i] = block;
+                }
+            }
+            NetworkBlockCount4 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            NetworkBlocks4 = new NetworkBlock[(int)NetworkBlockCount4];
+            if (NetworkBlockCount4 > 0)
+            {
+                for (uint i = 0; i < NetworkBlockCount4; i++)
+                {
+                    NetworkBlock block = new NetworkBlock();
+                    block.Parse(buffer, ref internalOffset);
+                    NetworkBlocks4[i] = block;
+                }
+            }
+            NetworkBlockCount5 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            NetworkBlocks5 = new NetworkBlock[(int)NetworkBlockCount5];
+            if (NetworkBlockCount5 > 0)
+            {
+                for (uint i = 0; i < NetworkBlockCount5; i++)
+                {
+                    NetworkBlock block = new NetworkBlock();
+                    block.Parse(buffer, ref internalOffset);
+                    NetworkBlocks5[i] = block;
+                }
+            }
+            internalOffset              += 16;
+            Pos4X                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            internalOffset              += 12;
+            Pos4Y                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            internalOffset              += 12;
+            Pos4Z                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            internalOffset              += 24;
+            UnknownFlag2                = Extensions.ReadByte(buffer, ref internalOffset);
+            UnknownFlag3                = Extensions.ReadByte(buffer, ref internalOffset); 
+            UnknownFlag4                = Extensions.ReadByte(buffer, ref internalOffset); 
+            Height1                     = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0); 
+            Height2                     = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0); 
+            Height3                     = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0); 
+            Height4                     = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0); 
+            Height5                     = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0); 
+            FileTypeID                  = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            UnknownUint                 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dump()
         {
-            //Console.WriteLine("Offset: {0} (0x{1})", Offset, Offset.ToString("x8"));
-
-            //Console.WriteLine("{0} {1} {2} | {3} {4}-{5} {6}-{7}",
-            //    Size.ToString("x8"),
-            //    CRC.ToString("x8"),
-            //    Memory.ToString("x8"),
-            //    NetworkType.ToString("x8"),
-            //    Math.Truncate(MinSizeX / 16) * 5,
-            //    Math.Truncate(MaxSizeX / 16) * 5,
-            //    Math.Truncate(MinSizeZ / 16) * 5,
-            //    Math.Truncate(MaxSizeZ / 16) * 5);
-
             Console.WriteLine("Size: {0} (0x{1})", Size, Size.ToString("x8"));
             Console.WriteLine("CRC: 0x{0}", CRC.ToString("x8"));
             Console.WriteLine("Memory address: 0x{0}", Memory.ToString("x8"));
             Console.WriteLine("Major Version: {0}", MajorVersion);
             Console.WriteLine("Minor Version: {0}", MinorVersion);
-            Console.WriteLine("Zot Word: {0}", ZotWord);
             Console.WriteLine("Appearance Flag: 0x{0}", AppearanceFlag.ToString("x8"));
-            Console.WriteLine("MinTractX: {0} (0x{1}) MaxTractX: {2} (0x{3})",
+            Console.WriteLine("Tract coordinates: {0} {1} {2} {3} (0x{4} 0x{5} 0x{6} 0x{7})",
                 MinTractX,
-                MinTractX.ToString("x8"),
                 MaxTractX,
-                MaxTractX.ToString("x8"));
-            Console.WriteLine("MinTractZ: {0} (0x{1}) MaxTractZ: {2} (0x{3})",
                 MinTractZ,
-                MinTractZ.ToString("x8"),
                 MaxTractZ,
+                MinTractX.ToString("x8"),
+                MaxTractX.ToString("x8"),
+                MinTractZ.ToString("x8"),
                 MaxTractZ.ToString("x8"));
-            Console.WriteLine("TractSizeX: {0}", TractSizeX);
-            Console.WriteLine("TractSizeZ: {0}", TractSizeZ);
+            Console.WriteLine("TractSizeX: {0} (0x{1})", TractSizeX, TractSizeX.ToString("x8"));
+            Console.WriteLine("TractSizeZ: {0} (0x{1})", TractSizeZ, TractSizeX.ToString("x8"));
             Console.WriteLine("SaveGame Properties: {0}", SaveGamePropertyCount);
 
             // Dump any savegame properties if they are present
@@ -209,18 +316,108 @@ namespace SC4Parser.DataStructures
                 }
             }
 
-            Console.WriteLine("Group ID: {0} [0x{1}]", GroupID, GroupID.ToString("x8"));
-            Console.WriteLine("Type ID: {0} [0x{1}]", TypeID, TypeID.ToString("x8"));
-            Console.WriteLine("Instance ID: {0} [0x{1}]", InstanceID, InstanceID.ToString("x8"));
-            Console.WriteLine("NetworkType: {0} [0x{1}]", NetworkType, NetworkType.ToString("x8"));
+            Console.WriteLine("Group ID: {0} (0x{1})", GroupID, GroupID.ToString("x8"));
+            Console.WriteLine("Type ID: {0} (0x{1})", TypeID, TypeID.ToString("x8"));
+            Console.WriteLine("Instance ID: {0} (0x{1})", InstanceID, InstanceID.ToString("x8"));
 
-            Console.WriteLine("ConnectedWest: {0} [0x{1}]", WestConnected, WestConnected.ToString("x8"));
-            Console.WriteLine("ConnectedNorth: {0} [0x{1}]", NorthConnected, NorthConnected.ToString("x8"));
-            Console.WriteLine("ConnectedEast: {0} [0x{1}]", EastConnected, EastConnected.ToString("x8"));
-            Console.WriteLine("ConnectedSouth: {0} [0x{1}]", SouthConnected, SouthConnected.ToString("x8"));
+            Console.WriteLine("MaxSizeX1: {0}", MaxSizeX1);
+            Console.WriteLine("MaxSizeY1: {0}", MaxSizeY1);
+            Console.WriteLine("MaxSizeZ1: {0}", MaxSizeZ1);
+            Console.WriteLine("MinSizeX1: {0}", MinSizeX1);
+            Console.WriteLine("MinSizeY1: {0}", MinSizeY1);
+            Console.WriteLine("MinSizeZ1: {0}", MinSizeZ1);
 
-            Console.WriteLine("X: {0} - {1}", Math.Truncate(MinSizeX / 16) * 5, Math.Truncate(MaxSizeX / 16) * 5);
-            Console.WriteLine("Z: {0} - {1}", Math.Truncate(MinSizeZ / 16) * 5, Math.Truncate(MaxSizeZ / 16) * 5);
+            Console.WriteLine("Pos1X: {0}", Pos1X);
+            Console.WriteLine("Pos1Y: {0}", Pos1Y);
+            Console.WriteLine("Pos1Z: {0}", Pos1Z);
+
+            Console.WriteLine("Pos2X: {0}", Pos2X);
+            Console.WriteLine("Pos2Y: {0}", Pos2Y);
+            Console.WriteLine("Pos2Z: {0}", Pos2Z);
+
+            Console.WriteLine("Pos3X: {0}", Pos3X);
+            Console.WriteLine("Pos3Y: {0}", Pos3Y);
+            Console.WriteLine("Pos3Z: {0}", Pos3Z);
+
+            Console.WriteLine("TextureID: {0} (0x{1})", TextureID, TextureID.ToString("x8"));
+            Console.WriteLine("Orientation: {0} (0x{1})", Orientation, Orientation.ToString("x8"));
+            Console.WriteLine("NetworkType: {0} (0x{1})", NetworkType, NetworkType.ToString("x8"));
+            Console.WriteLine("WestConnection: {0} (0x{1})", WestConnection, WestConnection.ToString("x8"));
+            Console.WriteLine("NorthConnection: {0} (0x{1})", NorthConnection, NorthConnection.ToString("x8"));
+            Console.WriteLine("EastConnection: {0} (0x{1})", EastConnection, EastConnection.ToString("x8"));
+            Console.WriteLine("SouthConnection: {0} (0x{1})", SouthConnection, SouthConnection.ToString("x8"));
+
+            Console.WriteLine("MaxSizeX2: {0}", MaxSizeX2);
+            Console.WriteLine("MaxSizeY2: {0}", MaxSizeY2);
+            Console.WriteLine("MaxSizeZ2: {0}", MaxSizeZ2);
+            Console.WriteLine("MinSizeX2: {0}", MinSizeX2);
+            Console.WriteLine("MinSizeY2: {0}", MinSizeY2);
+            Console.WriteLine("MinSizeZ2: {0}", MinSizeZ2);
+
+            Console.WriteLine("ExtraBlocks: {0}", ExtraBlocks);
+            Console.WriteLine("NetworkBlock1Count: {0}", NetworkBlockCount1);
+            if (NetworkBlockCount1 > 0)
+            {
+                for (int i = 0; i < NetworkBlockCount1; i++)
+                {
+                    Console.WriteLine("==================");
+                    NetworkBlocks1[i].Dump();
+                }
+            }
+            Console.WriteLine("NetworkBlock2Count: {0}", NetworkBlockCount1);
+            if (NetworkBlockCount2 > 0)
+            {
+                for (int i = 0; i < NetworkBlockCount2; i++)
+                {
+                    Console.WriteLine("==================");
+                    NetworkBlocks2[i].Dump();
+                }
+            }
+            Console.WriteLine("NetworkBlock3Count: {0}", NetworkBlockCount3);
+            if (NetworkBlockCount3 > 0)
+            {
+                for (int i = 0; i < NetworkBlockCount3; i++)
+                {
+                    Console.WriteLine("==================");
+                    NetworkBlocks3[i].Dump();
+                }
+            }
+            Console.WriteLine("NetworkBlock4Count: {0}", NetworkBlockCount4);
+            if (NetworkBlockCount4 > 0)
+            {
+                for (int i = 0; i < NetworkBlockCount4; i++)
+                {
+                    Console.WriteLine("==================");
+                    NetworkBlocks4[i].Dump();
+                }
+            }
+            Console.WriteLine("NetworkBlock1Count: {0}", NetworkBlockCount5);
+            if (NetworkBlockCount5 > 0)
+            {
+                for (int i = 0; i < NetworkBlockCount5; i++)
+                {
+                    Console.WriteLine("==================");
+                    NetworkBlocks5[i].Dump();
+                }
+            }
+
+            Console.WriteLine("Pos4X: {0}", Pos4X);
+            Console.WriteLine("Pos4Y: {0}", Pos4Y);
+            Console.WriteLine("Pos4Z: {0}", Pos4Z);
+
+            Console.WriteLine("UnknownFlag2: {0} (0x{1})", UnknownFlag2, UnknownFlag2.ToString("x8"));
+            Console.WriteLine("UnknownFlag3: {0} (0x{1})", UnknownFlag3, UnknownFlag3.ToString("x8"));
+            Console.WriteLine("UnknownFlag4: {0} (0x{1})", UnknownFlag4, UnknownFlag4.ToString("x8"));
+
+            Console.WriteLine("Height1: {0}", Height1);
+            Console.WriteLine("Height2: {0}", Height2);
+            Console.WriteLine("Height3: {0}", Height3);
+            Console.WriteLine("Height4: {0}", Height4);
+            Console.WriteLine("Height5: {0}", Height5);
+
+            Console.WriteLine("FileTypeID: {0}", FileTypeID.ToString("x8"));
+            Console.WriteLine("UnknownUint: {0} (0x{1})", UnknownUint, UnknownUint.ToString("x8"));
+
         }
     }
 }

@@ -25,7 +25,7 @@ namespace SC4Parser.Subfiles
                 NetworkTile2 tile = new NetworkTile2();
                 byte[] tileBuffer = new byte[recordSize];
                 Array.Copy(buffer, offset, tileBuffer, 0, (int)recordSize);
-                tile.Parse(tileBuffer, offset);
+                tile.Parse(tileBuffer, 0);
                 NetworkTiles.Add(tile);
 
                 offset += recordSize;
