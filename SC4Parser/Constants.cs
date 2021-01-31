@@ -53,6 +53,17 @@ namespace SC4Parser
         /// <summary>
         /// Orientations used by SimCity 4 save game items as strings
         /// </summary>
+        /// <remarks>
+        /// Following is a full list of all different orientations:
+        ///     0x00 = North
+        ///     0x01 = East
+        ///     0x02 = South
+        ///     0x03 = West
+        ///     0x80 = North, mirrored
+        ///     0x81 = East, mirrored
+        ///     0x82 = south, mirrored
+        ///     0x83 = West, mirrored
+        /// </remarks>
         /// <seealso cref="SC4Parser.DataStructures.Building.Orientation"/>
         /// <seealso cref="SC4Parser.DataStructures.Lot.Orientation"/>
         public static string[] ORIENTATION_STRINGS = new string[]

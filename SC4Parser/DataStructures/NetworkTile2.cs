@@ -7,22 +7,47 @@ using SC4Parser.Types;
 namespace SC4Parser.DataStructures
 {
     /// <summary>
-    /// 
+    /// Network blocks found in with in Network subfile 2 entries
     /// </summary>
+    /// <remarks>
+    /// Purpose and usage is unknown.
+    /// </remarks>
+    /// <see cref="SC4Parser.DataStructures.NetworkTile2"/>
     public class NetworkBlock
     {
-        public float X;
-        public float Y;
-        public float Z;
-        public float Unknown1;
-        public float Unknown2;
-        public uint Unknown3;
+        /// <summary>
+        /// X coordinate of network block
+        /// </summary>
+        public float X { get; private set; }
+        /// <summary>
+        /// Y coordinate of network block
+        /// </summary>
+        public float Y { get; private set; }
+        /// <summary>
+        /// Z coordinate of network block
+        /// </summary>
+        public float Z { get; private set; }
+        /// <summary>
+        /// Unknown float 1
+        /// </summary>
+        public float Unknown1 { get; private set; }
+        /// <summary>
+        /// Unknown float 2
+        /// </summary>
+        public float Unknown2 { get; private set; }
+        /// <summary>
+        /// Unknown uint 
+        /// </summary>
+        public uint Unknown3 { get; private set; }
 
         /// <summary>
-        /// 
+        /// Parses a single network block. Returns offset after block has been parsed
         /// </summary>
-        /// <param name="buffer"></param>
-        /// <param name="offset"></param>
+        /// <param name="buffer">Data to parse block from</param>
+        /// <param name="offset">Where to start parsing block</param>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer, ref uint offset)
         {
             X = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref offset), 0);
@@ -34,7 +59,7 @@ namespace SC4Parser.DataStructures
         }
 
         /// <summary>
-        /// 
+        /// Prints out the contents of the network block
         /// </summary>
         public void Dump()
         {
@@ -46,104 +71,507 @@ namespace SC4Parser.DataStructures
     }
 
     /// <summary>
-    /// 
+    /// Representation of a city's network tiles which are found in Network Subfile 2.
     /// </summary>
+    /// <remarks>
+    /// Network Subfile 2 contains network tiles that are below or above ground, so stuff like underground roads,
+    /// subways or road bridges.
+    /// 
+    /// It is similarly structured but slightly bigger than those network tiles found in Network subfile 1.
+    /// 
+    /// Some unknown fields with no names have been skipped from tile implementation.
+    /// 
+    /// Implemented from https://wiki.sc4devotion.com/index.php?title=Network_Subfiles#Network_Subfile_2_Structure
+    /// </remarks>
+    /// <see cref="SC4Parser.Subfiles.NetworkSubfile2"/>
+    /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+    /// <seealso cref="SC4Parser.DataStructures.NetworkTile1"/>
     public class NetworkTile2
     {
-        public uint Size;
-        public uint CRC;
-        public uint Memory;
-        public ushort MajorVersion;
-        public ushort MinorVersion;
-        public ushort UnknownVersion1;
-        public ushort UnknownVersion2;
-        public byte AppearanceFlag;
-        public byte MinTractX;
-        public byte MinTractZ;
-        public byte MaxTractX;
-        public byte MaxTractZ;
-        public ushort TractSizeX;
-        public ushort TractSizeZ;
-        public uint SaveGamePropertyCount;
-        public List<SaveGameProperty> SaveGamePropertyEntries = new List<SaveGameProperty>();
-        public uint GroupID;
-        public uint TypeID;
-        public uint InstanceID;
-        public byte UnknownFlag1;
-        public uint TextureID;
-        public byte Orientation;
-
-        public float MinSizeX1;
-        public float MaxSizeX1;
-        public float MinSizeY1;
-        public float MaxSizeY1;
-        public float MinSizeZ1;
-        public float MaxSizeZ1;
-
-        public float Pos1X;
-        public float Pos1Y;
-        public float Pos1Z;
-
-        public float Pos2X;
-        public float Pos2Y;
-        public float Pos2Z;
-
-        public float Pos3X;
-        public float Pos3Y;
-        public float Pos3Z;
-
-        public byte NetworkType;
-        public byte WestConnection;
-        public byte NorthConnection;
-        public byte EastConnection;
-        public byte SouthConnection;
-
-        public float MinSizeX2;
-        public float MaxSizeX2;
-        public float MinSizeY2;
-        public float MaxSizeY2;
-        public float MinSizeZ2;
-        public float MaxSizeZ2;
-
-        public uint ExtraBlocks;
-        public uint NetworkBlockCount1;
-        public uint NetworkBlockCount2;
-        public uint NetworkBlockCount3;
-        public uint NetworkBlockCount4;
-        public uint NetworkBlockCount5;
-        public NetworkBlock[] NetworkBlocks1;
-        public NetworkBlock[] NetworkBlocks2;
-        public NetworkBlock[] NetworkBlocks3;
-        public NetworkBlock[] NetworkBlocks4;
-        public NetworkBlock[] NetworkBlocks5;
-
-        public float Pos4X;
-        public float Pos4Y;
-        public float Pos4Z;
-
-        public byte UnknownFlag2;
-        public byte UnknownFlag3;
-        public byte UnknownFlag4;
-
-        public float Height1;
-        public float Height2;
-        public float Height3;
-        public float Height4;
-        public float Height5;
-
-        public uint FileTypeID;
-        public uint UnknownUint;
-
-        public TypeGroupInstance TGI = new TypeGroupInstance();
+        /// <summary>
+        /// Size of network tile entry
+        /// </summary>
+        public uint Size { get; private set; }
+        /// <summary>
+        /// Network tile's crc
+        /// </summary>
+        public uint CRC { get; private set; }
+        /// <summary>
+        /// Network tile's memory
+        /// </summary>
+        public uint Memory { get; private set; }
+        /// <summary>
+        /// Network tile's major version
+        /// </summary>
+        public ushort MajorVersion { get; private set; }
+        /// <summary>
+        /// Network tile's minor version
+        /// </summary>
+        public ushort MinorVersion { get; private set; }
+        /// <summary>
+        /// Unknown version 
+        /// </summary>
+        public ushort UnknownVersion1 { get; private set; }
+        /// <summary>
+        /// Unknown version
+        /// </summary>
+        public ushort UnknownVersion2 { get; private set; }
+        /// <summary>
+        /// Appearance flag of betwork tile
+        /// </summary>
+        /// <remarks>
+        /// Network tile can have the following appearance flag values:
+        ///     0x01 (00000001b) - Network that appears in the game (if this is off, the network has been deleted)
+        ///     0x02 (00000010b) - ? (unused)
+        ///     0x04 (00000100b) - ? (always on)
+        ///     0x08 (00001000b) - ? (unused)
+        ///     0x40 (01000000b) - The network is burnt
+        ///     0x80 (10000000b) - ? (unused)
+        /// </remarks>
+        public byte AppearanceFlag { get; private set; }
+        /// <summary>
+        /// Network tile's min x tract coordinate
+        /// </summary>
+        public byte MinTractX { get; private set; }
+        /// <summary>
+        /// Network tile's min z tract coordinate
+        /// </summary>
+        public byte MinTractZ { get; private set; }
+        /// <summary>
+        /// Network tile's max x tract coordinate
+        /// </summary>
+        public byte MaxTractX { get; private set; }
+        /// <summary>
+        /// Network tile's max z tract coordinate
+        /// </summary>
+        public byte MaxTractZ { get; private set; }
+        /// <summary>
+        /// Network tile's x tract size
+        /// </summary>
+        public ushort TractSizeX { get; private set; }
+        /// <summary>
+        /// Network tile's z tract size
+        /// </summary>
+        public ushort TractSizeZ { get; private set; }
+        /// <summary>
+        /// Number of save game properties (sigprops) attached to the network tile
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        public uint SaveGamePropertyCount { get; private set; }
+        /// <summary>
+        /// Network tile save game properties (if any)
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        public List<SaveGameProperty> SaveGamePropertyEntries { get; private set; } = new List<SaveGameProperty>();
+        /// <summary>
+        /// Network tile's Group ID
+        /// </summary>
+        public uint GroupID { get; private set; }
+        /// <summary>
+        /// Network tile's Type ID
+        /// </summary>
+        public uint TypeID { get; private set; }
+        /// <summary>
+        /// Network tile's Instance ID
+        /// </summary>
+        public uint InstanceID { get; private set; }
+        /// <summary>
+        /// Unknown flag 1
+        /// </summary>
+        public byte UnknownFlag1 { get; private set; }
+        /// <summary>
+        /// Network tile's Texture ID
+        /// </summary>
+        public uint TextureID { get; private set; }
+        /// <summary>
+        /// Network tile's orientation
+        /// </summary>
+        /// <seealso cref="Constants.ORIENTATION_STRINGS"/>
+        public byte Orientation { get; private set; }
 
         /// <summary>
-        /// 
+        /// Minimum x size of the Network tile (first set of sizes)
         /// </summary>
-        /// <param name="buffer"></param>
-        /// <param name="offset"></param>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeX2"/>
+        public float MinSizeX1 { get; private set; }
+        /// <summary>
+        /// Maximum x size of the Network tile (first set of sizes)
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeX2"/>
+        public float MaxSizeX1 { get; private set; }
+        /// <summary>
+        /// Minimum y size of the Network tile (first set of sizes)
+        /// </summary>
+        /// <remarks>
+        /// This to be a quarter of the network tile's size 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeY2"/>
+        public float MinSizeY1 { get; private set; }
+        /// <summary>
+        /// Maximum y size of the Network tile (first set of sizes)
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeY2"/>
+        public float MaxSizeY1 { get; private set; }
+        /// <summary>
+        /// Minimum z size of the Network tile (first set of sizes)
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeZ2"/>
+        public float MinSizeZ1 { get; private set; }
+        /// <summary>
+        /// Maximum z size of the Network tile (first set of sizes)
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeZ2"/>
+        public float MaxSizeZ1 { get; private set; }
+
+        /// <summary>
+        /// X coordinate for the first set of Network tile positions 
+        /// </summary>
+        /// <remark>
+        /// These positions may have something to do with varying heights at different
+        /// parts on the network tile (around the edges)
+        /// </remark>
+        public float Pos1X { get; private set; }
+        /// <summary>
+        /// Y coordinate for the first set of Network tile positions 
+        /// </summary>
+        /// <remark>
+        /// These positions may have something to do with varying heights at different
+        /// parts on the network tile (around the edges)
+        /// </remark>
+        public float Pos1Y { get; private set; }
+        /// <summary>
+        /// Z coordinate for the first set of Network tile positions 
+        /// </summary>
+        /// <remark>
+        /// These positions may have something to do with varying heights at different
+        /// parts on the network tile (around the edges)
+        /// </remark>
+        public float Pos1Z { get; private set; }
+
+        /// <summary>
+        /// X coordinate for the second set of Network tile positions 
+        /// </summary>
+        /// <remark>
+        /// These positions may have something to do with varying heights at different
+        /// parts on the network tile (around the edges)
+        /// </remark>
+        public float Pos2X { get; private set; }
+        /// <summary>
+        /// Y coordinate for the second set of Network tile positions 
+        /// </summary>
+        /// <remark>
+        /// These positions may have something to do with varying heights at different
+        /// parts on the network tile (around the edges)
+        /// </remark>
+        public float Pos2Y { get; private set; }
+        /// <summary>
+        /// Z coordinate for the second set of Network tile positions 
+        /// </summary>
+        /// <remark>
+        /// These positions may have something to do with varying heights at different
+        /// parts on the network tile (around the edges)
+        /// </remark>
+        public float Pos2Z { get; private set; }
+
+        /// <summary>
+        /// X coordinate for the third set of Network tile positions 
+        /// </summary>
+        /// <remark>
+        /// These positions may have something to do with varying heights at different
+        /// parts on the network tile (around the edges)
+        /// </remark>
+        public float Pos3X { get; private set; }
+        /// <summary>
+        /// Y coordinate for the third set of Network tile positions 
+        /// </summary>
+        /// <remark>
+        /// These positions may have something to do with varying heights at different
+        /// parts on the network tile (around the edges)
+        /// </remark>
+        public float Pos3Y { get; private set; }
+        /// <summary>
+        /// Z coordinate for the third set of Network tile positions 
+        /// </summary>
+        /// <remark>
+        /// These positions may have something to do with varying heights at different
+        /// parts on the network tile (around the edges)
+        /// </remark>
+        public float Pos3Z { get; private set; }
+
+        /// <summary>
+        /// The network tile's type
+        /// </summary>
+        /// <see cref="SC4Parser.Constants.NETWORK_TYPE_STRINGS"/>
+        public byte NetworkType { get; private set; }
+
+        /// <summary>
+        /// Specifies if the network tile is connected on it's west side
+        /// </summary>
+        /// <remarks>
+        /// 0x0 for false, 0x2 for true.
+        /// </remarks>
+        public byte WestConnection { get; private set; }
+        /// <summary>
+        /// Specifies if the network tile is connected on it's north side
+        /// </summary>
+        /// <remarks>
+        /// 0x0 for false, 0x2 for true.
+        /// </remarks>
+        public byte NorthConnection { get; private set; }
+        /// <summary>
+        /// Specifies if the network tile is connected on it's east side
+        /// </summary>
+        /// <remarks>
+        /// 0x0 for false, 0x2 for true.
+        /// </remarks>
+        public byte EastConnection { get; private set; }
+        /// <summary>
+        /// Specifies if the network tile is connected on it's south side
+        /// </summary>
+        /// <remarks>
+        /// 0x0 for false, 0x2 for true.
+        /// </remarks>
+        public byte SouthConnection { get; private set; }
+
+        /// <summary>
+        /// Minimum x size of the Network tile (second set of sizes)
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeX1"/>
+        public float MinSizeX2 { get; private set; }
+        /// <summary>
+        /// Maximum x size of the Network tile (second set of sizes)
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeX1"/>
+        public float MaxSizeX2 { get; private set; }
+        /// <summary>
+        /// Minimum y size of the Network tile (second set of sizes)
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeY1"/>
+        public float MinSizeY2 { get; private set; }
+        /// <summary>
+        /// Maximum y size of the Network tile (second set of sizes)
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeY1"/>
+        public float MaxSizeY2 { get; private set; }
+        /// <summary>
+        /// Minimum z size of the Network tile (second set of sizes)
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeZ1"/>
+        public float MinSizeZ2 { get; private set; }
+        /// <summary>
+        /// Maximum z size of the Network tile (second set of sizes)
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeZ1"/>
+        public float MaxSizeZ2 { get; private set; }
+
+        /// <summary>
+        /// Number of additional network blocks associated with the network tile
+        /// </summary>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        public uint ExtraBlocks { get; private set; }
+        /// <summary>
+        /// Number of blocks in the first set of network blocks
+        /// </summary>
+        /// <remarks>
+        /// Min 0 blocks, max 4 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        public uint NetworkBlockCount1 { get; private set; }
+        /// <summary>
+        /// Number of blocks in the second set of network blocks
+        /// </summary>
+        /// <remarks>
+        /// Min 0 blocks, max 4 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        public uint NetworkBlockCount2 { get; private set; }
+        /// <summary>
+        /// Number of blocks in the third set of network blocks
+        /// </summary>
+        /// <remarks>
+        /// Min 0 blocks, max 4 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        public uint NetworkBlockCount3 { get; private set; }
+        /// <summary>
+        /// Number of blocks in the fourth set of network blocks
+        /// </summary>
+        /// <remarks>
+        /// Min 0 blocks, max 4 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        public uint NetworkBlockCount4 { get; private set; }
+        /// <summary>
+        /// Number of blocks in the fifth set of network blocks
+        /// </summary>
+        /// <remarks>
+        /// Min 0 blocks, max 4 
+        /// </remarks>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        public uint NetworkBlockCount5 { get; private set; }
+
+        /// <summary>
+        /// First set of network blocks
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
+        public NetworkBlock[] NetworkBlocks1 { get; private set; }
+        /// <summary>
+        /// Second set of network blocks
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
+        public NetworkBlock[] NetworkBlocks2 { get; private set; }
+        /// <summary>
+        /// Third set of network blocks
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
+        public NetworkBlock[] NetworkBlocks3 { get; private set; }
+        /// <summary>
+        /// Fourth set of network blocks
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
+        public NetworkBlock[] NetworkBlocks4 { get; private set; }
+        /// <summary>
+        /// Fifth set of network blocks
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
+        public NetworkBlock[] NetworkBlocks5 { get; private set; }
+
+        /// <summary>
+        /// X coordinate for the fourth set of Network tile positions 
+        /// </summary>
+        public float Pos4X { get; private set; }
+        /// <summary>
+        /// Y coordinate for the fourth set of Network tile positions 
+        /// </summary>
+        public float Pos4Y { get; private set; }
+        /// <summary>
+        /// Z coordinate for the fourth set of Network tile positions 
+        /// </summary>
+        public float Pos4Z { get; private set; }
+
+        /// <summary>
+        /// Unknown flag 2
+        /// </summary>
+        public byte UnknownFlag2 { get; private set; }
+        /// <summary>
+        /// Unknown flag 3
+        /// </summary>
+        public byte UnknownFlag3 { get; private set; }
+        /// <summary>
+        /// Unknown flag 4
+        /// </summary>
+        public byte UnknownFlag4 { get; private set; }
+
+        /// <summary>
+        /// Network tile height value 1
+        /// </summary>
+        /// <remarks>
+        /// Usage unknown
+        /// </remarks>
+        public float Height1 { get; private set; }
+        /// <summary>
+        /// Network tile height value 2
+        /// </summary>
+        /// <remarks>
+        /// Usage unknown
+        /// </remarks>
+        public float Height2 { get; private set; }
+        /// <summary>
+        /// Network tile height value 3
+        /// </summary>
+        /// <remarks>
+        /// Usage unknown
+        /// </remarks>
+        public float Height3 { get; private set; }
+        /// <summary>
+        /// Network tile height value 4
+        /// </summary>
+        /// <remarks>
+        /// Usage unknown
+        /// </remarks>
+        public float Height4 { get; private set; }
+        /// <summary>
+        /// Network tile height value 5
+        /// </summary>
+        /// <remarks>
+        /// Usage unknown
+        /// </remarks>
+        public float Height5 { get; private set; }
+
+        /// <summary>
+        /// File's type ID
+        /// </summary>
+        /// <remarks>
+        /// Should always be 0xCA16374F
+        /// </remarks>
+        public uint FileTypeID { get; private set; }
+        /// <summary>
+        /// Unknown uint at the end of the network tile entry
+        /// </summary>
+        /// <remarks>
+        /// Should always be 0x0000000
+        /// </remarks>
+        public uint UnknownUint { get; private set; }
+
+        /// <summary>
+        /// TypeGroupInstance (TGI) of network tile
+        /// </summary>
+        /// <remarks>
+        /// Same as typeid, groupid and instanceid from this entry. Just included it for accessibility
+        /// </remarks>
+        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
+        public TypeGroupInstance TGI { get; private set; } = new TypeGroupInstance();
+
+        /// <summary>
+        /// Parses a network tile (from network subfile 2) from a byte array.
+        /// </summary>
+        /// <param name="buffer">buffer to parse from</param>
+        /// <param name="offset">offset to start parsing at in the buffer</param>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
+        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
         public void Parse(byte[] buffer, uint offset)
         {
             uint internalOffset = offset;
+
+            // Ok why does this look different I hear the voice in my head ask?
+            // Well I got sick of manually tracking the offset (especially for a file so big that can vary in size so much)
+            // so I wrote a function Extensions.ReadBytes to copy bytes from the buffer into it's own array at the offset 
+            // and automatically increment the offset, saves like 3 per entry... but look at that indentation tho
 
             Size                        = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             CRC                         = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
@@ -283,7 +711,7 @@ namespace SC4Parser.DataStructures
         }
 
         /// <summary>
-        /// 
+        /// Prints out the contents of the network tile
         /// </summary>
         public void Dump()
         {

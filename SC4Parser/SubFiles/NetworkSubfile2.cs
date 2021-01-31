@@ -11,23 +11,42 @@ namespace SC4Parser.Subfiles
 {
     public class NetworkSubfile2
     {
-        public List<NetworkTile2> NetworkTiles = new List<NetworkTile2>();
+        /// <summary>
+        /// Contains all network tiles in the network subfile
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.NetworkTile2"/>
+        public List<NetworkTile2> NetworkTiles { get; private set; } = new List<NetworkTile2>();
 
+        /// <summary>
+        /// Read network subfile 2 from a byte array
+        /// </summary>
+        /// <param name="buffer">Data to read subfile from</param>
+        /// <param name="size">Size of the subfile</param>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer, int size)
         {
             uint bytesToRead = Convert.ToUInt32(size);
             uint offset = 0;
 
+            // Loop through each byte in the subfile
             while (bytesToRead > 0)
             {
+                // Work out the current tile size 
                 uint recordSize = BitConverter.ToUInt32(buffer, (int)offset);
 
-                NetworkTile2 tile = new NetworkTile2();
+                // Copy tile data out into it's own array
                 byte[] tileBuffer = new byte[recordSize];
                 Array.Copy(buffer, offset, tileBuffer, 0, (int)recordSize);
+
+                // Parse and add to list
+                NetworkTile2 tile = new NetworkTile2();
                 tile.Parse(tileBuffer, 0);
                 NetworkTiles.Add(tile);
 
+                // Record how much we have read and how far we have gone and move on
+                // (deep)
                 offset += recordSize;
                 bytesToRead -= recordSize;
 
@@ -40,6 +59,9 @@ namespace SC4Parser.Subfiles
             }
         }
 
+        /// <summary>
+        /// Prints out the contents of the subfile
+        /// </summary>
         public void Dump()
         {
             foreach (var tile in NetworkTiles)
