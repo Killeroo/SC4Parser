@@ -14,6 +14,8 @@ namespace SC4Parser.Subfiles
     /// 
     /// Implemented and references additional data from https://wiki.sc4devotion.com/index.php?title=Network_Subfiles.
     /// </remarks>
+    /// <seealso cref="SC4Parser.DataStructures.NetworkTile1"/>
+    /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
     public class NetworkSubfile1
     {
         /// <summary>

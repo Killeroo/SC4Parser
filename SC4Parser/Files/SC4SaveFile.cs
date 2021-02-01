@@ -38,6 +38,7 @@ namespace SC4Parser.Files
     ///     savegame.Header.MinorVersion);
     /// </c>
     /// </example>
+    /// <seealso cref="SC4Parser.Files.DatabasePackedFile"/>
     public class SC4SaveFile : DatabasePackedFile
     {
         // Cached subfiles for easy access after they have been loaded the first time.
@@ -48,7 +49,6 @@ namespace SC4Parser.Files
         private TerrainMapSubfile m_CachedTerrainMapSubfile = null;
         private NetworkSubfile1 m_CachedNetworkSubfile1 = null;
         private NetworkSubfile2 m_CachedNetworkSubfile2 = null;
-        private List<NetworkTile1> m_CachedNetworkTiles = null;
 
         /// <summary>
         /// Default constructor for SC4Save, that takes a save game's path to load from
@@ -77,6 +77,7 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
+        /// <seealso cref="SC4Parser.Files.DatabasePackedFile"/>
         public SC4SaveFile(string path) : base(path) { }
 
         /// <summary>
@@ -114,6 +115,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
+        /// <seealso cref="SC4Parser.Subfiles.LotSubfile"/>
+        /// <seealso cref="SC4Parser.DataStructures.Lot"/>
         public LotSubfile GetLotSubfile()
         {
             if (m_CachedLotSubfile != null)
@@ -180,6 +183,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
+        /// <seealso cref="SC4Parser.Subfiles.BuildingSubfile"/>
+        /// <seealso cref="SC4Parser.DataStructures.Building"/>
         public BuildingSubfile GetBuildingSubfile()
         {
             if (m_CachedBuildingSubfile != null)
@@ -254,6 +259,7 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
+        /// <seealso cref="SC4Parser.Subfiles.RegionViewSubfile"/>
         public RegionViewSubfile GetRegionViewSubfile()
         {
             if (m_CachedRegionViewSubfile != null)
@@ -290,7 +296,9 @@ namespace SC4Parser.Files
         /// Returns Terrain Map Subfile from the SC4 save game 
         /// </summary>
         /// <returns>Terrain Map Subfile from the SC4 save</returns>
-        /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
+        /// <exception cref="SC4Parser.SubfileNotFoundException">
+        /// Returned when there is an issue with loading or finding the subfile
+        /// </exception>
         /// <example>
         /// <c>
         /// // Load save game
@@ -312,10 +320,11 @@ namespace SC4Parser.Files
         /// }
         /// catch (SubfileNotFoundException)
         /// {
-        ///     Console.Writeline("Could not find subfile");
+        ///     Console.Writeline("Could not find or load subfile");
         /// }
         /// </c>
         /// </example>
+        /// <seealso cref="SC4Parser.Subfiles.TerrainMapSubfile"/>
         public TerrainMapSubfile GetTerrainMapSubfile()
         {
             if (m_CachedTerrainMapSubfile != null)
@@ -351,7 +360,41 @@ namespace SC4Parser.Files
                 throw new SubfileNotFoundException($"Could not load TerrainMap subfile", e);
             }
         }
-
+        /// <summary>
+        /// Returns Network Subfile 1 from the SC4 save game
+        /// </summary>
+        /// <returns>Network Subfile from the SC4 save game </returns>
+        /// <exception cref="SC4Parser.SubfileNotFoundException">
+        /// Returned when there is an issue with loading or finding the subfile
+        /// </exception>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// SC4SaveFile savegame;
+        /// try
+        /// {
+        ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// // Fetch the network subfile
+        /// NetworkSubfile1 network1Subfile = null
+        /// try 
+        /// {
+        ///     network1Subfile = savegame.GetNetworkSubfile1();
+        /// }
+        /// catch (SubfileNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find or load subfile");
+        /// }
+        /// </c>
+        /// </example>
+        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile1"/>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile1"/>
         public NetworkSubfile1 GetNetworkSubfile1()
         {
             if (m_CachedNetworkSubfile1 != null)
@@ -391,7 +434,41 @@ namespace SC4Parser.Files
                 throw new SubfileNotFoundException($"Could not load Network subfile 1 ", e);
             }
         }
-
+        /// <summary>
+        /// Returns Network Subfile 2 from the SC4 save game
+        /// </summary>
+        /// <returns>Network Subfile from the SC4 save game </returns>
+        /// <exception cref="SC4Parser.SubfileNotFoundException">
+        /// Returned when there is an issue with loading or finding the subfile
+        /// </exception>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// SC4SaveFile savegame;
+        /// try
+        /// {
+        ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// // Fetch the network subfile
+        /// NetworkSubfile2 network2Subfile = null
+        /// try 
+        /// {
+        ///     network2Subfile = savegame.GetNetworkSubfile2();
+        /// }
+        /// catch (SubfileNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find or load subfile");
+        /// }
+        /// </c>
+        /// </example>
+        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2"/>
         public NetworkSubfile2 GetNetworkSubfile2()
         {
             if (m_CachedNetworkSubfile2 != null)
@@ -431,31 +508,5 @@ namespace SC4Parser.Files
                 throw new SubfileNotFoundException($"Could not load Network subfile 2 ", e);
             }
         }
-
-
-
-        //GetList of terrain tiles
-        //public List<NetworkTile> GetNetworkTiles()
-        //{
-        //    if (m_CachedNetworkTiles != null)
-        //    {
-        //        Logger.Log(LogLevel.Info, "Returning cached network tiles");
-        //        return m_CachedNetworkTiles;
-        //    }
-
-        //    try
-        //    {
-
-        //    }
-        //    catch (IndexEntryNotFoundException e)
-        //    {
-        //        Console.WriteLine(e);
-        //        throw;
-        //    }
-        //    catch (IndexEntryLoadingException e)
-        //    {
-
-        //    }
-        //}
     }
 }
