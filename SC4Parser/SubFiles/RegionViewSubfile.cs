@@ -85,7 +85,7 @@ namespace SC4Parser.Subfiles
         /// </exception>
         public void Parse(byte[] buffer)
         {
-            Logger.Log(LogLevel.Info, "Parsing RegionView Subfile...");
+            Logger.Log(LogLevel.Info, "Parsing RegionView subfile...");
 
             MajorVersion = BitConverter.ToUInt16(buffer, 0);
             MinorVersion = BitConverter.ToUInt16(buffer, 2);
@@ -101,7 +101,7 @@ namespace SC4Parser.Subfiles
             CommercialPopulation = BitConverter.ToUInt32(buffer, 24);
             IndustrialPopulation = BitConverter.ToUInt32(buffer, 28);
 
-            Logger.Log(LogLevel.Info, "RegionView Subfile parsed");
+            Logger.Log(LogLevel.Info, "RegionView subfile parsed");
         }
 
         /// <summary>

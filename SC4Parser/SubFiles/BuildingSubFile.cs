@@ -46,7 +46,7 @@ namespace SC4Parser.Subfiles
         /// </exception>
         public void Parse(byte[] buffer, int size)
         {
-            Logger.Log(LogLevel.Info, "Parsing Building Subfile...");
+            Logger.Log(LogLevel.Info, "Parsing Building subfile...");
 
             uint bytesToRead = Convert.ToUInt32(size);
             uint offset = 0;
@@ -74,7 +74,7 @@ namespace SC4Parser.Subfiles
                 Logger.Log(LogLevel.Warning, "Not all building have been read from Building Subfile (" + bytesToRead + " bytes left)");
             }
 
-            Logger.Log(LogLevel.Info, "Parsed Building Subfile");
+            Logger.Log(LogLevel.Info, "Parsed Building subfile");
         }
 
         /// <summary>
