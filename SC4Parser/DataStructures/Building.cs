@@ -303,17 +303,17 @@ namespace SC4Parser.DataStructures
             }
 
             Console.WriteLine("Unknown2: {0}", Unknown2);
-            Console.WriteLine("Group ID: {0} [0x{1}]", GroupID, GroupID.ToString("x8"));
-            Console.WriteLine("Type ID: {0} [0x{1}]", TypeID, TypeID.ToString("x8"));
-            Console.WriteLine("Instance ID: {0} [0x{1}]", InstanceID, InstanceID.ToString("x8"));
-            Console.WriteLine("Instance ID (on appearance): {0} [0x{1}]", InstanceIDOnAppearance, InstanceIDOnAppearance.ToString("x8"));
+            Console.WriteLine("Group ID: {0} (0x{1})", GroupID, GroupID.ToString("x8"));
+            Console.WriteLine("Type ID: {0} (0x{1})", TypeID, TypeID.ToString("x8"));
+            Console.WriteLine("Instance ID: {0} (0x{1})", InstanceID, InstanceID.ToString("x8"));
+            Console.WriteLine("Instance ID (on appearance): {0} (0x{1})", InstanceIDOnAppearance, InstanceIDOnAppearance.ToString("x8"));
             Console.WriteLine("Min Coordinate X: {0}", MinCoordinateX);
             Console.WriteLine("Min Coordinate Y: {0}", MinCoordinateY);
             Console.WriteLine("Min Coordinate Z: {0}", MinCoordinateZ);
             Console.WriteLine("Max Coordinate X: {0}", MaxCoordinateX);
             Console.WriteLine("Max Coordinate Y: {0}", MaxCoordinateY);
             Console.WriteLine("Max Coordinate Z: {0}", MaxCoordinateZ);
-            Console.WriteLine("Orientation: {0} [{1}]", Orientation, Constants.ORIENTATION_STRINGS[Orientation]);
+            Console.WriteLine("Orientation: {0} ({1})", Orientation, Constants.ORIENTATION_STRINGS[Orientation]);
             Console.WriteLine("Scaffolding Height: {0}", ScaffoldingHeight);
             Console.WriteLine("Prop Exemplar Reference: {0}", TGI.ToString());
         }
