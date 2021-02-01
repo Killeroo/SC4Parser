@@ -68,6 +68,8 @@ namespace SC4Parser.Subfiles
             SizeX = xSize + 1;
             SizeY = ySize + 1;
 
+            Logger.Log(LogLevel.Info, "Parsing TerrainMap Subfile...");
+
             MajorVersion = BitConverter.ToUInt16(buffer, 0);
 
             // Loop through rest of file and save to out array
@@ -88,6 +90,8 @@ namespace SC4Parser.Subfiles
                         buffer.Length);
                 }
             }
+
+            Logger.Log(LogLevel.Info, "TerrainMap Subfile parsed");
 
         }
 

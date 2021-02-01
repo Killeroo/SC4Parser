@@ -48,6 +48,8 @@ namespace SC4Parser.Subfiles
         /// </exception>
         public void Parse(byte[] buffer, int size)
         {
+            Logger.Log(LogLevel.Info, "Parsing Lot Subfile...");
+
             uint bytesToRead = Convert.ToUInt32(size);
             uint offset = 0;
 
@@ -71,6 +73,8 @@ namespace SC4Parser.Subfiles
             {
                 Logger.Log(LogLevel.Warning, "Not all lots have been read from lot subfile (" + bytesToRead + " bytes left)");
             }
+
+            Logger.Log(LogLevel.Info, "Lot Subfile parsed");
         }
 
         /// <summary>
