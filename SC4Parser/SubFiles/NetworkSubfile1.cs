@@ -70,6 +70,20 @@ namespace SC4Parser.Subfiles
             Logger.Log(LogLevel.Info, "Network subfile 1 parsed");
         }
 
+        public NetworkTile1 FindTile(uint memoryReference)
+        {
+            foreach (var tile in NetworkTiles)
+            {
+                if (tile.Memory == memoryReference)
+                {
+                    Console.WriteLine("found reference");
+                    return tile;
+                }
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Prints out the contents of the subfile
         /// </summary>
