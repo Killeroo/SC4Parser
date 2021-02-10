@@ -144,7 +144,11 @@ namespace SC4Parser
         public static Dictionary<byte, string> NETWORK_TYPE_STRINGS = new Dictionary<byte, string>
         {
             {0x00, "Road"},
-            {0x03, "Road"},
+            {0x01, "Rail"},
+            {0x03, "Street"},
+            {0x06, "Avenue"},
+            {0x07, "Subway"},
+            {0x0A, "One Way Road"},
         };
 
         /// <summary>
