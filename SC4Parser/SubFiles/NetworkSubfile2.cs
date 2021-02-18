@@ -37,7 +37,7 @@ namespace SC4Parser.Subfiles
         /// </exception>
         public void Parse(byte[] buffer, int size)
         {
-            Logger.Log(LogLevel.Info, "Parsing Network subfile 1...");
+            Logger.Log(LogLevel.Info, "Parsing Network subfile 2...");
 
             uint bytesToRead = Convert.ToUInt32(size);
             uint offset = 0;
