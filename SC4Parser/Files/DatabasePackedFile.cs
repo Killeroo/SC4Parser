@@ -579,7 +579,7 @@ namespace SC4Parser.Files
         /// IndexEntry entry = null;
         /// try 
         /// {
-        ///     save.FindIndexEntry(terrainTGI);
+        ///     entry = save.FindIndexEntry(terrainTGI);
         /// }
         /// catch (IndexEntryNotFoundException)
         /// {
