@@ -81,6 +81,121 @@ namespace SC4Parser.Files
         public SC4SaveFile(string path) : base(path) { }
 
         /// <summary>
+        /// Checks if the save game contains a Lot Subfile
+        /// </summary>
+        /// <returns>true if the subfile is present</returns>
+        public bool ContainsLotSubfile()
+        {
+            Logger.Log(LogLevel.Info, "Checking for Lots subfile...");
+
+            try
+            {
+                FindIndexEntryWithType(Constants.LOT_SUBFILE_TYPE);
+
+                return true;
+            }
+            catch (IndexEntryNotFoundException)
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Checks if the save game contains a Buildings Subfile
+        /// </summary>
+        /// <returns>true if the subfile is present</returns>
+        public bool ContainsBuildingsSubfile()
+        {
+            Logger.Log(LogLevel.Info, "Checking for Buildings subfile...");
+
+            try
+            {
+                FindIndexEntryWithType(Constants.BUILDING_SUBFILE_TYPE);
+
+                return true;
+            }
+            catch (IndexEntryNotFoundException)
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Checks if the save game contains a Region View subfile
+        /// </summary>
+        /// <returns>true if the subfile is present</returns>
+        public bool ContainsRegionViewSubfile()
+        {
+            Logger.Log(LogLevel.Info, "Checking for Region View subfile...");
+
+            try
+            {
+                FindIndexEntry(Constants.REGION_VIEW_SUBFILE_TGI);
+
+                return true;
+            }
+            catch (IndexEntryNotFoundException)
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Checks if the save game contains a Terrain Map subfile
+        /// </summary>
+        /// <returns>true if the subfile is present</returns>
+        public bool ContainsTerrainMapSubfile()
+        {
+            Logger.Log(LogLevel.Info, "Checking for Terrain Map subfile...");
+
+            try
+            {
+                FindIndexEntry(Constants.TERRAIN_MAP_SUBFILE_TGI);
+
+                return true;
+            }
+            catch (IndexEntryNotFoundException)
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Checks if the save game contains a Network subfile 1
+        /// </summary>
+        /// <returns>true if the subfile is present</returns>
+        public bool ContainsNetworkSubfile1()
+        {
+            Logger.Log(LogLevel.Info, "Checking for Network Subfile 1...");
+
+            try
+            {
+                FindIndexEntryWithType(Constants.NETWORK_SUBFILE_1_TYPE);
+
+                return true;
+            }
+            catch (IndexEntryNotFoundException)
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Checks if the save game contains a Network subfile 2
+        /// </summary>
+        /// <returns>true if the subfile is present</returns>
+        public bool ContainsNetworkSubfile2()
+        {
+            Logger.Log(LogLevel.Info, "Checking for Network Subfile 2...");
+
+            try
+            {
+                FindIndexEntryWithType(Constants.NETWORK_SUBFILE_2_TYPE);
+
+                return true;
+            }
+            catch (IndexEntryNotFoundException)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Retrieves Lot Subfile from the SC4 save game 
         /// </summary>
         /// <returns>Lot subfile from the SC4 save</returns>
