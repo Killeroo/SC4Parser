@@ -49,6 +49,10 @@ namespace SC4Parser
         /// </summary>
         /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
         public static readonly string NETWORK_SUBFILE_2_TYPE = "CA16374F";
+        /// <summary>
+        /// Type ID of the bridge network subfile
+        /// </summary>
+        public static readonly string BRIDGE_NETWORK_SUBFILE_TYPE = "49CC1BCD";
 
         /// <summary>
         /// Orientations used by SimCity 4 save game items as strings
