@@ -36,7 +36,6 @@ using SC4Parser.Subfiles;
 
 namespace SC4Parser
 {
-
     class Program
     {
         static void Main(string[] args)
@@ -48,7 +47,7 @@ namespace SC4Parser
 
             SC4SaveFile save =
                 new SC4SaveFile(//@"C:\Users\Shadowfax\Downloads\City - Terraforming Tutorial.sc4");
-                               // "C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Interpol.sc4");
+                               //"C:\\Users\\Shadowfax\\Documents\\SimCity 4\\Regions\\London\\City - Interpol.sc4");
              @"C:\Users\Shadowfax\Documents\SimCity 4\Regions\San Francisco\City - Tendore.sc4");
             //var regionData = save.GetRegionViewSubfile();
             ////var terrainData = save.GetTerrainMapSubfile();
@@ -91,13 +90,14 @@ namespace SC4Parser
             //var file = save.GetNetworkSubfile2();
             //file.Dump();
 
+            //var file2 = save.GetBuildingSubfile();
             var file1 = save.GetNetworkSubfile1();
-            var file2 = save.GetNetworkSubfile2();
+            //var file2 = save.GetNetworkSubfile2();
 
-            var indexEntry = save.FindIndexEntryWithType("6A0F82B2");
-            byte[] data = save.LoadIndexEntry(indexEntry);
-            NetworkIndex networkIndexFile = new NetworkIndex();
-            networkIndexFile.Parse(data, file1, file2);
+            //var indexEntry = save.FindIndexEntryWithType("6A0F82B2");
+            //byte[] data = save.LoadIndexEntry(indexEntry);
+            //NetworkIndex networkIndexFile = new NetworkIndex();
+            //networkIndexFile.Parse(data, file1, file2);
 
             //IndexEntry en = save.FindIndexEntryWithType(Constants.NETWORK_SUBFILE_1_TYPE); 
             //byte[] networkFile = save.LoadIndexEntry(en.TGI);// new TypeGroupInstance("8A2482B9", "4A2482BB", "0"));
