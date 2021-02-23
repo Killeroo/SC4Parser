@@ -74,6 +74,11 @@ namespace SC4Parser.Subfiles
             Logger.Log(LogLevel.Info, "Network Subfile 2 parsed");
         }
 
+        /// <summary>
+        /// Checks to see if a tile with a given memory address is present in the file
+        /// </summary>
+        /// <param name="memoryReference">Memory address to look for</param>
+        /// <returns>Tile that has the given memory address, null if nothing is found</returns>
         public NetworkTile2 FindTile(uint memoryReference)
         {
             foreach (var tile in NetworkTiles)
