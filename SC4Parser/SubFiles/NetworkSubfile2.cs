@@ -10,7 +10,7 @@ using SC4Parser.Logging;
 namespace SC4Parser.Subfiles
 {
     /// <summary>
-    /// Implementation of Network Subfile 2. Network subfile 2 seems to contain all the network tiles that are below or above ground (bridges, tunnels etc).
+    /// Implementation of Network Subfile 2. Network subfile 2 seems to contain all the network tiles that are below (Subways).
     /// </summary>
     /// <remarks>
     /// Actual implementation of tiles found in this file can be found in DataStructure\NetworkTile2.cs
