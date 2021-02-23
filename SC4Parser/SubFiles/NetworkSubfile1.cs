@@ -43,6 +43,7 @@ namespace SC4Parser.Subfiles
             while (bytesToRead > 0)
             {
                 // Work out the current tile size 
+                // (each tile is stored one after another in the file with the size of tile at the beginning)
                 uint recordSize = BitConverter.ToUInt32(buffer, (int)offset);
 
                 // Copy tile data out into it's own array
@@ -59,7 +60,7 @@ namespace SC4Parser.Subfiles
                 offset += recordSize;
                 bytesToRead -= recordSize;
                 
-                Logger.Log(LogLevel.Debug, $"Network tile read ({size}) got {bytesToRead}/{size} bytes left");
+                Logger.Log(LogLevel.Debug, $"Network tile read ({recordSize}) got {bytesToRead}/{size} bytes left");
             }
 
             if (bytesToRead != 0)
