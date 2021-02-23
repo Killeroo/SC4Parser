@@ -21,53 +21,53 @@ namespace SC4Parser.DataStructures
     /// <seealso cref="SC4Parser.DataStructures.NetworkTile2"/>
     public class BridgeNetworkTile
     {
-        uint RecordSize;
-        uint CRC;
-        uint Memory;
-        ushort UnknownVersion1;
-        ushort UnknownVersion2;
-        ushort ZotBytes;
-        byte AppearanceFlag;
-        uint C772BF98;
-        byte MinTractXCoordinate;
-        byte MinTractZCoordinate;
-        byte MaxTractXCoordinate;
-        byte MaxTractZCoordinate;
-        ushort TractSizeX;
-        ushort TractSizeZ;
-        uint TextureID;
-        byte Orientation;
-        byte NetworkType;
-        byte WestConnection;
-        byte NorthConnection;
-        byte EastConnection;
-        byte SouthConnection;
+        public uint RecordSize;
+        public uint CRC;
+        public uint Memory;
+        public ushort UnknownVersion1;
+        public ushort UnknownVersion2;
+        public ushort ZotBytes;
+        public byte AppearanceFlag;
+        public uint C772BF98;
+        public byte MinTractXCoordinate;
+        public byte MinTractZCoordinate;
+        public byte MaxTractXCoordinate;
+        public byte MaxTractZCoordinate;
+        public ushort TractSizeX;
+        public ushort TractSizeZ;
+        public uint TextureID;
+        public byte Orientation;
+        public byte NetworkType;
+        public byte WestConnection;
+        public byte NorthConnection;
+        public byte EastConnection;
+        public byte SouthConnection;
 
-        uint SaveGamePropertyCount;
-        List<SaveGameProperty> SaveGamePropertyEntries = new List<SaveGameProperty>();
+        public uint SaveGamePropertyCount;
+        public List<SaveGameProperty> SaveGamePropertyEntries = new List<SaveGameProperty>();
 
-        float MaxSizeX;
-        float MaxSizeY;
-        float MaxSizeZ;
-        float MinSizeX;
-        float MinSizeY;
-        float MinSizeZ;
+        public float MaxSizeX;
+        public float MaxSizeY;
+        public float MaxSizeZ;
+        public float MinSizeX;
+        public float MinSizeY;
+        public float MinSizeZ;
 
-        float PosX1;
-        float PosY1;
-        float PosZ1;
+        public float PosX1;
+        public float PosY1;
+        public float PosZ1;
                    
-        float PosX2;
-        float PosY2;
-        float PosZ2;
+        public float PosX2;
+        public float PosY2;
+        public float PosZ2;
 
-        float PosX3;
-        float PosY3;
-        float PosZ3;
+        public float PosX3;
+        public float PosY3;
+        public float PosZ3;
 
-        float PosX4;
-        float PosY4;
-        float PosZ4;
+        public float PosX4;
+        public float PosY4;
+        public float PosZ4;
 
         /// <summary>
         /// Parses a bridge network tile (from Bridge network subfile) from a byte array
