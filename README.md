@@ -15,6 +15,7 @@ Because DBPF files were used for save games for other maxis games (Sims 3, Spore
   - [TerrainMap Subfile](https://github.com/sebamarynissen/sc4/blob/227aecdd01fedd78059a4114e6b0a1e9b6bd50a0/lib/terrain-map.js#L19) (*Fully Implemented*)
   - [Network Subfile 1](https://wiki.sc4devotion.com/index.php?title=Network_Subfiles) (*Fully Implemented*)
   - [Network Subfile 2](https://wiki.sc4devotion.com/index.php?title=Network_Subfiles) (*Fully Implemented*)
+  - Bridge Network Subfile (*Partially Implemented*)
   - [Lots Subfile](https://wiki.sc4devotion.com/index.php?title=Lot_Subfile) (*Partially Implemented*)
   - [RegionView Subfile](https://wiki.sc4devotion.com/index.php?title=Region_View_Subfiles) (*Partially Implemented*)
 
@@ -52,8 +53,10 @@ As mentioned, this library was not intended to implement all subfiles contained 
   - [TerrainMap Subfile](https://github.com/sebamarynissen/sc4/blob/227aecdd01fedd78059a4114e6b0a1e9b6bd50a0/lib/terrain-map.js#L19) (*Fully Implemented*)
   - [Network Subfile 1](https://wiki.sc4devotion.com/index.php?title=Network_Subfiles) (*Fully Implemented*)
   - [Network Subfile 2](https://wiki.sc4devotion.com/index.php?title=Network_Subfiles) (*Fully Implemented*)
+  - Bridge Network Subfile (*Partially Implemented*)
   - [Lots Subfile](https://wiki.sc4devotion.com/index.php?title=Lot_Subfile) (*Partially Implemented*)
   - [RegionView Subfile](https://wiki.sc4devotion.com/index.php?title=Region_View_Subfiles) (*Partially Implemented*)
+  - [Network Index Subfile](https://wiki.sc4devotion.com/index.php?title=Network_Subfiles) (*Very Incomplete, do not use*)
   
 Most information included in the library or source came from write ups found at https://wiki.sc4devotion.com
 
