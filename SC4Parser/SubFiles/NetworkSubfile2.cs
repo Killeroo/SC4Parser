@@ -37,7 +37,7 @@ namespace SC4Parser.Subfiles
         /// </exception>
         public void Parse(byte[] buffer, int size)
         {
-            Logger.Log(LogLevel.Info, "Parsing Network subfile 2...");
+            Logger.Log(LogLevel.Info, "Parsing Network Subfile 2...");
 
             uint bytesToRead = Convert.ToUInt32(size);
             uint offset = 0;
@@ -46,6 +46,7 @@ namespace SC4Parser.Subfiles
             while (bytesToRead > 0)
             {
                 // Work out the current tile size 
+                // (each tile is stored one after another in the file with the size of tile at the beginning)
                 uint recordSize = BitConverter.ToUInt32(buffer, (int)offset);
 
                 // Copy tile data out into it's own array
@@ -62,7 +63,7 @@ namespace SC4Parser.Subfiles
                 offset += recordSize;
                 bytesToRead -= recordSize;
 
-                Logger.Log(LogLevel.Debug, $"Network tile read ({size}) got {bytesToRead}/{size} bytes left");
+                Logger.Log(LogLevel.Debug, $"Network tile read ({recordSize}) got {bytesToRead}/{size} bytes left");
             }
 
             if (bytesToRead != 0)
@@ -70,7 +71,7 @@ namespace SC4Parser.Subfiles
                 Logger.Log(LogLevel.Warning, $"Not all network tiles read from Network Subfile 2 ({bytesToRead} left)");
             }
 
-            Logger.Log(LogLevel.Info, "Network subfile 1 parsed");
+            Logger.Log(LogLevel.Info, "Network Subfile 2 parsed");
         }
 
         public NetworkTile2 FindTile(uint memoryReference)

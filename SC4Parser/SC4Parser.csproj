@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="DataStructures\BridgeNetworkTile.cs" />
     <Compile Include="DataStructures\NetworkTile1.cs" />
     <Compile Include="DataStructures\NetworkTile2.cs" />
     <Compile Include="Exceptions.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Files\DatabasePackedFile.cs" />
     <Compile Include="DataStructures\DatabasePackedFileHeader.cs" />
     <Compile Include="DataStructures\Lot.cs" />
+    <Compile Include="Subfiles\BridgeNetworkSubfile.cs" />
     <Compile Include="Subfiles\LotSubfile.cs" />
     <Compile Include="DataStructures\IndexEntry.cs" />
     <Compile Include="DataStructures\SaveGameProperty.cs" />
