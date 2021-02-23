@@ -34,7 +34,7 @@ namespace SC4Parser.Subfiles
         /// </exception>
         public void Parse(byte[] buffer, int size)
         {
-            Logger.Log(LogLevel.Info, "Parsing Network subfile 1...");
+            Logger.Log(LogLevel.Info, "Parsing Network Subfile 1...");
 
             uint bytesToRead = Convert.ToUInt32(size);
             uint offset = 0;
@@ -68,7 +68,7 @@ namespace SC4Parser.Subfiles
                 Logger.Log(LogLevel.Warning, $"Not all network tiles read from Network Subfile 1 ({bytesToRead} left)");
             }
 
-            Logger.Log(LogLevel.Info, "Network subfile 1 parsed");
+            Logger.Log(LogLevel.Info, "Network Subfile 1 parsed");
         }
 
         public NetworkTile1 FindTile(uint memoryReference)
