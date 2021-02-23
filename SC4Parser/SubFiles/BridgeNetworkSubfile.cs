@@ -9,6 +9,11 @@ using SC4Parser.Logging;
 
 namespace SC4Parser.Subfiles
 {
+    /// <summary>
+    /// Implementation of the Bridge Network Subfile. This file contains all bridge network tiles in a city.
+    /// </summary>
+    /// <seealso cref="SC4Parser.DataStructures.BridgeNetworkTile"/>
+    /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile1"/>
     public class BridgeNetworkSubfile
     {
         /// <summary>
@@ -17,6 +22,14 @@ namespace SC4Parser.Subfiles
         /// <see cref="SC4Parser.DataStructures.BridgeNetworkTile"/>
         public List<BridgeNetworkTile> NetworkTiles { get; private set; } = new List<BridgeNetworkTile>();
 
+        /// <summary>
+        /// Reads bridge network subfile from a byte array
+        /// </summary>        
+        /// <param name="buffer">Data to read subfile from</param>
+        /// <param name="size">Size of the subfile</param>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// Thrown when trying to parse an element that is out of bounds in the data array
+        /// </exception>
         public void Parse(byte[] buffer, int size)
         {
             Logger.Log(LogLevel.Info, "Parsing Bridge Network Subfile...");

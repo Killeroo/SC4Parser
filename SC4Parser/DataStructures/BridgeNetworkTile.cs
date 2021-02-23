@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace SC4Parser.DataStructures
 {
     /// <summary>
-    /// Represenation of a city's bridge tiles which are found in the bridge network subfile
+    /// Representation of a city's bridge tiles which are found in the bridge network subfile (partial implementation)
     /// </summary>
     /// <remarks>
     /// As the name suggests the bridge network subfile contains every bridge tile in a city.
@@ -21,53 +21,212 @@ namespace SC4Parser.DataStructures
     /// <seealso cref="SC4Parser.DataStructures.NetworkTile2"/>
     public class BridgeNetworkTile
     {
-        public uint RecordSize;
-        public uint CRC;
-        public uint Memory;
-        public ushort UnknownVersion1;
-        public ushort UnknownVersion2;
-        public ushort ZotBytes;
-        public byte AppearanceFlag;
-        public uint C772BF98;
-        public byte MinTractXCoordinate;
-        public byte MinTractZCoordinate;
-        public byte MaxTractXCoordinate;
-        public byte MaxTractZCoordinate;
-        public ushort TractSizeX;
-        public ushort TractSizeZ;
-        public uint TextureID;
-        public byte Orientation;
-        public byte NetworkType;
-        public byte WestConnection;
-        public byte NorthConnection;
-        public byte EastConnection;
-        public byte SouthConnection;
+        /// <summary>
+        /// Size of network tile entry
+        /// </summary>
+        public uint Size { get; private set; }
+        /// <summary>
+        /// Network tile's CRC
+        /// </summary>
+        public uint CRC { get; private set; }
+        /// <summary>
+        /// Network tile's memory address
+        /// </summary>
+        public uint Memory { get; private set; }
+        /// <summary>
+        /// Unknown version?
+        /// </summary>
+        public ushort UnknownVersion1 { get; private set; }
+        /// <summary>
+        /// Unknown version?
+        /// </summary>
+        public ushort UnknownVersion2 { get; private set; }
+        /// <summary>
+        /// Tile's ZOT bytes 
+        /// </summary>
+        public ushort ZotBytes { get; private set; }
+        /// <summary>
+        /// Network tile's appearance flag
+        /// </summary>
+        public byte AppearanceFlag { get; private set; }
+        /// <summary>
+        /// Unknown uint, always 0xC772BF98
+        /// </summary>
+        public uint C772BF98 { get; private set; }
+        /// <summary>
+        /// Network tile's min x tract coordinate
+        /// </summary>
+        public byte MinTractX { get; private set; }
+        /// <summary>
+        /// Network tile's min z tract coordinate
+        /// </summary>
+        public byte MinTractZ { get; private set; }
+        /// <summary>
+        /// Network tile's max x tract coordinate
+        /// </summary>
+        public byte MaxTractX { get; private set; }
+        /// <summary>
+        /// Network tile's max z tract coordinate
+        /// </summary>
+        public byte MaxTractZ { get; private set; }
+        /// <summary>
+        /// Network tile's x tract size
+        /// </summary>
+        public ushort TractSizeX { get; private set; }
+        /// <summary>
+        /// Network tile's z tract size
+        /// </summary>
+        public ushort TractSizeZ { get; private set; }
+        /// <summary>
+        /// Network tile's Texture ID
+        /// </summary>
+        public uint TextureID { get; private set; }
+        /// <summary>
+        /// Network tile's orientation
+        /// </summary>
+        /// <seealso cref="Constants.ORIENTATION_STRINGS"/>
+        public byte Orientation { get; private set; }
 
-        public uint SaveGamePropertyCount;
-        public List<SaveGameProperty> SaveGamePropertyEntries = new List<SaveGameProperty>();
+        /// <summary>
+        /// The network tile's type
+        /// </summary>
+        /// <see cref="SC4Parser.Constants.NETWORK_TYPE_STRINGS"/>
+        public byte NetworkType { get; private set; }
 
-        public float MaxSizeX;
-        public float MaxSizeY;
-        public float MaxSizeZ;
-        public float MinSizeX;
-        public float MinSizeY;
-        public float MinSizeZ;
+        /// <summary>
+        /// Specifies if the network tile is connected on it's west side
+        /// </summary>
+        /// <remarks>
+        /// 0x0 for false, 0x2 for true.
+        /// </remarks>
+        public byte WestConnection { get; private set; }
+        /// <summary>
+        /// Specifies if the network tile is connected on it's north side
+        /// </summary>
+        /// <remarks>
+        /// 0x0 for false, 0x2 for true.
+        /// </remarks>
+        public byte NorthConnection { get; private set; }
+        /// <summary>
+        /// Specifies if the network tile is connected on it's east side
+        /// </summary>
+        /// <remarks>
+        /// 0x0 for false, 0x2 for true.
+        /// </remarks>
+        public byte EastConnection { get; private set; }
+        /// <summary>
+        /// Specifies if the network tile is connected on it's south side
+        /// </summary>
+        /// <remarks>
+        /// 0x0 for false, 0x2 for true.
+        /// </remarks>
+        public byte SouthConnection { get; private set; }
 
-        public float PosX1;
-        public float PosY1;
-        public float PosZ1;
-                   
-        public float PosX2;
-        public float PosY2;
-        public float PosZ2;
+        /// <summary>
+        /// Number of save game properties (sigprops) attached to the network tile
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        public uint SaveGamePropertyCount { get; private set; }
+        /// <summary>
+        /// Network tile save game properties 
+        /// </summary>
+        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        public List<SaveGameProperty> SaveGamePropertyEntries { get; private set; } = new List<SaveGameProperty>();
 
-        public float PosX3;
-        public float PosY3;
-        public float PosZ3;
+        /// <summary>
+        /// Maximum X size of the Network tile 
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        public float MaxSizeX { get; private set; }
+        /// <summary>
+        /// Maximum Y size of the Network tile 
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        public float MaxSizeY { get; private set; }
+        /// <summary>
+        /// Maximum Z size of the Network tile 
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        public float MaxSizeZ { get; private set; }
+        /// <summary>
+        /// Minimum X size of the Network tile 
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        public float MinSizeX { get; private set; }
+        /// <summary>
+        /// Minimum Y size of the Network tile 
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        public float MinSizeY { get; private set; }
+        /// <summary>
+        /// Minimum Z size of the Network tile 
+        /// </summary>
+        /// <remarks>
+        /// This seems to be a quarter of the network tile's actual size 
+        /// </remarks>
+        public float MinSizeZ { get; private set; }
 
-        public float PosX4;
-        public float PosY4;
-        public float PosZ4;
+        /// <summary>
+        /// Network tile X coordinate (1st set)
+        /// </summary>
+        public float PosX1 { get; private set; }
+        /// <summary>
+        /// Network tile Y coordinate (1st set)
+        /// </summary>
+        public float PosY1 { get; private set; }
+        /// <summary>
+        /// Network tile Z coordinate (1st set)
+        /// </summary>
+        public float PosZ1 { get; private set; }
+
+        /// <summary>
+        /// Network tile X coordinate (2nd set)
+        /// </summary>
+        public float PosX2 { get; private set; }
+        /// <summary>
+        /// Network tile Y coordinate (2nd set)
+        /// </summary>
+        public float PosY2 { get; private set; }
+        /// <summary>
+        /// Network tile Z coordinate (2nd set)
+        /// </summary>
+        public float PosZ2 { get; private set; }
+
+        /// <summary>
+        /// Network tile X coordinate (3rd set)
+        /// </summary>
+        public float PosX3 { get; private set; }
+        /// <summary>
+        /// Network tile Y coordinate (3rd set)
+        /// </summary>
+        public float PosY3 { get; private set; }
+        /// <summary>
+        /// Network tile Z coordinate (3rd set)
+        /// </summary>
+        public float PosZ3 { get; private set; }
+
+        /// <summary>
+        /// Network tile X coordinate (4th set)
+        /// </summary>
+        public float PosX4 { get; private set; }
+        /// <summary>
+        /// Network tile Y coordinate (4th set)
+        /// </summary>
+        public float PosY4 { get; private set; }
+        /// <summary>
+        /// Network tile Z coordinate (4th set)
+        /// </summary>
+        public float PosZ4 { get; private set; }
 
         /// <summary>
         /// Parses a bridge network tile (from Bridge network subfile) from a byte array
@@ -81,7 +240,7 @@ namespace SC4Parser.DataStructures
         {
             uint internalOffset = 0;
 
-            RecordSize = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            Size = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             CRC = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             Memory = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             //ushort UnknownUShort1 = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
@@ -93,10 +252,10 @@ namespace SC4Parser.DataStructures
             internalOffset++;
             AppearanceFlag = Extensions.ReadByte(buffer, ref internalOffset);
             C772BF98 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            MinTractXCoordinate = Extensions.ReadByte(buffer, ref internalOffset);
-            MinTractZCoordinate = Extensions.ReadByte(buffer, ref internalOffset);
-            MaxTractXCoordinate = Extensions.ReadByte(buffer, ref internalOffset);
-            MaxTractZCoordinate = Extensions.ReadByte(buffer, ref internalOffset);
+            MinTractX = Extensions.ReadByte(buffer, ref internalOffset);
+            MinTractZ = Extensions.ReadByte(buffer, ref internalOffset);
+            MaxTractX = Extensions.ReadByte(buffer, ref internalOffset);
+            MaxTractZ = Extensions.ReadByte(buffer, ref internalOffset);
             TractSizeX = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
             TractSizeZ = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
             SaveGamePropertyCount = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
@@ -155,7 +314,7 @@ namespace SC4Parser.DataStructures
         public void Dump()
         {
 
-            Console.WriteLine("Record Size: {0}", RecordSize.ToString("X"));
+            Console.WriteLine("Record Size: {0}", Size.ToString("X"));
             Console.WriteLine("CRC: 0x{0}", CRC.ToString("x"));
             Console.WriteLine("Memory: 0x{0}", Memory);
             Console.WriteLine("Major Version: {0}", UnknownVersion1); // Always 8
@@ -163,10 +322,10 @@ namespace SC4Parser.DataStructures
             Console.WriteLine("Zot Bytes: {0}", ZotBytes); // ALways 0
             Console.WriteLine("Appearance Flag: {0}", AppearanceFlag); // Always 5;
             Console.WriteLine("0xC772BF98: 0x{0}", C772BF98.ToString("x")); // Always same
-            Console.WriteLine("Min Tract X: 0x{0}", MinTractXCoordinate.ToString("x"));
-            Console.WriteLine("Min Tract Z: 0x{0}", MinTractZCoordinate.ToString("x"));
-            Console.WriteLine("Max Tract X: 0x{0}", MaxTractXCoordinate.ToString("x"));
-            Console.WriteLine("Max Tract Z: 0x{0}", MaxTractZCoordinate.ToString("x"));
+            Console.WriteLine("Min Tract X: 0x{0}", MinTractX.ToString("x"));
+            Console.WriteLine("Min Tract Z: 0x{0}", MinTractZ.ToString("x"));
+            Console.WriteLine("Max Tract X: 0x{0}", MaxTractX.ToString("x"));
+            Console.WriteLine("Max Tract Z: 0x{0}", MaxTractZ.ToString("x"));
             Console.WriteLine("Tract Size X: {0}", TractSizeX); // Always 2
             Console.WriteLine("Tract Size Z: {0}", TractSizeZ); // Always 2
             Console.WriteLine("Properties Count: {0}", SaveGamePropertyCount); // Between 1 and 2 (1 seems to be a height)

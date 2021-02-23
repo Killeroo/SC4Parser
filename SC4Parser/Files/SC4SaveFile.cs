@@ -591,7 +591,7 @@ namespace SC4Parser.Files
         /// }
         /// 
         /// // Fetch the network subfile
-        /// NetworkSubfile2 network2Subfile = null
+        /// NetworkSubfile2 network2Subfile = null;
         /// try 
         /// {
         ///     network2Subfile = savegame.GetNetworkSubfile2();
@@ -643,6 +643,41 @@ namespace SC4Parser.Files
                 throw new SubfileNotFoundException($"Could not load Network subfile 2 ", e);
             }
         }
+        /// <summary>
+        /// Returns Bridge Network Subfile from the SC4 save game
+        /// </summary>
+        /// <returns>Bridge Network Subfile from the SC4 save game </returns>
+        /// <exception cref="SC4Parser.SubfileNotFoundException">
+        /// Returned when there is an issue with loading or finding the subfile
+        /// </exception>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// SC4SaveFile savegame;
+        /// try
+        /// {
+        ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// // Fetch the network subfile
+        /// BridgeNetworkSubfile bridgeSubfile = null;
+        /// try 
+        /// {
+        ///     bridgeSubfile = savegame.GetBridgeNetworkSubfile();
+        /// }
+        /// catch (SubfileNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find or load subfile");
+        /// }
+        /// </c>
+        /// </example>
+        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
+        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2"/>
         public BridgeNetworkSubfile GetBridgeNetworkSubfile()
         {
             if (m_CachedBridgeNetworkSubfile != null)
