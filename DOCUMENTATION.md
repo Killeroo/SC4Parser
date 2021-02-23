@@ -3,6 +3,54 @@
 
 ## Contents
 
+- [BridgeNetworkSubfile](#T-SC4Parser-Subfiles-BridgeNetworkSubfile 'SC4Parser.Subfiles.BridgeNetworkSubfile')
+  - [NetworkTiles](#P-SC4Parser-Subfiles-BridgeNetworkSubfile-NetworkTiles 'SC4Parser.Subfiles.BridgeNetworkSubfile.NetworkTiles')
+  - [Dump()](#M-SC4Parser-Subfiles-BridgeNetworkSubfile-Dump 'SC4Parser.Subfiles.BridgeNetworkSubfile.Dump')
+  - [Parse(buffer,size)](#M-SC4Parser-Subfiles-BridgeNetworkSubfile-Parse-System-Byte[],System-Int32- 'SC4Parser.Subfiles.BridgeNetworkSubfile.Parse(System.Byte[],System.Int32)')
+- [BridgeNetworkTile](#T-SC4Parser-DataStructures-BridgeNetworkTile 'SC4Parser.DataStructures.BridgeNetworkTile')
+  - [AppearanceFlag](#P-SC4Parser-DataStructures-BridgeNetworkTile-AppearanceFlag 'SC4Parser.DataStructures.BridgeNetworkTile.AppearanceFlag')
+  - [C772BF98](#P-SC4Parser-DataStructures-BridgeNetworkTile-C772BF98 'SC4Parser.DataStructures.BridgeNetworkTile.C772BF98')
+  - [CRC](#P-SC4Parser-DataStructures-BridgeNetworkTile-CRC 'SC4Parser.DataStructures.BridgeNetworkTile.CRC')
+  - [EastConnection](#P-SC4Parser-DataStructures-BridgeNetworkTile-EastConnection 'SC4Parser.DataStructures.BridgeNetworkTile.EastConnection')
+  - [MaxSizeX](#P-SC4Parser-DataStructures-BridgeNetworkTile-MaxSizeX 'SC4Parser.DataStructures.BridgeNetworkTile.MaxSizeX')
+  - [MaxSizeY](#P-SC4Parser-DataStructures-BridgeNetworkTile-MaxSizeY 'SC4Parser.DataStructures.BridgeNetworkTile.MaxSizeY')
+  - [MaxSizeZ](#P-SC4Parser-DataStructures-BridgeNetworkTile-MaxSizeZ 'SC4Parser.DataStructures.BridgeNetworkTile.MaxSizeZ')
+  - [MaxTractX](#P-SC4Parser-DataStructures-BridgeNetworkTile-MaxTractX 'SC4Parser.DataStructures.BridgeNetworkTile.MaxTractX')
+  - [MaxTractZ](#P-SC4Parser-DataStructures-BridgeNetworkTile-MaxTractZ 'SC4Parser.DataStructures.BridgeNetworkTile.MaxTractZ')
+  - [Memory](#P-SC4Parser-DataStructures-BridgeNetworkTile-Memory 'SC4Parser.DataStructures.BridgeNetworkTile.Memory')
+  - [MinSizeX](#P-SC4Parser-DataStructures-BridgeNetworkTile-MinSizeX 'SC4Parser.DataStructures.BridgeNetworkTile.MinSizeX')
+  - [MinSizeY](#P-SC4Parser-DataStructures-BridgeNetworkTile-MinSizeY 'SC4Parser.DataStructures.BridgeNetworkTile.MinSizeY')
+  - [MinSizeZ](#P-SC4Parser-DataStructures-BridgeNetworkTile-MinSizeZ 'SC4Parser.DataStructures.BridgeNetworkTile.MinSizeZ')
+  - [MinTractX](#P-SC4Parser-DataStructures-BridgeNetworkTile-MinTractX 'SC4Parser.DataStructures.BridgeNetworkTile.MinTractX')
+  - [MinTractZ](#P-SC4Parser-DataStructures-BridgeNetworkTile-MinTractZ 'SC4Parser.DataStructures.BridgeNetworkTile.MinTractZ')
+  - [NetworkType](#P-SC4Parser-DataStructures-BridgeNetworkTile-NetworkType 'SC4Parser.DataStructures.BridgeNetworkTile.NetworkType')
+  - [NorthConnection](#P-SC4Parser-DataStructures-BridgeNetworkTile-NorthConnection 'SC4Parser.DataStructures.BridgeNetworkTile.NorthConnection')
+  - [Orientation](#P-SC4Parser-DataStructures-BridgeNetworkTile-Orientation 'SC4Parser.DataStructures.BridgeNetworkTile.Orientation')
+  - [PosX1](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosX1 'SC4Parser.DataStructures.BridgeNetworkTile.PosX1')
+  - [PosX2](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosX2 'SC4Parser.DataStructures.BridgeNetworkTile.PosX2')
+  - [PosX3](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosX3 'SC4Parser.DataStructures.BridgeNetworkTile.PosX3')
+  - [PosX4](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosX4 'SC4Parser.DataStructures.BridgeNetworkTile.PosX4')
+  - [PosY1](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosY1 'SC4Parser.DataStructures.BridgeNetworkTile.PosY1')
+  - [PosY2](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosY2 'SC4Parser.DataStructures.BridgeNetworkTile.PosY2')
+  - [PosY3](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosY3 'SC4Parser.DataStructures.BridgeNetworkTile.PosY3')
+  - [PosY4](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosY4 'SC4Parser.DataStructures.BridgeNetworkTile.PosY4')
+  - [PosZ1](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosZ1 'SC4Parser.DataStructures.BridgeNetworkTile.PosZ1')
+  - [PosZ2](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosZ2 'SC4Parser.DataStructures.BridgeNetworkTile.PosZ2')
+  - [PosZ3](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosZ3 'SC4Parser.DataStructures.BridgeNetworkTile.PosZ3')
+  - [PosZ4](#P-SC4Parser-DataStructures-BridgeNetworkTile-PosZ4 'SC4Parser.DataStructures.BridgeNetworkTile.PosZ4')
+  - [SaveGamePropertyCount](#P-SC4Parser-DataStructures-BridgeNetworkTile-SaveGamePropertyCount 'SC4Parser.DataStructures.BridgeNetworkTile.SaveGamePropertyCount')
+  - [SaveGamePropertyEntries](#P-SC4Parser-DataStructures-BridgeNetworkTile-SaveGamePropertyEntries 'SC4Parser.DataStructures.BridgeNetworkTile.SaveGamePropertyEntries')
+  - [Size](#P-SC4Parser-DataStructures-BridgeNetworkTile-Size 'SC4Parser.DataStructures.BridgeNetworkTile.Size')
+  - [SouthConnection](#P-SC4Parser-DataStructures-BridgeNetworkTile-SouthConnection 'SC4Parser.DataStructures.BridgeNetworkTile.SouthConnection')
+  - [TextureID](#P-SC4Parser-DataStructures-BridgeNetworkTile-TextureID 'SC4Parser.DataStructures.BridgeNetworkTile.TextureID')
+  - [TractSizeX](#P-SC4Parser-DataStructures-BridgeNetworkTile-TractSizeX 'SC4Parser.DataStructures.BridgeNetworkTile.TractSizeX')
+  - [TractSizeZ](#P-SC4Parser-DataStructures-BridgeNetworkTile-TractSizeZ 'SC4Parser.DataStructures.BridgeNetworkTile.TractSizeZ')
+  - [UnknownVersion1](#P-SC4Parser-DataStructures-BridgeNetworkTile-UnknownVersion1 'SC4Parser.DataStructures.BridgeNetworkTile.UnknownVersion1')
+  - [UnknownVersion2](#P-SC4Parser-DataStructures-BridgeNetworkTile-UnknownVersion2 'SC4Parser.DataStructures.BridgeNetworkTile.UnknownVersion2')
+  - [WestConnection](#P-SC4Parser-DataStructures-BridgeNetworkTile-WestConnection 'SC4Parser.DataStructures.BridgeNetworkTile.WestConnection')
+  - [ZotBytes](#P-SC4Parser-DataStructures-BridgeNetworkTile-ZotBytes 'SC4Parser.DataStructures.BridgeNetworkTile.ZotBytes')
+  - [Dump()](#M-SC4Parser-DataStructures-BridgeNetworkTile-Dump 'SC4Parser.DataStructures.BridgeNetworkTile.Dump')
+  - [Parse(buffer,offset)](#M-SC4Parser-DataStructures-BridgeNetworkTile-Parse-System-Byte[],System-UInt32- 'SC4Parser.DataStructures.BridgeNetworkTile.Parse(System.Byte[],System.UInt32)')
 - [Building](#T-SC4Parser-DataStructures-Building 'SC4Parser.DataStructures.Building')
   - [AppearanceFlag](#P-SC4Parser-DataStructures-Building-AppearanceFlag 'SC4Parser.DataStructures.Building.AppearanceFlag')
   - [CRC](#P-SC4Parser-DataStructures-Building-CRC 'SC4Parser.DataStructures.Building.CRC')
@@ -44,6 +92,7 @@
   - [Parse(buffer,size)](#M-SC4Parser-Subfiles-BuildingSubfile-Parse-System-Byte[],System-Int32- 'SC4Parser.Subfiles.BuildingSubfile.Parse(System.Byte[],System.Int32)')
 - [ConsoleLogger](#T-SC4Parser-Logging-ConsoleLogger 'SC4Parser.Logging.ConsoleLogger')
 - [Constants](#T-SC4Parser-Constants 'SC4Parser.Constants')
+  - [BRIDGE_NETWORK_SUBFILE_TYPE](#F-SC4Parser-Constants-BRIDGE_NETWORK_SUBFILE_TYPE 'SC4Parser.Constants.BRIDGE_NETWORK_SUBFILE_TYPE')
   - [BUILDING_SUBFILE_TYPE](#F-SC4Parser-Constants-BUILDING_SUBFILE_TYPE 'SC4Parser.Constants.BUILDING_SUBFILE_TYPE')
   - [DATABASE_DIRECTORY_FILE_TGI](#F-SC4Parser-Constants-DATABASE_DIRECTORY_FILE_TGI 'SC4Parser.Constants.DATABASE_DIRECTORY_FILE_TGI')
   - [LARGE_CITY_TILE_COUNT](#F-SC4Parser-Constants-LARGE_CITY_TILE_COUNT 'SC4Parser.Constants.LARGE_CITY_TILE_COUNT')
@@ -83,6 +132,7 @@
   - [SIGPROP_DATATYPE_TYPE_STRINGS](#F-SC4Parser-Constants-SIGPROP_DATATYPE_TYPE_STRINGS 'SC4Parser.Constants.SIGPROP_DATATYPE_TYPE_STRINGS')
   - [SMALL_CITY_TILE_COUNT](#F-SC4Parser-Constants-SMALL_CITY_TILE_COUNT 'SC4Parser.Constants.SMALL_CITY_TILE_COUNT')
   - [TERRAIN_MAP_SUBFILE_TGI](#F-SC4Parser-Constants-TERRAIN_MAP_SUBFILE_TGI 'SC4Parser.Constants.TERRAIN_MAP_SUBFILE_TGI')
+  - [TUNNEL_NETWORK_SUBFILE_TYPE](#F-SC4Parser-Constants-TUNNEL_NETWORK_SUBFILE_TYPE 'SC4Parser.Constants.TUNNEL_NETWORK_SUBFILE_TYPE')
 - [DBPFParsingException](#T-SC4Parser-DBPFParsingException 'SC4Parser.DBPFParsingException')
   - [#ctor(message,e)](#M-SC4Parser-DBPFParsingException-#ctor-System-String,System-Exception- 'SC4Parser.DBPFParsingException.#ctor(System.String,System.Exception)')
 - [DatabaseDirectoryFile](#T-SC4Parser-Files-DatabaseDirectoryFile 'SC4Parser.Files.DatabaseDirectoryFile')
@@ -205,13 +255,25 @@
   - [Z](#P-SC4Parser-DataStructures-NetworkBlock-Z 'SC4Parser.DataStructures.NetworkBlock.Z')
   - [Dump()](#M-SC4Parser-DataStructures-NetworkBlock-Dump 'SC4Parser.DataStructures.NetworkBlock.Dump')
   - [Parse(buffer,offset)](#M-SC4Parser-DataStructures-NetworkBlock-Parse-System-Byte[],System-UInt32@- 'SC4Parser.DataStructures.NetworkBlock.Parse(System.Byte[],System.UInt32@)')
+- [NetworkIndex](#T-SC4Parser-Subfiles-NetworkIndex 'SC4Parser.Subfiles.NetworkIndex')
+  - [NetworkTileReferences](#F-SC4Parser-Subfiles-NetworkIndex-NetworkTileReferences 'SC4Parser.Subfiles.NetworkIndex.NetworkTileReferences')
+  - [CRC](#P-SC4Parser-Subfiles-NetworkIndex-CRC 'SC4Parser.Subfiles.NetworkIndex.CRC')
+  - [CityTileCount](#P-SC4Parser-Subfiles-NetworkIndex-CityTileCount 'SC4Parser.Subfiles.NetworkIndex.CityTileCount')
+  - [MajorVersion](#P-SC4Parser-Subfiles-NetworkIndex-MajorVersion 'SC4Parser.Subfiles.NetworkIndex.MajorVersion')
+  - [MemoryAddress](#P-SC4Parser-Subfiles-NetworkIndex-MemoryAddress 'SC4Parser.Subfiles.NetworkIndex.MemoryAddress')
+  - [NetworkTileCount](#P-SC4Parser-Subfiles-NetworkIndex-NetworkTileCount 'SC4Parser.Subfiles.NetworkIndex.NetworkTileCount')
+  - [SubfileSize](#P-SC4Parser-Subfiles-NetworkIndex-SubfileSize 'SC4Parser.Subfiles.NetworkIndex.SubfileSize')
+  - [Dump()](#M-SC4Parser-Subfiles-NetworkIndex-Dump 'SC4Parser.Subfiles.NetworkIndex.Dump')
+  - [Parse(buffer)](#M-SC4Parser-Subfiles-NetworkIndex-Parse-System-Byte[]- 'SC4Parser.Subfiles.NetworkIndex.Parse(System.Byte[])')
 - [NetworkSubfile1](#T-SC4Parser-Subfiles-NetworkSubfile1 'SC4Parser.Subfiles.NetworkSubfile1')
   - [NetworkTiles](#P-SC4Parser-Subfiles-NetworkSubfile1-NetworkTiles 'SC4Parser.Subfiles.NetworkSubfile1.NetworkTiles')
   - [Dump()](#M-SC4Parser-Subfiles-NetworkSubfile1-Dump 'SC4Parser.Subfiles.NetworkSubfile1.Dump')
+  - [FindTile(memoryReference)](#M-SC4Parser-Subfiles-NetworkSubfile1-FindTile-System-UInt32- 'SC4Parser.Subfiles.NetworkSubfile1.FindTile(System.UInt32)')
   - [Parse(buffer,size)](#M-SC4Parser-Subfiles-NetworkSubfile1-Parse-System-Byte[],System-Int32- 'SC4Parser.Subfiles.NetworkSubfile1.Parse(System.Byte[],System.Int32)')
 - [NetworkSubfile2](#T-SC4Parser-Subfiles-NetworkSubfile2 'SC4Parser.Subfiles.NetworkSubfile2')
   - [NetworkTiles](#P-SC4Parser-Subfiles-NetworkSubfile2-NetworkTiles 'SC4Parser.Subfiles.NetworkSubfile2.NetworkTiles')
   - [Dump()](#M-SC4Parser-Subfiles-NetworkSubfile2-Dump 'SC4Parser.Subfiles.NetworkSubfile2.Dump')
+  - [FindTile(memoryReference)](#M-SC4Parser-Subfiles-NetworkSubfile2-FindTile-System-UInt32- 'SC4Parser.Subfiles.NetworkSubfile2.FindTile(System.UInt32)')
   - [Parse(buffer,size)](#M-SC4Parser-Subfiles-NetworkSubfile2-Parse-System-Byte[],System-Int32- 'SC4Parser.Subfiles.NetworkSubfile2.Parse(System.Byte[],System.Int32)')
 - [NetworkTile1](#T-SC4Parser-DataStructures-NetworkTile1 'SC4Parser.DataStructures.NetworkTile1')
   - [EastConnection](#F-SC4Parser-DataStructures-NetworkTile1-EastConnection 'SC4Parser.DataStructures.NetworkTile1.EastConnection')
@@ -339,6 +401,12 @@
   - [WestConnection](#P-SC4Parser-DataStructures-NetworkTile2-WestConnection 'SC4Parser.DataStructures.NetworkTile2.WestConnection')
   - [Dump()](#M-SC4Parser-DataStructures-NetworkTile2-Dump 'SC4Parser.DataStructures.NetworkTile2.Dump')
   - [Parse(buffer,offset)](#M-SC4Parser-DataStructures-NetworkTile2-Parse-System-Byte[],System-UInt32- 'SC4Parser.DataStructures.NetworkTile2.Parse(System.Byte[],System.UInt32)')
+- [NetworkTileReference](#T-SC4Parser-Subfiles-NetworkTileReference 'SC4Parser.Subfiles.NetworkTileReference')
+  - [MemoryAddressRef](#P-SC4Parser-Subfiles-NetworkTileReference-MemoryAddressRef 'SC4Parser.Subfiles.NetworkTileReference.MemoryAddressRef')
+  - [SubfileTypeIDRef](#P-SC4Parser-Subfiles-NetworkTileReference-SubfileTypeIDRef 'SC4Parser.Subfiles.NetworkTileReference.SubfileTypeIDRef')
+  - [TileNumber](#P-SC4Parser-Subfiles-NetworkTileReference-TileNumber 'SC4Parser.Subfiles.NetworkTileReference.TileNumber')
+  - [Dump()](#M-SC4Parser-Subfiles-NetworkTileReference-Dump 'SC4Parser.Subfiles.NetworkTileReference.Dump')
+  - [Parse(buffer,offset)](#M-SC4Parser-Subfiles-NetworkTileReference-Parse-System-Byte[],System-UInt32@- 'SC4Parser.Subfiles.NetworkTileReference.Parse(System.Byte[],System.UInt32@)')
 - [QFS](#T-SC4Parser-Compression-QFS 'SC4Parser.Compression.QFS')
   - [LZCompliantCopy(source,sourceOffset,destination,destinationOffset,length)](#M-SC4Parser-Compression-QFS-LZCompliantCopy-System-Byte[]@,System-Int32,System-Byte[]@,System-Int32,System-Int32- 'SC4Parser.Compression.QFS.LZCompliantCopy(System.Byte[]@,System.Int32,System.Byte[]@,System.Int32,System.Int32)')
   - [UncompressData(data)](#M-SC4Parser-Compression-QFS-UncompressData-System-Byte[]- 'SC4Parser.Compression.QFS.UncompressData(System.Byte[])')
@@ -358,6 +426,14 @@
   - [Parse(buffer)](#M-SC4Parser-Subfiles-RegionViewSubfile-Parse-System-Byte[]- 'SC4Parser.Subfiles.RegionViewSubfile.Parse(System.Byte[])')
 - [SC4SaveFile](#T-SC4Parser-Files-SC4SaveFile 'SC4Parser.Files.SC4SaveFile')
   - [#ctor(path)](#M-SC4Parser-Files-SC4SaveFile-#ctor-System-String- 'SC4Parser.Files.SC4SaveFile.#ctor(System.String)')
+  - [ContainsBridgeNetworkSubfile()](#M-SC4Parser-Files-SC4SaveFile-ContainsBridgeNetworkSubfile 'SC4Parser.Files.SC4SaveFile.ContainsBridgeNetworkSubfile')
+  - [ContainsBuildingsSubfile()](#M-SC4Parser-Files-SC4SaveFile-ContainsBuildingsSubfile 'SC4Parser.Files.SC4SaveFile.ContainsBuildingsSubfile')
+  - [ContainsLotSubfile()](#M-SC4Parser-Files-SC4SaveFile-ContainsLotSubfile 'SC4Parser.Files.SC4SaveFile.ContainsLotSubfile')
+  - [ContainsNetworkSubfile1()](#M-SC4Parser-Files-SC4SaveFile-ContainsNetworkSubfile1 'SC4Parser.Files.SC4SaveFile.ContainsNetworkSubfile1')
+  - [ContainsNetworkSubfile2()](#M-SC4Parser-Files-SC4SaveFile-ContainsNetworkSubfile2 'SC4Parser.Files.SC4SaveFile.ContainsNetworkSubfile2')
+  - [ContainsRegionViewSubfile()](#M-SC4Parser-Files-SC4SaveFile-ContainsRegionViewSubfile 'SC4Parser.Files.SC4SaveFile.ContainsRegionViewSubfile')
+  - [ContainsTerrainMapSubfile()](#M-SC4Parser-Files-SC4SaveFile-ContainsTerrainMapSubfile 'SC4Parser.Files.SC4SaveFile.ContainsTerrainMapSubfile')
+  - [GetBridgeNetworkSubfile()](#M-SC4Parser-Files-SC4SaveFile-GetBridgeNetworkSubfile 'SC4Parser.Files.SC4SaveFile.GetBridgeNetworkSubfile')
   - [GetBuildingSubfile()](#M-SC4Parser-Files-SC4SaveFile-GetBuildingSubfile 'SC4Parser.Files.SC4SaveFile.GetBuildingSubfile')
   - [GetLotSubfile()](#M-SC4Parser-Files-SC4SaveFile-GetLotSubfile 'SC4Parser.Files.SC4SaveFile.GetLotSubfile')
   - [GetNetworkSubfile1()](#M-SC4Parser-Files-SC4SaveFile-GetNetworkSubfile1 'SC4Parser.Files.SC4SaveFile.GetNetworkSubfile1')
@@ -405,6 +481,446 @@
 - [Utils](#T-SC4Parser-Utils 'SC4Parser.Utils')
   - [SaveByteArrayToFile(data,name,path)](#M-SC4Parser-Utils-SaveByteArrayToFile-System-Byte[],System-String,System-String- 'SC4Parser.Utils.SaveByteArrayToFile(System.Byte[],System.String,System.String)')
   - [UnixTimestampToDateTime(unixTimestamp)](#M-SC4Parser-Utils-UnixTimestampToDateTime-System-Int64- 'SC4Parser.Utils.UnixTimestampToDateTime(System.Int64)')
+
+<a name='T-SC4Parser-Subfiles-BridgeNetworkSubfile'></a>
+## BridgeNetworkSubfile `type`
+
+##### Namespace
+
+SC4Parser.Subfiles
+
+##### Summary
+
+Implementation of the Bridge Network Subfile. This file contains all bridge network tiles in a city.
+
+##### See Also
+
+- [SC4Parser.DataStructures.BridgeNetworkTile](#T-SC4Parser-DataStructures-BridgeNetworkTile 'SC4Parser.DataStructures.BridgeNetworkTile')
+- [SC4Parser.Subfiles.NetworkSubfile1](#T-SC4Parser-Subfiles-NetworkSubfile1 'SC4Parser.Subfiles.NetworkSubfile1')
+
+<a name='P-SC4Parser-Subfiles-BridgeNetworkSubfile-NetworkTiles'></a>
+### NetworkTiles `property`
+
+##### Summary
+
+Contains all network tiles in the bridge network subfile
+
+<a name='M-SC4Parser-Subfiles-BridgeNetworkSubfile-Dump'></a>
+### Dump() `method`
+
+##### Summary
+
+Prints out the contents of the subfile
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-SC4Parser-Subfiles-BridgeNetworkSubfile-Parse-System-Byte[],System-Int32-'></a>
+### Parse(buffer,size) `method`
+
+##### Summary
+
+Reads bridge network subfile from a byte array
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| buffer | [System.Byte[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Byte[] 'System.Byte[]') | Data to read subfile from |
+| size | [System.Int32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int32 'System.Int32') | Size of the subfile |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.IndexOutOfRangeException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IndexOutOfRangeException 'System.IndexOutOfRangeException') | Thrown when trying to parse an element that is out of bounds in the data array |
+
+<a name='T-SC4Parser-DataStructures-BridgeNetworkTile'></a>
+## BridgeNetworkTile `type`
+
+##### Namespace
+
+SC4Parser.DataStructures
+
+##### Summary
+
+Representation of a city's bridge tiles which are found in the bridge network subfile (partial implementation)
+
+##### Remarks
+
+As the name suggests the bridge network subfile contains every bridge tile in a city.
+This was reverse engineered by me, it follows a similar structure to the other network tiles.
+
+This implementation is not complete (these tiles are big and they vary A LOT in size and I am not sure
+why)
+
+##### See Also
+
+- [SC4Parser.DataStructures.NetworkTile1](#T-SC4Parser-DataStructures-NetworkTile1 'SC4Parser.DataStructures.NetworkTile1')
+- [SC4Parser.DataStructures.NetworkTile2](#T-SC4Parser-DataStructures-NetworkTile2 'SC4Parser.DataStructures.NetworkTile2')
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-AppearanceFlag'></a>
+### AppearanceFlag `property`
+
+##### Summary
+
+Network tile's appearance flag
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-C772BF98'></a>
+### C772BF98 `property`
+
+##### Summary
+
+Unknown uint, always 0xC772BF98
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-CRC'></a>
+### CRC `property`
+
+##### Summary
+
+Network tile's CRC
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-EastConnection'></a>
+### EastConnection `property`
+
+##### Summary
+
+Specifies if the network tile is connected on it's east side
+
+##### Remarks
+
+0x0 for false, 0x2 for true.
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-MaxSizeX'></a>
+### MaxSizeX `property`
+
+##### Summary
+
+Maximum X size of the Network tile
+
+##### Remarks
+
+This seems to be a quarter of the network tile's actual size
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-MaxSizeY'></a>
+### MaxSizeY `property`
+
+##### Summary
+
+Maximum Y size of the Network tile
+
+##### Remarks
+
+This seems to be a quarter of the network tile's actual size
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-MaxSizeZ'></a>
+### MaxSizeZ `property`
+
+##### Summary
+
+Maximum Z size of the Network tile
+
+##### Remarks
+
+This seems to be a quarter of the network tile's actual size
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-MaxTractX'></a>
+### MaxTractX `property`
+
+##### Summary
+
+Network tile's max x tract coordinate
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-MaxTractZ'></a>
+### MaxTractZ `property`
+
+##### Summary
+
+Network tile's max z tract coordinate
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-Memory'></a>
+### Memory `property`
+
+##### Summary
+
+Network tile's memory address
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-MinSizeX'></a>
+### MinSizeX `property`
+
+##### Summary
+
+Minimum X size of the Network tile
+
+##### Remarks
+
+This seems to be a quarter of the network tile's actual size
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-MinSizeY'></a>
+### MinSizeY `property`
+
+##### Summary
+
+Minimum Y size of the Network tile
+
+##### Remarks
+
+This seems to be a quarter of the network tile's actual size
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-MinSizeZ'></a>
+### MinSizeZ `property`
+
+##### Summary
+
+Minimum Z size of the Network tile
+
+##### Remarks
+
+This seems to be a quarter of the network tile's actual size
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-MinTractX'></a>
+### MinTractX `property`
+
+##### Summary
+
+Network tile's min x tract coordinate
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-MinTractZ'></a>
+### MinTractZ `property`
+
+##### Summary
+
+Network tile's min z tract coordinate
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-NetworkType'></a>
+### NetworkType `property`
+
+##### Summary
+
+The network tile's type
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-NorthConnection'></a>
+### NorthConnection `property`
+
+##### Summary
+
+Specifies if the network tile is connected on it's north side
+
+##### Remarks
+
+0x0 for false, 0x2 for true.
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-Orientation'></a>
+### Orientation `property`
+
+##### Summary
+
+Network tile's orientation
+
+##### See Also
+
+- [SC4Parser.Constants.ORIENTATION_STRINGS](#F-SC4Parser-Constants-ORIENTATION_STRINGS 'SC4Parser.Constants.ORIENTATION_STRINGS')
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosX1'></a>
+### PosX1 `property`
+
+##### Summary
+
+Network tile X coordinate (1st set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosX2'></a>
+### PosX2 `property`
+
+##### Summary
+
+Network tile X coordinate (2nd set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosX3'></a>
+### PosX3 `property`
+
+##### Summary
+
+Network tile X coordinate (3rd set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosX4'></a>
+### PosX4 `property`
+
+##### Summary
+
+Network tile X coordinate (4th set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosY1'></a>
+### PosY1 `property`
+
+##### Summary
+
+Network tile Y coordinate (1st set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosY2'></a>
+### PosY2 `property`
+
+##### Summary
+
+Network tile Y coordinate (2nd set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosY3'></a>
+### PosY3 `property`
+
+##### Summary
+
+Network tile Y coordinate (3rd set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosY4'></a>
+### PosY4 `property`
+
+##### Summary
+
+Network tile Y coordinate (4th set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosZ1'></a>
+### PosZ1 `property`
+
+##### Summary
+
+Network tile Z coordinate (1st set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosZ2'></a>
+### PosZ2 `property`
+
+##### Summary
+
+Network tile Z coordinate (2nd set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosZ3'></a>
+### PosZ3 `property`
+
+##### Summary
+
+Network tile Z coordinate (3rd set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-PosZ4'></a>
+### PosZ4 `property`
+
+##### Summary
+
+Network tile Z coordinate (4th set)
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-SaveGamePropertyCount'></a>
+### SaveGamePropertyCount `property`
+
+##### Summary
+
+Number of save game properties (sigprops) attached to the network tile
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-SaveGamePropertyEntries'></a>
+### SaveGamePropertyEntries `property`
+
+##### Summary
+
+Network tile save game properties
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-Size'></a>
+### Size `property`
+
+##### Summary
+
+Size of network tile entry
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-SouthConnection'></a>
+### SouthConnection `property`
+
+##### Summary
+
+Specifies if the network tile is connected on it's south side
+
+##### Remarks
+
+0x0 for false, 0x2 for true.
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-TextureID'></a>
+### TextureID `property`
+
+##### Summary
+
+Network tile's Texture ID
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-TractSizeX'></a>
+### TractSizeX `property`
+
+##### Summary
+
+Network tile's x tract size
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-TractSizeZ'></a>
+### TractSizeZ `property`
+
+##### Summary
+
+Network tile's z tract size
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-UnknownVersion1'></a>
+### UnknownVersion1 `property`
+
+##### Summary
+
+Unknown version?
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-UnknownVersion2'></a>
+### UnknownVersion2 `property`
+
+##### Summary
+
+Unknown version?
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-WestConnection'></a>
+### WestConnection `property`
+
+##### Summary
+
+Specifies if the network tile is connected on it's west side
+
+##### Remarks
+
+0x0 for false, 0x2 for true.
+
+<a name='P-SC4Parser-DataStructures-BridgeNetworkTile-ZotBytes'></a>
+### ZotBytes `property`
+
+##### Summary
+
+Tile's ZOT bytes
+
+<a name='M-SC4Parser-DataStructures-BridgeNetworkTile-Dump'></a>
+### Dump() `method`
+
+##### Summary
+
+Prints out the contents of the networktile
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-SC4Parser-DataStructures-BridgeNetworkTile-Parse-System-Byte[],System-UInt32-'></a>
+### Parse(buffer,offset) `method`
+
+##### Summary
+
+Parses a bridge network tile (from Bridge network subfile) from a byte array
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| buffer | [System.Byte[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Byte[] 'System.Byte[]') | Buffer to read tile from |
+| offset | [System.UInt32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.UInt32 'System.UInt32') | Position in the buffer to start reading data from |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.IndexOutOfRangeException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IndexOutOfRangeException 'System.IndexOutOfRangeException') | Thrown when trying to parse an element that is out of bounds in the data array |
 
 <a name='T-SC4Parser-DataStructures-Building'></a>
 ## Building `type`
@@ -829,22 +1345,22 @@ ConsoleLogger logger = new ConsoleLogger();
 SC4SaveFile savegame;
 try
 {
-    savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+	savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
 }
 catch (DBPFParsingException)
 {
-    Console.Writeline("Issue occured while parsing DBPF");
-    return;
+	Console.Writeline("Issue occured while parsing DBPF");
+	return;
 }
 
 TerrainMapSubfile terrainMap = null
 try 
 {
-    terrainMap = savegame.GetTerrainMapSubfile();
+	terrainMap = savegame.GetTerrainMapSubfile();
 }
 catch (SubfileNotFoundException)
 {
-    Console.Writeline("Could not find subfile");
+	Console.Writeline("Could not find subfile");
 }
 ```
 
@@ -858,6 +1374,13 @@ SC4Parser
 ##### Summary
 
 Stores common values and identifiers used in SimCity 4 save gamesa
+
+<a name='F-SC4Parser-Constants-BRIDGE_NETWORK_SUBFILE_TYPE'></a>
+### BRIDGE_NETWORK_SUBFILE_TYPE `constants`
+
+##### Summary
+
+Type ID of the bridge network subfile
 
 <a name='F-SC4Parser-Constants-BUILDING_SUBFILE_TYPE'></a>
 ### BUILDING_SUBFILE_TYPE `constants`
@@ -1181,6 +1704,13 @@ TypeGroupInstance (TGI) ID for the Terrain Map Subfile
 ##### See Also
 
 - [SC4Parser.Subfiles.TerrainMapSubfile](#T-SC4Parser-Subfiles-TerrainMapSubfile 'SC4Parser.Subfiles.TerrainMapSubfile')
+
+<a name='F-SC4Parser-Constants-TUNNEL_NETWORK_SUBFILE_TYPE'></a>
+### TUNNEL_NETWORK_SUBFILE_TYPE `constants`
+
+##### Summary
+
+Type ID of the tunnel network subfile
 
 <a name='T-SC4Parser-DBPFParsingException'></a>
 ## DBPFParsingException `type`
@@ -1701,7 +2231,7 @@ TypeGroupInstance terrainTGI = new TypeGroupInstance("A9DD6FF4", "E98f9525", "00
 IndexEntry entry = null;
 try 
 {
-	save.FindIndexEntry(terrainTGI);
+	entry = save.FindIndexEntry(terrainTGI);
 }
 catch (IndexEntryNotFoundException)
 {
@@ -2453,10 +2983,10 @@ Enable a log channel to be included in log output
 
 ##### Example
 
-`
-            // Enable any message using Debug log level to show up in log's output
-            myLogger.EnableChannel(LogLevel.Debug);
-            `
+```
+// Enable any message using Debug log level to show up in log's output
+myLogger.EnableChannel(LogLevel.Debug);
+```
 
 <a name='M-SC4Parser-Logging-ILogger-Log-SC4Parser-Logging-LogLevel,System-String,System-Object[]-'></a>
 ### Log(level,format,args) `method`
@@ -2475,13 +3005,13 @@ Log a message
 
 ##### Example
 
-`
-            myLogger.Log(LogLevel.Error, "This is a test log message it can include {0} {1} {2}",
-                "strings!",
-                123,
-                "Or any other type you want to pass!"
-            );
-            `
+```
+myLogger.Log(LogLevel.Error, "This is a test log message it can include {0} {1} {2}",
+	"strings!",
+	123,
+	"Or any other type you want to pass!"
+);
+```
 
 <a name='T-SC4Parser-DataStructures-IndexEntry'></a>
 ## IndexEntry `type`
@@ -2750,10 +3280,10 @@ Enable a log level on all log outputs
 
 ##### Example
 
-`
-            // Enable any message using Debug log level to show up in all logging outputs
-            Logger.EnableChannel(LogLevel.Debug);
-            `
+```
+// Enable any message using Debug log level to show up in all logging outputs
+Logger.EnableChannel(LogLevel.Debug);
+```
 
 <a name='M-SC4Parser-Logging-Logger-Log-SC4Parser-Logging-LogLevel,System-String,System-Object[]-'></a>
 ### Log(level,format,args) `method`
@@ -2794,7 +3324,7 @@ Representation of a Simcity 4 lot as it is stored in a save game
 ##### Example
 
 ```
-How to read and use lot data using library
+// How to read and use lot data using library
 // (this is effectively what is done in SC4Save.GetLotSubfile())
 
 // Load save game
@@ -3227,6 +3757,106 @@ Parses a single network block. Returns offset after block has been parsed
 | ---- | ----------- |
 | [System.IndexOutOfRangeException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IndexOutOfRangeException 'System.IndexOutOfRangeException') | Thrown when trying to parse an element that is out of bounds in the data array |
 
+<a name='T-SC4Parser-Subfiles-NetworkIndex'></a>
+## NetworkIndex `type`
+
+##### Namespace
+
+SC4Parser.Subfiles
+
+##### Summary
+
+Incomplete Network Index implementation.
+
+Implemented from https://wiki.sc4devotion.com/index.php?title=Network_Subfiles#Network_Index_Subfile_Body
+
+##### Remarks
+
+Partially completed. DO NOT USE, will probably crash.
+
+<a name='F-SC4Parser-Subfiles-NetworkIndex-NetworkTileReferences'></a>
+### NetworkTileReferences `constants`
+
+##### Summary
+
+List of all network tiles stored in the index file
+
+<a name='P-SC4Parser-Subfiles-NetworkIndex-CRC'></a>
+### CRC `property`
+
+##### Summary
+
+Subfile's CRC
+
+<a name='P-SC4Parser-Subfiles-NetworkIndex-CityTileCount'></a>
+### CityTileCount `property`
+
+##### Summary
+
+Number of tiles in city
+
+<a name='P-SC4Parser-Subfiles-NetworkIndex-MajorVersion'></a>
+### MajorVersion `property`
+
+##### Summary
+
+Major version of subfile
+
+<a name='P-SC4Parser-Subfiles-NetworkIndex-MemoryAddress'></a>
+### MemoryAddress `property`
+
+##### Summary
+
+Subfile's memory address
+
+<a name='P-SC4Parser-Subfiles-NetworkIndex-NetworkTileCount'></a>
+### NetworkTileCount `property`
+
+##### Summary
+
+Number of network tiles in city
+
+<a name='P-SC4Parser-Subfiles-NetworkIndex-SubfileSize'></a>
+### SubfileSize `property`
+
+##### Summary
+
+Size of subfile
+
+<a name='M-SC4Parser-Subfiles-NetworkIndex-Dump'></a>
+### Dump() `method`
+
+##### Summary
+
+Prints out the contents of the file
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-SC4Parser-Subfiles-NetworkIndex-Parse-System-Byte[]-'></a>
+### Parse(buffer) `method`
+
+##### Summary
+
+Parses Network Index Subfile
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| buffer | [System.Byte[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Byte[] 'System.Byte[]') | Buffer to read file from |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.IndexOutOfRangeException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IndexOutOfRangeException 'System.IndexOutOfRangeException') | Thrown when trying to parse an element that is out of bounds in the data array |
+
+##### Remarks
+
+Incompleted. DO NOT USE, will probably crash.
+
 <a name='T-SC4Parser-Subfiles-NetworkSubfile1'></a>
 ## NetworkSubfile1 `type`
 
@@ -3267,6 +3897,23 @@ Prints out the contents of the subfile
 
 This method has no parameters.
 
+<a name='M-SC4Parser-Subfiles-NetworkSubfile1-FindTile-System-UInt32-'></a>
+### FindTile(memoryReference) `method`
+
+##### Summary
+
+Checks to see if a tile with a given memory address is present in the file
+
+##### Returns
+
+Tile that has the given memory address, null if nothing is found
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| memoryReference | [System.UInt32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.UInt32 'System.UInt32') | Memory address to look for |
+
 <a name='M-SC4Parser-Subfiles-NetworkSubfile1-Parse-System-Byte[],System-Int32-'></a>
 ### Parse(buffer,size) `method`
 
@@ -3296,7 +3943,7 @@ SC4Parser.Subfiles
 
 ##### Summary
 
-Implementation of Network Subfile 2. Network subfile 2 seems to contain all the network tiles that are below or above ground (bridges, tunnels etc).
+Implementation of Network Subfile 2. Network subfile 2 seems to contain all the network tiles that are below ground (subways).
 
 ##### Remarks
 
@@ -3326,6 +3973,23 @@ Prints out the contents of the subfile
 ##### Parameters
 
 This method has no parameters.
+
+<a name='M-SC4Parser-Subfiles-NetworkSubfile2-FindTile-System-UInt32-'></a>
+### FindTile(memoryReference) `method`
+
+##### Summary
+
+Checks to see if a tile with a given memory address is present in the file
+
+##### Returns
+
+Tile that has the given memory address, null if nothing is found
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| memoryReference | [System.UInt32](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.UInt32 'System.UInt32') | Memory address to look for |
 
 <a name='M-SC4Parser-Subfiles-NetworkSubfile2-Parse-System-Byte[],System-Int32-'></a>
 ### Parse(buffer,size) `method`
@@ -4640,6 +5304,82 @@ Parses a network tile (from network subfile 2) from a byte array.
 
 - [SC4Parser.Subfiles.NetworkSubfile2](#T-SC4Parser-Subfiles-NetworkSubfile2 'SC4Parser.Subfiles.NetworkSubfile2')
 
+<a name='T-SC4Parser-Subfiles-NetworkTileReference'></a>
+## NetworkTileReference `type`
+
+##### Namespace
+
+SC4Parser.Subfiles
+
+##### Summary
+
+Network tile reference, this is the representation of a network tile that is 
+stored in the Network Index Subfile
+
+<a name='P-SC4Parser-Subfiles-NetworkTileReference-MemoryAddressRef'></a>
+### MemoryAddressRef `property`
+
+##### Summary
+
+Memory address of the network tile
+
+<a name='P-SC4Parser-Subfiles-NetworkTileReference-SubfileTypeIDRef'></a>
+### SubfileTypeIDRef `property`
+
+##### Summary
+
+ID of the subfile that stores the network tile
+
+<a name='P-SC4Parser-Subfiles-NetworkTileReference-TileNumber'></a>
+### TileNumber `property`
+
+##### Summary
+
+The tile's count in the city
+
+##### Remarks
+
+Tile numbering starts in the NW corner, which is tile number 0x00000000.
+- Tile number 0x00000001 is to the east of that tile.
+- In a small city, the first tile in the second row is 0x00000040.
+- In a medium city, the first tile in the second row is 0x00000080.
+- In a large city, the first tile in the second row is 0x00000100.
+- In a small city, the last tile in the last row is 0x00000FFF.
+- In a medium city, the last tile in the last row is 0x00003FFF.
+- In a large city, the last tile in the last row is 0x0000FFFF.
+(info from https://wiki.sc4devotion.com/index.php?title=Network_Subfiles#Network_Index_Subfile_Body)
+
+<a name='M-SC4Parser-Subfiles-NetworkTileReference-Dump'></a>
+### Dump() `method`
+
+##### Summary
+
+Prints out the contents of the network block
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-SC4Parser-Subfiles-NetworkTileReference-Parse-System-Byte[],System-UInt32@-'></a>
+### Parse(buffer,offset) `method`
+
+##### Summary
+
+Parses a single Network Tile reference. Returns offset after block has been parsed
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| buffer | [System.Byte[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Byte[] 'System.Byte[]') | Data to parse block from |
+| offset | [System.UInt32@](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.UInt32@ 'System.UInt32@') | Where to start parsing block |
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [System.IndexOutOfRangeException](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.IndexOutOfRangeException 'System.IndexOutOfRangeException') | Thrown when trying to parse an element that is out of bounds in the data array |
+
 <a name='T-SC4Parser-Compression-QFS'></a>
 ## QFS `type`
 
@@ -4993,6 +5733,164 @@ foreach (IndexEntry entry in savegame.IndexEntries)
 
 - [SC4Parser.Files.DatabasePackedFile](#T-SC4Parser-Files-DatabasePackedFile 'SC4Parser.Files.DatabasePackedFile')
 
+<a name='M-SC4Parser-Files-SC4SaveFile-ContainsBridgeNetworkSubfile'></a>
+### ContainsBridgeNetworkSubfile() `method`
+
+##### Summary
+
+Checks if the save game contains a Bridge network subfile
+
+##### Returns
+
+true if the subfile is present
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-SC4Parser-Files-SC4SaveFile-ContainsBuildingsSubfile'></a>
+### ContainsBuildingsSubfile() `method`
+
+##### Summary
+
+Checks if the save game contains a Buildings Subfile
+
+##### Returns
+
+true if the subfile is present
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-SC4Parser-Files-SC4SaveFile-ContainsLotSubfile'></a>
+### ContainsLotSubfile() `method`
+
+##### Summary
+
+Checks if the save game contains a Lot Subfile
+
+##### Returns
+
+true if the subfile is present
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-SC4Parser-Files-SC4SaveFile-ContainsNetworkSubfile1'></a>
+### ContainsNetworkSubfile1() `method`
+
+##### Summary
+
+Checks if the save game contains a Network subfile 1
+
+##### Returns
+
+true if the subfile is present
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-SC4Parser-Files-SC4SaveFile-ContainsNetworkSubfile2'></a>
+### ContainsNetworkSubfile2() `method`
+
+##### Summary
+
+Checks if the save game contains a Network subfile 2
+
+##### Returns
+
+true if the subfile is present
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-SC4Parser-Files-SC4SaveFile-ContainsRegionViewSubfile'></a>
+### ContainsRegionViewSubfile() `method`
+
+##### Summary
+
+Checks if the save game contains a Region View subfile
+
+##### Returns
+
+true if the subfile is present
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-SC4Parser-Files-SC4SaveFile-ContainsTerrainMapSubfile'></a>
+### ContainsTerrainMapSubfile() `method`
+
+##### Summary
+
+Checks if the save game contains a Terrain Map subfile
+
+##### Returns
+
+true if the subfile is present
+
+##### Parameters
+
+This method has no parameters.
+
+<a name='M-SC4Parser-Files-SC4SaveFile-GetBridgeNetworkSubfile'></a>
+### GetBridgeNetworkSubfile() `method`
+
+##### Summary
+
+Returns Bridge Network Subfile from the SC4 save game
+
+##### Returns
+
+Bridge Network Subfile from the SC4 save game
+
+##### Parameters
+
+This method has no parameters.
+
+##### Exceptions
+
+| Name | Description |
+| ---- | ----------- |
+| [SC4Parser.SubfileNotFoundException](#T-SC4Parser-SubfileNotFoundException 'SC4Parser.SubfileNotFoundException') | Returned when there is an issue with loading or finding the subfile |
+
+##### Example
+
+```
+// Load save game
+SC4SaveFile savegame;
+try
+{
+	savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+}
+catch (DBPFParsingException)
+{
+	Console.Writeline("Issue occured while parsing DBPF");
+	return;
+}
+
+// Fetch the network subfile
+BridgeNetworkSubfile bridgeSubfile = null;
+try 
+{
+	bridgeSubfile = savegame.GetBridgeNetworkSubfile();
+}
+catch (SubfileNotFoundException)
+{
+	Console.Writeline("Could not find or load subfile");
+}
+```
+
+##### See Also
+
+- [SC4Parser.Subfiles.NetworkSubfile2](#T-SC4Parser-Subfiles-NetworkSubfile2 'SC4Parser.Subfiles.NetworkSubfile2')
+- [SC4Parser.DataStructures.NetworkTile2](#T-SC4Parser-DataStructures-NetworkTile2 'SC4Parser.DataStructures.NetworkTile2')
+
 <a name='M-SC4Parser-Files-SC4SaveFile-GetBuildingSubfile'></a>
 ### GetBuildingSubfile() `method`
 
@@ -5193,7 +6091,7 @@ catch (DBPFParsingException)
 }
 
 // Fetch the network subfile
-NetworkSubfile2 network2Subfile = null
+NetworkSubfile2 network2Subfile = null;
 try 
 {
 	network2Subfile = savegame.GetNetworkSubfile2();
@@ -5528,10 +6426,10 @@ Implementation of TerrainMap Subfile, contains height information for each tile 
 // print out terrain map
 foreach (float x in terrainMapSubfile.Map)
 {
- foreach (float y in terrainMapSubfile.Map[x])
- {
-	 Console.WriteLine(terrainMapSubfile.Map[x][y]);
- }
+	foreach (float y in terrainMapSubfile.Map[x])
+	{
+		Console.WriteLine(terrainMapSubfile.Map[x][y]);
+	}
 }
 ```
 
