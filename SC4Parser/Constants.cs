@@ -272,5 +272,16 @@ namespace SC4Parser
         /// Number of grid tiles in a large city
         /// </summary>
         public const int LARGE_CITY_TILE_COUNT = 128;
+
+        /// <summary>
+        /// City mode that represents if a city is in God Mode
+        /// </summary>
+        /// <seealso cref="SC4Parser.Subfiles.RegionViewSubfile.ModeFlag"/>
+        public const int GOD_MODE_FLAG = 0;
+        /// <summary>
+        /// City mode that represents if a city is in Mayor Mode
+        /// </summary>
+        /// <seealso cref="SC4Parser.Subfiles.RegionViewSubfile.ModeFlag"/>
+        public const int MAYOR_MODE_FLAG = 1;
     }
 }
