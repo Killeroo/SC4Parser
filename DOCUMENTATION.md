@@ -95,6 +95,7 @@
   - [BRIDGE_NETWORK_SUBFILE_TYPE](#F-SC4Parser-Constants-BRIDGE_NETWORK_SUBFILE_TYPE 'SC4Parser.Constants.BRIDGE_NETWORK_SUBFILE_TYPE')
   - [BUILDING_SUBFILE_TYPE](#F-SC4Parser-Constants-BUILDING_SUBFILE_TYPE 'SC4Parser.Constants.BUILDING_SUBFILE_TYPE')
   - [DATABASE_DIRECTORY_FILE_TGI](#F-SC4Parser-Constants-DATABASE_DIRECTORY_FILE_TGI 'SC4Parser.Constants.DATABASE_DIRECTORY_FILE_TGI')
+  - [GOD_MODE_FLAG](#F-SC4Parser-Constants-GOD_MODE_FLAG 'SC4Parser.Constants.GOD_MODE_FLAG')
   - [LARGE_CITY_TILE_COUNT](#F-SC4Parser-Constants-LARGE_CITY_TILE_COUNT 'SC4Parser.Constants.LARGE_CITY_TILE_COUNT')
   - [LOT_SUBFILE_TYPE](#F-SC4Parser-Constants-LOT_SUBFILE_TYPE 'SC4Parser.Constants.LOT_SUBFILE_TYPE')
   - [LOT_WEALTH_HIGH](#F-SC4Parser-Constants-LOT_WEALTH_HIGH 'SC4Parser.Constants.LOT_WEALTH_HIGH')
@@ -118,7 +119,9 @@
   - [LOT_ZONE_TYPE_SPACEPORT](#F-SC4Parser-Constants-LOT_ZONE_TYPE_SPACEPORT 'SC4Parser.Constants.LOT_ZONE_TYPE_SPACEPORT')
   - [LOT_ZONE_TYPE_STRINGS](#F-SC4Parser-Constants-LOT_ZONE_TYPE_STRINGS 'SC4Parser.Constants.LOT_ZONE_TYPE_STRINGS')
   - [LOT_ZONE_WEALTH_STRINGS](#F-SC4Parser-Constants-LOT_ZONE_WEALTH_STRINGS 'SC4Parser.Constants.LOT_ZONE_WEALTH_STRINGS')
+  - [MAYOR_MODE_FLAG](#F-SC4Parser-Constants-MAYOR_MODE_FLAG 'SC4Parser.Constants.MAYOR_MODE_FLAG')
   - [MEDIUM_CITY_TILE_COUNT](#F-SC4Parser-Constants-MEDIUM_CITY_TILE_COUNT 'SC4Parser.Constants.MEDIUM_CITY_TILE_COUNT')
+  - [NETWORK_INDEX_SUBFILE_TYPE](#F-SC4Parser-Constants-NETWORK_INDEX_SUBFILE_TYPE 'SC4Parser.Constants.NETWORK_INDEX_SUBFILE_TYPE')
   - [NETWORK_SUBFILE_1_TYPE](#F-SC4Parser-Constants-NETWORK_SUBFILE_1_TYPE 'SC4Parser.Constants.NETWORK_SUBFILE_1_TYPE')
   - [NETWORK_SUBFILE_2_TYPE](#F-SC4Parser-Constants-NETWORK_SUBFILE_2_TYPE 'SC4Parser.Constants.NETWORK_SUBFILE_2_TYPE')
   - [NETWORK_TYPE_STRINGS](#F-SC4Parser-Constants-NETWORK_TYPE_STRINGS 'SC4Parser.Constants.NETWORK_TYPE_STRINGS')
@@ -413,15 +416,28 @@
 - [QFSDecompressionException](#T-SC4Parser-QFSDecompressionException 'SC4Parser.QFSDecompressionException')
   - [#ctor(message,e)](#M-SC4Parser-QFSDecompressionException-#ctor-System-String,System-Exception- 'SC4Parser.QFSDecompressionException.#ctor(System.String,System.Exception)')
 - [RegionViewSubfile](#T-SC4Parser-Subfiles-RegionViewSubfile 'SC4Parser.Subfiles.RegionViewSubfile')
+  - [CityGuid](#P-SC4Parser-Subfiles-RegionViewSubfile-CityGuid 'SC4Parser.Subfiles.RegionViewSubfile.CityGuid')
+  - [CityName](#P-SC4Parser-Subfiles-RegionViewSubfile-CityName 'SC4Parser.Subfiles.RegionViewSubfile.CityName')
+  - [CityNameLength](#P-SC4Parser-Subfiles-RegionViewSubfile-CityNameLength 'SC4Parser.Subfiles.RegionViewSubfile.CityNameLength')
   - [CitySizeX](#P-SC4Parser-Subfiles-RegionViewSubfile-CitySizeX 'SC4Parser.Subfiles.RegionViewSubfile.CitySizeX')
   - [CitySizeY](#P-SC4Parser-Subfiles-RegionViewSubfile-CitySizeY 'SC4Parser.Subfiles.RegionViewSubfile.CitySizeY')
   - [CommercialPopulation](#P-SC4Parser-Subfiles-RegionViewSubfile-CommercialPopulation 'SC4Parser.Subfiles.RegionViewSubfile.CommercialPopulation')
+  - [FormerCityName](#P-SC4Parser-Subfiles-RegionViewSubfile-FormerCityName 'SC4Parser.Subfiles.RegionViewSubfile.FormerCityName')
+  - [FormerCityNameLength](#P-SC4Parser-Subfiles-RegionViewSubfile-FormerCityNameLength 'SC4Parser.Subfiles.RegionViewSubfile.FormerCityNameLength')
   - [IndustrialPopulation](#P-SC4Parser-Subfiles-RegionViewSubfile-IndustrialPopulation 'SC4Parser.Subfiles.RegionViewSubfile.IndustrialPopulation')
+  - [InternalDescription](#P-SC4Parser-Subfiles-RegionViewSubfile-InternalDescription 'SC4Parser.Subfiles.RegionViewSubfile.InternalDescription')
+  - [InternalDescriptionLength](#P-SC4Parser-Subfiles-RegionViewSubfile-InternalDescriptionLength 'SC4Parser.Subfiles.RegionViewSubfile.InternalDescriptionLength')
   - [MajorVersion](#P-SC4Parser-Subfiles-RegionViewSubfile-MajorVersion 'SC4Parser.Subfiles.RegionViewSubfile.MajorVersion')
+  - [MayorName](#P-SC4Parser-Subfiles-RegionViewSubfile-MayorName 'SC4Parser.Subfiles.RegionViewSubfile.MayorName')
+  - [MayorNameLength](#P-SC4Parser-Subfiles-RegionViewSubfile-MayorNameLength 'SC4Parser.Subfiles.RegionViewSubfile.MayorNameLength')
+  - [MayorRating](#P-SC4Parser-Subfiles-RegionViewSubfile-MayorRating 'SC4Parser.Subfiles.RegionViewSubfile.MayorRating')
   - [MinorVersion](#P-SC4Parser-Subfiles-RegionViewSubfile-MinorVersion 'SC4Parser.Subfiles.RegionViewSubfile.MinorVersion')
+  - [ModeFlag](#P-SC4Parser-Subfiles-RegionViewSubfile-ModeFlag 'SC4Parser.Subfiles.RegionViewSubfile.ModeFlag')
   - [ResidentialPopulation](#P-SC4Parser-Subfiles-RegionViewSubfile-ResidentialPopulation 'SC4Parser.Subfiles.RegionViewSubfile.ResidentialPopulation')
+  - [StarCount](#P-SC4Parser-Subfiles-RegionViewSubfile-StarCount 'SC4Parser.Subfiles.RegionViewSubfile.StarCount')
   - [TileXLocation](#P-SC4Parser-Subfiles-RegionViewSubfile-TileXLocation 'SC4Parser.Subfiles.RegionViewSubfile.TileXLocation')
   - [TileYLocation](#P-SC4Parser-Subfiles-RegionViewSubfile-TileYLocation 'SC4Parser.Subfiles.RegionViewSubfile.TileYLocation')
+  - [TutorialFlag](#P-SC4Parser-Subfiles-RegionViewSubfile-TutorialFlag 'SC4Parser.Subfiles.RegionViewSubfile.TutorialFlag')
   - [Dump()](#M-SC4Parser-Subfiles-RegionViewSubfile-Dump 'SC4Parser.Subfiles.RegionViewSubfile.Dump')
   - [Parse(buffer)](#M-SC4Parser-Subfiles-RegionViewSubfile-Parse-System-Byte[]- 'SC4Parser.Subfiles.RegionViewSubfile.Parse(System.Byte[])')
 - [SC4SaveFile](#T-SC4Parser-Files-SC4SaveFile 'SC4Parser.Files.SC4SaveFile')
@@ -943,31 +959,31 @@ Representation of a building in Simcity 4, as it is stored in a save game
 SC4SaveFile savegame = null;
 try
 {
-	savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+    savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
 }
 catch (DBPFParsingException)
 {
-	Console.Writeline("Issue occured while parsing DBPF");
-	return;
+    Console.Writeline("Issue occured while parsing DBPF");
+    return;
 }
 
 // load Building Subfile from save
 BuildingSubfile buildingSubfile = new BuildingSubfile();
 try
 {
-	IndexEntry buildingEntry = savegame.FindIndexEntryWithType("A9BD882D")
-	byte[] buildingSubfileData = savegame.LoadIndexEntry(buildingEntry.TGI);
-	buildingSubfile.Parse(buildingSubfileData, buildingSubfileData.Length     
+    IndexEntry buildingEntry = savegame.FindIndexEntryWithType("A9BD882D")
+    byte[] buildingSubfileData = savegame.LoadIndexEntry(buildingEntry.TGI);
+    buildingSubfile.Parse(buildingSubfileData, buildingSubfileData.Length     
 }
 catch (Exception)
 {
-	Console.Writeline("Error loading building subfile);
+    Console.Writeline("Error loading building subfile);
 }
 
 // loop through buildings and print out their TGIs
 foreach (Building building in buildingsSubfile.Buildings)
 {
-	Console.Writeline(building.TGI.ToString();
+    Console.Writeline(building.TGI.ToString();
 }
 ```
 
@@ -1382,6 +1398,10 @@ Stores common values and identifiers used in SimCity 4 save gamesa
 
 Type ID of the bridge network subfile
 
+##### See Also
+
+- [SC4Parser.Subfiles.BridgeNetworkSubfile](#T-SC4Parser-Subfiles-BridgeNetworkSubfile 'SC4Parser.Subfiles.BridgeNetworkSubfile')
+
 <a name='F-SC4Parser-Constants-BUILDING_SUBFILE_TYPE'></a>
 ### BUILDING_SUBFILE_TYPE `constants`
 
@@ -1403,6 +1423,17 @@ TypeGroupInstance (TGI) ID for the Database Directory File (DBDF)
 ##### See Also
 
 - [SC4Parser.Files.DatabaseDirectoryFile](#T-SC4Parser-Files-DatabaseDirectoryFile 'SC4Parser.Files.DatabaseDirectoryFile')
+
+<a name='F-SC4Parser-Constants-GOD_MODE_FLAG'></a>
+### GOD_MODE_FLAG `constants`
+
+##### Summary
+
+City mode that represents if a city is in God Mode
+
+##### See Also
+
+- [SC4Parser.Subfiles.RegionViewSubfile.ModeFlag](#P-SC4Parser-Subfiles-RegionViewSubfile-ModeFlag 'SC4Parser.Subfiles.RegionViewSubfile.ModeFlag')
 
 <a name='F-SC4Parser-Constants-LARGE_CITY_TILE_COUNT'></a>
 ### LARGE_CITY_TILE_COUNT `constants`
@@ -1569,12 +1600,34 @@ Lot zone types as strings
 
 Lot wealth types as strings
 
+<a name='F-SC4Parser-Constants-MAYOR_MODE_FLAG'></a>
+### MAYOR_MODE_FLAG `constants`
+
+##### Summary
+
+City mode that represents if a city is in Mayor Mode
+
+##### See Also
+
+- [SC4Parser.Subfiles.RegionViewSubfile.ModeFlag](#P-SC4Parser-Subfiles-RegionViewSubfile-ModeFlag 'SC4Parser.Subfiles.RegionViewSubfile.ModeFlag')
+
 <a name='F-SC4Parser-Constants-MEDIUM_CITY_TILE_COUNT'></a>
 ### MEDIUM_CITY_TILE_COUNT `constants`
 
 ##### Summary
 
 Number of grid tiles in a medium sized city
+
+<a name='F-SC4Parser-Constants-NETWORK_INDEX_SUBFILE_TYPE'></a>
+### NETWORK_INDEX_SUBFILE_TYPE `constants`
+
+##### Summary
+
+Type ID of Network Index Subfile
+
+##### See Also
+
+- [SC4Parser.Subfiles.NetworkIndex](#T-SC4Parser-Subfiles-NetworkIndex 'SC4Parser.Subfiles.NetworkIndex')
 
 <a name='F-SC4Parser-Constants-NETWORK_SUBFILE_1_TYPE'></a>
 ### NETWORK_SUBFILE_1_TYPE `constants`
@@ -2294,7 +2347,6 @@ catch (IndexEntryNotFoundException)
 	return;
 }
 ```
-
 ##### See Also
 
 - [SC4Parser.Files.DatabasePackedFile.FindIndexEntry](#M-SC4Parser-Files-DatabasePackedFile-FindIndexEntry-SC4Parser-Types-TypeGroupInstance- 'SC4Parser.Files.DatabasePackedFile.FindIndexEntry(SC4Parser.Types.TypeGroupInstance)')
@@ -2945,6 +2997,7 @@ catch (DBPFParsingException)
 	Console.Writeline("Issue occured while parsing DBPF");
 	return;
 }
+
 ```
 
 <a name='T-SC4Parser-Logging-ILogger'></a>
@@ -3943,7 +3996,7 @@ SC4Parser.Subfiles
 
 ##### Summary
 
-Implementation of Network Subfile 2. Network subfile 2 seems to contain all the network tiles that are below ground (subways).
+Implementation of Network Subfile 2. Network subfile 2 seems to contain all the network tiles that are below (Subways).
 
 ##### Remarks
 
@@ -5530,6 +5583,27 @@ Only a partial implementation and will not contain all values from the save game
  
  Based off spec from here: https://wiki.sc4devotion.com/index.php?title=Region_View_Subfiles
 
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-CityGuid'></a>
+### CityGuid `property`
+
+##### Summary
+
+City GUID
+
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-CityName'></a>
+### CityName `property`
+
+##### Summary
+
+City's name
+
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-CityNameLength'></a>
+### CityNameLength `property`
+
+##### Summary
+
+Length of city name string
+
 <a name='P-SC4Parser-Subfiles-RegionViewSubfile-CitySizeX'></a>
 ### CitySizeX `property`
 
@@ -5559,12 +5633,40 @@ Multiplied by 64 to get the number of the tiles in the city
 
 Commercial population of city
 
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-FormerCityName'></a>
+### FormerCityName `property`
+
+##### Summary
+
+Cities former name
+
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-FormerCityNameLength'></a>
+### FormerCityNameLength `property`
+
+##### Summary
+
+Length of former city name
+
 <a name='P-SC4Parser-Subfiles-RegionViewSubfile-IndustrialPopulation'></a>
 ### IndustrialPopulation `property`
 
 ##### Summary
 
 Industrial population of city
+
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-InternalDescription'></a>
+### InternalDescription `property`
+
+##### Summary
+
+City description
+
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-InternalDescriptionLength'></a>
+### InternalDescriptionLength `property`
+
+##### Summary
+
+City description string length
 
 <a name='P-SC4Parser-Subfiles-RegionViewSubfile-MajorVersion'></a>
 ### MajorVersion `property`
@@ -5577,6 +5679,27 @@ Major version of the subfile
 
 You can see the different versions here: https://www.wiki.sc4devotion.com/index.php?title=Region_View_Subfiles
 This implementation is based around the SimCity 4 Rush Hour/Deluxe version of the game (1.13)
+
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-MayorName'></a>
+### MayorName `property`
+
+##### Summary
+
+City's mayor
+
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-MayorNameLength'></a>
+### MayorNameLength `property`
+
+##### Summary
+
+Length of mayor name string
+
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-MayorRating'></a>
+### MayorRating `property`
+
+##### Summary
+
+Mayor rating of city, in bars as seen on region view (12 max)
 
 <a name='P-SC4Parser-Subfiles-RegionViewSubfile-MinorVersion'></a>
 ### MinorVersion `property`
@@ -5591,12 +5714,26 @@ W
 You can see the different versions here: https://www.wiki.sc4devotion.com/index.php?title=Region_View_Subfiles
 This implementation is based around the SimCity 4 Rush Hour/Deluxe version of the game (1.13)
 
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-ModeFlag'></a>
+### ModeFlag `property`
+
+##### Summary
+
+Mode city is in (1 = Mayor mode, 0 = God mode)
+
 <a name='P-SC4Parser-Subfiles-RegionViewSubfile-ResidentialPopulation'></a>
 ### ResidentialPopulation `property`
 
 ##### Summary
 
 Residential population of city
+
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-StarCount'></a>
+### StarCount `property`
+
+##### Summary
+
+City star count (as seen from region view), (0=1, 1=2, 2=3)
 
 <a name='P-SC4Parser-Subfiles-RegionViewSubfile-TileXLocation'></a>
 ### TileXLocation `property`
@@ -5611,6 +5748,13 @@ X location of the city in the region view
 ##### Summary
 
 Z location of the city in the region view
+
+<a name='P-SC4Parser-Subfiles-RegionViewSubfile-TutorialFlag'></a>
+### TutorialFlag `property`
+
+##### Summary
+
+Indicates if the city is a tutorial city. 1 for tutorial map.
 
 <a name='M-SC4Parser-Subfiles-RegionViewSubfile-Dump'></a>
 ### Dump() `method`
