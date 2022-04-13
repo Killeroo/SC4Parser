@@ -45,7 +45,7 @@ namespace SC4Parser.Files
     ///     savegame.Header.MinorVersion);
     /// </c>
     /// </example>
-    public class DatabasePackedFile
+    public class DatabasePackedFile : IDisposable
     {
         /// <summary>
         /// Database Packed File's (DBPF) header file
@@ -823,6 +823,34 @@ namespace SC4Parser.Files
 
             Console.WriteLine();
             DBDFFile.Dump();
+        }
+
+
+        private bool _disposed;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    RawFile.Dispose();
+                }
+
+                Header = null;
+                IndexEntries.Clear();
+                IndexEntries = null;
+                DBDFFile = null;
+                FilePath = null;
+
+                _disposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }
