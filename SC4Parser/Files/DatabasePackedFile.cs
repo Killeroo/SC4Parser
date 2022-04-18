@@ -282,6 +282,132 @@ namespace SC4Parser.Files
         ///     return;
         /// }
         /// 
+        /// // load terrain map subfile from DBPF
+        /// try
+        /// {
+        ///     byte[] data = save.LoadIndexEntry(3384630602); 
+        /// } 
+        /// catch (IndexEntryNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find Index Entry");
+        ///     return;
+        /// }
+        /// catch (IndexEntryLoadingException)
+        /// {
+        ///     Console.Writeline("Issue loading Index Entry");
+        ///     return;
+        /// }
+        /// catch (QFSDecompressionException)
+        /// {
+        ///     Console.Writeline("Issue decompressing data from DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// // Do something with the terrain data...
+        /// </c>
+        /// </example>
+        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.Compression.QFS"/>
+        public byte[] LoadIndexEntry(uint type_id)
+        {
+            Logger.Log(LogLevel.Info, "Searching for IndexEntry with TypeId={0}...", type_id);
+
+            // First find IndexEntry
+            IndexEntry entry = FindIndexEntryWithType(type_id);
+
+            // Then load the IndexEntry
+            return LoadIndexEntry(entry);
+        }
+        /// <summary>
+        /// Loads the contents of an Index Entry from the Database Packed File (DBPF)
+        /// </summary>
+        /// <param name="tgi">The TypeGroupInstance (TGI) used to find the index entry</param>
+        /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when IndexEntry doesn't exist in save game</exception>
+        /// <exception cref="SC4Parser.IndexEntryLoadingException">Thrown when exception occurs when loading IndexEntry</exception>
+        /// <exception cref="SC4Parser.QFSDecompressionException">Thrown when exception occurs while decompressing IndexEntry data</exception>
+        /// <returns>Returns the (possibly uncompressed) bytes of an IndexEntry</returns>
+        /// <remarks>
+        /// The data of the Index Entry will be decompressed using QFS/RefPack if it is compressed (has an entry
+        /// in the Database Directory file (DBDF/DIR)
+        /// </remarks>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// DatabasePackedFile savegame;
+        /// try
+        /// {
+        ///     savegame = new DatabasePackedFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// // load terrain map subfile from DBPF
+        /// try
+        /// {
+        ///     byte[] data = save.LoadIndexEntry("A9DD6FF4"); 
+        /// } 
+        /// catch (IndexEntryNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find Index Entry");
+        ///     return;
+        /// }
+        /// catch (IndexEntryLoadingException)
+        /// {
+        ///     Console.Writeline("Issue loading Index Entry");
+        ///     return;
+        /// }
+        /// catch (QFSDecompressionException)
+        /// {
+        ///     Console.Writeline("Issue decompressing data from DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// // Do something with the terrain data...
+        /// </c>
+        /// </example>
+        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.Compression.QFS"/>
+        public byte[] LoadIndexEntry(string type_id)
+        {
+            Logger.Log(LogLevel.Info, "Searching for IndexEntry with TypeId={0}...", type_id);
+
+            // First find IndexEntry
+            IndexEntry entry = FindIndexEntryWithType(type_id);
+
+            // Then load the IndexEntry
+            return LoadIndexEntry(entry);
+        }
+        /// <summary>
+        /// Loads the contents of an Index Entry from the Database Packed File (DBPF)
+        /// </summary>
+        /// <param name="tgi">The TypeGroupInstance (TGI) used to find the index entry</param>
+        /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when IndexEntry doesn't exist in save game</exception>
+        /// <exception cref="SC4Parser.IndexEntryLoadingException">Thrown when exception occurs when loading IndexEntry</exception>
+        /// <exception cref="SC4Parser.QFSDecompressionException">Thrown when exception occurs while decompressing IndexEntry data</exception>
+        /// <returns>Returns the (possibly uncompressed) bytes of an IndexEntry</returns>
+        /// <remarks>
+        /// The data of the Index Entry will be decompressed using QFS/RefPack if it is compressed (has an entry
+        /// in the Database Directory file (DBDF/DIR)
+        /// </remarks>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// DatabasePackedFile savegame;
+        /// try
+        /// {
+        ///     savegame = new DatabasePackedFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
         /// // Terrain map subfile TGI
         /// TypeGroupInstance terrainTGI = new TypeGroupInstance("A9DD6FF4", "E98f9525", "00000001");
         /// 
@@ -610,6 +736,46 @@ namespace SC4Parser.Files
 
             return foundEntry;
         }
+
+        /// <summary>
+        /// Finds and returns an Index Entry with a given Type ID
+        /// </summary>
+        /// <param name="type_id">The Type ID used to find Index Entry</param>
+        /// <returns>The Index Entry with the given Type ID</returns>
+        /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when Index Entry cannot be found</exception>
+        /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
+        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntry(TypeGroupInstance)"/>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// DatabasePackedFile savegame;
+        /// try
+        /// {
+        ///     savegame = new DatabasePackedFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// // Find Lot Subfile's Index Entry from save
+        /// IndexEntry entry = null
+        /// try
+        /// {
+        ///     entry = save.FindIndexEntryWithType(3384630602); 
+        /// }
+        /// catch (IndexEntryNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find Index Entry");
+        ///     return;
+        /// }
+        /// </c>
+        /// </example>
+        public IndexEntry FindIndexEntryWithType(uint type_id)
+        {
+            return FindIndexEntryWithType(type_id.ToString("X"));
+        }
         /// <summary>
         /// Finds and returns an Index Entry with a given Type ID
         /// </summary>
@@ -668,6 +834,7 @@ namespace SC4Parser.Files
 
             return foundEntry;
         }
+
         /// <summary>
         /// Finds a Database Directory Resource inside the Database Packed File's (DBPF) Database Directory File (DBDF/DIR)
         /// </summary>
