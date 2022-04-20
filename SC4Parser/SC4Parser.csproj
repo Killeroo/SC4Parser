@@ -4,7 +4,6 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<Title>SC4Parser</Title>
     <PackageProjectUrl>https://github.com/Killeroo/SC4Parser</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Killeroo/SC4Parser</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -15,7 +14,7 @@
     <Authors>Matthew Carney</Authors>
     <Copyright>Copyright (c) Matthew Carney 2022</Copyright>
     <Version>1.1.2</Version>
-	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<!--<PackageLicenseExpression>MIT</PackageLicenseExpression>-->
     <Description>SC4Parser is a general purpose library for parsing, finding, and loading files from Simcity 4 save game files (Maxis Database Packed Files (DBPF)).
 
 The library was mainly intended for extracting items, from save games. It contains some partial implementation of specific Simcity 4 subfiles but mainly provides solid structures for loading data from save game files.</Description>
