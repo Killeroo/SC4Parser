@@ -7,7 +7,7 @@
     <PackageProjectUrl>https://github.com/Killeroo/SC4Parser</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Killeroo/SC4Parser</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>simcity;simcity4;sc4;parser;savegame;save;maxis;qfs;dbpf;parser;databasepackedfile;</PackageTags>
+    <PackageTags>simcity;simcity4;sc4;parser;savegame;save;maxis;qfs;dbpf;parser;databasepackedfile;simcity 4;save game;</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <AssemblyVersion>1.1.2.0</AssemblyVersion>
     <FileVersion>1.1.2.0</FileVersion>
