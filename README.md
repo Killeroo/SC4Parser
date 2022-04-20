@@ -19,8 +19,18 @@ Because DBPF files were used for save games for other maxis games (Sims 3, Spore
   - [Lots Subfile](https://wiki.sc4devotion.com/index.php?title=Lot_Subfile) (*Partially Implemented*)
   - [RegionView Subfile](https://wiki.sc4devotion.com/index.php?title=Region_View_Subfiles) (*Partially Implemented*)
 
+# Setup/Download
+
+You can fetch the latest version of SC4Parser from [Nuget](https://www.nuget.org/packages/SC4Parser/), using the [NuGet Package Manager UI](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio) or via the commandline:
+
+```
+Install-Package SC4Parser -Version 1.1.2
+```
+
+You can also download a prebuilt windows version of the library from the [latest releases from github](https://github.com/Killeroo/SC4Parser/releases/latest) and reference the library in your project (when using Visual Studio have a look [at this guide](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-add-or-remove-references-by-using-the-reference-manager?view=vs-2019#add-a-reference)). Or build the library from source (it's not that hard I swear..).
+
 # Getting started
-Once the library is built (or [downloaded](https://github.com/Killeroo/SC4Parser/releases/latest)) and referenced by your project (when using Visual Studio have a look [here](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-add-or-remove-references-by-using-the-reference-manager?view=vs-2019#add-a-reference)) it should be fairly straightforward to use. The first thing you need to do is load the SimCity 4 save game:
+Once you have library setup and referenced (check above) it should be fairly straightforward to use. The first thing you need to do is load the SimCity 4 save game:
 ```
 SC4SaveFile savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
 ```
