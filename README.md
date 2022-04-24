@@ -24,7 +24,7 @@ Because DBPF files were used for save games for other maxis games (Sims 3, Spore
 You can fetch the latest version of SC4Parser from [Nuget](https://www.nuget.org/packages/SC4Parser/), using the [NuGet Package Manager UI](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio) or via the commandline:
 
 ```
-Install-Package SC4Parser -Version 1.1.2
+Install-Package SC4Parser -Version 1.1.3
 ```
 
 You can also download a prebuilt windows version of the library from the [latest releases from github](https://github.com/Killeroo/SC4Parser/releases/latest) and reference the library in your project (when using Visual Studio have a look [at this guide](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-add-or-remove-references-by-using-the-reference-manager?view=vs-2019#add-a-reference)). Or build the library from source (it's not that hard I swear..).

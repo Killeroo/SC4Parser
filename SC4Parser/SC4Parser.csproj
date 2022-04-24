@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Nullable>enable</Nullable>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl>https://github.com/Killeroo/SC4Parser</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Killeroo/SC4Parser</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>simcity;simcity4;sc4;parser;savegame;save;maxis;qfs;dbpf;parser;databasepackedfile;simcity 4;save game;</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <AssemblyVersion>1.1.2.0</AssemblyVersion>
-    <FileVersion>1.1.2.0</FileVersion>
+    <AssemblyVersion>1.1.3.0</AssemblyVersion>
+    <FileVersion>1.1.3.0</FileVersion>
+	<Title>SC4Parser</Title>
     <Authors>Matthew Carney</Authors>
     <Copyright>Copyright (c) Matthew Carney 2022</Copyright>
-    <Version>1.1.2</Version>
+    <Version>1.1.3</Version>
 	<!--<PackageLicenseExpression>MIT</PackageLicenseExpression>-->
     <Description>SC4Parser is a general purpose library for parsing, finding, and loading files from Simcity 4 save game files (Maxis Database Packed Files (DBPF)).
 
@@ -21,7 +21,7 @@ The library was mainly intended for extracting items, from save games. It contai
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <NeutralLanguage>en-GB</NeutralLanguage>
     <PackageIcon>icon_128x128.png</PackageIcon>
-    <PackageReleaseNotes>- Added LoadIndexEntry overload that takes the typeId of the index entry you want to load (as a uint or a hex string)</PackageReleaseNotes>
+    <PackageReleaseNotes>- Changed library to target netstandard 2.0</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
