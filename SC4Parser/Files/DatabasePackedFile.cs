@@ -259,11 +259,11 @@ namespace SC4Parser.Files
         /// <summary>
         /// Loads the contents of an Index Entry from the Database Packed File (DBPF)
         /// </summary>
-        /// <param name="tgi">The TypeGroupInstance (TGI) used to find the index entry</param>
+        /// <param name="type_id">The TypeGroupInstance (TGI) used to find the index entry</param>
         /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when IndexEntry doesn't exist in save game</exception>
         /// <exception cref="SC4Parser.IndexEntryLoadingException">Thrown when exception occurs when loading IndexEntry</exception>
         /// <exception cref="SC4Parser.QFSDecompressionException">Thrown when exception occurs while decompressing IndexEntry data</exception>
-        /// <returns>Returns the (possibly uncompressed) bytes of an IndexEntry</returns>
+        /// <returns>Returns the (possibly uncompressed) bytes of the first IndexEntry with the given Type Id</returns>
         /// <remarks>
         /// The data of the Index Entry will be decompressed using QFS/RefPack if it is compressed (has an entry
         /// in the Database Directory file (DBDF/DIR)
@@ -322,11 +322,11 @@ namespace SC4Parser.Files
         /// <summary>
         /// Loads the contents of an Index Entry from the Database Packed File (DBPF)
         /// </summary>
-        /// <param name="tgi">The TypeGroupInstance (TGI) used to find the index entry</param>
+        /// <param name="type_id">The Type Id used to find the index entry</param>
         /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when IndexEntry doesn't exist in save game</exception>
         /// <exception cref="SC4Parser.IndexEntryLoadingException">Thrown when exception occurs when loading IndexEntry</exception>
         /// <exception cref="SC4Parser.QFSDecompressionException">Thrown when exception occurs while decompressing IndexEntry data</exception>
-        /// <returns>Returns the (possibly uncompressed) bytes of an IndexEntry</returns>
+        /// <returns>Returns the(possibly uncompressed) bytes of the first IndexEntry with the given Type Id</returns>
         /// <remarks>
         /// The data of the Index Entry will be decompressed using QFS/RefPack if it is compressed (has an entry
         /// in the Database Directory file (DBDF/DIR)
@@ -684,6 +684,7 @@ namespace SC4Parser.Files
         /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
         /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
         /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntryWithType(string)"/>
+        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntryWithType(uint)"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -745,6 +746,7 @@ namespace SC4Parser.Files
         /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when Index Entry cannot be found</exception>
         /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
         /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntry(TypeGroupInstance)"/>
+        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntryWithType(string)"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -780,10 +782,11 @@ namespace SC4Parser.Files
         /// Finds and returns an Index Entry with a given Type ID
         /// </summary>
         /// <param name="type_id">The Type ID used to find Index Entry</param>
-        /// <returns>The Index Entry with the given Type ID</returns>
+        /// <returns>The first Index Entry with the given Type ID</returns>
         /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when Index Entry cannot be found</exception>
         /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
         /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntry(TypeGroupInstance)"/>
+        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntryWithType(uint)"/>
         /// <example>
         /// <c>
         /// // Load save game
