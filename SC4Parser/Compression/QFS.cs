@@ -174,7 +174,7 @@ namespace SC4Parser.Compression
 
 
         /// <summary>
-        /// Recurvise method that implements LZ compliant copying of data between arrays
+        /// Method that implements LZ compliant copying of data between arrays
         /// </summary>
         /// <param name="source">Array to copy from</param>
         /// <param name="sourceOffset">Position in array to copy from</param>
@@ -185,7 +185,7 @@ namespace SC4Parser.Compression
         /// With QFS (LZ77) we require an LZ compatible copy method between arrays, what this means practically is that we need to copy
         /// stuff one byte at a time from arrays. This is, because with LZ compatible algorithms, it is complete legal to copy over data that overruns
         /// the currently filled position in the destination array. In other words it is more than likely the we will be asked to copy over data that hasn't
-        /// been copied yet. It's confusing, so we copy things one byte at a time using a recursive function.
+        /// been copied yet. It's confusing, so we copy things one byte at a time.
         /// </remarks>
         /// <exception cref="System.IndexOutOfRangeException">
         /// Thrown when the copy method tries to access an element that is out of bounds in the array
@@ -194,13 +194,13 @@ namespace SC4Parser.Compression
         {
             if (length != 0)
             {
-                Buffer.BlockCopy(source, sourceOffset, destination, destinationOffset, 1);
+                for (int i = 0; i < length; i++)
+                {
+                    Buffer.BlockCopy(source, sourceOffset, destination, destinationOffset, 1);
 
-                length = length - 1;
-                sourceOffset++;
-                destinationOffset++;
-
-                LZCompliantCopy(ref source, sourceOffset, ref destination, destinationOffset, length);
+                    sourceOffset++;
+                    destinationOffset++;
+                }
             }
         }
     }
