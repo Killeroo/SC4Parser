@@ -3,7 +3,7 @@ using SC4Parser.Logging;
 using System;
 using System.Collections.Generic;
 
-namespace SC4Parser.SubFiles
+namespace SC4Parser.Subfiles
 {
     /// <summary>
     /// Implementation of the Prebuilt Network Subfile. This file appears to contain all files with prefabricated models (e.g. elevated highways and monorail).
