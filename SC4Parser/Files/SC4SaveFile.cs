@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using SC4Parser.Logging;
 using SC4Parser.DataStructures;
 using SC4Parser.Subfiles;
-using SC4Parser.SubFiles;
 
 namespace SC4Parser.Files
 {
