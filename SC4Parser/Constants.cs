@@ -159,10 +159,16 @@ namespace SC4Parser
         {
             {0x00, "Road"},
             {0x01, "Rail"},
+            {0x02, "Maxis Elevated Highway"},
             {0x03, "Street"},
+            {0x04, "Pipe"},
+            {0x05, "Powerline"},
             {0x06, "Avenue"},
             {0x07, "Subway"},
+            {0x08, "Light Rail"},
+            {0x09, "Monorail"},
             {0x0A, "One Way Road"},
+            {0x0B, "Dirt Road"}
         };
 
         /// <summary>
