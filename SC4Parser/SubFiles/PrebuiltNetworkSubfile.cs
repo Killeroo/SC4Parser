@@ -19,7 +19,7 @@ namespace SC4Parser.Subfiles
     {        /// <summary>
              /// Contains all network tiles in the network subfile
              /// </summary>
-             /// <see cref="SC4Parser.DataStructures.NetworkTile1"/>
+             /// <see cref="SC4Parser.DataStructures.PrebuiltNetworkTile"/>
         public List<PrebuiltNetworkTile> NetworkTiles { get; private set; } = new List<PrebuiltNetworkTile>();
 
         /// <summary>
