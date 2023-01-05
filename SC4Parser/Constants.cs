@@ -55,6 +55,11 @@ namespace SC4Parser
         /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
         public static readonly string NETWORK_SUBFILE_2_TYPE = "CA16374F";
         /// <summary>
+        /// Type ID of the prebuilt network subfile
+        /// </summary>
+        /// <seealso cref="SC4Parser.Subfiles.PrebuiltNetworkSubfile"/>
+        public static readonly string PREBUILT_NETWORK_SUBFILE_TYPE = "49C1A034";
+        /// <summary>
         /// Type ID of the bridge network subfile
         /// </summary>
         /// <seealso cref="SC4Parser.Subfiles.BridgeNetworkSubfile"/>

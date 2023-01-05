@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SC4Parser.Logging;
 using SC4Parser.DataStructures;
 using SC4Parser.Subfiles;
+using SC4Parser.SubFiles;
 
 namespace SC4Parser.Files
 {
@@ -49,6 +50,7 @@ namespace SC4Parser.Files
         private TerrainMapSubfile m_CachedTerrainMapSubfile = null;
         private NetworkSubfile1 m_CachedNetworkSubfile1 = null;
         private NetworkSubfile2 m_CachedNetworkSubfile2 = null;
+        private PrebuiltNetworkSubfile m_CachedPrebuiltNetworkSubfile = null;
         private BridgeNetworkSubfile m_CachedBridgeNetworkSubfile = null;
 
         /// <summary>
@@ -187,6 +189,25 @@ namespace SC4Parser.Files
             try
             {
                 FindIndexEntryWithType(Constants.NETWORK_SUBFILE_2_TYPE);
+
+                return true;
+            }
+            catch (IndexEntryNotFoundException)
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// Checks if the save game contains a Prebuilt Network subfile
+        /// </summary>
+        /// <returns>true if the subfile is present</returns>
+        public bool ContainsPrebuiltNetworkSubfile()
+        {
+            Logger.Log(LogLevel.Info, "Checking for Prebuilt Network Subfile...");
+
+            try
+            {
+                FindIndexEntryWithType(Constants.PREBUILT_NETWORK_SUBFILE_TYPE);
 
                 return true;
             }
@@ -641,6 +662,80 @@ namespace SC4Parser.Files
             {
                 Logger.Log(LogLevel.Error, "Could not load Network subfile 2 ");
                 throw new SubfileNotFoundException($"Could not load Network subfile 2 ", e);
+            }
+        }
+        /// <summary>
+        /// Returns Prebuilt Network subfile from the SC4 save game
+        /// </summary>
+        /// <returns> Prebuilt Network subfile  from the SC4 save game </returns>
+        /// <exception cref="SC4Parser.SubfileNotFoundException">
+        /// Returned when there is an issue with loading or finding the subfile
+        /// </exception>
+        /// <example>
+        /// <c>
+        /// // Load save game
+        /// SC4SaveFile savegame;
+        /// try
+        /// {
+        ///     savegame = new SC4SaveFile(@"C:\Path\To\Save\Game.sc4");
+        /// }
+        /// catch (DBPFParsingException)
+        /// {
+        ///     Console.Writeline("Issue occured while parsing DBPF");
+        ///     return;
+        /// }
+        /// 
+        /// // Fetch the network subfile
+        /// PrebuiltNetworkSubfile prebuiltNetworkSubfile = null
+        /// try 
+        /// {
+        ///     prebuiltNetworkSubfile = savegame.GetPrebuiltNetworkSubfile();
+        /// }
+        /// catch (SubfileNotFoundException)
+        /// {
+        ///     Console.Writeline("Could not find or load subfile");
+        /// }
+        /// </c>
+        /// </example>
+        /// <seealso cref="SC4Parser.Subfiles.PrebuiltNetworkSubfile"/>
+        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile"/>
+        public PrebuiltNetworkSubfile GetPrebuiltNetworkSubfile()
+        {
+            if (m_CachedPrebuiltNetworkSubfile != null)
+            {
+                Logger.Log(LogLevel.Info, "Returning cached Prebuilt Network subfile");
+                return m_CachedPrebuiltNetworkSubfile;
+            }
+
+            try
+            {
+                Logger.Log(LogLevel.Info, "Fetching Prebuilt Network subfile...");
+
+                IndexEntry networkEntry = FindIndexEntryWithType(Constants.PREBUILT_NETWORK_SUBFILE_TYPE);
+                if (networkEntry == null)
+                {
+                    Logger.Log(LogLevel.Error, "Could not find Prebuilt Network subfile");
+                    throw new SubfileNotFoundException($"Could not find Prebuilt Network subfile in {FilePath}");
+                }
+
+                PrebuiltNetworkSubfile networkFile = new PrebuiltNetworkSubfile();
+                byte[] networkSubfileData = LoadIndexEntry(networkEntry.TGI);
+                networkFile.Parse(networkSubfileData, networkSubfileData.Length);
+
+                Logger.Log(LogLevel.Info, "Prebuilt Network subfile loaded, caching result");
+                m_CachedPrebuiltNetworkSubfile = networkFile;
+
+                return networkFile;
+            }
+            catch (IndexEntryNotFoundException e)
+            {
+                Logger.Log(LogLevel.Error, "Could not find Prebuilt Network subfile IndexEntry");
+                throw new SubfileNotFoundException($"Could not find Prebuilt Network subfile in {FilePath}", e);
+            }
+            catch (IndexEntryLoadingException e)
+            {
+                Logger.Log(LogLevel.Error, "Could not load Prebuilt Network subfile ");
+                throw new SubfileNotFoundException($"Could not load Prebuilt Network subfile ", e);
             }
         }
         /// <summary>
