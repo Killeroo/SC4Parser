@@ -37,7 +37,7 @@ namespace SC4Parser.Logging
     /// }
     /// </c>
     /// </example>
-    class ConsoleLogger : ILogger
+    public class ConsoleLogger : ILogger
     {
         private static List<LogLevel> EnabledChannels = new List<LogLevel>
         {
