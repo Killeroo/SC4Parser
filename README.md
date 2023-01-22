@@ -1,5 +1,5 @@
 # SC4Parser
-SC4Parser is a general purpose library for parsing, finding, and loading files from Simcity 4 save game files ([Maxis Database Packed Files (DBPF)](https://wiki.sc4devotion.com/index.php?title=Savegame)), implemented as a Net Standard 2.1 class library.
+SC4Parser is a general purpose library for parsing, finding, and loading files from Simcity 4 save game files ([Maxis Database Packed Files (DBPF)](https://wiki.sc4devotion.com/index.php?title=Savegame)), implemented as a Net Standard 2.0 class library.
 
 The library was mainly intended for extracting items, from save games. It contains some partial implementation of specific Simcity 4 subfiles but mainly provides solid structures for loading data from save game files. 
 
@@ -21,10 +21,10 @@ Because DBPF files were used for save games for other maxis games (Sims 3, Spore
 
 # Setup/Download
 
-You can fetch the latest version of SC4Parser from [Nuget](https://www.nuget.org/packages/SC4Parser/), using the [NuGet Package Manager UI](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio) or via the dotnet commandline tool:
+You can fetch the latest version of SC4Parser from [Nuget](https://www.nuget.org/packages/SC4Parser/), using the [NuGet Package Manager UI](https://docs.microsoft.com/en-us/nuget/consume-packages/install-use-packages-visual-studio) or using the Package Manager Console in Visual Studio:
 
 ```
-dotnet add package SC4Parser --version 1.1.4
+Install-Package SC4Parser
 ```
 
 You can also download a prebuilt windows version of the library from the [latest releases from github](https://github.com/Killeroo/SC4Parser/releases/latest) and reference the library in your project (when using Visual Studio have a look [at this guide](https://docs.microsoft.com/en-us/visualstudio/ide/how-to-add-or-remove-references-by-using-the-reference-manager?view=vs-2019#add-a-reference)). Or build the library from source (it's not that hard I swear..).
