@@ -986,7 +986,7 @@ namespace SC4Parser
             IndexEntry foundEntry = null;
             foreach (IndexEntry entry in IndexEntries)
             {
-                if (entry.TGI.Type.ToString("X") == type_id)
+                if (entry.TGI.Type.ToString("x8") == type_id.ToLowerInvariant())
                 {
                     foundEntry = entry;
                     Logger.Log(LogLevel.Info, "Index with type {0} found ({1})", type_id, entry.TGI.ToString());
