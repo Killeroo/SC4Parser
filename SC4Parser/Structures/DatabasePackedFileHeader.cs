@@ -3,7 +3,7 @@ using System.Text;
 
 using SC4Parser.Logging;
 
-namespace SC4Parser.DataStructures
+namespace SC4Parser
 {
     /// <summary>
     /// Header file for a Database Packed File (DBPF). 
@@ -12,7 +12,7 @@ namespace SC4Parser.DataStructures
     /// <remarks>
     /// Implemented from https://wiki.sc4devotion.com/index.php?title=DBPF#Header
     /// </remarks>
-    /// <seealso cref="SC4Parser.Files.DatabasePackedFile"/>
+    /// <seealso cref="SC4Parser.DatabasePackedFile"/>
     public class DatabasePackedFileHeader
     {
         /// <summary>

@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SC4Parser.DataStructures
+namespace SC4Parser
 {
     /// <summary>
     /// Representation of a city's bridge tiles which are found in the bridge network subfile (partial implementation)
@@ -16,9 +13,9 @@ namespace SC4Parser.DataStructures
     /// This implementation is not complete (these tiles are big and they vary A LOT in size and I am not sure
     /// why)
     /// </remarks>
-    /// <see cref="SC4Parser.Subfiles.BridgeNetworkSubfile"/>
-    /// <seealso cref="SC4Parser.DataStructures.NetworkTile1"/>
-    /// <seealso cref="SC4Parser.DataStructures.NetworkTile2"/>
+    /// <see cref="SC4Parser.BridgeNetworkSubfile"/>
+    /// <seealso cref="SC4Parser.NetworkTile1"/>
+    /// <seealso cref="SC4Parser.NetworkTile2"/>
     public class BridgeNetworkTile
     {
         /// <summary>
@@ -125,12 +122,12 @@ namespace SC4Parser.DataStructures
         /// <summary>
         /// Number of save game properties (sigprops) attached to the network tile
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <see cref="SC4Parser.SaveGameProperty"/>
         public uint SaveGamePropertyCount { get; private set; }
         /// <summary>
         /// Network tile save game properties 
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <see cref="SC4Parser.SaveGameProperty"/>
         public List<SaveGameProperty> SaveGamePropertyEntries { get; private set; } = new List<SaveGameProperty>();
 
         /// <summary>

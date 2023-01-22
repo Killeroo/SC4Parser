@@ -5,12 +5,12 @@ namespace SC4Parser
     /// <summary>
     /// Exception thrown when an Index Entry cannot be found
     /// </summary>
-    /// <seealso cref="SC4Parser.DataStructures.IndexEntry"/>
+    /// <seealso cref="SC4Parser.IndexEntry"/>
     public class IndexEntryNotFoundException : Exception { }
     /// <summary>
     /// Exception thrown when Database Directory (DBDF) Resource cannot be found
     /// </summary>
-    /// <seealso cref="SC4Parser.DataStructures.DatabaseDirectoryResource"/>
+    /// <seealso cref="SC4Parser.DatabaseDirectoryResource"/>
     public class DatabaseDirectoryResourceNotFoundException : Exception { }
     /// <summary>
     /// Exception thrown when Subfile cannot be found
@@ -40,7 +40,7 @@ namespace SC4Parser
     /// <remarks>
     /// Inner exception contains specific exception that occured 
     /// </remarks>
-    /// <seealso cref="SC4Parser.Files.DatabasePackedFile"/>
+    /// <seealso cref="SC4Parser.DatabasePackedFile"/>
     public class DBPFParsingException : Exception
     {
         /// <summary>
@@ -57,7 +57,7 @@ namespace SC4Parser
     /// <remarks>
     /// Inner exception contains specific exception that occured 
     /// </remarks>
-    /// <seealso cref="SC4Parser.DataStructures.IndexEntry"/>
+    /// <seealso cref="SC4Parser.IndexEntry"/>
     public class IndexEntryLoadingException : Exception 
     {
         /// <summary>

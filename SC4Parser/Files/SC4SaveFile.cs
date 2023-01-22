@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SC4Parser.Logging;
-using SC4Parser.DataStructures;
-using SC4Parser.Subfiles;
 
-namespace SC4Parser.Files
+using SC4Parser.Logging;
+
+namespace SC4Parser
 {
     /// <summary>
     /// SC4 save game implementation, SC4 save files use the Maxis DBPF 1.1 file format
@@ -17,7 +16,7 @@ namespace SC4Parser.Files
     /// it can be used and functions exactly the same and all the functions and examples in the DatabasePackedFile object apply
     /// to SC4SaveFile.
     /// </remarks>
-    /// <see cref="SC4Parser.Files.DatabasePackedFile"/>
+    /// <see cref="SC4Parser.DatabasePackedFile"/>
     /// <example>
     /// <c>
     /// // Load save game
@@ -38,7 +37,7 @@ namespace SC4Parser.Files
     ///     savegame.Header.MinorVersion);
     /// </c>
     /// </example>
-    /// <seealso cref="SC4Parser.Files.DatabasePackedFile"/>
+    /// <seealso cref="SC4Parser.DatabasePackedFile"/>
     public class SC4SaveFile : DatabasePackedFile
     {
         // Cached subfiles for easy access after they have been loaded the first time.
@@ -78,7 +77,7 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile"/>
         public SC4SaveFile(string path) : base(path) { }
 
         /// <summary>
@@ -223,8 +222,8 @@ namespace SC4Parser.Files
         /// Lot structure, used in Lots Subfile, is only partially implemented, so will not contain all values
         /// </remarks>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
-        /// <see cref="SC4Parser.Subfiles.LotSubfile"/>
-        /// <seealso cref="SC4Parser.DataStructures.Lot"/>
+        /// <see cref="SC4Parser.LotSubfile"/>
+        /// <seealso cref="SC4Parser.Lot"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -250,8 +249,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.LotSubfile"/>
-        /// <seealso cref="SC4Parser.DataStructures.Lot"/>
+        /// <seealso cref="SC4Parser.LotSubfile"/>
+        /// <seealso cref="SC4Parser.Lot"/>
         public LotSubfile GetLotSubfile()
         {
             if (m_CachedLotSubfile != null)
@@ -291,8 +290,8 @@ namespace SC4Parser.Files
         /// </summary>
         /// <returns>Building subfile from the SC4 save</returns>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
-        /// <see cref="SC4Parser.Subfiles.BuildingSubfile"/>
-        /// <seealso cref="SC4Parser.DataStructures.Building"/>
+        /// <see cref="SC4Parser.BuildingSubfile"/>
+        /// <seealso cref="SC4Parser.Building"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -318,8 +317,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.BuildingSubfile"/>
-        /// <seealso cref="SC4Parser.DataStructures.Building"/>
+        /// <seealso cref="SC4Parser.BuildingSubfile"/>
+        /// <seealso cref="SC4Parser.Building"/>
         public BuildingSubfile GetBuildingSubfile()
         {
             if (m_CachedBuildingSubfile != null)
@@ -368,7 +367,7 @@ namespace SC4Parser.Files
         /// Region View Subfile is only partially implemented, so will not contain all values
         /// </remarks>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
-        /// <see cref="SC4Parser.Subfiles.RegionViewSubfile"/>
+        /// <see cref="SC4Parser.RegionViewSubfile"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -394,7 +393,7 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.RegionViewSubfile"/>
+        /// <seealso cref="SC4Parser.RegionViewSubfile"/>
         public RegionViewSubfile GetRegionViewSubfile()
         {
             if (m_CachedRegionViewSubfile != null)
@@ -459,7 +458,7 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.TerrainMapSubfile"/>
+        /// <seealso cref="SC4Parser.TerrainMapSubfile"/>
         public TerrainMapSubfile GetTerrainMapSubfile()
         {
             if (m_CachedTerrainMapSubfile != null)
@@ -528,8 +527,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile1"/>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile1"/>
+        /// <seealso cref="SC4Parser.NetworkSubfile1"/>
+        /// <seealso cref="SC4Parser.NetworkTile1"/>
         public NetworkSubfile1 GetNetworkSubfile1()
         {
             if (m_CachedNetworkSubfile1 != null)
@@ -602,8 +601,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2"/>
+        /// <seealso cref="SC4Parser.NetworkSubfile2"/>
+        /// <seealso cref="SC4Parser.NetworkTile2"/>
         public NetworkSubfile2 GetNetworkSubfile2()
         {
             if (m_CachedNetworkSubfile2 != null)
@@ -676,8 +675,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2"/>
+        /// <seealso cref="SC4Parser.NetworkSubfile2"/>
+        /// <seealso cref="SC4Parser.NetworkTile2"/>
         public BridgeNetworkSubfile GetBridgeNetworkSubfile()
         {
             if (m_CachedBridgeNetworkSubfile != null)

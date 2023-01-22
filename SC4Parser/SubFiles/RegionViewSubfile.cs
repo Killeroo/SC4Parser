@@ -3,7 +3,7 @@ using System.Text;
 
 using SC4Parser.Logging;
 
-namespace SC4Parser.Subfiles
+namespace SC4Parser
 {
     /// <summary>
     /// Region View Subfile (partial implementation). Contains basic city information from a region point of view.

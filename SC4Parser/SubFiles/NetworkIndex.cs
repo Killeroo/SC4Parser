@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SC4Parser.Subfiles
+namespace SC4Parser
 {
 
     /// <summary>
     /// Network tile reference, this is the representation of a network tile that is 
     /// stored in the Network Index Subfile
     /// </summary>
-    /// <see cref="SC4Parser.Subfiles.NetworkIndex"/>
+    /// <see cref="SC4Parser.NetworkIndex"/>
     public class NetworkTileReference
     {
         /// <summary>
@@ -32,9 +29,9 @@ namespace SC4Parser.Subfiles
         /// <summary>
         /// Memory address of the network tile
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkTile1.Memory"/>
-        /// <see cref="SC4Parser.DataStructures.NetworkTile2.Memory"/>
-        /// <see cref="SC4Parser.DataStructures.BridgeNetworkTile.Memory"/>
+        /// <see cref="SC4Parser.NetworkTile1.Memory"/>
+        /// <see cref="SC4Parser.NetworkTile2.Memory"/>
+        /// <see cref="SC4Parser.BridgeNetworkTile.Memory"/>
         public uint MemoryAddressRef { private set; get; }
         /// <summary>
         /// ID of the subfile that stores the network tile
@@ -109,7 +106,7 @@ namespace SC4Parser.Subfiles
         /// <summary>
         /// List of all network tiles stored in the index file
         /// </summary>
-        /// <see cref="SC4Parser.Subfiles.NetworkTileReference"/>
+        /// <see cref="SC4Parser.NetworkTileReference"/>
         List<NetworkTileReference> NetworkTileReferences = new List<NetworkTileReference>();
 
         /// <summary>

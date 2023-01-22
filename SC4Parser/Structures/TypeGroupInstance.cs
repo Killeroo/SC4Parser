@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SC4Parser.Types
+namespace SC4Parser
 {
     /// <summary>
     /// Implements TypeGroupInstance (TGI) identifier used to identify elements and files in a SimCity 4 savegame (DBPF)
@@ -44,7 +44,7 @@ namespace SC4Parser.Types
         /// sc4Save.LoadIndexEntry(terrainMapTGI);
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Types.TypeGroupInstance.TypeGroupInstance(string, string, string)"/>
+        /// <seealso cref="SC4Parser.TypeGroupInstance.TypeGroupInstance(string, string, string)"/>
         public TypeGroupInstance(uint type, uint group, uint instance)
             : this()
         {
@@ -70,7 +70,7 @@ namespace SC4Parser.Types
         /// <remarks>
         /// Don't include the 0x at the start of any hex
         /// </remarks>
-        /// <seealso cref="SC4Parser.Types.TypeGroupInstance.TypeGroupInstance(uint, uint, uint)"/>
+        /// <seealso cref="SC4Parser.TypeGroupInstance.TypeGroupInstance(uint, uint, uint)"/>
         public TypeGroupInstance(string type_hex, string group_hex, string instance_hex)
             : this()
         {

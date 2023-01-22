@@ -2,9 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 
-using SC4Parser.Types;
-
-namespace SC4Parser.DataStructures
+namespace SC4Parser
 {
     /// <summary>
     /// Network blocks found in with in Network subfile 2 entries
@@ -12,7 +10,7 @@ namespace SC4Parser.DataStructures
     /// <remarks>
     /// Purpose and usage is unknown.
     /// </remarks>
-    /// <see cref="SC4Parser.DataStructures.NetworkTile2"/>
+    /// <see cref="SC4Parser.NetworkTile2"/>
     public class NetworkBlock
     {
         /// <summary>
@@ -83,9 +81,9 @@ namespace SC4Parser.DataStructures
     /// 
     /// Implemented from https://wiki.sc4devotion.com/index.php?title=Network_Subfiles#Network_Subfile_2_Structure
     /// </remarks>
-    /// <see cref="SC4Parser.Subfiles.NetworkSubfile2"/>
-    /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
-    /// <seealso cref="SC4Parser.DataStructures.NetworkTile1"/>
+    /// <see cref="SC4Parser.NetworkSubfile2"/>
+    /// <seealso cref="SC4Parser.NetworkBlock"/>
+    /// <seealso cref="SC4Parser.NetworkTile1"/>
     public class NetworkTile2
     {
         /// <summary>
@@ -156,12 +154,12 @@ namespace SC4Parser.DataStructures
         /// <summary>
         /// Number of save game properties (sigprops) attached to the network tile
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <see cref="SC4Parser.SaveGameProperty"/>
         public uint SaveGamePropertyCount { get; private set; }
         /// <summary>
         /// Network tile save game properties (if any)
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <see cref="SC4Parser.SaveGameProperty"/>
         public List<SaveGameProperty> SaveGamePropertyEntries { get; private set; } = new List<SaveGameProperty>();
         /// <summary>
         /// Network tile's Group ID
@@ -195,7 +193,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeX2"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MinSizeX2"/>
         public float MinSizeX1 { get; private set; }
         /// <summary>
         /// Maximum x size of the Network tile (first set of sizes)
@@ -203,7 +201,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeX2"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MaxSizeX2"/>
         public float MaxSizeX1 { get; private set; }
         /// <summary>
         /// Minimum y size of the Network tile (first set of sizes)
@@ -211,7 +209,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This to be a quarter of the network tile's size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeY2"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MinSizeY2"/>
         public float MinSizeY1 { get; private set; }
         /// <summary>
         /// Maximum y size of the Network tile (first set of sizes)
@@ -219,7 +217,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeY2"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MaxSizeY2"/>
         public float MaxSizeY1 { get; private set; }
         /// <summary>
         /// Minimum z size of the Network tile (first set of sizes)
@@ -227,7 +225,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeZ2"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MinSizeZ2"/>
         public float MinSizeZ1 { get; private set; }
         /// <summary>
         /// Maximum z size of the Network tile (first set of sizes)
@@ -235,7 +233,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeZ2"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MaxSizeZ2"/>
         public float MaxSizeZ1 { get; private set; }
 
         /// <summary>
@@ -354,7 +352,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeX1"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MinSizeX1"/>
         public float MinSizeX2 { get; private set; }
         /// <summary>
         /// Maximum x size of the Network tile (second set of sizes)
@@ -362,7 +360,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeX1"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MaxSizeX1"/>
         public float MaxSizeX2 { get; private set; }
         /// <summary>
         /// Minimum y size of the Network tile (second set of sizes)
@@ -370,7 +368,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeY1"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MinSizeY1"/>
         public float MinSizeY2 { get; private set; }
         /// <summary>
         /// Maximum y size of the Network tile (second set of sizes)
@@ -378,7 +376,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeY1"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MaxSizeY1"/>
         public float MaxSizeY2 { get; private set; }
         /// <summary>
         /// Minimum z size of the Network tile (second set of sizes)
@@ -386,7 +384,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeZ1"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MinSizeZ1"/>
         public float MinSizeZ2 { get; private set; }
         /// <summary>
         /// Maximum z size of the Network tile (second set of sizes)
@@ -394,13 +392,13 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeZ1"/>
+        /// <seealso cref="SC4Parser.NetworkTile2.MaxSizeZ1"/>
         public float MaxSizeZ2 { get; private set; }
 
         /// <summary>
         /// Number of additional network blocks associated with the network tile
         /// </summary>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        /// <seealso cref="SC4Parser.NetworkBlock"/>
         public uint ExtraBlocks { get; private set; }
         /// <summary>
         /// Number of blocks in the first set of network blocks
@@ -408,7 +406,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// Min 0 blocks, max 4 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        /// <seealso cref="SC4Parser.NetworkBlock"/>
         public uint NetworkBlockCount1 { get; private set; }
         /// <summary>
         /// Number of blocks in the second set of network blocks
@@ -416,7 +414,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// Min 0 blocks, max 4 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        /// <seealso cref="SC4Parser.NetworkBlock"/>
         public uint NetworkBlockCount2 { get; private set; }
         /// <summary>
         /// Number of blocks in the third set of network blocks
@@ -424,7 +422,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// Min 0 blocks, max 4 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        /// <seealso cref="SC4Parser.NetworkBlock"/>
         public uint NetworkBlockCount3 { get; private set; }
         /// <summary>
         /// Number of blocks in the fourth set of network blocks
@@ -432,7 +430,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// Min 0 blocks, max 4 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        /// <seealso cref="SC4Parser.NetworkBlock"/>
         public uint NetworkBlockCount4 { get; private set; }
         /// <summary>
         /// Number of blocks in the fifth set of network blocks
@@ -440,33 +438,33 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// Min 0 blocks, max 4 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
+        /// <seealso cref="SC4Parser.NetworkBlock"/>
         public uint NetworkBlockCount5 { get; private set; }
 
         /// <summary>
         /// First set of network blocks
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
+        /// <see cref="SC4Parser.NetworkBlock"/>
         public NetworkBlock[] NetworkBlocks1 { get; private set; }
         /// <summary>
         /// Second set of network blocks
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
+        /// <see cref="SC4Parser.NetworkBlock"/>
         public NetworkBlock[] NetworkBlocks2 { get; private set; }
         /// <summary>
         /// Third set of network blocks
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
+        /// <see cref="SC4Parser.NetworkBlock"/>
         public NetworkBlock[] NetworkBlocks3 { get; private set; }
         /// <summary>
         /// Fourth set of network blocks
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
+        /// <see cref="SC4Parser.NetworkBlock"/>
         public NetworkBlock[] NetworkBlocks4 { get; private set; }
         /// <summary>
         /// Fifth set of network blocks
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
+        /// <see cref="SC4Parser.NetworkBlock"/>
         public NetworkBlock[] NetworkBlocks5 { get; private set; }
 
         /// <summary>
@@ -552,7 +550,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// Same as typeid, groupid and instanceid from this entry. Just included it for accessibility
         /// </remarks>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
         public TypeGroupInstance TGI { get; private set; } = new TypeGroupInstance();
 
         /// <summary>
@@ -563,7 +561,7 @@ namespace SC4Parser.DataStructures
         /// <exception cref="System.IndexOutOfRangeException">
         /// Thrown when trying to parse an element that is out of bounds in the data array
         /// </exception>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
+        /// <seealso cref="SC4Parser.NetworkSubfile2"/>
         public void Parse(byte[] buffer, uint offset)
         {
             uint internalOffset = offset;

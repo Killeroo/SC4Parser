@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 
-using SC4Parser.DataStructures;
-using SC4Parser.Types;
 using SC4Parser.Compression;
 using SC4Parser.Logging;
 
-namespace SC4Parser.Files
+namespace SC4Parser
 {
     /// <summary>
     /// Implementation of Database Packed File (DBPF).
@@ -50,19 +48,19 @@ namespace SC4Parser.Files
         /// <summary>
         /// Database Packed File's (DBPF) header file
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.DatabasePackedFileHeader"/>
+        /// <see cref="SC4Parser.DatabasePackedFileHeader"/>
         public DatabasePackedFileHeader Header { get; private set; }
         /// <summary>
         /// Database Packed File's (DBPF) Database Directory File (DBDI/DIR)
         /// which contains all the DBPF's compressed index entries
         /// </summary>
-        /// <see cref="SC4Parser.Files.DatabaseDirectoryFile"/>
-        /// <seealso cref="SC4Parser.DataStructures.DatabaseDirectoryResource"/>
+        /// <see cref="SC4Parser.DatabaseDirectoryFile"/>
+        /// <seealso cref="SC4Parser.DatabaseDirectoryResource"/>
         public DatabaseDirectoryFile DBDFFile { get; private set; }
         /// <summary>
         /// List of all index entries in Database Packed File (DBPF)
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
+        /// <see cref="SC4Parser.IndexEntry"/>
         public List<IndexEntry> IndexEntries { get; private set; }
         /// <summary>
         /// File path that the Database Packed File (DBPF) was loaded from
@@ -306,8 +304,8 @@ namespace SC4Parser.Files
         /// // Do something with the terrain data...
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
         /// <seealso cref="SC4Parser.Compression.QFS"/>
         public byte[] LoadIndexEntry(uint type_id)
         {
@@ -369,8 +367,8 @@ namespace SC4Parser.Files
         /// // Do something with the terrain data...
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
         /// <seealso cref="SC4Parser.Compression.QFS"/>
         public byte[] LoadIndexEntry(string type_id)
         {
@@ -435,9 +433,9 @@ namespace SC4Parser.Files
         /// // Do something with the terrain data...
         /// </c>
         /// </example>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
         /// <seealso cref="SC4Parser.Compression.QFS"/>
         public byte[] LoadIndexEntry(TypeGroupInstance tgi)
         {
@@ -506,9 +504,9 @@ namespace SC4Parser.Files
         /// // Do something with the terrain data...
         /// </c>
         /// </example>
-        /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
+        /// <see cref="SC4Parser.IndexEntry"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
         /// <seealso cref="SC4Parser.Compression.QFS"/>
         public byte[] LoadIndexEntry(IndexEntry entry)
         {
@@ -590,7 +588,7 @@ namespace SC4Parser.Files
         /// // Do something with the terrain data...
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(uint)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntry(uint)"/>
         public byte[] LoadIndexEntryRaw(uint type_id)
         {
             Logger.Log(LogLevel.Info, "Searching for IndexEntry with TypeId={0}...", type_id);
@@ -644,7 +642,7 @@ namespace SC4Parser.Files
         /// // Do something with the terrain data...
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(string)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntry(string)"/>
         public byte[] LoadIndexEntryRaw(string type_id)
         {
             Logger.Log(LogLevel.Info, "Searching for IndexEntry with TypeId={0}...", type_id);
@@ -700,9 +698,9 @@ namespace SC4Parser.Files
         /// SuperAwesomeCustomQFSDecompressionMethod(lotData);
         /// </c>
         /// </example>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(TypeGroupInstance)"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntry(TypeGroupInstance)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
         public byte[] LoadIndexEntryRaw(TypeGroupInstance tgi)
         {
             Logger.Log(LogLevel.Info, "Searching for IndexEntry with TGI={0}...", tgi.ToString());
@@ -720,9 +718,9 @@ namespace SC4Parser.Files
         /// <returns>Return the raw data of the Index Entry from the DBPF file in a byte array</returns>
         /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when IndexEntry doesn't exist in save game</exception>
         /// <exception cref="SC4Parser.IndexEntryLoadingException">Thrown when exception occurs when loading IndexEntry</exception>
-        /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntryRaw(TypeGroupInstance)"/>
+        /// <see cref="SC4Parser.IndexEntry"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntryRaw(TypeGroupInstance)"/>
         /// <remarks>
         /// Will load the raw data of an Index Entry, this is the data as it appears in the DBPF so maybe in a compressed format
         /// </remarks>
@@ -790,7 +788,7 @@ namespace SC4Parser.Files
         /// <returns>
         /// Returns <c>true</c> if the Index Entry is compressed, <c>false</c> if it is uncompressed
         /// </returns>
-        /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
+        /// <see cref="SC4Parser.IndexEntry"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -849,10 +847,10 @@ namespace SC4Parser.Files
         /// <param name="tgi">The TypeGroupInstance (TGI) of the Index Entry</param>
         /// <returns>Returns the found Index Entry with the matching TypeGroupInstance (TGI)</returns>
         /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when Index Entry cannot be found</exception>
-        /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntryWithType(string)"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntryWithType(uint)"/>
+        /// <see cref="SC4Parser.IndexEntry"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.FindIndexEntryWithType(string)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.FindIndexEntryWithType(uint)"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -912,9 +910,9 @@ namespace SC4Parser.Files
         /// <param name="type_id">The Type ID used to find Index Entry</param>
         /// <returns>The Index Entry with the given Type ID</returns>
         /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when Index Entry cannot be found</exception>
-        /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntry(TypeGroupInstance)"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntryWithType(string)"/>
+        /// <see cref="SC4Parser.IndexEntry"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.FindIndexEntry(TypeGroupInstance)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.FindIndexEntryWithType(string)"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -952,9 +950,9 @@ namespace SC4Parser.Files
         /// <param name="type_id">The Type ID used to find Index Entry</param>
         /// <returns>The first Index Entry with the given Type ID</returns>
         /// <exception cref="SC4Parser.IndexEntryNotFoundException">Thrown when Index Entry cannot be found</exception>
-        /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntry(TypeGroupInstance)"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.FindIndexEntryWithType(uint)"/>
+        /// <see cref="SC4Parser.IndexEntry"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.FindIndexEntry(TypeGroupInstance)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.FindIndexEntryWithType(uint)"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -1012,9 +1010,9 @@ namespace SC4Parser.Files
         /// <param name="entry">Entry to try and find in DIR file</param>
         /// <returns>Returns the found resource </returns>
         /// <exception cref="SC4Parser.DatabaseDirectoryResourceNotFoundException">Thrown when the Index Entry's resource cannot be found</exception>
-        /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
-        /// <see cref="SC4Parser.DataStructures.DatabaseDirectoryResource"/>
-        /// <seealso cref="SC4Parser.Files.DatabaseDirectoryFile"/>
+        /// <see cref="SC4Parser.IndexEntry"/>
+        /// <see cref="SC4Parser.DatabaseDirectoryResource"/>
+        /// <seealso cref="SC4Parser.DatabaseDirectoryFile"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -1083,10 +1081,10 @@ namespace SC4Parser.Files
         /// <param name="entry">The entry to load</param>
         /// <returns>Return the raw data of the Index Entry from the DBPF file in a byte array</returns>
         /// <exception cref="IndexEntryLoadingException">Thrown when there is an error while loading the Index Entry</exception>
-        /// <see cref="SC4Parser.DataStructures.IndexEntry"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile.LoadIndexEntry(TypeGroupInstance)"/>
+        /// <see cref="SC4Parser.IndexEntry"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntryRaw(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntry(IndexEntry)"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile.LoadIndexEntry(TypeGroupInstance)"/>
         /// <remarks>
         /// Will load the raw data of an Index Entry, this is the data as it appears in the DBPF so maybe in a compressed format
         /// </remarks>

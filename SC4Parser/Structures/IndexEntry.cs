@@ -1,9 +1,8 @@
 ﻿using System;
 
-using SC4Parser.Types;
 using SC4Parser.Logging;
 
-namespace SC4Parser.DataStructures
+namespace SC4Parser
 {
     /// <summary>
     /// Implementation of an Index Entry in a save game 
@@ -19,7 +18,7 @@ namespace SC4Parser.DataStructures
         /// <summary>
         /// TypeGroupInstance (TGI) of Index entry
         /// </summary>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
         public TypeGroupInstance TGI { get; protected set; }
         /// <summary>
         /// Location of the file in the DBPF that the index entry refers to

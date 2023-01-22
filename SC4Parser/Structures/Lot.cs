@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SC4Parser.DataStructures
+namespace SC4Parser
 {
     /// <summary>
     /// Representation of a Simcity 4 lot as it is stored in a save game
@@ -31,8 +31,8 @@ namespace SC4Parser.DataStructures
     /// }
     /// </c>
     /// </example>
-    /// <see cref="SC4Parser.Subfiles.LotSubfile"/>
-    /// <seealso cref="SC4Parser.DataStructures.Building"/>
+    /// <see cref="SC4Parser.LotSubfile"/>
+    /// <seealso cref="SC4Parser.Building"/>
     public class Lot
     {
         /// <summary>

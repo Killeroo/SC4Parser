@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using SC4Parser.DataStructures;
-
-namespace SC4Parser.Files
+namespace SC4Parser
 {
     /// <summary>
     /// Represents a DatabaseDirectoryfile (DBDF or DIR file)
@@ -16,13 +14,13 @@ namespace SC4Parser.Files
     /// <remarks>
     /// Implemented from https://wiki.sc4devotion.com/index.php?title=DBDF
     /// </remarks>
-    /// <seealso cref="SC4Parser.DataStructures.IndexEntry"/>
+    /// <seealso cref="SC4Parser.IndexEntry"/>
     public class DatabaseDirectoryFile : IndexEntry
     {
         /// <summary>
         /// List of all compressed resources in save
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.DatabaseDirectoryResource"/>
+        /// <see cref="SC4Parser.DatabaseDirectoryResource"/>
         public List<DatabaseDirectoryResource> Resources { get; private set; } = new List<DatabaseDirectoryResource>();
         /// <summary>
         /// Number of resources in file
@@ -52,7 +50,7 @@ namespace SC4Parser.Files
         /// Adds a Database Directory Resource to Database Directory File's (DBDF) Resources
         /// </summary>
         /// <param name="resource">Resource to add</param>
-        /// <see cref="SC4Parser.DataStructures.DatabaseDirectoryResource"/>
+        /// <see cref="SC4Parser.DatabaseDirectoryResource"/>
         public void AddResource(DatabaseDirectoryResource resource)
         {
             Resources.Add(resource);

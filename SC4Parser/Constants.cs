@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using SC4Parser.Types;
-
 namespace SC4Parser 
 {
     /// <summary>
@@ -13,51 +11,51 @@ namespace SC4Parser
         /// <summary>
         /// TypeGroupInstance (TGI) ID for the Database Directory File (DBDF)
         /// </summary>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
-        /// <seealso cref="SC4Parser.Files.DatabaseDirectoryFile"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
+        /// <seealso cref="SC4Parser.DatabaseDirectoryFile"/>
         public static readonly TypeGroupInstance DATABASE_DIRECTORY_FILE_TGI = new TypeGroupInstance("E86B1EEF", "E86B1EEF", "286B1F03");
         /// <summary>
         /// TypeGroupInstance (TGI) ID for the Region View Subfile
         /// </summary>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
-        /// <seealso cref="SC4Parser.Subfiles.RegionViewSubfile"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
+        /// <seealso cref="SC4Parser.RegionViewSubfile"/>
         public static readonly TypeGroupInstance REGION_VIEW_SUBFILE_TGI = new TypeGroupInstance("CA027EDB", "CA027EE1", "00000000");
         /// <summary>
         /// TypeGroupInstance (TGI) ID for the Terrain Map Subfile
         /// </summary>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
-        /// <seealso cref="SC4Parser.Subfiles.TerrainMapSubfile"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
+        /// <seealso cref="SC4Parser.TerrainMapSubfile"/>
         public static readonly TypeGroupInstance TERRAIN_MAP_SUBFILE_TGI = new TypeGroupInstance("A9DD6FF4", "E98f9525", "00000001");
 
         /// <summary>
         /// Type ID of Lot Subfile
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.LotSubfile"/>
+        /// <seealso cref="SC4Parser.LotSubfile"/>
         public static readonly string LOT_SUBFILE_TYPE = "C9BD5D4A";
         /// <summary>
         /// Type ID of Building Subfile
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.BuildingSubfile"/>
+        /// <seealso cref="SC4Parser.BuildingSubfile"/>
         public static readonly string BUILDING_SUBFILE_TYPE = "A9BD882D";
         /// <summary>
         /// Type ID of Network Index Subfile
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkIndex"/>
+        /// <seealso cref="SC4Parser.NetworkIndex"/>
         public static readonly string NETWORK_INDEX_SUBFILE_TYPE = "6A0F82B2";
         /// <summary>
         /// Type ID of Network Subfile 1
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile1"/>
+        /// <seealso cref="SC4Parser.NetworkSubfile1"/>
         public static readonly string NETWORK_SUBFILE_1_TYPE = "C9C05C6E";
         /// <summary>
         /// Type ID of Network Subfile 2
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
+        /// <seealso cref="SC4Parser.NetworkSubfile2"/>
         public static readonly string NETWORK_SUBFILE_2_TYPE = "CA16374F";
         /// <summary>
         /// Type ID of the bridge network subfile
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.BridgeNetworkSubfile"/>
+        /// <seealso cref="SC4Parser.BridgeNetworkSubfile"/>
         public static readonly string BRIDGE_NETWORK_SUBFILE_TYPE = "49CC1BCD";
         /// <summary>
         /// Type ID of the tunnel network subfile
@@ -78,8 +76,8 @@ namespace SC4Parser
         ///     0x82 = south, mirrored
         ///     0x83 = West, mirrored
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.Building.Orientation"/>
-        /// <seealso cref="SC4Parser.DataStructures.Lot.Orientation"/>
+        /// <seealso cref="SC4Parser.Building.Orientation"/>
+        /// <seealso cref="SC4Parser.Lot.Orientation"/>
         public static string[] ORIENTATION_STRINGS = new string[]
         {
             "North",
@@ -91,8 +89,8 @@ namespace SC4Parser
         /// <summary>
         /// Different types used in Save Game Propertie's (SIGPROPs) data
         /// </summary>
-        /// <seealso cref="SC4Parser.DataStructures.SaveGameProperty"/>
-        /// <seealso cref="SC4Parser.DataStructures.SaveGameProperty.Data"/>
+        /// <seealso cref="SC4Parser.SaveGameProperty"/>
+        /// <seealso cref="SC4Parser.SaveGameProperty.Data"/>
         public static Dictionary<byte, object> SIGPROP_DATATYPE_TYPES = new Dictionary<byte, object>
         {
             {0x01, new byte()},
@@ -276,12 +274,12 @@ namespace SC4Parser
         /// <summary>
         /// City mode that represents if a city is in God Mode
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.RegionViewSubfile.ModeFlag"/>
+        /// <seealso cref="SC4Parser.RegionViewSubfile.ModeFlag"/>
         public const int GOD_MODE_FLAG = 0;
         /// <summary>
         /// City mode that represents if a city is in Mayor Mode
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.RegionViewSubfile.ModeFlag"/>
+        /// <seealso cref="SC4Parser.RegionViewSubfile.ModeFlag"/>
         public const int MAYOR_MODE_FLAG = 1;
     }
 }

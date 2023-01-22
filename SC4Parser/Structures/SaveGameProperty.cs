@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using SC4Parser.Logging;
 
-namespace SC4Parser.DataStructures
+namespace SC4Parser
 {
     /// <summary>
     /// Represents a Savegame Property (SIGPROP). SIGPROPs are small structures used to store individual entries of information for a given object.
@@ -30,7 +30,7 @@ namespace SC4Parser.DataStructures
         /// <summary>
         /// SaveGame Property (SIGPROP) value copy, duplicated for unknown reason.
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty.PropertyNameValue"/>
+        /// <see cref="SC4Parser.SaveGameProperty.PropertyNameValue"/>
         public uint PropertyNameValueCopy { get; private set; }
         /// <summary>
         /// Unknown SaveGame Property value
@@ -56,13 +56,13 @@ namespace SC4Parser.DataStructures
         /// <summary>
         /// Amount of data that is stored in the SaveGame Property (SIGPROP) 
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty.Data"/>
+        /// <see cref="SC4Parser.SaveGameProperty.Data"/>
         public uint DataRepeatedCount { get; private set; }
         /// <summary>
         /// Data that is stored in the SaveGame Property (SIGPROP)
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty.DataRepeatedCount"/>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty.DataType"/>
+        /// <see cref="SC4Parser.SaveGameProperty.DataRepeatedCount"/>
+        /// <see cref="SC4Parser.SaveGameProperty.DataType"/>
         public List<object> Data { get; private set; } = new List<object>();
 
         /// <summary>
@@ -211,7 +211,7 @@ namespace SC4Parser.DataStructures
         /// <exception cref="System.IndexOutOfRangeException">
         /// Thrown when trying to parse an element that is out of bounds in the data array
         /// </exception>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <see cref="SC4Parser.SaveGameProperty"/>
         public static List<SaveGameProperty> ExtractFromBuffer(byte[] buffer, uint count, ref uint offset)
 
         {
