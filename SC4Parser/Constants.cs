@@ -164,6 +164,53 @@ namespace SC4Parser
         };
 
         /// <summary>
+        /// Different occupancy groups that appear in the RegionView Subfile. Ordered by the index that they appear at.
+        /// </summary>
+        public static Dictionary<int, string> OCCUPANCY_GROUPS = new Dictionary<int, string>()
+        {
+            {0, "Max Residential Population"},
+            {1, "R$ Max Population"},
+            {2, "R$ Current Population"},
+            {3, "R$$ Max Population"},
+            {4, "R$$ Current Population"},
+            {5, "R$$$ Max Population"},
+            {6, "R$$$ Current Population"},
+            {7, "R$ Jobs"},
+            {8, "R$$ Jobs"},
+            {9, "R$$$ Jobs"},
+            {10, "R$ Workforce EQ1"},
+            {11, "R$ Workforce EQ2"},
+            {12, "R$ Workforce EQ3"},
+            {13, "R$ Workforce EQ4"},
+            {14, "R$$ Workforce EQ1"},
+            {15, "R$$ Workforce EQ2"},
+            {16, "R$$ Workforce EQ3"},
+            {17, "R$$ Workforce EQ4"},
+            {18, "R$$$ Workforce EQ1"},
+            {19, "R$$$ Workforce EQ2"},
+            {20, "R$$$ Workforce EQ3"},
+            {21, "R$$$ Workforce EQ4"},
+            {22, "CS$ Max Jobs"},
+            {23, "CS$ Cur Jobs"},
+            {24, "CS$$ Max Jobs"},
+            {25, "CS$$ Cur Jobs"},
+            {26, "CS$$$ Max Jobs"},
+            {27, "CS$$$ Cur Jobs"},
+            {28, "CO$$ Max Jobs"},
+            {29, "CO$$ Cur Jobs"},
+            {30, "CO$$$ Max Jobs"},
+            {31, "CO$$$ Cur Jobs"},
+            {32, "IA Max Jobs"},
+            {33, "IA Cur Jobs"},
+            {34, "ID Max Jobs"},
+            {35, "ID Cur Jobs"},
+            {36, "IM Max Jobs"},
+            {37, "IM Cur Jobs"},
+            {38, "IH Max Jobs"},
+            {39, "IH Cur Jobs"}
+        };
+
+        /// <summary>
         /// Low density residential zone type 
         /// </summary>
         public const byte LOT_ZONE_TYPE_RESIDENTIAL_LOW = 0x01;
