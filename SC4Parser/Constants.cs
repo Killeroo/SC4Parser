@@ -61,6 +61,7 @@ namespace SC4Parser
         /// Type ID of the tunnel network subfile
         /// </summary>
         public static readonly string TUNNEL_NETWORK_SUBFILE_TYPE = "8A4BD52B";
+        public static readonly string ITEM_INDEX_SUBFILE_TYPE = "098F964D";
 
         /// <summary>
         /// Orientations used by SimCity 4 save game items as strings

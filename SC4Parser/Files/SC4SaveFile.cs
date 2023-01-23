@@ -49,6 +49,7 @@ namespace SC4Parser
         private NetworkSubfile1 m_CachedNetworkSubfile1 = null;
         private NetworkSubfile2 m_CachedNetworkSubfile2 = null;
         private BridgeNetworkSubfile m_CachedBridgeNetworkSubfile = null;
+        private ItemIndexSubfile m_CachedItemIndexSubfile = null;
 
         /// <summary>
         /// Default constructor for SC4Save, that takes a save game's path to load from
@@ -560,7 +561,7 @@ namespace SC4Parser
             catch (IndexEntryNotFoundException e)
             {
                 Logger.Log(LogLevel.Error, "Could not find Network subfile 1 IndexEntry");
-                throw new SubfileNotFoundException($"Could not find Network subfile 2 subfile in {FilePath}", e);
+                throw new SubfileNotFoundException($"Could not find Network subfile 1 in {FilePath}", e);
             }
             catch (IndexEntryLoadingException e)
             {
@@ -634,7 +635,7 @@ namespace SC4Parser
             catch (IndexEntryNotFoundException e)
             {
                 Logger.Log(LogLevel.Error, "Could not find Network subfile 2 IndexEntry");
-                throw new SubfileNotFoundException($"Could not find Network subfile 2 subfile in {FilePath}", e);
+                throw new SubfileNotFoundException($"Could not find Network subfile 2 in {FilePath}", e);
             }
             catch (IndexEntryLoadingException e)
             {
@@ -708,12 +709,52 @@ namespace SC4Parser
             catch (IndexEntryNotFoundException e)
             {
                 Logger.Log(LogLevel.Error, "Could not find Bridge network subfile IndexEntry");
-                throw new SubfileNotFoundException($"Could not find Bridge network subfile subfile in {FilePath}", e);
+                throw new SubfileNotFoundException($"Could not find Bridge network subfile in {FilePath}", e);
             }
             catch (IndexEntryLoadingException e)
             {
                 Logger.Log(LogLevel.Error, "Could not load Bridge network subfile ");
                 throw new SubfileNotFoundException($"Could not load Bridge network subfile ", e);
+            }
+        }
+
+        public ItemIndexSubfile GetItemIndexSubfile()
+        {
+            if (m_CachedBridgeNetworkSubfile != null)
+            {
+                Logger.Log(LogLevel.Info, "Returning cached Item Index subfile");
+                return m_CachedItemIndexSubfile;
+            }
+
+            try
+            {
+                Logger.Log(LogLevel.Info, "Fetching Item Index subfile...");
+
+                IndexEntry itemIndexEntry = FindIndexEntryWithType(Constants.ITEM_INDEX_SUBFILE_TYPE);
+                if (itemIndexEntry == null)
+                {
+                    Logger.Log(LogLevel.Error, "Could not find Item Index subfile");
+                    throw new SubfileNotFoundException($"Could not find Item Index subfile in {FilePath}");
+                }
+
+                ItemIndexSubfile itemIndexFile = new ItemIndexSubfile();
+                byte[] itemIndexSubfileData = LoadIndexEntry(itemIndexEntry.TGI);
+                itemIndexFile.Parse(itemIndexSubfileData, itemIndexSubfileData.Length);
+
+                Logger.Log(LogLevel.Info, "Item Index subfile loaded, caching result");
+                m_CachedItemIndexSubfile = itemIndexFile;
+
+                return itemIndexFile;
+            }
+            catch (IndexEntryNotFoundException e)
+            {
+                Logger.Log(LogLevel.Error, "Could not find Item Index subfile IndexEntry");
+                throw new SubfileNotFoundException($"Could not find Item Index subfile in {FilePath}", e);
+            }
+            catch (IndexEntryLoadingException e)
+            {
+                Logger.Log(LogLevel.Error, "Could not load Item Index subfile ");
+                throw new SubfileNotFoundException($"Could not load Item Index subfile ", e);
             }
         }
     }
