@@ -23,6 +23,7 @@ The library was mainly intended for extracting items, from save games. It contai
     <NeutralLanguage>en-GB</NeutralLanguage>
     <PackageIcon>icon_128x128.png</PackageIcon>
     <PackageReleaseNotes>- Included xml documentation in package</PackageReleaseNotes>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
