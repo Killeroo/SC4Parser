@@ -9,11 +9,12 @@ namespace SC4Parser.Region
 {
     /// <summary>
     /// Very simple Bitmap implementation, parses specifically the type of bitmap used by SimCity 4 
-    /// (non compressed, BITMAPINFOHEADER)
     /// </summary>
     /// <remarks>
-    /// 
+    /// https://upload.wikimedia.org/wikipedia/commons/7/75/BMPfileFormat.svg
+    /// (non compressed, BITMAPINFOHEADER)
     /// </remarks>
+    /// 
     internal class Bitmap
     {
         internal static class EndinessHelper
@@ -115,10 +116,9 @@ namespace SC4Parser.Region
 
         public struct RGB
         {
-            byte R;
-            byte G;
-            byte B;
-
+            public byte R { get; private set; }
+            public byte G { get; private set; }
+            public byte B { get; private set; }
 
             public static RGB Parse(BinaryReader reader)
             {
@@ -142,23 +142,12 @@ namespace SC4Parser.Region
 
         public Bitmap(string path)
         {
-            Parse(path);
-        }
-
-        public void Parse(string path)
-        {
-            Parse(File.ReadAllBytes(path));
-        }
-        public void Parse(byte[] data)
-        {
-            using (MemoryStream stream = new MemoryStream(data))
+            using (MemoryStream stream = new MemoryStream(File.ReadAllBytes(path)))
             using (BinaryReader reader = new BinaryReader(stream))
             {
                 // Parse headers
                 Header = new FileHeader(reader);
-                Header.Dump();
                 DiBHeader = new InformationHeader(reader);
-                DiBHeader.Dump();
 
                 // Parse pixels
                 PixelMap = new RGB[DiBHeader.Height][];
