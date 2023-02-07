@@ -76,19 +76,19 @@ namespace SC4Parser
         /// <summary>
         /// Minimum tile X coordinate for lot
         /// </summary>
-        public byte MinTileX { get; private set; }
+        public int MinTileX { get; internal set; }
         /// <summary>
         /// Minimum tile Z coordinate for lot
         /// </summary>
-        public byte MinTileZ { get; private set; }
+        public int MinTileZ { get; internal set; }
         /// <summary>
         /// Maximum tile X coordinate for lot
         /// </summary>
-        public byte MaxTileX { get; private set; }
+        public int MaxTileX { get; internal set; }
         /// <summary>
         /// Maximum tile Z coordinate for lot
         /// </summary>
-        public byte MaxTileZ { get; private set; }
+        public int MaxTileZ { get; internal set; }
         /// <summary>
         /// Lot's commute tile X
         /// </summary>

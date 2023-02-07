@@ -11,8 +11,11 @@ namespace SC4Parser.Region
     public class Region
     {
         public List<Building> Buildings { get; private set; } = new List<Building>();
-        public List<Lot> Zones { get; private set; } = new List<Lot>();
+        public List<Lot> Lots { get; private set; } = new List<Lot>();
         public float[][] Terrain { get; private set; }
+
+        public float GridCountX { get; private set; }
+        public int GridCountY { get; private set; }
 
         public Dictionary<int, string> CityNameDictionary { get; private set; }
 
@@ -51,11 +54,18 @@ namespace SC4Parser.Region
                 Terrain[y] = new float[regionBitmap.DiBHeader.Width * 64];
             }
 
+            // Save region grid size
+            // TODO: Verify region size and trim empty parts of terrin map 
+            // (only from the ends)
+            GridCountY = regionBitmap.DiBHeader.Height * 64;
+            GridCountX = regionBitmap.DiBHeader.Width * 64;
+
             // Get all save games at path
             int tilesProcessed = 0;
+            SC4SaveFile save;
             foreach (string file in Directory.GetFiles(path, "*.sc4"))
             {
-                using (SC4SaveFile save = new SC4SaveFile(file))
+                using (save = new SC4SaveFile(file))
                 {
                     // TODO: Access manually
                     RegionViewSubfile regionView = save.GetRegionViewSubfile();
@@ -81,16 +91,37 @@ namespace SC4Parser.Region
                         }
                     }
 
-                    // Finally add the lots and buildings to region list (if they are present in city
-                    if (save.ContainsLotSubfile()) Zones.AddRange(save.GetLotSubfile().Lots);
-                    if (save.ContainsBuildingsSubfile()) Buildings.AddRange(save.GetBuildingSubfile().Buildings);
+                    // Finally add the lots and buildings to region list (if they are present in city)
+                    if (save.ContainsLotSubfile())
+                    {
+                        foreach (Lot lot in save.GetLotSubfile().Lots)
+                        {
+                            // Offset the lots by their position in the region
+                            lot.MinTileX += (64 * (int)regionView.TileXLocation);
+                            lot.MaxTileX += (64 * (int)regionView.TileXLocation);
+                            lot.MinTileZ += (64 * (int)regionView.TileYLocation);
+                            lot.MaxTileZ += (64 * (int)regionView.TileYLocation);
+
+                            Lots.Add(lot);
+                        }
+
+                    }
+
+                    // TODO: Do the same for buildings
+                    if (save.ContainsBuildingsSubfile())
+                    {
+                        Buildings.AddRange(save.GetBuildingSubfile().Buildings); ;
+                    }
+
                 }
             }
 
             // Check if we processed everything
             if (tilesProcessed != regionBitmap.DiBHeader.Width * regionBitmap.DiBHeader.Height)
             {
-                Logger.Log(LogLevel.Warning, "Didn't process all tiles in config.bmp, region might not be properly constructed");
+                Logger.Log(LogLevel.Warning, "Didn't process all tiles in config.bmp, region might not be properly constructed ({0}/{1} processed)",
+                    tilesProcessed,
+                    regionBitmap.DiBHeader.Width * regionBitmap.DiBHeader.Height);
             }
         }
     }
