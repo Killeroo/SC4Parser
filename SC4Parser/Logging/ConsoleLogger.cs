@@ -75,6 +75,14 @@ namespace SC4Parser.Logging
             EnabledChannels.Add(level);
         }
 
+        public void DisableChannel(LogLevel level)
+        {
+            if (EnabledChannels.Contains(level))
+            {
+                EnabledChannels.Remove(level);
+            }
+        }
+
         public void Log(LogLevel level, string format, params object[] args)
         {
             if (EnabledChannels.Contains(level) == false)
