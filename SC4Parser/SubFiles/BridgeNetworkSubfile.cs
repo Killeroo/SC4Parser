@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using SC4Parser.DataStructures;
 using SC4Parser.Logging;
 
-namespace SC4Parser.Subfiles
+namespace SC4Parser
 {
     /// <summary>
     /// Implementation of the Bridge Network Subfile. This file contains all bridge network tiles in a city.
     /// </summary>
-    /// <seealso cref="SC4Parser.DataStructures.BridgeNetworkTile"/>
-    /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile1"/>
+    /// <seealso cref="SC4Parser.BridgeNetworkTile"/>
+    /// <seealso cref="SC4Parser.NetworkSubfile1"/>
     public class BridgeNetworkSubfile
     {
         /// <summary>
         /// Contains all network tiles in the bridge network subfile
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.BridgeNetworkTile"/>
+        /// <see cref="SC4Parser.BridgeNetworkTile"/>
         public List<BridgeNetworkTile> NetworkTiles { get; private set; } = new List<BridgeNetworkTile>();
 
         /// <summary>

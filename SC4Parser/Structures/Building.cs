@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using SC4Parser.Types;
 using SC4Parser.Logging;
 
-namespace SC4Parser.DataStructures
+namespace SC4Parser
 {
     /// <summary>
     /// Representation of a building in Simcity 4, as it is stored in a save game
@@ -12,8 +11,8 @@ namespace SC4Parser.DataStructures
     /// <remarks>
     /// Implemented from https://wiki.sc4devotion.com/index.php?title=Building_Subfile
     /// </remarks>
-    /// <see cref="SC4Parser.Subfiles.BuildingSubfile"/>
-    /// <seealso cref="SC4Parser.DataStructures.Lot"/>
+    /// <see cref="SC4Parser.BuildingSubfile"/>
+    /// <seealso cref="SC4Parser.Lot"/>
     /// <example>
     /// <c>
     /// // How to read and use building data using library
@@ -125,12 +124,12 @@ namespace SC4Parser.DataStructures
         /// <summary>
         /// Number of save game properties (SIGProps) associated with building
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <see cref="SC4Parser.SaveGameProperty"/>
         public uint SaveGamePropertyCount { get; private set; }
         /// <summary>
         /// Save game properties (SIGProps) of building
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <see cref="SC4Parser.SaveGameProperty"/>
         /// <remarks>
         /// For a list of all possible building SIGPROPs visit the following:
         /// https://wiki.sc4devotion.com/index.php?title=Building_Subfile#Savegame_Properties_.28SGProps.29
@@ -199,7 +198,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// Same as typeid, groupid and instanceid from this file. Just included it for accessibility
         /// </remarks>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
         public TypeGroupInstance TGI { get; private set; } = new TypeGroupInstance();
 
         /// <summary>

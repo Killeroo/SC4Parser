@@ -2,7 +2,7 @@
 
 using SC4Parser.Logging;
 
-namespace SC4Parser.Subfiles
+namespace SC4Parser
 {
     /// <summary>
     /// Implementation of TerrainMap Subfile, contains height information for each tile of a city.

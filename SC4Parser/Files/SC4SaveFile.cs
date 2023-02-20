@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SC4Parser.Logging;
-using SC4Parser.DataStructures;
-using SC4Parser.Subfiles;
 
-namespace SC4Parser.Files
+using SC4Parser.Logging;
+
+namespace SC4Parser
 {
     /// <summary>
     /// SC4 save game implementation, SC4 save files use the Maxis DBPF 1.1 file format
@@ -17,7 +16,7 @@ namespace SC4Parser.Files
     /// it can be used and functions exactly the same and all the functions and examples in the DatabasePackedFile object apply
     /// to SC4SaveFile.
     /// </remarks>
-    /// <see cref="SC4Parser.Files.DatabasePackedFile"/>
+    /// <see cref="SC4Parser.DatabasePackedFile"/>
     /// <example>
     /// <c>
     /// // Load save game
@@ -38,7 +37,7 @@ namespace SC4Parser.Files
     ///     savegame.Header.MinorVersion);
     /// </c>
     /// </example>
-    /// <seealso cref="SC4Parser.Files.DatabasePackedFile"/>
+    /// <seealso cref="SC4Parser.DatabasePackedFile"/>
     public class SC4SaveFile : DatabasePackedFile
     {
         // Cached subfiles for easy access after they have been loaded the first time.
@@ -51,6 +50,7 @@ namespace SC4Parser.Files
         private NetworkSubfile2 m_CachedNetworkSubfile2 = null;
         private PrebuiltNetworkSubfile m_CachedPrebuiltNetworkSubfile = null;
         private BridgeNetworkSubfile m_CachedBridgeNetworkSubfile = null;
+        private ItemIndexSubfile m_CachedItemIndexSubfile = null;
 
         /// <summary>
         /// Default constructor for SC4Save, that takes a save game's path to load from
@@ -79,7 +79,7 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Files.DatabasePackedFile"/>
+        /// <seealso cref="SC4Parser.DatabasePackedFile"/>
         public SC4SaveFile(string path) : base(path) { }
 
         /// <summary>
@@ -243,8 +243,8 @@ namespace SC4Parser.Files
         /// Lot structure, used in Lots Subfile, is only partially implemented, so will not contain all values
         /// </remarks>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
-        /// <see cref="SC4Parser.Subfiles.LotSubfile"/>
-        /// <seealso cref="SC4Parser.DataStructures.Lot"/>
+        /// <see cref="SC4Parser.LotSubfile"/>
+        /// <seealso cref="SC4Parser.Lot"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -270,8 +270,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.LotSubfile"/>
-        /// <seealso cref="SC4Parser.DataStructures.Lot"/>
+        /// <seealso cref="SC4Parser.LotSubfile"/>
+        /// <seealso cref="SC4Parser.Lot"/>
         public LotSubfile GetLotSubfile()
         {
             if (m_CachedLotSubfile != null)
@@ -311,8 +311,8 @@ namespace SC4Parser.Files
         /// </summary>
         /// <returns>Building subfile from the SC4 save</returns>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
-        /// <see cref="SC4Parser.Subfiles.BuildingSubfile"/>
-        /// <seealso cref="SC4Parser.DataStructures.Building"/>
+        /// <see cref="SC4Parser.BuildingSubfile"/>
+        /// <seealso cref="SC4Parser.Building"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -338,8 +338,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.BuildingSubfile"/>
-        /// <seealso cref="SC4Parser.DataStructures.Building"/>
+        /// <seealso cref="SC4Parser.BuildingSubfile"/>
+        /// <seealso cref="SC4Parser.Building"/>
         public BuildingSubfile GetBuildingSubfile()
         {
             if (m_CachedBuildingSubfile != null)
@@ -388,7 +388,7 @@ namespace SC4Parser.Files
         /// Region View Subfile is only partially implemented, so will not contain all values
         /// </remarks>
         /// <exception cref="SC4Parser.SubfileNotFoundException">Returns when there is an issue with loading or finding the subfile</exception>
-        /// <see cref="SC4Parser.Subfiles.RegionViewSubfile"/>
+        /// <see cref="SC4Parser.RegionViewSubfile"/>
         /// <example>
         /// <c>
         /// // Load save game
@@ -414,7 +414,7 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.RegionViewSubfile"/>
+        /// <seealso cref="SC4Parser.RegionViewSubfile"/>
         public RegionViewSubfile GetRegionViewSubfile()
         {
             if (m_CachedRegionViewSubfile != null)
@@ -479,7 +479,7 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.TerrainMapSubfile"/>
+        /// <seealso cref="SC4Parser.TerrainMapSubfile"/>
         public TerrainMapSubfile GetTerrainMapSubfile()
         {
             if (m_CachedTerrainMapSubfile != null)
@@ -548,8 +548,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile1"/>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile1"/>
+        /// <seealso cref="SC4Parser.NetworkSubfile1"/>
+        /// <seealso cref="SC4Parser.NetworkTile1"/>
         public NetworkSubfile1 GetNetworkSubfile1()
         {
             if (m_CachedNetworkSubfile1 != null)
@@ -581,7 +581,7 @@ namespace SC4Parser.Files
             catch (IndexEntryNotFoundException e)
             {
                 Logger.Log(LogLevel.Error, "Could not find Network subfile 1 IndexEntry");
-                throw new SubfileNotFoundException($"Could not find Network subfile 2 subfile in {FilePath}", e);
+                throw new SubfileNotFoundException($"Could not find Network subfile 1 in {FilePath}", e);
             }
             catch (IndexEntryLoadingException e)
             {
@@ -622,8 +622,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2"/>
+        /// <seealso cref="SC4Parser.NetworkSubfile2"/>
+        /// <seealso cref="SC4Parser.NetworkTile2"/>
         public NetworkSubfile2 GetNetworkSubfile2()
         {
             if (m_CachedNetworkSubfile2 != null)
@@ -655,7 +655,7 @@ namespace SC4Parser.Files
             catch (IndexEntryNotFoundException e)
             {
                 Logger.Log(LogLevel.Error, "Could not find Network subfile 2 IndexEntry");
-                throw new SubfileNotFoundException($"Could not find Network subfile 2 subfile in {FilePath}", e);
+                throw new SubfileNotFoundException($"Could not find Network subfile 2 in {FilePath}", e);
             }
             catch (IndexEntryLoadingException e)
             {
@@ -770,8 +770,8 @@ namespace SC4Parser.Files
         /// }
         /// </c>
         /// </example>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2"/>
+        /// <seealso cref="SC4Parser.NetworkSubfile2"/>
+        /// <seealso cref="SC4Parser.NetworkTile2"/>
         public BridgeNetworkSubfile GetBridgeNetworkSubfile()
         {
             if (m_CachedBridgeNetworkSubfile != null)
@@ -803,12 +803,52 @@ namespace SC4Parser.Files
             catch (IndexEntryNotFoundException e)
             {
                 Logger.Log(LogLevel.Error, "Could not find Bridge network subfile IndexEntry");
-                throw new SubfileNotFoundException($"Could not find Bridge network subfile subfile in {FilePath}", e);
+                throw new SubfileNotFoundException($"Could not find Bridge network subfile in {FilePath}", e);
             }
             catch (IndexEntryLoadingException e)
             {
                 Logger.Log(LogLevel.Error, "Could not load Bridge network subfile ");
                 throw new SubfileNotFoundException($"Could not load Bridge network subfile ", e);
+            }
+        }
+
+        public ItemIndexSubfile GetItemIndexSubfile()
+        {
+            if (m_CachedBridgeNetworkSubfile != null)
+            {
+                Logger.Log(LogLevel.Info, "Returning cached Item Index subfile");
+                return m_CachedItemIndexSubfile;
+            }
+
+            try
+            {
+                Logger.Log(LogLevel.Info, "Fetching Item Index subfile...");
+
+                IndexEntry itemIndexEntry = FindIndexEntryWithType(Constants.ITEM_INDEX_SUBFILE_TYPE);
+                if (itemIndexEntry == null)
+                {
+                    Logger.Log(LogLevel.Error, "Could not find Item Index subfile");
+                    throw new SubfileNotFoundException($"Could not find Item Index subfile in {FilePath}");
+                }
+
+                ItemIndexSubfile itemIndexFile = new ItemIndexSubfile();
+                byte[] itemIndexSubfileData = LoadIndexEntry(itemIndexEntry.TGI);
+                itemIndexFile.Parse(itemIndexSubfileData, itemIndexSubfileData.Length);
+
+                Logger.Log(LogLevel.Info, "Item Index subfile loaded, caching result");
+                m_CachedItemIndexSubfile = itemIndexFile;
+
+                return itemIndexFile;
+            }
+            catch (IndexEntryNotFoundException e)
+            {
+                Logger.Log(LogLevel.Error, "Could not find Item Index subfile IndexEntry");
+                throw new SubfileNotFoundException($"Could not find Item Index subfile in {FilePath}", e);
+            }
+            catch (IndexEntryLoadingException e)
+            {
+                Logger.Log(LogLevel.Error, "Could not load Item Index subfile ");
+                throw new SubfileNotFoundException($"Could not load Item Index subfile ", e);
             }
         }
     }

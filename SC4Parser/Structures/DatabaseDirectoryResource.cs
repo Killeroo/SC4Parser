@@ -1,9 +1,8 @@
 ﻿using System;
 
-using SC4Parser.Types;
 using SC4Parser.Logging;
 
-namespace SC4Parser.DataStructures
+namespace SC4Parser
 {
     /// <summary>
     /// Implementation of a Database Directory Resource (DIR record).
@@ -13,13 +12,13 @@ namespace SC4Parser.DataStructures
     /// <remarks>
     /// Implemented from https://wiki.sc4devotion.com/index.php?title=DBDF
     /// </remarks>
-    /// <see cref="SC4Parser.Files.DatabaseDirectoryFile.Resources"/>
+    /// <see cref="SC4Parser.DatabaseDirectoryFile.Resources"/>
     public class DatabaseDirectoryResource
     {
         /// <summary>
         /// TypeGroupInstance (TGI) of resource
         /// </summary>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
         public TypeGroupInstance TGI { get; private set; }
         /// <summary>
         /// Decompressed size of resource's file

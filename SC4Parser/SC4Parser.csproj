@@ -9,12 +9,12 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>simcity;simcity4;sc4;parser;savegame;save;maxis;qfs;dbpf;parser;databasepackedfile;simcity 4;save game;</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <AssemblyVersion>1.1.4.0</AssemblyVersion>
-    <FileVersion>1.1.4.0</FileVersion>
-	<Title>SC4Parser</Title>
+    <AssemblyVersion>1.1.5.0</AssemblyVersion>
+    <FileVersion>1.1.5.0</FileVersion>
+	  <Title>SC4Parser</Title>
     <Authors>Matthew Carney</Authors>
-    <Copyright>Copyright (c) Matthew Carney 2022</Copyright>
-    <Version>1.1.4</Version>
+    <Copyright>Copyright (c) Matthew Carney 2023</Copyright>
+    <Version>1.1.5</Version>
 	<!--<PackageLicenseExpression>MIT</PackageLicenseExpression>-->
     <Description>SC4Parser is a general purpose library for parsing, finding, and loading files from Simcity 4 save game files (Maxis Database Packed Files (DBPF)).
 
@@ -23,6 +23,7 @@ The library was mainly intended for extracting items, from save games. It contai
     <NeutralLanguage>en-GB</NeutralLanguage>
     <PackageIcon>icon_128x128.png</PackageIcon>
     <PackageReleaseNotes>- Included xml documentation in package</PackageReleaseNotes>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>

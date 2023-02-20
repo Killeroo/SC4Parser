@@ -1,92 +1,22 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 
-using SC4Parser.Types;
-
-namespace SC4Parser.DataStructures
+namespace SC4Parser
 {
     /// <summary>
-    /// Network blocks found in with in Network subfile 2 entries
+    /// Representation of a city's network tiles which are found in Network Subfile 1.
     /// </summary>
     /// <remarks>
-    /// Purpose and usage is unknown.
-    /// </remarks>
-    /// <see cref="SC4Parser.DataStructures.NetworkTile2"/>
-    public class NetworkBlock
-    {
-        /// <summary>
-        /// X coordinate of network block
-        /// </summary>
-        public float X { get; private set; }
-        /// <summary>
-        /// Y coordinate of network block
-        /// </summary>
-        public float Y { get; private set; }
-        /// <summary>
-        /// Z coordinate of network block
-        /// </summary>
-        public float Z { get; private set; }
-        /// <summary>
-        /// Unknown float 1
-        /// </summary>
-        public float Unknown1 { get; private set; }
-        /// <summary>
-        /// Unknown float 2
-        /// </summary>
-        public float Unknown2 { get; private set; }
-        /// <summary>
-        /// Unknown uint 
-        /// </summary>
-        public uint Unknown3 { get; private set; }
-
-        /// <summary>
-        /// Parses a single network block. Returns offset after block has been parsed
-        /// </summary>
-        /// <param name="buffer">Data to parse block from</param>
-        /// <param name="offset">Where to start parsing block</param>
-        /// <exception cref="System.IndexOutOfRangeException">
-        /// Thrown when trying to parse an element that is out of bounds in the data array
-        /// </exception>
-        public void Parse(byte[] buffer, ref uint offset)
-        {
-            X = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref offset), 0);
-            Y = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref offset), 0);
-            Z = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref offset), 0);
-            Unknown1 = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref offset), 0);
-            Unknown2 = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref offset), 0);
-            Unknown3 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref offset), 0);
-        }
-
-        /// <summary>
-        /// Prints out the contents of the network block
-        /// </summary>
-        public void Dump()
-        {
-            Console.WriteLine("X: {0} Y: {1} Z: {2}", X, Y, Z);
-            Console.WriteLine("Unknown1: {0}", Unknown1);
-            Console.WriteLine("Unknown2: {0}", Unknown2);
-            Console.WriteLine("Unknown3: {0} (0x{1})", Unknown3, Unknown3.ToString("x8"));
-        }
-    }
-
-    /// <summary>
-    /// Representation of a city's network tiles which are found in Network Subfile 2.
-    /// </summary>
-    /// <remarks>
-    /// Network Subfile 2 contains network tiles that are below or above ground, so stuff like underground roads,
-    /// subways or road bridges.
-    /// 
-    /// It is similarly structured but slightly bigger than those network tiles found in Network subfile 1.
+    /// Network Subfile 1 contains all network tiles on the ground (so roads, rails etc).
     /// 
     /// Some unknown fields with no names have been skipped from tile implementation.
     /// 
-    /// Implemented from https://wiki.sc4devotion.com/index.php?title=Network_Subfiles#Network_Subfile_2_Structure
+    /// Implemented from https://wiki.sc4devotion.com/index.php?title=Network_Subfiles#Network_Subfile_1_Structure
     /// </remarks>
-    /// <see cref="SC4Parser.Subfiles.NetworkSubfile2"/>
-    /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
-    /// <seealso cref="SC4Parser.DataStructures.NetworkTile1"/>
-    public class NetworkTile2
+    /// <see cref="SC4Parser.NetworkSubfile1"/>
+    /// <seealso cref="SC4Parser.NetworkBlock"/>
+    /// <seealso cref="SC4Parser.NetworkTile2"/>
+    public class NetworkTile1
     {
         /// <summary>
         /// Size of network tile entry
@@ -108,14 +38,6 @@ namespace SC4Parser.DataStructures
         /// Network tile's minor version
         /// </summary>
         public ushort MinorVersion { get; private set; }
-        /// <summary>
-        /// Unknown version 
-        /// </summary>
-        public ushort UnknownVersion1 { get; private set; }
-        /// <summary>
-        /// Unknown version
-        /// </summary>
-        public ushort UnknownVersion2 { get; private set; }
         /// <summary>
         /// Appearance flag of betwork tile
         /// </summary>
@@ -156,12 +78,12 @@ namespace SC4Parser.DataStructures
         /// <summary>
         /// Number of save game properties (sigprops) attached to the network tile
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <see cref="SC4Parser.SaveGameProperty"/>
         public uint SaveGamePropertyCount { get; private set; }
         /// <summary>
         /// Network tile save game properties (if any)
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <see cref="SC4Parser.SaveGameProperty"/>
         public List<SaveGameProperty> SaveGamePropertyEntries { get; private set; } = new List<SaveGameProperty>();
         /// <summary>
         /// Network tile's Group ID
@@ -176,9 +98,9 @@ namespace SC4Parser.DataStructures
         /// </summary>
         public uint InstanceID { get; private set; }
         /// <summary>
-        /// Unknown flag 1
+        /// Unknown flag 
         /// </summary>
-        public byte UnknownFlag1 { get; private set; }
+        public byte UnknownFlag { get; private set; }
         /// <summary>
         /// Network tile's Texture ID
         /// </summary>
@@ -195,7 +117,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeX2"/>
+        /// <seealso cref="SC4Parser.NetworkTile1.MinSizeX2"/>
         public float MinSizeX1 { get; private set; }
         /// <summary>
         /// Maximum x size of the Network tile (first set of sizes)
@@ -203,7 +125,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeX2"/>
+        /// <seealso cref="SC4Parser.NetworkTile1.MaxSizeX2"/>
         public float MaxSizeX1 { get; private set; }
         /// <summary>
         /// Minimum y size of the Network tile (first set of sizes)
@@ -211,7 +133,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This to be a quarter of the network tile's size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeY2"/>
+        /// <seealso cref="SC4Parser.NetworkTile1.MinSizeY2"/>
         public float MinSizeY1 { get; private set; }
         /// <summary>
         /// Maximum y size of the Network tile (first set of sizes)
@@ -219,7 +141,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeY2"/>
+        /// <seealso cref="SC4Parser.NetworkTile1.MaxSizeY2"/>
         public float MaxSizeY1 { get; private set; }
         /// <summary>
         /// Minimum z size of the Network tile (first set of sizes)
@@ -227,7 +149,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeZ2"/>
+        /// <seealso cref="SC4Parser.NetworkTile1.MinSizeZ2"/>
         public float MinSizeZ1 { get; private set; }
         /// <summary>
         /// Maximum z size of the Network tile (first set of sizes)
@@ -235,7 +157,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeZ2"/>
+        /// <seealso cref="SC4Parser.NetworkTile1.MaxSizeZ2"/>
         public float MaxSizeZ1 { get; private set; }
 
         /// <summary>
@@ -317,7 +239,7 @@ namespace SC4Parser.DataStructures
         /// The network tile's type
         /// </summary>
         /// <see cref="SC4Parser.Constants.NETWORK_TYPE_STRINGS"/>
-        public byte NetworkType { get; private set; }
+        public byte NetworkType;
 
         /// <summary>
         /// Specifies if the network tile is connected on it's west side
@@ -325,28 +247,28 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// 0x0 for false, 0x2 for true.
         /// </remarks>
-        public byte WestConnection { get; private set; }
+        public byte WestConnection;
         /// <summary>
         /// Specifies if the network tile is connected on it's north side
         /// </summary>
         /// <remarks>
         /// 0x0 for false, 0x2 for true.
         /// </remarks>
-        public byte NorthConnection { get; private set; }
+        public byte NorthConnection;
         /// <summary>
         /// Specifies if the network tile is connected on it's east side
         /// </summary>
         /// <remarks>
         /// 0x0 for false, 0x2 for true.
         /// </remarks>
-        public byte EastConnection { get; private set; }
+        public byte EastConnection;
         /// <summary>
         /// Specifies if the network tile is connected on it's south side
         /// </summary>
         /// <remarks>
         /// 0x0 for false, 0x2 for true.
         /// </remarks>
-        public byte SouthConnection { get; private set; }
+        public byte SouthConnection;
 
         /// <summary>
         /// Minimum x size of the Network tile (second set of sizes)
@@ -354,197 +276,48 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeX1"/>
-        public float MinSizeX2 { get; private set; }
+        /// <seealso cref="SC4Parser.NetworkTile1.MinSizeX1"/>
+        public float MinSizeX2;
         /// <summary>
         /// Maximum x size of the Network tile (second set of sizes)
         /// </summary>
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeX1"/>
-        public float MaxSizeX2 { get; private set; }
+        /// <seealso cref="SC4Parser.NetworkTile1.MaxSizeX1"/>
+        public float MaxSizeX2;
         /// <summary>
         /// Minimum y size of the Network tile (second set of sizes)
         /// </summary>
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeY1"/>
-        public float MinSizeY2 { get; private set; }
+        /// <seealso cref="SC4Parser.NetworkTile1.MinSizeY1"/>
+        public float MinSizeY2;
         /// <summary>
         /// Maximum y size of the Network tile (second set of sizes)
         /// </summary>
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeY1"/>
-        public float MaxSizeY2 { get; private set; }
+        /// <seealso cref="SC4Parser.NetworkTile1.MaxSizeY1"/>
+        public float MaxSizeY2;
         /// <summary>
         /// Minimum z size of the Network tile (second set of sizes)
         /// </summary>
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MinSizeZ1"/>
-        public float MinSizeZ2 { get; private set; }
+        /// <seealso cref="SC4Parser.NetworkTile1.MinSizeZ1"/>
+        public float MinSizeZ2;
         /// <summary>
         /// Maximum z size of the Network tile (second set of sizes)
         /// </summary>
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkTile2.MaxSizeZ1"/>
-        public float MaxSizeZ2 { get; private set; }
-
-        /// <summary>
-        /// Number of additional network blocks associated with the network tile
-        /// </summary>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
-        public uint ExtraBlocks { get; private set; }
-        /// <summary>
-        /// Number of blocks in the first set of network blocks
-        /// </summary>
-        /// <remarks>
-        /// Min 0 blocks, max 4 
-        /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
-        public uint NetworkBlockCount1 { get; private set; }
-        /// <summary>
-        /// Number of blocks in the second set of network blocks
-        /// </summary>
-        /// <remarks>
-        /// Min 0 blocks, max 4 
-        /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
-        public uint NetworkBlockCount2 { get; private set; }
-        /// <summary>
-        /// Number of blocks in the third set of network blocks
-        /// </summary>
-        /// <remarks>
-        /// Min 0 blocks, max 4 
-        /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
-        public uint NetworkBlockCount3 { get; private set; }
-        /// <summary>
-        /// Number of blocks in the fourth set of network blocks
-        /// </summary>
-        /// <remarks>
-        /// Min 0 blocks, max 4 
-        /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
-        public uint NetworkBlockCount4 { get; private set; }
-        /// <summary>
-        /// Number of blocks in the fifth set of network blocks
-        /// </summary>
-        /// <remarks>
-        /// Min 0 blocks, max 4 
-        /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
-        public uint NetworkBlockCount5 { get; private set; }
-
-        /// <summary>
-        /// First set of network blocks
-        /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
-        public NetworkBlock[] NetworkBlocks1 { get; private set; }
-        /// <summary>
-        /// Second set of network blocks
-        /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
-        public NetworkBlock[] NetworkBlocks2 { get; private set; }
-        /// <summary>
-        /// Third set of network blocks
-        /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
-        public NetworkBlock[] NetworkBlocks3 { get; private set; }
-        /// <summary>
-        /// Fourth set of network blocks
-        /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
-        public NetworkBlock[] NetworkBlocks4 { get; private set; }
-        /// <summary>
-        /// Fifth set of network blocks
-        /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkBlock"/>
-        public NetworkBlock[] NetworkBlocks5 { get; private set; }
-
-        /// <summary>
-        /// X coordinate for the fourth set of Network tile positions 
-        /// </summary>
-        public float Pos4X { get; private set; }
-        /// <summary>
-        /// Y coordinate for the fourth set of Network tile positions 
-        /// </summary>
-        public float Pos4Y { get; private set; }
-        /// <summary>
-        /// Z coordinate for the fourth set of Network tile positions 
-        /// </summary>
-        public float Pos4Z { get; private set; }
-
-        /// <summary>
-        /// Unknown flag 2
-        /// </summary>
-        public byte UnknownFlag2 { get; private set; }
-        /// <summary>
-        /// Unknown flag 3
-        /// </summary>
-        public byte UnknownFlag3 { get; private set; }
-        /// <summary>
-        /// Unknown flag 4
-        /// </summary>
-        public byte UnknownFlag4 { get; private set; }
-
-        /// <summary>
-        /// Network tile height value 1
-        /// </summary>
-        /// <remarks>
-        /// Usage unknown
-        /// </remarks>
-        public float Height1 { get; private set; }
-        /// <summary>
-        /// Network tile height value 2
-        /// </summary>
-        /// <remarks>
-        /// Usage unknown
-        /// </remarks>
-        public float Height2 { get; private set; }
-        /// <summary>
-        /// Network tile height value 3
-        /// </summary>
-        /// <remarks>
-        /// Usage unknown
-        /// </remarks>
-        public float Height3 { get; private set; }
-        /// <summary>
-        /// Network tile height value 4
-        /// </summary>
-        /// <remarks>
-        /// Usage unknown
-        /// </remarks>
-        public float Height4 { get; private set; }
-        /// <summary>
-        /// Network tile height value 5
-        /// </summary>
-        /// <remarks>
-        /// Usage unknown
-        /// </remarks>
-        public float Height5 { get; private set; }
-
-        /// <summary>
-        /// File's type ID
-        /// </summary>
-        /// <remarks>
-        /// Should always be 0xCA16374F
-        /// </remarks>
-        public uint FileTypeID { get; private set; }
-        /// <summary>
-        /// Unknown uint at the end of the network tile entry
-        /// </summary>
-        /// <remarks>
-        /// Should always be 0x0000000
-        /// </remarks>
-        public uint UnknownUint { get; private set; }
+        /// <seealso cref="SC4Parser.NetworkTile1.MaxSizeZ1"/>
+        public float MaxSizeZ2;
 
         /// <summary>
         /// TypeGroupInstance (TGI) of network tile
@@ -552,18 +325,18 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// Same as typeid, groupid and instanceid from this entry. Just included it for accessibility
         /// </remarks>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
         public TypeGroupInstance TGI { get; private set; } = new TypeGroupInstance();
 
         /// <summary>
-        /// Parses a network tile (from network subfile 2) from a byte array.
+        /// Parses a network tile (from network subfile 1) from a byte array.
         /// </summary>
         /// <param name="buffer">buffer to parse from</param>
         /// <param name="offset">offset to start parsing at in the buffer</param>
         /// <exception cref="System.IndexOutOfRangeException">
         /// Thrown when trying to parse an element that is out of bounds in the data array
         /// </exception>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
+        /// <seealso cref="SC4Parser.NetworkSubfile1"/>
         public void Parse(byte[] buffer, uint offset)
         {
             uint internalOffset = offset;
@@ -578,8 +351,6 @@ namespace SC4Parser.DataStructures
             Memory                      = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             MajorVersion                = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
             MinorVersion                = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
-            UnknownVersion1             = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
-            UnknownVersion2             = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
             internalOffset              += 3;
             AppearanceFlag              = Extensions.ReadByte(buffer, ref internalOffset);
             internalOffset              += 4;
@@ -595,9 +366,8 @@ namespace SC4Parser.DataStructures
             GroupID                     = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             TypeID                      = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             InstanceID                  = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            TGI                         = new TypeGroupInstance(TypeID, GroupID, InstanceID); // TODO: Should be only using this
-            UnknownFlag1                = Extensions.ReadByte(buffer, ref internalOffset);
-            internalOffset              += 36;
+            TGI                         = new TypeGroupInstance(TypeID, GroupID, InstanceID);
+            UnknownFlag                 = Extensions.ReadByte(buffer, ref internalOffset);
             MaxSizeX1                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             MaxSizeY1                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             MaxSizeZ1                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
@@ -633,81 +403,6 @@ namespace SC4Parser.DataStructures
             MaxSizeY2                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             MinSizeZ2                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             MaxSizeZ2                   = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            internalOffset              += 34;
-            ExtraBlocks                 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            NetworkBlockCount1          = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            NetworkBlocks1 = new NetworkBlock[(int)NetworkBlockCount1];
-            if (NetworkBlockCount1 > 0)
-            {
-                for (uint i = 0; i < NetworkBlockCount1; i++)
-                {
-                    NetworkBlock block = new NetworkBlock();
-                    block.Parse(buffer, ref internalOffset);
-                    NetworkBlocks1[i] = block;
-                }
-            }
-            NetworkBlockCount2 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            NetworkBlocks2 = new NetworkBlock[(int)NetworkBlockCount2];
-            if (NetworkBlockCount2 > 0)
-            {
-                for (uint i = 0; i < NetworkBlockCount2; i++)
-                {
-                    NetworkBlock block = new NetworkBlock();
-                    block.Parse(buffer, ref internalOffset);
-                    NetworkBlocks2[i] = block;
-                }
-            }
-            NetworkBlockCount3 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            NetworkBlocks3 = new NetworkBlock[(int)NetworkBlockCount3];
-            if (NetworkBlockCount3 > 0)
-            {
-                for (uint i = 0; i < NetworkBlockCount3; i++)
-                {
-                    NetworkBlock block = new NetworkBlock();
-                    block.Parse(buffer, ref internalOffset);
-                    NetworkBlocks3[i] = block;
-                }
-            }
-            NetworkBlockCount4 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            NetworkBlocks4 = new NetworkBlock[(int)NetworkBlockCount4];
-            if (NetworkBlockCount4 > 0)
-            {
-                for (uint i = 0; i < NetworkBlockCount4; i++)
-                {
-                    NetworkBlock block = new NetworkBlock();
-                    block.Parse(buffer, ref internalOffset);
-                    NetworkBlocks4[i] = block;
-                }
-            }
-            NetworkBlockCount5 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            NetworkBlocks5 = new NetworkBlock[(int)NetworkBlockCount5];
-            if (NetworkBlockCount5 > 0)
-            {
-                for (uint i = 0; i < NetworkBlockCount5; i++)
-                {
-                    NetworkBlock block = new NetworkBlock();
-                    block.Parse(buffer, ref internalOffset);
-                    NetworkBlocks5[i] = block;
-                }
-            }
-            internalOffset              += 16;
-            Pos4X                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            internalOffset              += 12;
-            Pos4Y                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            internalOffset              += 12;
-            Pos4Z                       = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            internalOffset              += 24;
-            UnknownFlag2                = Extensions.ReadByte(buffer, ref internalOffset);
-            UnknownFlag3                = Extensions.ReadByte(buffer, ref internalOffset); 
-            UnknownFlag4                = Extensions.ReadByte(buffer, ref internalOffset); 
-            Height1                     = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0); 
-            Height2                     = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0); 
-            Height3                     = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0); 
-            Height4                     = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0); 
-            Height5                     = BitConverter.ToSingle(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0); 
-            FileTypeID                  = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-            UnknownUint                 = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
-
         }
 
         /// <summary>
@@ -747,6 +442,7 @@ namespace SC4Parser.DataStructures
             Console.WriteLine("Group ID: {0} (0x{1})", GroupID, GroupID.ToString("x8"));
             Console.WriteLine("Type ID: {0} (0x{1})", TypeID, TypeID.ToString("x8"));
             Console.WriteLine("Instance ID: {0} (0x{1})", InstanceID, InstanceID.ToString("x8"));
+            Console.WriteLine("UnknownFlag: {0}", UnknownFlag);
 
             Console.WriteLine("MaxSizeX1: {0}", MaxSizeX1);
             Console.WriteLine("MaxSizeY1: {0}", MaxSizeY1);
@@ -781,71 +477,6 @@ namespace SC4Parser.DataStructures
             Console.WriteLine("MinSizeX2: {0}", MinSizeX2);
             Console.WriteLine("MinSizeY2: {0}", MinSizeY2);
             Console.WriteLine("MinSizeZ2: {0}", MinSizeZ2);
-
-            Console.WriteLine("ExtraBlocks: {0}", ExtraBlocks);
-            Console.WriteLine("NetworkBlock1Count: {0}", NetworkBlockCount1);
-            if (NetworkBlockCount1 > 0)
-            {
-                for (int i = 0; i < NetworkBlockCount1; i++)
-                {
-                    Console.WriteLine("==================");
-                    NetworkBlocks1[i].Dump();
-                }
-            }
-            Console.WriteLine("NetworkBlock2Count: {0}", NetworkBlockCount1);
-            if (NetworkBlockCount2 > 0)
-            {
-                for (int i = 0; i < NetworkBlockCount2; i++)
-                {
-                    Console.WriteLine("==================");
-                    NetworkBlocks2[i].Dump();
-                }
-            }
-            Console.WriteLine("NetworkBlock3Count: {0}", NetworkBlockCount3);
-            if (NetworkBlockCount3 > 0)
-            {
-                for (int i = 0; i < NetworkBlockCount3; i++)
-                {
-                    Console.WriteLine("==================");
-                    NetworkBlocks3[i].Dump();
-                }
-            }
-            Console.WriteLine("NetworkBlock4Count: {0}", NetworkBlockCount4);
-            if (NetworkBlockCount4 > 0)
-            {
-                for (int i = 0; i < NetworkBlockCount4; i++)
-                {
-                    Console.WriteLine("==================");
-                    NetworkBlocks4[i].Dump();
-                }
-            }
-            Console.WriteLine("NetworkBlock1Count: {0}", NetworkBlockCount5);
-            if (NetworkBlockCount5 > 0)
-            {
-                for (int i = 0; i < NetworkBlockCount5; i++)
-                {
-                    Console.WriteLine("==================");
-                    NetworkBlocks5[i].Dump();
-                }
-            }
-
-            Console.WriteLine("Pos4X: {0}", Pos4X);
-            Console.WriteLine("Pos4Y: {0}", Pos4Y);
-            Console.WriteLine("Pos4Z: {0}", Pos4Z);
-
-            Console.WriteLine("UnknownFlag2: {0} (0x{1})", UnknownFlag2, UnknownFlag2.ToString("x8"));
-            Console.WriteLine("UnknownFlag3: {0} (0x{1})", UnknownFlag3, UnknownFlag3.ToString("x8"));
-            Console.WriteLine("UnknownFlag4: {0} (0x{1})", UnknownFlag4, UnknownFlag4.ToString("x8"));
-
-            Console.WriteLine("Height1: {0}", Height1);
-            Console.WriteLine("Height2: {0}", Height2);
-            Console.WriteLine("Height3: {0}", Height3);
-            Console.WriteLine("Height4: {0}", Height4);
-            Console.WriteLine("Height5: {0}", Height5);
-
-            Console.WriteLine("FileTypeID: {0}", FileTypeID.ToString("x8"));
-            Console.WriteLine("UnknownUint: {0} (0x{1})", UnknownUint, UnknownUint.ToString("x8"));
-
         }
     }
 }

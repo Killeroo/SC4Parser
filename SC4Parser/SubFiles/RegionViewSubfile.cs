@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 using SC4Parser.Logging;
 
-namespace SC4Parser.Subfiles
+namespace SC4Parser
 {
     /// <summary>
     /// Region View Subfile (partial implementation). Contains basic city information from a region point of view.
@@ -128,6 +129,20 @@ namespace SC4Parser.Subfiles
         /// City description
         /// </summary>
         public string InternalDescription { get; private set; }
+        /// <summary>
+        /// Length of default mayor name
+        /// </summary>
+        public uint DefaultMayorNameLength { get; private set; }
+        /// <summary>
+        /// Default mayor name (usually "Jonas Sparks")
+        /// </summary>
+        public string DefaultMayorName { get; private set; }
+        public uint CurrentOccupancyGroupCount{ get; private set; }
+        public List<OccupancyGroup> OccupancyGroupsCurrent = new List<OccupancyGroup>();
+        public uint MaxOccupancyGroupCount { get; private set; }
+        public List<OccupancyGroup> OccupancyGroupsMax = new List<OccupancyGroup>();
+        public uint LimitsOccupancyGroupCount { get; private set; }
+        public List<OccupancyGroup> OccupancyGroupsLimits = new List<OccupancyGroup>();
 
         /// <summary>
         /// Parses Region View Subfile from a byte array
@@ -142,6 +157,7 @@ namespace SC4Parser.Subfiles
 
             Logger.Log(LogLevel.Info, "Parsing RegionView subfile...");
 
+            // TODO: Convert to BinaryReader (yeah I know..)
             MajorVersion = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
             MinorVersion = BitConverter.ToUInt16(Extensions.ReadBytes(buffer, 2, ref internalOffset), 0);
 
@@ -175,6 +191,34 @@ namespace SC4Parser.Subfiles
             MayorName = Encoding.ASCII.GetString(Extensions.ReadBytes(buffer, MayorNameLength, ref internalOffset));
             InternalDescriptionLength = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
             InternalDescription = Encoding.ASCII.GetString(Extensions.ReadBytes(buffer, InternalDescriptionLength, ref internalOffset));
+            DefaultMayorNameLength = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            DefaultMayorName = Encoding.ASCII.GetString(Extensions.ReadBytes(buffer, DefaultMayorNameLength, ref internalOffset));
+            internalOffset += (4 * 6); // Skip over 6 unused uints
+
+            // Parse Occupant Group info
+            CurrentOccupancyGroupCount = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            for (int i = 0; i < CurrentOccupancyGroupCount; i++)
+            {
+                uint group = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+                uint pop = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+                OccupancyGroupsCurrent.Add(new OccupancyGroup(i, Constants.OCCUPANCY_GROUPS[i], group, pop));
+            }
+
+            LimitsOccupancyGroupCount = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            for (int i = 0; i < LimitsOccupancyGroupCount; i++)
+            {
+                uint group = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+                uint pop = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+                OccupancyGroupsMax.Add(new OccupancyGroup(i, Constants.OCCUPANCY_GROUPS[i], group, pop));
+            }
+
+            MaxOccupancyGroupCount = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+            for (int i = 0; i < MaxOccupancyGroupCount; i++)
+            {
+                uint group = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+                uint pop = BitConverter.ToUInt32(Extensions.ReadBytes(buffer, 4, ref internalOffset), 0);
+                OccupancyGroupsLimits.Add(new OccupancyGroup(i, Constants.OCCUPANCY_GROUPS[i], group, pop));
+            }
 
             Logger.Log(LogLevel.Info, "RegionView subfile parsed");
         }
@@ -206,6 +250,23 @@ namespace SC4Parser.Subfiles
             Console.WriteLine("Mayor Name: {0}", MayorName);
             Console.WriteLine("Internal Description Length: {0}", InternalDescriptionLength);
             Console.WriteLine("Internal Description: {0}", InternalDescription);
+            Console.WriteLine("Default Mayor Name Length: {0}", DefaultMayorNameLength);
+            Console.WriteLine("Default Mayor Name: {0}", DefaultMayorName);
+            Console.WriteLine("Current Occupancy Group Count: {0}", CurrentOccupancyGroupCount);
+            foreach (OccupancyGroup group in OccupancyGroupsCurrent)
+            {
+                group.Dump();
+            }
+            Console.WriteLine("Max Occupancy Group Count: {0}", MaxOccupancyGroupCount);
+            foreach (OccupancyGroup group in OccupancyGroupsMax)
+            {
+                group.Dump();
+            }
+            Console.WriteLine("Limits Occupancy Group Count: {0}", LimitsOccupancyGroupCount);
+            foreach (OccupancyGroup group in OccupancyGroupsLimits)
+            {
+                group.Dump();
+            }
         }
     }
 }

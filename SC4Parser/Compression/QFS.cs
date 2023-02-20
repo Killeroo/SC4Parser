@@ -17,7 +17,7 @@ namespace SC4Parser.Compression
     /// - https://www.wiki.sc4devotion.com/index.php?title=DBPF_Compression
     /// - http://wiki.niotso.org/RefPack#Naming_notes
     /// </remarks>
-    class QFS
+    public class QFS
     {
         /// <summary>
         /// Uncompress data using QFS/RefPak and return uncompressed array of uncompressed data

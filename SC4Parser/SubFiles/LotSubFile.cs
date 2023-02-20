@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using SC4Parser.DataStructures;
 using SC4Parser.Logging;
 
-namespace SC4Parser.Subfiles
+namespace SC4Parser
 {
     /// <summary>
     /// Implementation of the Lots Subfile. Lot Subfile contains all logs in a SimCity 4 savegame (Partial implementation).
@@ -16,8 +15,8 @@ namespace SC4Parser.Subfiles
     /// 
     /// Implemented from https://wiki.sc4devotion.com/index.php?title=Lot_Subfile
     /// </remarks>
-    /// <seealso cref="SC4Parser.DataStructures.Lot"/>
-    /// <seealso cref="SC4Parser.Subfiles.BuildingSubfile"/>
+    /// <seealso cref="SC4Parser.Lot"/>
+    /// <seealso cref="SC4Parser.BuildingSubfile"/>
     /// <example>
     /// <c>
     /// // Simple usage
@@ -35,7 +34,7 @@ namespace SC4Parser.Subfiles
         /// <summary>
         /// All lots stored in the subfile
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.Lot"/>
+        /// <see cref="SC4Parser.Lot"/>
         public List<Lot> Lots = new List<Lot>();
 
         /// <summary>

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using SC4Parser.Types;
-
 namespace SC4Parser 
 {
     /// <summary>
@@ -13,41 +11,41 @@ namespace SC4Parser
         /// <summary>
         /// TypeGroupInstance (TGI) ID for the Database Directory File (DBDF)
         /// </summary>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
-        /// <seealso cref="SC4Parser.Files.DatabaseDirectoryFile"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
+        /// <seealso cref="SC4Parser.DatabaseDirectoryFile"/>
         public static readonly TypeGroupInstance DATABASE_DIRECTORY_FILE_TGI = new TypeGroupInstance("E86B1EEF", "E86B1EEF", "286B1F03");
         /// <summary>
         /// TypeGroupInstance (TGI) ID for the Region View Subfile
         /// </summary>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
-        /// <seealso cref="SC4Parser.Subfiles.RegionViewSubfile"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
+        /// <seealso cref="SC4Parser.RegionViewSubfile"/>
         public static readonly TypeGroupInstance REGION_VIEW_SUBFILE_TGI = new TypeGroupInstance("CA027EDB", "CA027EE1", "00000000");
         /// <summary>
         /// TypeGroupInstance (TGI) ID for the Terrain Map Subfile
         /// </summary>
-        /// <see cref="SC4Parser.Types.TypeGroupInstance"/>
-        /// <seealso cref="SC4Parser.Subfiles.TerrainMapSubfile"/>
+        /// <see cref="SC4Parser.TypeGroupInstance"/>
+        /// <seealso cref="SC4Parser.TerrainMapSubfile"/>
         public static readonly TypeGroupInstance TERRAIN_MAP_SUBFILE_TGI = new TypeGroupInstance("A9DD6FF4", "E98f9525", "00000001");
 
         /// <summary>
         /// Type ID of Lot Subfile
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.LotSubfile"/>
+        /// <seealso cref="SC4Parser.LotSubfile"/>
         public static readonly string LOT_SUBFILE_TYPE = "C9BD5D4A";
         /// <summary>
         /// Type ID of Building Subfile
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.BuildingSubfile"/>
+        /// <seealso cref="SC4Parser.BuildingSubfile"/>
         public static readonly string BUILDING_SUBFILE_TYPE = "A9BD882D";
         /// <summary>
         /// Type ID of Network Index Subfile
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkIndex"/>
+        /// <seealso cref="SC4Parser.NetworkIndex"/>
         public static readonly string NETWORK_INDEX_SUBFILE_TYPE = "6A0F82B2";
         /// <summary>
         /// Type ID of Network Subfile 1
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile1"/>
+        /// <seealso cref="SC4Parser.NetworkSubfile1"/>
         public static readonly string NETWORK_SUBFILE_1_TYPE = "C9C05C6E";
         /// <summary>
         /// Type ID of Network Subfile 2
@@ -62,12 +60,13 @@ namespace SC4Parser
         /// <summary>
         /// Type ID of the bridge network subfile
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.BridgeNetworkSubfile"/>
+        /// <seealso cref="SC4Parser.BridgeNetworkSubfile"/>
         public static readonly string BRIDGE_NETWORK_SUBFILE_TYPE = "49CC1BCD";
         /// <summary>
         /// Type ID of the tunnel network subfile
         /// </summary>
         public static readonly string TUNNEL_NETWORK_SUBFILE_TYPE = "8A4BD52B";
+        public static readonly string ITEM_INDEX_SUBFILE_TYPE = "098F964D";
 
         /// <summary>
         /// Orientations used by SimCity 4 save game items as strings
@@ -83,8 +82,8 @@ namespace SC4Parser
         ///     0x82 = south, mirrored
         ///     0x83 = West, mirrored
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.Building.Orientation"/>
-        /// <seealso cref="SC4Parser.DataStructures.Lot.Orientation"/>
+        /// <seealso cref="SC4Parser.Building.Orientation"/>
+        /// <seealso cref="SC4Parser.Lot.Orientation"/>
         public static string[] ORIENTATION_STRINGS = new string[]
         {
             "North",
@@ -96,8 +95,8 @@ namespace SC4Parser
         /// <summary>
         /// Different types used in Save Game Propertie's (SIGPROPs) data
         /// </summary>
-        /// <seealso cref="SC4Parser.DataStructures.SaveGameProperty"/>
-        /// <seealso cref="SC4Parser.DataStructures.SaveGameProperty.Data"/>
+        /// <seealso cref="SC4Parser.SaveGameProperty"/>
+        /// <seealso cref="SC4Parser.SaveGameProperty.Data"/>
         public static Dictionary<byte, object> SIGPROP_DATATYPE_TYPES = new Dictionary<byte, object>
         {
             {0x01, new byte()},
@@ -174,6 +173,53 @@ namespace SC4Parser
             {0x09, "Monorail"},
             {0x0A, "One Way Road"},
             {0x0B, "Dirt Road"}
+        };
+
+        /// <summary>
+        /// Different occupancy groups that appear in the RegionView Subfile. Ordered by the index that they appear at.
+        /// </summary>
+        public static Dictionary<int, string> OCCUPANCY_GROUPS = new Dictionary<int, string>()
+        {
+            {0, "Max Residential Population"},
+            {1, "R$ Max Population"},
+            {2, "R$ Current Population"},
+            {3, "R$$ Max Population"},
+            {4, "R$$ Current Population"},
+            {5, "R$$$ Max Population"},
+            {6, "R$$$ Current Population"},
+            {7, "R$ Jobs"},
+            {8, "R$$ Jobs"},
+            {9, "R$$$ Jobs"},
+            {10, "R$ Workforce EQ1"},
+            {11, "R$ Workforce EQ2"},
+            {12, "R$ Workforce EQ3"},
+            {13, "R$ Workforce EQ4"},
+            {14, "R$$ Workforce EQ1"},
+            {15, "R$$ Workforce EQ2"},
+            {16, "R$$ Workforce EQ3"},
+            {17, "R$$ Workforce EQ4"},
+            {18, "R$$$ Workforce EQ1"},
+            {19, "R$$$ Workforce EQ2"},
+            {20, "R$$$ Workforce EQ3"},
+            {21, "R$$$ Workforce EQ4"},
+            {22, "CS$ Max Jobs"},
+            {23, "CS$ Cur Jobs"},
+            {24, "CS$$ Max Jobs"},
+            {25, "CS$$ Cur Jobs"},
+            {26, "CS$$$ Max Jobs"},
+            {27, "CS$$$ Cur Jobs"},
+            {28, "CO$$ Max Jobs"},
+            {29, "CO$$ Cur Jobs"},
+            {30, "CO$$$ Max Jobs"},
+            {31, "CO$$$ Cur Jobs"},
+            {32, "IA Max Jobs"},
+            {33, "IA Cur Jobs"},
+            {34, "ID Max Jobs"},
+            {35, "ID Cur Jobs"},
+            {36, "IM Max Jobs"},
+            {37, "IM Cur Jobs"},
+            {38, "IH Max Jobs"},
+            {39, "IH Cur Jobs"}
         };
 
         /// <summary>
@@ -287,12 +333,12 @@ namespace SC4Parser
         /// <summary>
         /// City mode that represents if a city is in God Mode
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.RegionViewSubfile.ModeFlag"/>
+        /// <seealso cref="SC4Parser.RegionViewSubfile.ModeFlag"/>
         public const int GOD_MODE_FLAG = 0;
         /// <summary>
         /// City mode that represents if a city is in Mayor Mode
         /// </summary>
-        /// <seealso cref="SC4Parser.Subfiles.RegionViewSubfile.ModeFlag"/>
+        /// <seealso cref="SC4Parser.RegionViewSubfile.ModeFlag"/>
         public const int MAYOR_MODE_FLAG = 1;
     }
 }

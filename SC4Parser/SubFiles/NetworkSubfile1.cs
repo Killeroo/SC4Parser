@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using SC4Parser.DataStructures;
 using SC4Parser.Logging;
 
-namespace SC4Parser.Subfiles
+namespace SC4Parser
 {
     /// <summary>
     /// Implementation of Network Subfile 1. Network subfile 1 seems to contain all the network tiles in a city that are at ground level.
@@ -14,14 +13,14 @@ namespace SC4Parser.Subfiles
     /// 
     /// Implemented and references additional data from https://wiki.sc4devotion.com/index.php?title=Network_Subfiles.
     /// </remarks>
-    /// <seealso cref="SC4Parser.DataStructures.NetworkTile1"/>
-    /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
+    /// <seealso cref="SC4Parser.NetworkTile1"/>
+    /// <seealso cref="SC4Parser.NetworkSubfile2"/>
     public class NetworkSubfile1
     {
         /// <summary>
         /// Contains all network tiles in the network subfile
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkTile1"/>
+        /// <see cref="SC4Parser.NetworkTile1"/>
         public List<NetworkTile1> NetworkTiles { get; private set; } = new List<NetworkTile1>();
 
         /// <summary>

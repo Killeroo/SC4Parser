@@ -37,7 +37,7 @@ namespace SC4Parser.Logging
     /// }
     /// </c>
     /// </example>
-    class ConsoleLogger : ILogger
+    public class ConsoleLogger : ILogger
     {
         private static List<LogLevel> EnabledChannels = new List<LogLevel>
         {
@@ -73,6 +73,14 @@ namespace SC4Parser.Logging
         public void EnableChannel(LogLevel level)
         {
             EnabledChannels.Add(level);
+        }
+
+        public void DisableChannel(LogLevel level)
+        {
+            if (EnabledChannels.Contains(level))
+            {
+                EnabledChannels.Remove(level);
+            }
         }
 
         public void Log(LogLevel level, string format, params object[] args)

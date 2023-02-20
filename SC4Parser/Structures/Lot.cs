@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SC4Parser.DataStructures
+namespace SC4Parser
 {
     /// <summary>
     /// Representation of a Simcity 4 lot as it is stored in a save game
@@ -31,8 +31,8 @@ namespace SC4Parser.DataStructures
     /// }
     /// </c>
     /// </example>
-    /// <see cref="SC4Parser.Subfiles.LotSubfile"/>
-    /// <seealso cref="SC4Parser.DataStructures.Building"/>
+    /// <see cref="SC4Parser.LotSubfile"/>
+    /// <seealso cref="SC4Parser.Building"/>
     public class Lot
     {
         /// <summary>
@@ -76,19 +76,19 @@ namespace SC4Parser.DataStructures
         /// <summary>
         /// Minimum tile X coordinate for lot
         /// </summary>
-        public byte MinTileX { get; private set; }
+        public int MinTileX { get; internal set; }
         /// <summary>
         /// Minimum tile Z coordinate for lot
         /// </summary>
-        public byte MinTileZ { get; private set; }
+        public int MinTileZ { get; internal set; }
         /// <summary>
         /// Maximum tile X coordinate for lot
         /// </summary>
-        public byte MaxTileX { get; private set; }
+        public int MaxTileX { get; internal set; }
         /// <summary>
         /// Maximum tile Z coordinate for lot
         /// </summary>
-        public byte MaxTileZ { get; private set; }
+        public int MaxTileZ { get; internal set; }
         /// <summary>
         /// Lot's commute tile X
         /// </summary>

@@ -25,6 +25,8 @@ namespace SC4Parser.Logging
         /// <see cref="SC4Parser.Logging.LogLevel"/>
         void EnableChannel(LogLevel level);
 
+        void DisableChannel(LogLevel level);
+
         /// <summary>
         /// Log a message 
         /// </summary>

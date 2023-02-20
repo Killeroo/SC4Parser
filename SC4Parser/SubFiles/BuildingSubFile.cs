@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using SC4Parser.DataStructures;
 using SC4Parser.Logging;
 
-namespace SC4Parser.Subfiles
+namespace SC4Parser
 {
     /// <summary>
     /// Implmentation of the Building Subfile. Building subfile stores all building data in a SimCity 4 savegame.
@@ -14,8 +13,8 @@ namespace SC4Parser.Subfiles
     /// 
     /// Implemented from https://wiki.sc4devotion.com/index.php?title=Building_Subfile
     /// </remarks>
-    /// <seealso cref="SC4Parser.DataStructures.Building"/> 
-    /// <seealso cref="SC4Parser.Subfiles.LotSubfile"/>
+    /// <seealso cref="SC4Parser.Building"/> 
+    /// <seealso cref="SC4Parser.LotSubfile"/>
     /// <example>
     /// <c>
     /// // Simple usage
@@ -33,7 +32,7 @@ namespace SC4Parser.Subfiles
         /// <summary>
         /// Stores all building in the subfile
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.Building"/>
+        /// <see cref="SC4Parser.Building"/>
         public List<Building> Buildings { get; private set; } = new List<Building>();
 
         /// <summary>
