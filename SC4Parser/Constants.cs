@@ -50,8 +50,13 @@ namespace SC4Parser
         /// <summary>
         /// Type ID of Network Subfile 2
         /// </summary>
-        /// <seealso cref="SC4Parser.NetworkSubfile2"/>
+        /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile2"/>
         public static readonly string NETWORK_SUBFILE_2_TYPE = "CA16374F";
+        /// <summary>
+        /// Type ID of the prebuilt network subfile
+        /// </summary>
+        /// <seealso cref="SC4Parser.Subfiles.PrebuiltNetworkSubfile"/>
+        public static readonly string PREBUILT_NETWORK_SUBFILE_TYPE = "49C1A034";
         /// <summary>
         /// Type ID of the bridge network subfile
         /// </summary>
@@ -158,10 +163,16 @@ namespace SC4Parser
         {
             {0x00, "Road"},
             {0x01, "Rail"},
+            {0x02, "Maxis Elevated Highway"},
             {0x03, "Street"},
+            {0x04, "Pipe"},
+            {0x05, "Powerline"},
             {0x06, "Avenue"},
             {0x07, "Subway"},
+            {0x08, "Light Rail"},
+            {0x09, "Monorail"},
             {0x0A, "One Way Road"},
+            {0x0B, "Dirt Road"}
         };
 
         /// <summary>
