@@ -697,7 +697,7 @@ namespace SC4Parser
         /// </c>
         /// </example>
         /// <seealso cref="SC4Parser.Subfiles.PrebuiltNetworkSubfile"/>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile"/>
         public PrebuiltNetworkSubfile GetPrebuiltNetworkSubfile()
         {
             if (m_CachedPrebuiltNetworkSubfile != null)

@@ -29,10 +29,10 @@ namespace SC4Parser
         /// <summary>
         /// Memory address of the network tile
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.NetworkTile1.Memory"/>
-        /// <see cref="SC4Parser.DataStructures.NetworkTile2.Memory"/>
-        /// <see cref="SC4Parser.DataStructures.PrebuiltNetworkTile.Memory"/>
-        /// <see cref="SC4Parser.DataStructures.BridgeNetworkTile.Memory"/>
+        /// <see cref="SC4Parser.Structures.NetworkTile1.Memory"/>
+        /// <see cref="SC4Parser.Structures.NetworkTile2.Memory"/>
+        /// <see cref="SC4Parser.Structures.PrebuiltNetworkTile.Memory"/>
+        /// <see cref="SC4Parser.Structures.BridgeNetworkTile.Memory"/>
         public uint MemoryAddressRef { private set; get; }
         /// <summary>
         /// ID of the subfile that stores the network tile

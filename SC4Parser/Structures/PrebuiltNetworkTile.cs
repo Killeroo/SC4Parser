@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using SC4Parser.Types;
+using SC4Parser;
 
-namespace SC4Parser.DataStructures
+namespace SC4Parser.Structures
 {
     /// <summary>
     /// Representation of a city's network tiles which are found in Network Subfile 1.
@@ -16,8 +16,8 @@ namespace SC4Parser.DataStructures
     /// Implemented from https://wiki.sc4devotion.com/index.php?title=Network_Subfiles#Network_Subfile_1_Structure
     /// </remarks>
     /// <see cref="SC4Parser.Subfiles.PrebuiltNetworkSubfile"/>
-    /// <seealso cref="SC4Parser.DataStructures.NetworkBlock"/>
-    /// <seealso cref="SC4Parser.DataStructures.NetworkTile2"/>
+    /// <seealso cref="SC4Parser.Structures.NetworkBlock"/>
+    /// <seealso cref="SC4Parser.Structures.NetworkTile2"/>
     public class PrebuiltNetworkTile
     {
         /// <summary>
@@ -80,12 +80,12 @@ namespace SC4Parser.DataStructures
         /// <summary>
         /// Number of save game properties (sigprops) attached to the network tile
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <see cref="SC4Parser.Structures.SaveGameProperty"/>
         public uint SaveGamePropertyCount { get; private set; }
         /// <summary>
         /// Network tile save game properties (if any)
         /// </summary>
-        /// <see cref="SC4Parser.DataStructures.SaveGameProperty"/>
+        /// <see cref="SC4Parser.Structures.SaveGameProperty"/>
         public List<SaveGameProperty> SaveGamePropertyEntries { get; private set; } = new List<SaveGameProperty>();
         /// <summary>
         /// Network tile's Group ID
@@ -119,7 +119,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MinSizeX2"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MinSizeX2"/>
         public float MinSizeX1 { get; private set; }
         /// <summary>
         /// Maximum x size of the Network tile (first set of sizes)
@@ -127,7 +127,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MaxSizeX2"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MaxSizeX2"/>
         public float MaxSizeX1 { get; private set; }
         /// <summary>
         /// Minimum y size of the Network tile (first set of sizes)
@@ -135,7 +135,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This to be a quarter of the network tile's size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MinSizeY2"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MinSizeY2"/>
         public float MinSizeY1 { get; private set; }
         /// <summary>
         /// Maximum y size of the Network tile (first set of sizes)
@@ -143,7 +143,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MaxSizeY2"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MaxSizeY2"/>
         public float MaxSizeY1 { get; private set; }
         /// <summary>
         /// Minimum z size of the Network tile (first set of sizes)
@@ -151,7 +151,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MinSizeZ2"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MinSizeZ2"/>
         public float MinSizeZ1 { get; private set; }
         /// <summary>
         /// Maximum z size of the Network tile (first set of sizes)
@@ -159,7 +159,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MaxSizeZ2"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MaxSizeZ2"/>
         public float MaxSizeZ1 { get; private set; }
 
         /// <summary>
@@ -278,7 +278,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MinSizeX1"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MinSizeX1"/>
         public float MinSizeX2;
         /// <summary>
         /// Maximum x size of the Network tile (second set of sizes)
@@ -286,7 +286,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MaxSizeX1"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MaxSizeX1"/>
         public float MaxSizeX2;
         /// <summary>
         /// Minimum y size of the Network tile (second set of sizes)
@@ -294,7 +294,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MinSizeY1"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MinSizeY1"/>
         public float MinSizeY2;
         /// <summary>
         /// Maximum y size of the Network tile (second set of sizes)
@@ -302,7 +302,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MaxSizeY1"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MaxSizeY1"/>
         public float MaxSizeY2;
         /// <summary>
         /// Minimum z size of the Network tile (second set of sizes)
@@ -310,7 +310,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MinSizeZ1"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MinSizeZ1"/>
         public float MinSizeZ2;
         /// <summary>
         /// Maximum z size of the Network tile (second set of sizes)
@@ -318,7 +318,7 @@ namespace SC4Parser.DataStructures
         /// <remarks>
         /// This seems to be a quarter of the network tile's actual size 
         /// </remarks>
-        /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile.MaxSizeZ1"/>
+        /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile.MaxSizeZ1"/>
         public float MaxSizeZ2;
 
         /// <summary>

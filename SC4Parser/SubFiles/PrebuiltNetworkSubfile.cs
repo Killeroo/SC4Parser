@@ -1,7 +1,8 @@
-﻿using SC4Parser.DataStructures;
-using SC4Parser.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
+
+using SC4Parser.Logging;
+using SC4Parser.Structures;
 
 namespace SC4Parser
 {
@@ -10,16 +11,17 @@ namespace SC4Parser
     /// </summary>
     /// <remarks>
     /// Actual implementation of tiles found in this file can be found in DataStructure\PrebuiltNetworkTile.cs
-    /// 
+    ///
     /// Implemented and references additional data from https://wiki.sc4devotion.com/index.php?title=Network_Subfiles.
     /// </remarks>
-    /// <seealso cref="SC4Parser.DataStructures.PrebuiltNetworkTile"/>
+    /// <seealso cref="SC4Parser.Structures.PrebuiltNetworkTile"/>
     /// <seealso cref="SC4Parser.Subfiles.NetworkSubfile1"/>
     public class PrebuiltNetworkSubfile
-    {        /// <summary>
-             /// Contains all network tiles in the network subfile
-             /// </summary>
-             /// <see cref="SC4Parser.DataStructures.PrebuiltNetworkTile"/>
+    {
+        /// <summary>
+        /// Contains all network tiles in the network subfile
+        /// </summary>
+        /// <see cref="SC4Parser.Structures.PrebuiltNetworkTile"/>
         public List<PrebuiltNetworkTile> NetworkTiles { get; private set; } = new List<PrebuiltNetworkTile>();
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace SC4Parser
             // Loop through each byte in the subfile
             while (bytesToRead > 0)
             {
-                // Work out the current tile size 
+                // Work out the current tile size
                 // (each tile is stored one after another in the file with the size of tile at the beginning)
                 uint recordSize = BitConverter.ToUInt32(buffer, (int)offset);
 
