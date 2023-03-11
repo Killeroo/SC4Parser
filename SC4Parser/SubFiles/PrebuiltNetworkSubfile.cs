@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 
 using SC4Parser.Logging;
-using SC4Parser.Structures;
 
 namespace SC4Parser
 {
