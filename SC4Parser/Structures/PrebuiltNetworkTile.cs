@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using SC4Parser;
-
-namespace SC4Parser.Structures
+namespace SC4Parser
 {
     /// <summary>
     /// Representation of a city's network tiles which are found in Network Subfile 1.
